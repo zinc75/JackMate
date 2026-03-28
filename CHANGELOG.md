@@ -6,6 +6,13 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.7.4] — 2026-03-28
+
+### Fixed
+- Patchbay client info sheet (click on the 2-letter badge): CLI clients (jack_metro, a2jmidid, etc.) are not visible to `NSWorkspace` — added fallback via `ProcessHelper.findPID(forJackClient:)` to display their executable path, full command line, and PID
+
+---
+
 ## [1.7.3] — 2026-03-28
 
 ### Fixed

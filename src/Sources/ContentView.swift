@@ -3630,6 +3630,7 @@ struct NodeBadgeSheet: View {
 
     @ViewBuilder private var appNodeContent: some View {
         if let app = runningApp {
+            // GUI application registered with NSWorkspace
             infoRow(icon: "app.fill", color: badgeColor,
                     label: "Nom", value: app.localizedName ?? node.id)
             if let path = bundlePath {
@@ -3650,6 +3651,32 @@ struct NodeBadgeSheet: View {
                 infoRow(icon: "number", color: JM.textTertiary,
                         label: "PID", value: "\(pid)")
             }
+        } else if let pid = ProcessHelper.findPID(forJackClient: node.id) {
+            // CLI process — not visible to NSWorkspace, found via process table scan
+            infoRow(icon: "terminal", color: badgeColor,
+                    label: "Type", value: "Client CLI")
+            if let path = ProcessHelper.executablePath(for: pid) {
+                VStack(alignment: .leading, spacing: 4) {
+                    rowLabel(icon: "folder", color: JM.accentAmber, label: "Chemin")
+                    Text(path)
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(JM.textSecondary)
+                        .textSelection(.enabled)
+                        .padding(.leading, 22)
+                }
+            }
+            if let args = ProcessHelper.commandLine(for: pid), args.count > 1 {
+                VStack(alignment: .leading, spacing: 4) {
+                    rowLabel(icon: "terminal", color: JM.accentTeal, label: "Commande")
+                    Text(args.joined(separator: " "))
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(JM.textSecondary)
+                        .textSelection(.enabled)
+                        .padding(.leading, 22)
+                }
+            }
+            infoRow(icon: "number", color: JM.textTertiary,
+                    label: "PID", value: "\(pid)")
         } else {
             HStack(spacing: 8) {
                 Image(systemName: "exclamationmark.triangle")
