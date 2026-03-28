@@ -280,11 +280,10 @@ final class PatchbayManager: ObservableObject {
             logToJack("→ Patchbay connecté à Jack")
 
             // Initial load with a short delay to let the client activate
+            let b = bridge  // capture on main actor before dispatching
             DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 0.2) { [weak self] in
-                guard let self else { return }
-                // Verify bridge is still connected before loading
-                guard self.bridge.isConnected else { return }
-                self.initialLoadBackground()
+                guard let self, b.isConnected else { return }
+                self.initialLoadBackground(bridge: b)
             }
         } catch {
             isConnecting = false
@@ -310,7 +309,7 @@ final class PatchbayManager: ObservableObject {
     }
 
     /// Chargement initial : ports + connexions en une seule passe
-    nonisolated private func initialLoadBackground() {
+    nonisolated private func initialLoadBackground(bridge: JackBridgeWrapper) {
         let ports = bridge.getPorts()
         let conns = bridge.getConnections()
         
@@ -368,9 +367,10 @@ final class PatchbayManager: ObservableObject {
     /// Triggers a debounced refresh — waits for 250 ms of silence before executing
     private func debouncedRefresh() {
         refreshDebounceTask?.cancel()
+        let b = bridge  // capture on main actor before dispatching
         let work = DispatchWorkItem { [weak self] in
             guard let self, self.isConnected else { return }
-            self.refreshBackground()
+            self.refreshBackground(bridge: b)
         }
         refreshDebounceTask = work
         DispatchQueue.global(qos: .utility).asyncAfter(
@@ -389,9 +389,9 @@ final class PatchbayManager: ObservableObject {
     /// or by an explicit `syncConnections()` call.
     func forceRefresh() {
         guard isConnected else { return }
+        let b = bridge  // capture on main actor before dispatching
         DispatchQueue.global(qos: .utility).async { [weak self] in
-            guard let self else { return }
-            let ports = self.bridge.getPorts()
+            let ports = b.getPorts()
             DispatchQueue.main.async { [weak self] in
                 guard let self, self.isConnected else { return }
                 self.applyPorts(ports)
@@ -404,9 +404,9 @@ final class PatchbayManager: ObservableObject {
     /// initiateur des connexions — lecture directe nécessaire pour la cohérence visuelle).
     func syncConnections() {
         guard isConnected else { return }
+        let b = bridge  // capture on main actor before dispatching
         DispatchQueue.global(qos: .utility).async { [weak self] in
-            guard let self else { return }
-            let conns = self.bridge.getConnections()
+            let conns = b.getConnections()
             DispatchQueue.main.async { [weak self] in
                 guard let self, self.isConnected else { return }
                 self.connections = conns
@@ -414,7 +414,7 @@ final class PatchbayManager: ObservableObject {
         }
     }
 
-    nonisolated private func refreshBackground() {
+    nonisolated private func refreshBackground(bridge: JackBridgeWrapper) {
         let ports = bridge.getPorts()
         DispatchQueue.main.async { [weak self] in
             guard let self, self.isConnected else { return }

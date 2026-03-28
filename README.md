@@ -2,7 +2,7 @@
 
 A native macOS app (Swift/SwiftUI) for managing the JACK audio server from your menu bar or as a standard window.
 
-**Current version: 1.7.2** — Actively developed.
+**Current version: 1.7.3** — Actively developed.
 
 <!-- TODO: add badges once repo is public -->
 <!-- ![macOS](https://img.shields.io/badge/macOS-15.7%2B-blue) -->
@@ -81,11 +81,7 @@ Head to the [Releases](https://github.com/zinc75/JackMate/releases) page, downlo
 
 ### Build from source
 
-**Requirements:** Xcode Command Line Tools
-
-```bash
-xcode-select --install   # if not already installed
-```
+**Requirements:** Xcode (full install, not just Command Line Tools) — install from the [Mac App Store](https://apps.apple.com/app/xcode/id497799835).
 
 Clone the repository and build:
 

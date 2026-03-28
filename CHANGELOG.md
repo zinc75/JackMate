@@ -6,6 +6,19 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.7.3] — 2026-03-28
+
+### Fixed
+- Patchbay client names empty in Release build: `String(cString:)` moved inside `withUnsafeBytes` closures in `getPorts()` and `getConnections()` — the C pointer is only valid for the duration of the closure; using it after the closure returns is undefined behaviour exploited by the Release optimizer
+- `PatchbayManager`: `bridge` property now captured explicitly on the main actor before dispatching to background queues — prevents a `@MainActor` property access from a `nonisolated` context in Release builds
+- `windowShouldClose` annotated `@MainActor` for compatibility with command-line builds
+
+### Build
+- `build.sh`: animated progress spinner (braille) on each compilation step, ✓ checkmark on completion
+- `build.sh`: `actool` output cleaned up — system-level `dyld` noise suppressed, XML summary hidden, real warnings still surfaced
+
+---
+
 ## [1.7.2] — 2026-03-27
 
 ### Documentation

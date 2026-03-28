@@ -302,10 +302,13 @@ public final class JackBridgeWrapper {
 
         return (0..<Int(count)).map { i in
             let p = raw[i]
+            // String(cString:) must be called INSIDE withUnsafeBytes — the pointer
+            // is only valid for the duration of the closure (Release optimizations
+            // may free the temporary storage before an outside call can use it).
             return JackPort(
-                id:         String(cString: withUnsafeBytes(of: p.name)       { $0.baseAddress!.assumingMemoryBound(to: CChar.self) }),
-                clientName: String(cString: withUnsafeBytes(of: p.client_name) { $0.baseAddress!.assumingMemoryBound(to: CChar.self) }),
-                portName:   String(cString: withUnsafeBytes(of: p.port_name)   { $0.baseAddress!.assumingMemoryBound(to: CChar.self) }),
+                id:         withUnsafeBytes(of: p.name)        { String(cString: $0.baseAddress!.assumingMemoryBound(to: CChar.self)) },
+                clientName: withUnsafeBytes(of: p.client_name) { String(cString: $0.baseAddress!.assumingMemoryBound(to: CChar.self)) },
+                portName:   withUnsafeBytes(of: p.port_name)   { String(cString: $0.baseAddress!.assumingMemoryBound(to: CChar.self)) },
                 direction:  p.direction == JMPortDirectionInput ? .input : .output,
                 type:       jackPortType(from: p.type)
             )
@@ -324,8 +327,8 @@ public final class JackBridgeWrapper {
         return (0..<Int(count)).map { i in
             let c = raw[i]
             return JackConnection(
-                from: String(cString: withUnsafeBytes(of: c.from) { $0.baseAddress!.assumingMemoryBound(to: CChar.self) }),
-                to:   String(cString: withUnsafeBytes(of: c.to)   { $0.baseAddress!.assumingMemoryBound(to: CChar.self) })
+                from: withUnsafeBytes(of: c.from) { String(cString: $0.baseAddress!.assumingMemoryBound(to: CChar.self)) },
+                to:   withUnsafeBytes(of: c.to)   { String(cString: $0.baseAddress!.assumingMemoryBound(to: CChar.self)) }
             )
         }
     }

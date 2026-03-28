@@ -3727,8 +3727,3 @@ extension View {
     }
 }
 
-#Preview {
-    ContentView()
-        .environmentObject(JackManager())
-        .environmentObject(CoreAudioManager())
-}

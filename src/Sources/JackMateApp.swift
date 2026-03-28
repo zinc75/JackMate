@@ -275,7 +275,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// If the suppression preference is set, the window hides immediately.
     /// Otherwise a contextual dialog is presented based on whether Jack is running.
     /// Always returns `false`; the window is hidden rather than destroyed.
-    func windowShouldClose(_ sender: NSWindow) -> Bool {
+    @MainActor func windowShouldClose(_ sender: NSWindow) -> Bool {
         guard let jackManager else {
             hideWindow(sender)
             return false
