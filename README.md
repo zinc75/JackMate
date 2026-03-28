@@ -93,6 +93,12 @@ cd JackMate
 
 This produces a universal binary (Intel + Apple Silicon) at `build/JackMate.app`.
 
+> **Compilation time:** the Swift step compiles both architectures sequentially.
+> Expect roughly **3–4 minutes on Intel**, and **1–2 minutes on Apple Silicon**.
+> The build script compiles x86_64 code even on an M-series Mac — this is standard
+> cross-compilation: the compiler generates x86_64 machine code as output without
+> needing to run it, so Rosetta is not involved.
+
 ```bash
 open build/JackMate.app
 ```
