@@ -17,10 +17,10 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 APP_NAME="JackMate"
 BUNDLE_ID="io.github.zinc75.JackMate"
 DEPLOYMENT_TARGET="15.7"
-VERSION="$(cat "$SCRIPT_DIR/VERSION" 2>/dev/null || echo "1.0.0")"
+VERSION="$(cat "$SCRIPT_DIR/src/VERSION" 2>/dev/null || echo "1.0.0")"
 
-SOURCES_DIR="$SCRIPT_DIR/Sources"
-ASSETS_DIR="$SCRIPT_DIR/Assets.xcassets"
+SOURCES_DIR="$SCRIPT_DIR/src/Sources"
+ASSETS_DIR="$SCRIPT_DIR/src/Assets.xcassets"
 BUILD_DIR="$SCRIPT_DIR/build"
 APP_BUNDLE="$BUILD_DIR/${APP_NAME}.app"
 
@@ -168,7 +168,7 @@ fi
 
 # Localized InfoPlist.strings
 for LANG in en fr de it es; do
-    LPROJ_SRC="$SCRIPT_DIR/${LANG}.lproj"
+    LPROJ_SRC="$SCRIPT_DIR/src/${LANG}.lproj"
     if [ -d "$LPROJ_SRC" ]; then
         mkdir -p "$APP_BUNDLE/Contents/Resources/${LANG}.lproj"
         cp "$LPROJ_SRC/InfoPlist.strings" "$APP_BUNDLE/Contents/Resources/${LANG}.lproj/" 2>/dev/null || true
@@ -176,7 +176,7 @@ for LANG in en fr de it es; do
 done
 
 # Info.plist — copy template and inject version/bundle ID
-cp "$SCRIPT_DIR/Info.plist" "$APP_BUNDLE/Contents/Info.plist"
+cp "$SCRIPT_DIR/src/Info.plist" "$APP_BUNDLE/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $VERSION"           "$APP_BUNDLE/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$APP_BUNDLE/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier $BUNDLE_ID"      "$APP_BUNDLE/Contents/Info.plist"
