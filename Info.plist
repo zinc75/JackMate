@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Identity -->
+    <key>CFBundleName</key>
+    <string>JackMate</string>
+    <key>CFBundleDisplayName</key>
+    <string>JackMate</string>
+    <key>CFBundleIdentifier</key>
+    <string>io.github.zinc75.JackMate</string>
+    <key>CFBundleExecutable</key>
+    <string>JackMate</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+
+    <!-- Version (overridden by build.sh at compile time) -->
+    <key>CFBundleVersion</key>
+    <string>1.0.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0.0</string>
+
+    <!-- App icon -->
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
+
+    <!-- macOS specifics -->
+    <key>NSPrincipalClass</key>
+    <string>NSApplication</string>
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.music</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>15.7</string>
+
+    <!-- The app manages its own activation policy (menubar + window modes).
+         LSUIElement = false : the app appears in the Dock by default.
+         Activation policy is switched at runtime in AppDelegate. -->
+    <key>LSUIElement</key>
+    <false/>
+
+    <!-- Privacy — microphone access required to interact with Jack audio server.
+         Localized strings in *.lproj/InfoPlist.strings override this value. -->
+    <key>NSMicrophoneUsageDescription</key>
+    <string>JackMate needs microphone access to interact with the Jack audio server.</string>
+
+    <!-- Copyright (fill in before release) -->
+    <key>NSHumanReadableCopyright</key>
+    <string></string>
+
+    <!-- Performance -->
+    <key>NSSupportsAutomaticGraphicsSwitching</key>
+    <true/>
+</dict>
+</plist>

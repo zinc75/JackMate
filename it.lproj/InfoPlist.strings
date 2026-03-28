@@ -1,0 +1,2 @@
+/* Richiesta di accesso al microfono — mostrata da macOS al primo accesso */
+NSMicrophoneUsageDescription = "JackMate ha bisogno di accedere al microfono per interagire con il server audio Jack.";
