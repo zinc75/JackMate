@@ -89,16 +89,16 @@ private struct AboutView: View {
                     .font(.system(size: 22, weight: .bold))
                     .padding(.bottom, 3)
 
-                Text("Version \(version) (build \(build))")
+                Text(verbatim: String(format: String(localized: "about.version"), version, build))
                     .font(.system(size: 12))
                     .foregroundStyle(.secondary)
                     .padding(.bottom, 14)
 
-                Text("Gestion du serveur audio Jack pour macOS.")
+                Text("about.description")
                     .font(.system(size: 12))
                     .padding(.bottom, 4)
 
-                Text("Logiciel libre open source distribué sous licence MIT.")
+                Text("about.license")
                     .font(.system(size: 12))
                     .padding(.bottom, 10)
 
@@ -109,14 +109,14 @@ private struct AboutView: View {
 
                 // Action buttons
                 HStack(spacing: 8) {
-                    Button("Code source") {
+                    Button("about.button.source") {
                         NSWorkspace.shared.open(URL(string: "https://github.com/zinc75/JackMate")!)
                     }
-                    Button("Soutenir ☕") {
+                    Button("about.button.support") {
                         NSWorkspace.shared.open(URL(string: "https://buymeacoffee.com/zinc75")!)
                     }
                     Spacer()
-                    Button("Fermer") { NSApp.keyWindow?.close() }
+                    Button("common.close") { NSApp.keyWindow?.close() }
                         .keyboardShortcut(.defaultAction)
                 }
             }
@@ -181,18 +181,18 @@ struct JackMateApp: App {
             // ── App menu ────────────────────────────────────────────────
             CommandGroup(replacing: .windowSize) { }
             CommandGroup(replacing: .appInfo) {
-                Button("À propos de JackMate…") { showAboutPanel() }
+                Button("menu.app.about") { showAboutPanel() }
             }
             CommandGroup(replacing: .systemServices) { }
 
             // ── View menu ────────────────────────────────────────────────
             CommandGroup(after: .sidebar) {
                 Divider()
-                Button("Configuration") {
+                Button("menu.view.configuration") {
                     NotificationCenter.default.post(name: .navigateToConfiguration, object: nil)
                 }
                 .keyboardShortcut("1")
-                Button("Patchbay") {
+                Button("menu.view.patchbay") {
                     NotificationCenter.default.post(name: .navigateToPatchbay, object: nil)
                 }
                 .keyboardShortcut("2")
@@ -200,7 +200,7 @@ struct JackMateApp: App {
 
             // ── Help menu ────────────────────────────────────────────────
             CommandGroup(after: .help) {
-                Button("Documentation JackMate") {
+                Button("menu.help.documentation") {
                     NSWorkspace.shared.open(URL(string: "https://docs.jackmate.app")!)
                 }
             }
@@ -306,23 +306,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func showCloseDialogJackRunning(window: NSWindow, jackManager: JackManager) {
         let alert = NSAlert()
-        alert.messageText     = "Le serveur Jack est actif"
-        alert.informativeText = """
-            Que souhaitez-vous faire ?
-
-            • Fermer la fenêtre laisse Jack actif et JackMate accessible depuis la barre de menus.
-            • Quitter JackMate ferme l'application mais laisse Jack tourner en arrière-plan.
-            • Quitter et éteindre Jack arrête le serveur Jack et ferme JackMate.
-            """
+        alert.messageText     = String(localized: "alert.close.jack_running.title")
+        alert.informativeText = String(localized: "alert.close.jack_running.message")
         alert.alertStyle = .informational
 
         // Added in reverse display order
-        alert.addButton(withTitle: "Fermer la fenêtre")        // right   → .alertFirstButtonReturn
-        alert.addButton(withTitle: "Quitter JackMate")         // centre  → .alertSecondButtonReturn
-        alert.addButton(withTitle: "Quitter et éteindre Jack") // left    → .alertThirdButtonReturn
+        alert.addButton(withTitle: String(localized: "alert.close.button.hide_window"))   // right   → .alertFirstButtonReturn
+        alert.addButton(withTitle: String(localized: "alert.close.button.quit"))          // centre  → .alertSecondButtonReturn
+        alert.addButton(withTitle: String(localized: "alert.close.button.quit_and_stop")) // left    → .alertThirdButtonReturn
 
         alert.showsSuppressionButton = true
-        alert.suppressionButton?.title = "Ne plus afficher ce message"
+        alert.suppressionButton?.title = String(localized: "common.no_more_message")
 
         alert.beginSheetModal(for: window) { [weak self] response in
             if alert.suppressionButton?.state == .on {
@@ -364,18 +358,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func showCloseDialogJackStopped(window: NSWindow) {
         let alert = NSAlert()
-        alert.messageText     = "JackMate reste actif dans la barre de menus"
-        alert.informativeText = """
-            Fermer cette fenêtre ne quitte pas JackMate. \
-            L'icône dans la barre de menus vous permet de la rouvrir à tout moment.
-            """
+        alert.messageText     = String(localized: "alert.close.jack_stopped.title")
+        alert.informativeText = String(localized: "alert.close.jack_stopped.message")
         alert.alertStyle = .informational
 
-        alert.addButton(withTitle: "Fermer la fenêtre")  // right → .alertFirstButtonReturn
-        alert.addButton(withTitle: "Quitter JackMate")   // left  → .alertSecondButtonReturn
+        alert.addButton(withTitle: String(localized: "alert.close.button.hide_window")) // right → .alertFirstButtonReturn
+        alert.addButton(withTitle: String(localized: "alert.close.button.quit"))        // left  → .alertSecondButtonReturn
 
         alert.showsSuppressionButton = true
-        alert.suppressionButton?.title = "Ne plus afficher ce message"
+        alert.suppressionButton?.title = String(localized: "common.no_more_message")
 
         alert.beginSheetModal(for: window) { [weak self] response in
             if alert.suppressionButton?.state == .on {

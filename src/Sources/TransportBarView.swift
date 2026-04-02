@@ -96,7 +96,7 @@ struct TransportBarView: View {
 
     private func confirmLocate() {
         guard let frame = parseLocate(locateInput) else {
-            locateError = "Format invalide"
+            locateError = String(localized: "transport.format.invalid")
             return
         }
         patchbayManager.transportLocate(frame: frame)
@@ -154,7 +154,7 @@ struct TransportBarView: View {
                     .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            .help("Cliquer pour aller à une position · Clic droit pour changer le format")
+            .help(String(localized: "transport.position.tooltip"))
             .popover(isPresented: $showLocatePopover, arrowEdge: .bottom) {
                 LocatePopoverView(
                     timeMode: timeMode,
@@ -165,9 +165,9 @@ struct TransportBarView: View {
                 )
             }
             .contextMenu {
-                Button("HMS (hh:mm:ss)")          { timeMode = .hms    }
-                Button("BBT (mesure|temps|tick)") { timeMode = .bbt    }
-                Button("Frames")                  { timeMode = .frames }
+                Button("transport.format.hms")    { timeMode = .hms    }
+                Button("transport.format.bbt")    { timeMode = .bbt    }
+                Button("transport.format.frames") { timeMode = .frames }
             }
 
             barSep
@@ -188,8 +188,8 @@ struct TransportBarView: View {
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            .help(isMaster ? "Relâcher le rôle de Timebase Master"
-                           : "Devenir Timebase Master (fournit BPM et BBT aux autres clients)")
+            .help(isMaster ? String(localized: "transport.timebase.release")
+                           : String(localized: "transport.timebase.become"))
 
             barSep
 
@@ -228,7 +228,7 @@ struct TransportBarView: View {
                         .foregroundStyle(pos.bbtValid ? JM.textSecondary : JM.textTertiary)
                         .frame(width: 52, alignment: .trailing)
                 }
-                Text("BPM")
+                Text("transport.bpm.label")
                     .font(.system(size: 12))
                     .foregroundStyle(JM.textTertiary)
             }
@@ -292,15 +292,15 @@ struct LocatePopoverView: View {
 
     private var formatLabel: String {
         switch timeMode {
-        case .hms:    return "hh:mm:ss"
-        case .bbt:    return "mesure|temps|tick"
-        case .frames: return "frames"
+        case .hms:    return String(localized: "transport.format.label_hms")
+        case .bbt:    return String(localized: "transport.format.label_bbt")
+        case .frames: return String(localized: "transport.format.label_frames")
         }
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Aller à")
+            Text("transport.goto.title")
                 .font(.system(size: 12, weight: .semibold))
                 .foregroundStyle(JM.textSecondary)
 
@@ -315,7 +315,7 @@ struct LocatePopoverView: View {
                     .onSubmit { onConfirm() }
                     .onAppear { focused = true }
 
-                Button("OK", action: onConfirm)
+                Button("common.ok", action: onConfirm)
                     .buttonStyle(.borderedProminent)
                     .controlSize(.small)
                     .disabled(input.isEmpty)
@@ -334,7 +334,7 @@ struct LocatePopoverView: View {
                     .foregroundStyle(JM.accentRed)
             }
 
-            Text("Format : \(formatLabel)")
+            Text(verbatim: String(format: String(localized: "transport.goto.popover_title"), formatLabel))
                 .font(.system(size: 12))
                 .foregroundStyle(JM.textTertiary)
         }

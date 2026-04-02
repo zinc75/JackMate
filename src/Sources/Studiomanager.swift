@@ -701,7 +701,7 @@ final class StudioManager: ObservableObject {
             // 0a. Close ALL existing Jack clients (GUI + CLI, including external ones)
             let hasClients = patchbayManager.nodes.contains { $0.id != "system" }
             if hasClients {
-                onProgress("Fermeture des clients Jack…")
+                onProgress(String(localized: "studio.progress.closing_clients"))
                 // Disconnect all non-system cables first
                 for node in patchbayManager.nodes {
                     patchbayManager.disconnectAll(of: node.id)
@@ -742,7 +742,7 @@ final class StudioManager: ObservableObject {
 
                 if needsRestart {
                     suppressJackStopCleanup = true
-                    onProgress("Arrêt de Jack pour changement de configuration…")
+                    onProgress(String(localized: "studio.progress.stopping_jack"))
                     jackManager.stopJack()
                     let stopDeadline = Date().addingTimeInterval(10)
                     while Date() < stopDeadline && jackManager.checkJackRunning() {
@@ -756,7 +756,7 @@ final class StudioManager: ObservableObject {
 
                 // Start Jack if not running (either was stopped above, or wasn't running)
                 if !jackManager.checkJackRunning() {
-                    onProgress("Application des réglages Jack…")
+                    onProgress(String(localized: "studio.progress.applying_config"))
                     jackManager.prefs.sampleRate          = snapshot.sampleRate
                     jackManager.prefs.bufferSize          = snapshot.bufferSize
                     jackManager.prefs.hogMode             = snapshot.hogMode
@@ -779,7 +779,7 @@ final class StudioManager: ObservableObject {
                     }
                     jackManager.savePreferences()
 
-                    onProgress("Démarrage de Jack…")
+                    onProgress(String(localized: "studio.progress.starting_jack"))
                     // Ensure isRunning is false right before startJack() — the monitoring
                     // loop (cooperative Task) may have re-set it to true between our
                     // stopJack() and now if it ran during an await suspension point.
@@ -800,7 +800,7 @@ final class StudioManager: ObservableObject {
                     // Force isRunning update to trigger bridge connection in PatchbayManager
                     if !jackManager.isRunning { jackManager.isRunning = true }
                     // Wait for bridge connection (max 12s)
-                    onProgress("Connexion au bridge Jack…")
+                    onProgress(String(localized: "studio.progress.connecting_bridge"))
                     let bridgeDeadline = Date().addingTimeInterval(12)
                     while Date() < bridgeDeadline && !bridge.isConnected {
                         try? await Task.sleep(nanoseconds: 300_000_000)
@@ -830,7 +830,7 @@ final class StudioManager: ObservableObject {
                 case .bundle:
                     if let urlStr = client.bundleURL,
                        let url = resolveAppURL(urlStr) {
-                        onProgress("Lancement de \(client.label)…")
+                        onProgress(String(format: String(localized: "studio.progress.launching_client"), client.label))
                         do {
                             try await NSWorkspace.shared.openApplication(
                                 at: url,
@@ -843,7 +843,7 @@ final class StudioManager: ObservableObject {
                     }
                 case .cli:
                     if let cmd = client.launchCommand {
-                        onProgress("Lancement de \(client.label)…")
+                        onProgress(String(format: String(localized: "studio.progress.launching_client"), client.label))
                         launchCLI(cmd)
                     } else {
                         result.notLaunched.append(client)
@@ -854,7 +854,7 @@ final class StudioManager: ObservableObject {
             }
 
             // 2. Wait for all required ports to appear (max 30 s)
-            onProgress("En attente des ports Jack…")
+            onProgress(String(localized: "studio.progress.waiting_ports"))
             let neededClients = Set(studio.connections.flatMap {
                 [$0.from.split(separator: ":").first.map(String.init) ?? "",
                  $0.to.split(separator: ":").first.map(String.init) ?? ""]
@@ -881,7 +881,7 @@ final class StudioManager: ObservableObject {
             }
 
             // 4. Reconnect according to the saved state
-            onProgress("Restauration des connexions…")
+            onProgress(String(localized: "studio.progress.restoring_connections"))
             let ports = bridge.getPorts()
             for conn in studio.connections {
                 let fromExists = ports.contains { $0.id == conn.from }

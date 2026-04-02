@@ -30,9 +30,9 @@ struct JackNotInstalledView: View {
                     .foregroundStyle(JM.accentAmber)
 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("Jack Audio Connection Kit requis")
+                    Text("jack_not_installed.title")
                         .font(.system(size: 15, weight: .semibold))
-                    Text("JackMate n'a pas trouvé Jack sur ce système.")
+                    Text("jack_not_installed.subtitle")
                         .font(.system(size: 12))
                         .foregroundStyle(.secondary)
                 }
@@ -47,27 +47,20 @@ struct JackNotInstalledView: View {
             // ── Body ──────────────────────────────────────────────────────
             VStack(alignment: .leading, spacing: 18) {
 
-                Text("""
-                    Jack Audio Connection Kit est un serveur audio professionnel \
-                    open source et gratuit, requis pour faire fonctionner JackMate.
-
-                    Vous pouvez continuer à parcourir et configurer les paramètres. \
-                    Le démarrage de Jack et le chargement des studios sont désactivés \
-                    jusqu'à ce que Jack soit installé.
-                    """)
+                Text("jack_not_installed.body")
                     .font(.system(size: 12))
                     .fixedSize(horizontal: false, vertical: true)
                     .lineSpacing(3)
 
                 // ── Installation method choice (GitHub build only) ─────────
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Choisissez une méthode d'installation de Jack :")
+                    Text("jack_not_installed.install_prompt")
                         .font(.system(size: 12))
                         .foregroundStyle(.primary)
 
                     HStack(spacing: 10) {
                         InstallMethodButton(
-                            label:    "Homebrew",
+                            label:    String(localized: "jack_not_installed.method.homebrew"),
                             icon:     "terminal",
                             selected: jackManager.selectedInstallMethod == .homebrew
                         ) {
@@ -75,7 +68,7 @@ struct JackNotInstalledView: View {
                             dismiss()
                         }
                         InstallMethodButton(
-                            label:    "Paquet .pkg",
+                            label:    String(localized: "jack_not_installed.method.pkg"),
                             icon:     "shippingbox",
                             selected: jackManager.selectedInstallMethod == .pkg
                         ) {
@@ -93,11 +86,11 @@ struct JackNotInstalledView: View {
 
             // ── Footer ─────────────────────────────────────────────────────
             HStack {
-                Button("Site officiel Jack Audio") {
+                Button("jack_not_installed.method.official") {
                     NSWorkspace.shared.open(URL(string: "https://jackaudio.org/downloads/")!)
                 }
                 Spacer()
-                Button("Fermer") { dismiss() }
+                Button("common.close") { dismiss() }
                     .keyboardShortcut(.defaultAction)
             }
             .padding(.horizontal, 28)

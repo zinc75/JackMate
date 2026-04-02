@@ -183,7 +183,7 @@ public final class JackBridgeWrapper {
         client = jm_client_open(clientName, flatLibPath)
 
         guard let client else {
-            throw JackBridgeError.openFailed("Allocation mémoire échouée")
+            throw JackBridgeError.openFailed(String(localized: "error.jack.alloc_failed"))
         }
 
         if let errPtr = jm_last_error(client) {
@@ -554,17 +554,17 @@ public enum JackBridgeError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .openFailed(let msg):
-            return "Connexion Jack échouée : \(msg)"
+            return String(format: String(localized: "error.jack.connection_failed"), msg)
         case .activateFailed(let code):
-            return "Activation Jack échouée (code \(code))"
+            return String(format: String(localized: "error.jack.activation_failed"), code)
         case .notConnected:
-            return "Client Jack non connecté"
+            return String(localized: "error.jack.client_not_connected")
         case .typeMismatch(let a, let b):
-            return "Types incompatibles : \(a.displayName) → \(b.displayName)"
+            return String(format: String(localized: "error.jack.incompatible_types"), a.displayName, b.displayName)
         case .connectFailed(let from, let to, let code):
-            return "Connexion \(from) → \(to) refusée (code \(code))"
+            return String(format: String(localized: "error.jack.connect_refused"), from, to, code)
         case .disconnectFailed(let from, let to, let code):
-            return "Déconnexion \(from) → \(to) refusée (code \(code))"
+            return String(format: String(localized: "error.jack.disconnect_refused"), from, to, code)
         }
     }
 }

@@ -45,8 +45,8 @@ struct ConnectAllTypePlan: Identifiable {
     var isSymmetric: Bool { n == m }
     var altMode: ConnectAllMode { n >= m ? .wrap : .fanOut }
     var altModeLabel: String {
-        n > m ? "Wrap — cycler \(n) sorties sur \(m) entrées"
-              : "Fan-out — \(n) sortie\(n > 1 ? "s" : "") vers \(m) entrées"
+        n > m ? String(format: String(localized: "connect_all.mode.wrap"), n, m)
+              : String(format: String(localized: "connect_all.mode.fanout"), n, m)
     }
 }
 
@@ -247,7 +247,7 @@ final class PatchbayManager: ObservableObject {
         // libjack would spawn threads that crash on an invalid socket
         guard !isConnected, !isConnecting else { return }
         guard let jm = jackManager, jm.isRunning else {
-            logToJack("⚠️ Patchbay: Jack n'est pas actif, connexion annulée")
+            logToJack(String(localized: "log.patchbay.jack_not_active"))
             return
         }
         
@@ -261,7 +261,7 @@ final class PatchbayManager: ObservableObject {
             // Typical silent-failure cause: bridge.isClosing is still true
             // (jm_client_close is running in the background from the previous teardown).
             guard bridge.isConnected else {
-                logToJack("⚠️ Patchbay: bridge non connecté après open(), nouvel essai dans 2s")
+                logToJack(String(localized: "log.patchbay.bridge_retry"))
                 isConnecting = false
                 scheduleRetryConnect()
                 return
@@ -277,7 +277,7 @@ final class PatchbayManager: ObservableObject {
             // Re-register callbacks after each open() — bridge.close() destroys the
             // C-level registrations of the previous jack_client_t.
             setupBridgeCallbacks()
-            logToJack("→ Patchbay connecté à Jack")
+            logToJack(String(localized: "log.patchbay.connected"))
 
             // Initial load with a short delay to let the client activate
             let b = bridge  // capture on main actor before dispatching
@@ -287,7 +287,7 @@ final class PatchbayManager: ObservableObject {
             }
         } catch {
             isConnecting = false
-            logToJack("⚠️ Patchbay bridge: \(error.localizedDescription)")
+            logToJack(String(format: String(localized: "log.patchbay.bridge_error"), error.localizedDescription))
             scheduleRetryConnect()
         }
     }
@@ -317,7 +317,7 @@ final class PatchbayManager: ObservableObject {
             guard let self, self.isConnected else { return }
             self.applyPorts(ports)
             self.connections = conns
-            self.logToJack("→ Chargé \(ports.count) ports, \(conns.count) connexions")
+            self.logToJack(String(format: String(localized: "log.patchbay.loaded"), ports.count, conns.count))
         }
     }
 
@@ -356,7 +356,7 @@ final class PatchbayManager: ObservableObject {
         bridge.onShutdown = { [weak self] in
             DispatchQueue.main.async { [weak self] in
                 guard let self, self.isConnected else { return }
-                self.logToJack("⚠️ Jack shutdown détecté")
+                self.logToJack(String(localized: "log.patchbay.jack_shutdown"))
                 self.handleJackStopped()
             }
         }
@@ -551,7 +551,7 @@ final class PatchbayManager: ObservableObject {
                 connectPorts(from: fromPort, to: toPort)
             }
         }
-        logToJack("↺ Auto-connect annulé, \(studioConns.count) connexion(s) restaurée(s) pour « \(clientName) »")
+        logToJack(String(format: String(localized: "log.patchbay.auto_connect_cancelled"), studioConns.count, clientName))
     }
 
     // Node dimensions — must match exactly those used in PatchbayCanvasNSView
@@ -629,11 +629,11 @@ final class PatchbayManager: ObservableObject {
     /// Connects two ports. Validates direction and type compatibility before calling the bridge.
     func connectPorts(from: JackPort, to: JackPort) {
         guard from.direction == .output, to.direction == .input else {
-            logToJack("⚠️ Connexion refusée : direction invalide")
+            logToJack(String(localized: "log.patchbay.refused_direction"))
             return
         }
         guard from.type == to.type else {
-            logToJack("⚠️ Connexion refusée : types incompatibles (\(from.type.displayName) → \(to.type.displayName))")
+            logToJack(String(format: String(localized: "log.patchbay.refused_types"), from.type.displayName, to.type.displayName))
             return
         }
         if connections.contains(where: { $0.from == from.id && $0.to == to.id }) {
@@ -669,7 +669,7 @@ final class PatchbayManager: ObservableObject {
             try? bridge.disconnect(from: conn.from, to: conn.to)
         }
         connections.removeAll { $0.to.hasPrefix(jackPrefix + ":") }
-        logToJack("↛ Toutes les entrées de \(nodeId) déconnectées")
+        logToJack(String(format: String(localized: "log.patchbay.disconnected_inputs"), nodeId))
     }
 
     /// Disconnects all output connections of the given node.
@@ -681,7 +681,7 @@ final class PatchbayManager: ObservableObject {
             try? bridge.disconnect(from: conn.from, to: conn.to)
         }
         connections.removeAll { $0.from.hasPrefix(jackPrefix + ":") }
-        logToJack("↛ Toutes les sorties de \(nodeId) déconnectées")
+        logToJack(String(format: String(localized: "log.patchbay.disconnected_outputs"), nodeId))
     }
 
     /// Disconnects all connections (inputs and outputs) of the given node.
@@ -701,7 +701,7 @@ final class PatchbayManager: ObservableObject {
             try? bridge.disconnect(from: conn.from, to: conn.to)
         }
         connections.removeAll(where: predicate)
-        logToJack("↛ Tout déconnecté pour \(nodeId)")
+        logToJack(String(format: String(localized: "log.patchbay.disconnected_all_node"), nodeId))
     }
 
     // MARK: - Connect All API

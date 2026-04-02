@@ -153,12 +153,12 @@ struct ConnectAllSheet: View {
                 Text(p.portType.displayName.capitalized)
                     .font(.system(size: 11, weight: .semibold))
                     .foregroundStyle(p.portType.patchbayColor)
-                Text("· \(p.n) sorties / \(p.m) entrées")
+                Text(verbatim: String(format: String(localized: "connect_all.subtitle"), p.n, p.m))
                     .font(.system(size: 10))
                     .foregroundStyle(.secondary)
                 Spacer()
                 if p.alreadyMinConnected && p.isSymmetric {
-                    Label("déjà connecté", systemImage: "checkmark.circle.fill")
+                    Label("connect_all.already_connected", systemImage: "checkmark.circle.fill")
                         .font(.system(size: 9))
                         .foregroundStyle(.secondary)
                 }
@@ -168,6 +168,7 @@ struct ConnectAllSheet: View {
             // Mode buttons (only shown for asymmetric port counts)
             if !p.isSymmetric {
                 HStack(spacing: 6) {
+                    // TODO: plurals - Étape 6
                     modeButton("Connecter \(min(p.n, p.m)) paire\(min(p.n, p.m) > 1 ? "s" : "")",
                                mode: .minAbandon, binding: plan.mode)
                     modeButton(p.altModeLabel, mode: p.altMode, binding: plan.mode)
@@ -206,6 +207,7 @@ struct ConnectAllSheet: View {
                 }
             }
             if hidden > 0 {
+                // TODO: plurals - Étape 6
                 Text("et \(hidden) autre\(hidden > 1 ? "s" : "") connexion\(hidden > 1 ? "s" : "")…")
                     .font(.system(size: 9))
                     .foregroundStyle(.tertiary)
@@ -273,7 +275,7 @@ struct ConnectAllSheet: View {
     private var footer: some View {
         HStack(spacing: 10) {
             Spacer()
-            Button("Annuler") { dismiss() }
+            Button("common.cancel") { dismiss() }
                 .keyboardShortcut(.escape)
                 .buttonStyle(.plain)
                 .foregroundStyle(.secondary)
@@ -281,6 +283,7 @@ struct ConnectAllSheet: View {
                 onConfirm(plans)
                 dismiss()
             } label: {
+                // TODO: plurals - Étape 6
                 Text("Connecter \(totalConnections) connexion\(totalConnections > 1 ? "s" : "")")
                     .font(.system(size: 12, weight: .semibold))
             }

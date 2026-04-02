@@ -6,6 +6,16 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.8.0] — 2026-04-02
+
+### Added
+- Full i18n infrastructure: all UI strings externalized into `Localizable.xcstrings` (~272 keys), source language French
+- `String(localized:)` / `Text("key")` applied across the entire codebase (JackMateApp, NotificationManager, MenuBarView, TransportBarView, JackNotInstalledView, ConnectAllSheet, JackManager, JackBridgeWrapper, PatchbayView, PatchbayManager, StudioManager, ContentView)
+- Key naming convention: `vue.composant.etat` snake_case, shared keys under `common.*`
+- Distribution build pipeline updated: `sync_to_distribution.sh` copies `Localizable.xcstrings`; `build.sh` compiles it to per-language `Localizable.strings` at build time (step [4/6])
+
+---
+
 ## [1.7.4] — 2026-03-28
 
 ### Fixed

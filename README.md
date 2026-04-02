@@ -2,7 +2,7 @@
 
 A native macOS app (Swift/SwiftUI) for managing the JACK audio server from your menu bar or as a standard window.
 
-**Current version: 1.7.4** — Actively developed.
+**Current version: 1.8.0** — Actively developed.
 
 <!-- TODO: add badges once repo is public -->
 <!-- ![macOS](https://img.shields.io/badge/macOS-15.7%2B-blue) -->
@@ -151,6 +151,7 @@ JackMate/
 │   │   ├── WindowDelegate.swift       — window lifecycle
 │   │   └── Theme.swift                — shared colors and styles
 │   ├── Assets.xcassets/               — app icon and accent color
+│   ├── Localizable.xcstrings          — all UI strings (~272 keys, source language: French)
 │   ├── Info.plist                     — bundle configuration template
 │   ├── VERSION                        — current version string
 │   ├── en.lproj/InfoPlist.strings
@@ -168,7 +169,7 @@ JackMate/
 
 Contributions are welcome. Some areas that could use community help:
 
-- **Localization** — UI strings are not yet externalized (coming soon). Once available, translations into additional languages will be ideal first contributions.
+- **Localization** — UI strings are externalized in `src/Localizable.xcstrings` (source language: French). Translations into additional languages are welcome.
 - **Bug reports** — open an issue with your macOS version, JACK version, and steps to reproduce.
 - **Pull requests** — please open an issue first to discuss significant changes.
 

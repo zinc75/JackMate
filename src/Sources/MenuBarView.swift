@@ -33,9 +33,9 @@ struct MenuBarView: View {
 
     /// Short localised string describing the current Jack state.
     var statusText: String {
-        if jackManager.isRunning { return "Jack actif" }
-        if jackManager.statusMessage.contains("💈") { return "Démarrage…" }
-        return "Jack arrêté"
+        if jackManager.isRunning { return String(localized: "common.jack_running") }
+        if jackManager.statusMessage.contains("💈") { return String(localized: "common.jack_starting") }
+        return String(localized: "common.jack_stopped")
     }
 
     var body: some View {
@@ -74,7 +74,7 @@ struct MenuBarView: View {
                     } label: {
                         HStack(spacing: 4) {
                             Image(systemName: "stop.fill").font(.system(size: 8))
-                            Text("Arrêter").font(.system(size: 11, weight: .semibold))
+                            Text("menubar.action.stop_jack").font(.system(size: 11, weight: .semibold))
                         }
                         .padding(.horizontal, 10).frame(height: 24)
                         .background(RoundedRectangle(cornerRadius: 6)
@@ -89,7 +89,7 @@ struct MenuBarView: View {
                     Button { jackManager.savePreferences(); jackManager.startJack() } label: {
                         HStack(spacing: 4) {
                             Image(systemName: "play.fill").font(.system(size: 8))
-                            Text("Démarrer").font(.system(size: 11, weight: .semibold))
+                            Text("menubar.action.start_jack").font(.system(size: 11, weight: .semibold))
                         }
                         .padding(.horizontal, 10).frame(height: 24)
                         .background(RoundedRectangle(cornerRadius: 6)
@@ -132,7 +132,7 @@ struct MenuBarView: View {
 
             // ── Actions ───────────────────────────────────────────────────
             VStack(spacing: 0) {
-                MBActionRow(id: "open", icon: "macwindow", label: "Afficher JackMate…",
+                MBActionRow(id: "open", icon: "macwindow", label: String(localized: "menubar.action.show"),
                             color: JM.textSecondary, hovered: $hoveredAction) {
                     NSApp.setActivationPolicy(.regular)
                     NSApp.activate(ignoringOtherApps: true)
@@ -140,7 +140,7 @@ struct MenuBarView: View {
                     // Notify ContentView so it can present the install sheet if needed
                     NotificationCenter.default.post(name: .mainWindowDidOpen, object: nil)
                 }
-                MBActionRow(id: "quit", icon: "power", label: "Quitter",
+                MBActionRow(id: "quit", icon: "power", label: String(localized: "menubar.action.quit"),
                             color: JM.accentRed, hovered: $hoveredAction) {
                     NSApp.terminate(nil)
                 }

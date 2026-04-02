@@ -140,18 +140,18 @@ struct PatchbayView: View {
         VStack(alignment: .leading, spacing: 0) {
             if let port = ctxPort {
                 ctxLabel(port.id)
-                ctxDanger("Déconnecter ce port") {
+                ctxDanger(String(localized: "patchbay.ctx.disconnect_port")) {
                     patchbay.disconnectPort(port.id); showCtx = false
                 }
                 Divider().background(JM.borderFaint).padding(.vertical, 2)
                 let nid = String(port.id.split(separator: ":").first ?? "")
-                ctxDanger("Déconnecter toutes les entrées") {
+                ctxDanger(String(localized: "patchbay.ctx.disconnect_all_inputs")) {
                     patchbay.disconnectAllInputs(of: nid); showCtx = false
                 }
-                ctxDanger("Déconnecter toutes les sorties") {
+                ctxDanger(String(localized: "patchbay.ctx.disconnect_all_outputs")) {
                     patchbay.disconnectAllOutputs(of: nid); showCtx = false
                 }
-                ctxDanger("Déconnecter tout le client") {
+                ctxDanger(String(localized: "patchbay.ctx.disconnect_client")) {
                     patchbay.disconnectAll(of: nid); showCtx = false
                 }
             } else if let node = ctxNode {
@@ -174,20 +174,20 @@ struct PatchbayView: View {
 
                 if showOuts {
                     if connectedOuts {
-                        ctxDanger("Déconnecter toutes les sorties") {
+                        ctxDanger(String(localized: "patchbay.ctx.disconnect_all_outputs")) {
                             patchbay.disconnectAllOutputs(of: node.id); showCtx = false
                         }
-                    } else { ctxGrayed("Déconnecter toutes les sorties") }
+                    } else { ctxGrayed(String(localized: "patchbay.ctx.disconnect_all_outputs")) }
                 }
                 if showIns {
                     if connectedIns {
-                        ctxDanger("Déconnecter toutes les entrées") {
+                        ctxDanger(String(localized: "patchbay.ctx.disconnect_all_inputs")) {
                             patchbay.disconnectAllInputs(of: node.id); showCtx = false
                         }
-                    } else { ctxGrayed("Déconnecter toutes les entrées") }
+                    } else { ctxGrayed(String(localized: "patchbay.ctx.disconnect_all_inputs")) }
                 }
                 if hasAny {
-                    ctxDanger("Déconnecter tout") {
+                    ctxDanger(String(localized: "patchbay.ctx.disconnect_all")) {
                         patchbay.disconnectAll(of: node.id); showCtx = false
                     }
                 }
@@ -262,7 +262,7 @@ struct PatchbayView: View {
         let connected = connectedTargets(for: node, isOutputSide: isOutputSide)
 
         if !targets.isEmpty {
-            ctxLabel("TOUT CONNECTER À")
+            ctxLabel(String(localized: "patchbay.ctx.section.connect_to"))
             ForEach(targets) { target in
                 let outNode    = isOutputSide ? node : target
                 let inNode     = isOutputSide ? target : node
@@ -280,7 +280,7 @@ struct PatchbayView: View {
 
         if !connected.isEmpty {
             Divider().background(JM.borderFaint).padding(.vertical, 2)
-            ctxLabel("DÉCONNECTER DE")
+            ctxLabel(String(localized: "patchbay.ctx.section.disconnect_from"))
             ForEach(connected) { other in
                 CtxNodeButton(node: other, color: JM.accentRed, disabled: false) {
                     let outNode = isOutputSide ? node : other

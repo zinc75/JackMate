@@ -372,7 +372,7 @@ struct ContentView: View {
                         VStack(alignment: .leading, spacing: 6) {
                             // Reposition toast (transient)
                             if patchbayManager.showRepositionToast {
-                                Text("Client repositionné · évite un chevauchement")
+                                Text("canvas.tooltip.repositioned")
                                     .font(.system(size: 11, weight: .medium, design: .rounded))
                                     .foregroundStyle(.white)
                                     .padding(.horizontal, 10).padding(.vertical, 6)
@@ -570,9 +570,9 @@ struct SidebarView: View {
                         isSelected: selection == .patchbay, isEnabled: true
                     ) { selection = .patchbay }
 
-                    SidebarSectionLabel("Entrées (\(audioManager.inputDevices.count))")
+                    SidebarSectionLabel(String(format: String(localized: "sidebar.inputs.title"), audioManager.inputDevices.count))
                     if audioManager.inputDevices.isEmpty {
-                        SidebarEmptyRow(text: "Aucun device")
+                        SidebarEmptyRow(text: String(localized: "sidebar.inputs.empty"))
                     } else {
                         ForEach(audioManager.inputDevices) { d in
                             SidebarPlainDeviceRow(icon: "mic.fill", iconColor: JM.accentCyan,
@@ -580,9 +580,9 @@ struct SidebarView: View {
                         }
                     }
 
-                    SidebarSectionLabel("Sorties (\(audioManager.outputDevices.count))")
+                    SidebarSectionLabel(String(format: String(localized: "sidebar.outputs.title"), audioManager.outputDevices.count))
                     if audioManager.outputDevices.isEmpty {
-                        SidebarEmptyRow(text: "Aucun device")
+                        SidebarEmptyRow(text: String(localized: "sidebar.inputs.empty"))
                     } else {
                         ForEach(audioManager.outputDevices) { d in
                             SidebarPlainDeviceRow(icon: "speaker.wave.2.fill", iconColor: JM.accentViolet,
@@ -633,10 +633,10 @@ struct SidebarView: View {
 
     /// Short status label displayed next to the footer LED.
     var jackFooterText: String {
-        if jackManager.isRunning { return "Jack actif" }
+        if jackManager.isRunning { return String(localized: "common.jack_running") }
         let msg = jackManager.statusMessage
-        if msg.contains("💈") { return "Démarrage…" }
-        return "Jack arrêté"
+        if msg.contains("💈") { return String(localized: "common.jack_starting") }
+        return String(localized: "common.jack_stopped")
     }
 }
 
@@ -733,7 +733,6 @@ struct SidebarStudiosSection: View {
         let f = DateFormatter()
         f.dateStyle = .short
         f.timeStyle = .short
-        f.locale = Locale(identifier: "fr_FR")
         return f
     }()
 
@@ -741,7 +740,7 @@ struct SidebarStudiosSection: View {
         VStack(alignment: .leading, spacing: 0) {
             // Header
             HStack {
-                Text("Studios (\(studioManager.studios.count))")
+                Text(verbatim: String(format: String(localized: "sidebar.studios.title"), studioManager.studios.count))
                     .font(.system(size: 9.5, weight: .semibold))
                     .foregroundStyle(JM.textTertiary)
                     .tracking(0.8)
@@ -753,7 +752,7 @@ struct SidebarStudiosSection: View {
             .padding(.bottom, 6)
 
             if studioManager.studios.isEmpty {
-                Text("Aucun studio sauvegardé")
+                Text("sidebar.studios.empty")
                     .font(.system(size: 11))
                     .foregroundStyle(JM.textTertiary)
                     .padding(.horizontal, 14)
@@ -801,15 +800,15 @@ struct SidebarStudiosSection: View {
                 .frame(height: 1)
                 VStack(alignment: .leading, spacing: 3) {
                     if let s = hoveredStudio {
-                        infoLine(icon: "calendar.badge.plus",    label: "Créé",    date: s.createdAt)
-                        infoLine(icon: "clock.arrow.circlepath", label: "Modifié", date: s.updatedAt)
-                        infoLine(icon: "play.circle", label: "Chargé",
+                        infoLine(icon: "calendar.badge.plus",    label: String(localized: "common.created"),    date: s.createdAt)
+                        infoLine(icon: "clock.arrow.circlepath", label: String(localized: "common.modified"), date: s.updatedAt)
+                        infoLine(icon: "play.circle", label: String(localized: "common.loaded"),
                                  date: s.lastLoadedAt ?? s.createdAt,
                                  faded: s.lastLoadedAt == nil)
                     } else {
-                        infoLine(icon: "calendar.badge.plus",    label: "Créé",    date: .distantPast).hidden()
-                        infoLine(icon: "clock.arrow.circlepath", label: "Modifié", date: .distantPast).hidden()
-                        infoLine(icon: "play.circle",            label: "Chargé",  date: .distantPast).hidden()
+                        infoLine(icon: "calendar.badge.plus",    label: String(localized: "common.created"),    date: .distantPast).hidden()
+                        infoLine(icon: "clock.arrow.circlepath", label: String(localized: "common.modified"), date: .distantPast).hidden()
+                        infoLine(icon: "play.circle",            label: String(localized: "common.loaded"),  date: .distantPast).hidden()
                     }
                 }
                 .padding(.horizontal, 14)
@@ -961,7 +960,7 @@ struct StudioSidebarRow: View {
                 }
                 .buttonStyle(.plain)
                 .onHover { isStopHovered = $0 }
-                .help(isStopHovered ? "Arrêter le studio" : "Studio actif")
+                .help(isStopHovered ? String(localized: "sidebar.studio.tooltip.stop") : String(localized: "sidebar.studio.tooltip.active"))
             } else {
                 Button { doLoad() } label: {
                     Image(systemName: "play.circle.fill")
@@ -972,7 +971,7 @@ struct StudioSidebarRow: View {
                 .buttonStyle(.plain)
                 .opacity(isHovered ? 1.0 : 0.3)
                 .disabled(otherBusy || !jackManager.jackInstalled)
-                .help(jackManager.jackInstalled ? "Charger ce studio" : "Jack non installé")
+                .help(jackManager.jackInstalled ? String(localized: "sidebar.studio.tooltip.load") : String(localized: "sidebar.studio.tooltip.jack_missing"))
             }
             // Info/inspect button — visible on hover only
             Button { showInspectSheet = true } label: {
@@ -984,7 +983,7 @@ struct StudioSidebarRow: View {
             .buttonStyle(.plain)
             .opacity(isHovered ? 1 : 0)
             .onHover { isInfoHovered = $0 }
-            .help("Inspecter le studio")
+            .help(String(localized: "sidebar.studio.tooltip.inspect"))
 
             // Trash button — visible on hover only, disabled while studio is loaded
             Button { showDeleteSheet = true } label: {
@@ -999,7 +998,7 @@ struct StudioSidebarRow: View {
             .opacity(isHovered ? 1 : 0)
             .onHover { isTrashHovered = $0 }
             .disabled(isLoaded)
-            .help(isLoaded ? "Impossible de supprimer un studio actif" : "Supprimer")
+            .help(isLoaded ? String(localized: "sidebar.studio.tooltip.cannot_delete") : String(localized: "sidebar.studio.tooltip.delete"))
         }
         .padding(.horizontal, 14)
         .frame(height: 28)
@@ -1030,7 +1029,7 @@ struct StudioSidebarRow: View {
     /// then delegates to `StudioManager.loadStudio`.
     private func doLoad() {
         selection = .patchbay
-        loadProgressMessage = "Préparation…"
+        loadProgressMessage = String(localized: "sidebar.studio.progress.preparing")
         showLoadProgress = true
 
         studioManager.loadStudio(
@@ -1053,8 +1052,8 @@ struct StudioSidebarRow: View {
                     }
                 }
                 loadProgressMessage = hasFailures
-                    ? "⚠️ Studio partiellement chargé"
-                    : "Studio chargé ✓"
+                    ? String(localized: "sidebar.studio.progress.partial")
+                    : String(localized: "sidebar.studio.progress.done")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     showLoadProgress = false
                 }
@@ -1076,7 +1075,6 @@ struct DeleteStudioConfirmView: View {
         let f = DateFormatter()
         f.dateStyle = .medium
         f.timeStyle = .short
-        f.locale = Locale(identifier: "fr_FR")
         return f
     }()
 
@@ -1098,10 +1096,10 @@ struct DeleteStudioConfirmView: View {
                         .foregroundStyle(.red)
                 }
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Supprimer ce studio ?")
+                    Text("delete_studio.title")
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundStyle(JM.textPrimary)
-                    Text("Cette action est irréversible.")
+                    Text("delete_studio.warning")
                         .font(.system(size: 11))
                         .foregroundStyle(JM.textTertiary)
                 }
@@ -1119,18 +1117,18 @@ struct DeleteStudioConfirmView: View {
 
                 // Name
                 infoRow(icon: "square.stack.3d.up", color: JM.accentAmber,
-                        label: "Nom", value: studio.name)
+                        label: String(localized: "delete_studio.label.name"), value: studio.name)
 
                 // Connections
                 infoRow(icon: "point.3.connected.trianglepath.dotted", color: JM.accentPurple,
-                        label: "Connexions", value: "\(studio.connections.count)")
+                        label: String(localized: "common.connections"), value: "\(studio.connections.count)")
 
                 // Clients
                 if !nonSystemClients.isEmpty {
                     VStack(alignment: .leading, spacing: 4) {
                         HStack(spacing: 6) {
                             iconBadge("app.badge", color: JM.accentIndigo)
-                            Text("Clients")
+                            Text("common.clients")
                                 .font(.system(size: 10, weight: .semibold))
                                 .foregroundStyle(JM.textTertiary)
                         }
@@ -1158,9 +1156,9 @@ struct DeleteStudioConfirmView: View {
 
                 // Dates
                 infoRow(icon: "calendar.badge.plus",    color: JM.accentAmber,
-                        label: "Créé le",    value: dateFormatter.string(from: studio.createdAt))
+                        label: String(localized: "delete_studio.label.created_on"),    value: dateFormatter.string(from: studio.createdAt))
                 infoRow(icon: "clock.arrow.circlepath", color: JM.accentAmber,
-                        label: "Modifié le", value: dateFormatter.string(from: studio.updatedAt))
+                        label: String(localized: "delete_studio.label.modified_on"), value: dateFormatter.string(from: studio.updatedAt))
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 14)
@@ -1172,7 +1170,7 @@ struct DeleteStudioConfirmView: View {
             // Action buttons
             HStack {
                 Spacer()
-                Button("Annuler") { dismiss() }
+                Button("common.cancel") { dismiss() }
                     .keyboardShortcut(.cancelAction)
                     .buttonStyle(.plain)
                     .font(.system(size: 12))
@@ -1182,7 +1180,7 @@ struct DeleteStudioConfirmView: View {
                         .overlay(RoundedRectangle(cornerRadius: 6)
                             .stroke(JM.border, lineWidth: 1)))
 
-                Button("Supprimer") {
+                Button("common.delete") {
                     onConfirm()
                     dismiss()
                 }
@@ -1240,7 +1238,6 @@ struct StudioInspectSheet: View {
         let f = DateFormatter()
         f.dateStyle = .medium
         f.timeStyle = .short
-        f.locale = Locale(identifier: "fr_FR")
         return f
     }()
 
@@ -1281,14 +1278,14 @@ struct StudioInspectSheet: View {
                 VStack(alignment: .leading, spacing: 16) {
 
                     // Dates section
-                    sectionHeader("Dates")
+                    sectionHeader(String(localized: "studio_inspect.section.dates"))
                     infoRow(icon: "calendar.badge.plus",    color: JM.accentAmber,
-                            label: "Créé",    value: df.string(from: studio.createdAt))
+                            label: String(localized: "common.created"),    value: df.string(from: studio.createdAt))
                     infoRow(icon: "clock.arrow.circlepath", color: JM.accentAmber,
-                            label: "Modifié", value: df.string(from: studio.updatedAt))
+                            label: String(localized: "common.modified"), value: df.string(from: studio.updatedAt))
                     if let loaded = studio.lastLoadedAt {
                         infoRow(icon: "play.circle", color: JM.accentGreen,
-                                label: "Chargé", value: df.string(from: loaded))
+                                label: String(localized: "common.loaded"), value: df.string(from: loaded))
                     }
 
                     // Jack configuration snapshot
@@ -1296,18 +1293,18 @@ struct StudioInspectSheet: View {
                         LinearGradient(colors: [.clear, .white.opacity(0.12), .clear],
                                        startPoint: .leading, endPoint: .trailing)
                             .frame(height: 1)
-                        sectionHeader("Configuration Jack")
+                        sectionHeader(String(localized: "studio_inspect.section.jack_config"))
                         infoRow(icon: "waveform", color: JM.accentCyan,
-                                label: "Sample rate", value: "\(Int(snap.sampleRate)) Hz")
+                                label: String(localized: "common.sample_rate"), value: "\(Int(snap.sampleRate)) Hz")
                         infoRow(icon: "memorychip", color: JM.accentCyan,
-                                label: "Buffer", value: "\(snap.bufferSize) frames")
+                                label: String(localized: "studio_inspect.label.buffer"), value: "\(snap.bufferSize) frames")
                         if let name = snap.inputDeviceName {
                             infoRow(icon: "mic.fill", color: JM.accentCyan,
-                                    label: "Entrée", value: name)
+                                    label: String(localized: "common.input"), value: name)
                         }
                         if let name = snap.outputDeviceName {
                             infoRow(icon: "speaker.wave.2.fill", color: JM.accentCyan,
-                                    label: "Sortie", value: name)
+                                    label: String(localized: "common.output"), value: name)
                         }
                         // Full Jack command
                         VStack(alignment: .leading, spacing: 4) {
@@ -1316,7 +1313,7 @@ struct StudioInspectSheet: View {
                                     RoundedRectangle(cornerRadius: 4).fill(JM.accentCyan.opacity(0.18)).frame(width: 16, height: 16)
                                     Image(systemName: "terminal").font(.system(size: 8, weight: .bold)).foregroundStyle(JM.accentCyan)
                                 }
-                                Text("Commande")
+                                Text("studio_inspect.label.command")
                                     .font(.system(size: 10, weight: .semibold))
                                     .foregroundStyle(JM.textTertiary)
                                 Spacer()
@@ -1329,7 +1326,7 @@ struct StudioInspectSheet: View {
                                         .foregroundStyle(JM.textTertiary)
                                 }
                                 .buttonStyle(.plain)
-                                .help("Copier la commande")
+                                .help(String(localized: "common.copy_command"))
                             }
                             Text(snap.command)
                                 .font(.system(size: 9, design: .monospaced))
@@ -1348,7 +1345,7 @@ struct StudioInspectSheet: View {
                         LinearGradient(colors: [.clear, .white.opacity(0.12), .clear],
                                        startPoint: .leading, endPoint: .trailing)
                             .frame(height: 1)
-                        sectionHeader("Clients (\(nonSystemClients.count))")
+                        sectionHeader(String(format: String(localized: "studio_inspect.clients.title"), nonSystemClients.count))
                         ForEach(nonSystemClients) { client in
                             clientRow(client)
                         }
@@ -1359,7 +1356,7 @@ struct StudioInspectSheet: View {
                         LinearGradient(colors: [.clear, .white.opacity(0.12), .clear],
                                        startPoint: .leading, endPoint: .trailing)
                             .frame(height: 1)
-                        sectionHeader("Connexions (\(studio.connections.count))")
+                        sectionHeader(String(format: String(localized: "studio_inspect.connections.title"), studio.connections.count))
                         ForEach(studio.connections) { conn in
                             connectionRow(conn)
                         }
@@ -1376,7 +1373,7 @@ struct StudioInspectSheet: View {
 
             HStack {
                 Spacer()
-                Button("Fermer") { dismiss() }
+                Button("common.close") { dismiss() }
                     .buttonStyle(.plain)
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundStyle(JM.textSecondary)
@@ -1498,10 +1495,10 @@ struct StopStudioSheet: View {
                         .foregroundStyle(JM.accentRed)
                 }
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Arrêter « \(studio.name) »")
+                    Text(verbatim: String(format: String(localized: "stop_studio.title"), studio.name))
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundStyle(JM.textPrimary)
-                    Text("Jack restera actif.")
+                    Text("stop_studio.jack_stays")
                         .font(.system(size: 11))
                         .foregroundStyle(JM.textTertiary)
                 }
@@ -1538,11 +1535,11 @@ struct StopStudioSheet: View {
     @ViewBuilder private var confirmBody: some View {
         VStack(alignment: .leading, spacing: 12) {
             if clientsToQuit.isEmpty {
-                Text("Aucune application en cours à fermer.")
+                Text("stop_studio.no_clients")
                     .font(.system(size: 11))
                     .foregroundStyle(JM.textSecondary)
             } else {
-                Text("Clients qui seront fermés :")
+                Text("stop_studio.clients_to_close")
                     .font(.system(size: 11, weight: .semibold))
                     .foregroundStyle(JM.textSecondary)
 
@@ -1557,12 +1554,12 @@ struct StopStudioSheet: View {
             }
 
             HStack {
-                Button("Annuler") { dismiss() }
+                Button("common.cancel") { dismiss() }
                     .buttonStyle(.plain)
                     .font(.system(size: 12))
                     .foregroundStyle(JM.textSecondary)
                 Spacer()
-                Button("Arrêter le studio") {
+                Button("stop_studio.button.stop") {
                     Task { await doStop() }
                 }
                 .buttonStyle(.plain)
@@ -1597,19 +1594,19 @@ struct StopStudioSheet: View {
                 HStack(spacing: 6) {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundStyle(JM.accentGreen)
-                    Text("Studio arrêté.")
+                    Text("stop_studio.done")
                         .font(.system(size: 12))
                         .foregroundStyle(JM.textSecondary)
                 }
             } else {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("Ces applications n'ont pas répondu :")
+                    Text("stop_studio.unresponsive")
                         .font(.system(size: 11, weight: .semibold))
                         .foregroundStyle(JM.accentAmber)
                     ForEach(stuckApps, id: \.pid) { stuck in
                         stuckRow(name: stuck.name, pid: stuck.pid)
                     }
-                    Text("Copiez la commande et exécutez-la dans Terminal.")
+                    Text("stop_studio.terminal_hint")
                         .font(.system(size: 10))
                         .foregroundStyle(JM.textTertiary)
                 }
@@ -1617,7 +1614,7 @@ struct StopStudioSheet: View {
 
             HStack {
                 Spacer()
-                Button("Fermer") {
+                Button("common.close") {
                     studioManager.loadedStudio = nil
                     dismiss()
                 }
@@ -1651,7 +1648,7 @@ struct StopStudioSheet: View {
                         .fill(JM.textTertiary.opacity(0.12)))
             }
             if extra {
-                Text("hors studio")
+                Text("stop_studio.badge.external")
                     .font(.system(size: 9, design: .monospaced))
                     .foregroundStyle(JM.accentAmber)
                     .padding(.horizontal, 4).padding(.vertical, 1)
@@ -1683,7 +1680,7 @@ struct StopStudioSheet: View {
                     .foregroundStyle(JM.textTertiary)
             }
             .buttonStyle(.plain)
-            .help("Copier la commande")
+            .help(String(localized: "common.copy_command"))
         }
         .padding(8)
         .background(RoundedRectangle(cornerRadius: 6).fill(JM.bgElevated)
@@ -1702,18 +1699,18 @@ struct StopStudioSheet: View {
         let bridge = patchbayManager.jackBridge
 
         // Step 0: disconnect all cables
-        statusMessage = "Déconnexion des câbles..."
+        statusMessage = String(localized: "stop_studio.phase.disconnecting")
         for node in patchbayManager.nodes {
             patchbayManager.disconnectAll(of: node.id)
         }
         try? await Task.sleep(nanoseconds: 400_000_000)
 
         // Step 1: SIGTERM all Jack clients via PID (GUI + CLI, including external)
-        statusMessage = "Fermeture des clients Jack…"
+        statusMessage = String(localized: "stop_studio.phase.closing")
         let targeted = studioManager.terminateAllJackClients(bridge: bridge)
 
         // Step 2: wait 3 s then force-kill any that are still alive
-        statusMessage = "En attente de fermeture..."
+        statusMessage = String(localized: "stop_studio.phase.waiting")
         try? await Task.sleep(nanoseconds: 3_000_000_000)
 
         for item in targeted {
@@ -1789,7 +1786,7 @@ struct CaptureStudioSheet: View {
                         .foregroundStyle(JM.accentAmber)
                 }
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Capturer le studio")
+                    Text("capture_studio.title")
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundStyle(JM.textPrimary)
                     Text("\(patchbayManager.connections.count) connexions · \(clientCount) clients")
@@ -1808,10 +1805,10 @@ struct CaptureStudioSheet: View {
 
                     // Studio name field
                     VStack(alignment: .leading, spacing: 6) {
-                        Text("Nom du studio")
+                        Text("capture_studio.name.label")
                             .font(.system(size: 10, weight: .semibold))
                             .foregroundStyle(JM.textTertiary)
-                        TextField("Ex: Session ProTools", text: $name)
+                        TextField(String(localized: "capture_studio.name.placeholder"), text: $name)
                             .textFieldStyle(.plain)
                             .font(.system(size: 12))
                             .foregroundStyle(JM.textPrimary)
@@ -1824,7 +1821,7 @@ struct CaptureStudioSheet: View {
                     // Jack snapshot preview
                     if let snap = built?.jackSnapshot {
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("Commande Jack capturée")
+                            Text("capture_studio.section.command")
                                 .font(.system(size: 10, weight: .semibold))
                                 .foregroundStyle(JM.textTertiary)
                             Text(snap.command)
@@ -1846,11 +1843,11 @@ struct CaptureStudioSheet: View {
                                 Image(systemName: "exclamationmark.triangle")
                                     .font(.system(size: 10, weight: .semibold))
                                     .foregroundStyle(JM.accentAmber)
-                                Text("Clients non détectés automatiquement")
+                                Text("capture_studio.section.clients")
                                     .font(.system(size: 10, weight: .semibold))
                                     .foregroundStyle(JM.textSecondary)
                             }
-                            Text("Entrez la commande shell pour relancer chaque app (optionnel).")
+                            Text("capture_studio.clients.hint")
                                 .font(.system(size: 10))
                                 .foregroundStyle(JM.textTertiary)
 
@@ -1862,7 +1859,7 @@ struct CaptureStudioSheet: View {
                                             .font(.system(size: 11, weight: .semibold))
                                             .foregroundStyle(JM.textSecondary)
                                     }
-                                    TextField("Ex: /usr/bin/supercollider --headless",
+                                    TextField(String(localized: "capture_studio.clients.placeholder"),
                                               text: Binding(
                                                 get: { cliInputs[client.jackName] ?? "" },
                                                 set: { cliInputs[client.jackName] = $0 }))
@@ -1893,7 +1890,7 @@ struct CaptureStudioSheet: View {
             // Action buttons
             HStack {
                 Spacer()
-                Button("Annuler") { dismiss() }
+                Button("common.cancel") { dismiss() }
                     .keyboardShortcut(.cancelAction)
                     .buttonStyle(.plain)
                     .font(.system(size: 12))
@@ -1903,7 +1900,7 @@ struct CaptureStudioSheet: View {
                         .overlay(RoundedRectangle(cornerRadius: 6)
                             .stroke(JM.border, lineWidth: 1)))
 
-                Button("Sauvegarder") { save() }
+                Button("common.save") { save() }
                     .keyboardShortcut(.defaultAction)
                     .buttonStyle(.plain)
                     .font(.system(size: 12, weight: .semibold))
@@ -1933,7 +1930,7 @@ struct CaptureStudioSheet: View {
     /// Builds the studio from the current patchbay state and identifies clients that
     /// need a manual CLI command entry.
     private func build() {
-        name = "Studio \(studioManager.studios.count + 1)"
+        name = String(format: String(localized: "capture_studio.default_name"), studioManager.studios.count + 1)
         let (studio, needed) = studioManager.buildStudio(
             name: name,
             nodes: patchbayManager.nodes,
@@ -1998,10 +1995,10 @@ struct SaveChoiceSheet: View {
                         .foregroundStyle(JM.accentAmber)
                 }
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Sauvegarder le studio")
+                    Text("save_choice.title")
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundStyle(JM.textPrimary)
-                    Text("«\(studio.name)» a été modifié")
+                    Text(verbatim: String(format: String(localized: "save_choice.subtitle"), studio.name))
                         .font(.system(size: 11))
                         .foregroundStyle(JM.textSecondary)
                 }
@@ -2010,7 +2007,7 @@ struct SaveChoiceSheet: View {
 
             // Option 1: update the current studio in place
             VStack(alignment: .leading, spacing: 6) {
-                Text("METTRE À JOUR").font(.system(size: 9, weight: .semibold, design: .monospaced))
+                Text("save_choice.section.update").font(.system(size: 9, weight: .semibold, design: .monospaced))
                     .foregroundStyle(JM.textTertiary)
                 Button {
                     onOverwrite(); dismiss()
@@ -2018,7 +2015,7 @@ struct SaveChoiceSheet: View {
                     HStack(spacing: 8) {
                         Image(systemName: "arrow.trianglehead.2.clockwise")
                             .font(.system(size: 10))
-                        Text("Mettre à jour «\(studio.name)»")
+                        Text(verbatim: String(format: String(localized: "save_choice.button.update"), studio.name))
                             .font(.system(size: 12, weight: .medium))
                         Spacer()
                     }
@@ -2039,10 +2036,10 @@ struct SaveChoiceSheet: View {
 
             // Option 2: save as a new studio
             VStack(alignment: .leading, spacing: 8) {
-                Text("CRÉER UN NOUVEAU STUDIO").font(.system(size: 9, weight: .semibold, design: .monospaced))
+                Text("save_choice.section.new").font(.system(size: 9, weight: .semibold, design: .monospaced))
                     .foregroundStyle(JM.textTertiary)
                 HStack(spacing: 8) {
-                    TextField("Nom du nouveau studio", text: $saveAsName)
+                    TextField(String(localized: "save_choice.new.placeholder"), text: $saveAsName)
                         .textFieldStyle(.plain)
                         .font(.system(size: 12))
                         .padding(.horizontal, 8).frame(height: 28)
@@ -2054,7 +2051,7 @@ struct SaveChoiceSheet: View {
                         guard !name.isEmpty else { return }
                         onSaveAs(name); dismiss()
                     } label: {
-                        Text("Créer")
+                        Text("common.create")
                             .font(.system(size: 12, weight: .medium))
                             .padding(.horizontal, 12).frame(height: 28)
                             .background(RoundedRectangle(cornerRadius: 6)
@@ -2072,7 +2069,7 @@ struct SaveChoiceSheet: View {
             // Cancel
             HStack {
                 Spacer()
-                Button("Annuler") { dismiss() }
+                Button("common.cancel") { dismiss() }
                     .buttonStyle(.plain)
                     .font(.system(size: 11))
                     .foregroundStyle(JM.textTertiary)
@@ -2178,23 +2175,25 @@ struct ConfigHeaderView: View {
             // Contextual title
             VStack(alignment: .leading, spacing: 2) {
                 if selection == .patchbay {
-                    Text("Patchbay")
+                    Text("common.patchbay")
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundStyle(JM.textPrimary)
                     HStack(spacing: 8) {
-                        Text("\(patchbayManager.nodes.count) clients · \(patchbayManager.connections.count) connexions")
+                        Text(verbatim: String(format: String(localized: "header.clients_connections"),
+                                             patchbayManager.nodes.count,
+                                             patchbayManager.connections.count))
                             .font(.system(size: 9.5, design: .monospaced))
                             .foregroundStyle(JM.textTertiary)
-                        legendItem(color: Color(hex: "#4ade80"), label: "Audio")
-                        legendItem(color: Color(hex: "#c084fc"), label: "MIDI")
-                        legendItem(color: Color(hex: "#fb923c"), label: "CV")
+                        legendItem(color: Color(hex: "#4ade80"), label: String(localized: "header.filter.audio"))
+                        legendItem(color: Color(hex: "#c084fc"), label: String(localized: "header.filter.midi"))
+                        legendItem(color: Color(hex: "#fb923c"), label: String(localized: "header.filter.cv"))
                     }
                 } else {
-                    Text("Configuration Jack")
+                    Text("header.tab.config")
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundStyle(JM.textPrimary)
                     HStack(spacing: 6) {
-                        Text(jackManager.jackExecutableURL?.path ?? "Exécutable introuvable")
+                        Text(jackManager.jackExecutableURL?.path ?? String(localized: "header.status.exec_missing"))
                             .font(.system(size: 9.5, design: .monospaced))
                             .foregroundStyle(jackManager.jackExecutableURL != nil ? JM.textTertiary : JM.accentRed)
 
@@ -2219,7 +2218,7 @@ struct ConfigHeaderView: View {
                                     .foregroundStyle(JM.accentAmber)
                                 }
                                 .buttonStyle(.plain)
-                                .help("Mise à jour Jack disponible — cliquer pour télécharger")
+                                .help("header.status.update_available")
                             } else {
                                 HStack(spacing: 3) {
                                     Image(systemName: "checkmark.circle.fill")
@@ -2271,8 +2270,9 @@ struct ConfigHeaderView: View {
                     .buttonStyle(.plain)
                     .onHover { hoveredBtn = $0 ? "tidy" : nil }
                     .help(patchbayManager.selectedNodeIds.isEmpty
-                          ? "Tidy — ranger tous les nœuds"
-                          : "Tidy — ranger \(patchbayManager.selectedNodeIds.count) nœud(s) sélectionné(s)")
+                          ? String(localized: "toolbar.tidy.all")
+                          : String(format: String(localized: "toolbar.tidy.selected"),
+                                   patchbayManager.selectedNodeIds.count)) // TODO: plurals - Étape 6
 
                     Rectangle().fill(JM.borderFaint).frame(width: 0.5).frame(maxHeight: .infinity)
 
@@ -2307,10 +2307,12 @@ struct ConfigHeaderView: View {
                     .disabled(patchbayManager.selectedNodeIds.isEmpty)
                     .onHover { hoveredBtn = $0 ? "collapsesel" : nil }
                     .help(patchbayManager.selectedNodeIds.isEmpty
-                          ? "Collapse/expand — sélectionner des clients d'abord"
+                          ? String(localized: "toolbar.collapse.no_selection")
                           : willCollapse
-                              ? "Collapser \(patchbayManager.selectedNodeIds.count) client(s) sélectionné(s)"
-                              : "Décollapser \(patchbayManager.selectedNodeIds.count) client(s) sélectionné(s)")
+                              ? String(format: String(localized: "toolbar.collapse.action"),
+                                       patchbayManager.selectedNodeIds.count) // TODO: plurals - Étape 6
+                              : String(format: String(localized: "toolbar.expand.action"),
+                                       patchbayManager.selectedNodeIds.count)) // TODO: plurals - Étape 6
 
                     Rectangle().fill(JM.borderFaint).frame(width: 0.5).frame(maxHeight: .infinity)
 
@@ -2322,7 +2324,7 @@ struct ConfigHeaderView: View {
                     }
                     .buttonStyle(.plain)
                     .onHover { hoveredBtn = $0 ? "center" : nil }
-                    .help("Recentrer et ajuster le zoom")
+                    .help("toolbar.recenter")
 
                     Rectangle().fill(JM.borderFaint).frame(width: 0.5).frame(maxHeight: .infinity)
 
@@ -2339,7 +2341,7 @@ struct ConfigHeaderView: View {
                     .buttonStyle(.plain)
                     .disabled(abs(vpScale - 1.0) < 0.01)
                     .onHover { hoveredBtn = $0 ? "zoom100" : nil }
-                    .help("Zoom 100 %")
+                    .help("toolbar.zoom_reset")
 
                     Rectangle().fill(JM.borderFaint).frame(width: 0.5).frame(maxHeight: .infinity)
 
@@ -2357,7 +2359,7 @@ struct ConfigHeaderView: View {
                     .buttonStyle(.plain)
                     .onHover { hoveredBtn = $0 ? "sync" : nil }
                     .disabled(!patchbayManager.isConnected)
-                    .help("Actualiser les ports et connexions Jack")
+                    .help("toolbar.refresh")
 
                     // ── Transport toggle ──────────────────────────────────────
                     if patchbayManager.isConnected {
@@ -2379,8 +2381,8 @@ struct ConfigHeaderView: View {
                         .buttonStyle(.plain)
                         .onHover { hoveredBtn = $0 ? "transport" : nil }
                         .help(patchbayManager.showTransportBar
-                              ? "Masquer la barre transport"
-                              : "Afficher la barre transport")
+                              ? String(localized: "toolbar.transport.hide")
+                              : String(localized: "toolbar.transport.show"))
                     }
                 }
                 .frame(height: 40)
@@ -2399,7 +2401,7 @@ struct ConfigHeaderView: View {
                         HStack(spacing: 4) {
                             Image(systemName: isModified ? "square.and.arrow.down" : "plus")
                                 .font(.system(size: 9))
-                            Text("Save as Studio")
+                            Text("header.button.save_studio")
                         }
                         .font(.system(size: 11, weight: .semibold))
                         .padding(.horizontal, 10).frame(height: 40)
@@ -2469,7 +2471,7 @@ struct ConfigHeaderView: View {
             }
             .buttonStyle(.plain)
             .onHover { hoveredBtn = $0 ? "midi" : nil }
-            .help("Configuration Audio MIDI")
+            .help("header.button.audio_midi")
 
             // ── Jack log panel toggle ───────────────────────────────────────
             Button {
@@ -2494,14 +2496,14 @@ struct ConfigHeaderView: View {
             }
             .buttonStyle(.plain)
             .onHover { hoveredBtn = $0 ? "logs" : nil }
-            .help("Logs Jack")
+            .help("header.button.logs")
 
             // ── Start / Stop Jack button ────────────────────────────────────
             if jackManager.isRunning {
                 Button { if let gs = jackManager.gracefulStop { gs() } else { jackManager.stopJack() } } label: {
                     HStack(spacing: 5) {
                         Image(systemName: "stop.fill").font(.system(size: 9))
-                        Text("Arrêter Jack").font(.system(size: 11, weight: .semibold)).lineLimit(1)
+                        Text("header.button.stop_jack").font(.system(size: 11, weight: .semibold)).lineLimit(1)
                     }
                     .fixedSize()
                     .padding(.horizontal, 13).frame(height: 40)
@@ -2520,7 +2522,7 @@ struct ConfigHeaderView: View {
                 Button { jackManager.savePreferences(); jackManager.startJack() } label: {
                     HStack(spacing: 5) {
                         Image(systemName: "play.fill").font(.system(size: 9))
-                        Text("Démarrer Jack").font(.system(size: 11, weight: .semibold)).lineLimit(1)
+                        Text("header.button.start_jack").font(.system(size: 11, weight: .semibold)).lineLimit(1)
                     }
                     .fixedSize()
                     .padding(.horizontal, 13).frame(height: 40)
@@ -2614,7 +2616,7 @@ struct ConfigBodyView: View {
                         Image(systemName: "lock.fill")
                             .font(.system(size: 11, weight: .semibold))
                             .foregroundStyle(JM.accentAmber)
-                        Text("Configuration verrouillée — Jack est actif")
+                        Text("config.locked_banner")
                             .font(.system(size: 11, weight: .medium))
                             .foregroundStyle(JM.accentAmber)
                         Spacer()
@@ -2628,18 +2630,18 @@ struct ConfigBodyView: View {
                 // Audio devices — icon without badge square
                 JMGroup(icon: "hifispeaker.2.fill",
                         iconColor: JM.groupDevices,
-                        title: "Devices audio") {
+                        title: String(localized: "config.group.devices")) {
                     VStack(spacing: 8) {
                         HStack {
                             HStack(spacing: 6) {
                                 Image(systemName: "mic.fill")
                                     .font(.system(size: 11, weight: .semibold))
                                     .foregroundStyle(JM.accentCyan).frame(width: 14)
-                                Text("Entrée").font(.system(size: 11)).foregroundStyle(JM.textSecondary)
+                                Text("common.input").font(.system(size: 11)).foregroundStyle(JM.textSecondary)
                             }
                             .frame(width: 72, alignment: .leading)
                             JMPopUpButton(
-                                options: [("Pas d'entrée", "")] +
+                                options: [(String(localized: "config.input.empty"), "")] +
                                     audioManager.inputDevices.map { ("\($0.name) (\($0.inputChannels) ch.)", $0.uid) },
                                 selection: $jackManager.prefs.inputDeviceUID
                             )
@@ -2669,11 +2671,11 @@ struct ConfigBodyView: View {
                                 Image(systemName: "speaker.wave.2.fill")
                                     .font(.system(size: 11, weight: .semibold))
                                     .foregroundStyle(JM.accentViolet).frame(width: 14)
-                                Text("Sortie").font(.system(size: 11)).foregroundStyle(JM.textSecondary)
+                                Text("common.output").font(.system(size: 11)).foregroundStyle(JM.textSecondary)
                             }
                             .frame(width: 72, alignment: .leading)
                             JMPopUpButton(
-                                options: [("Pas de sortie", "")] +
+                                options: [(String(localized: "config.output.empty"), "")] +
                                     audioManager.outputDevices.map { ("\($0.name) (\($0.outputChannels) ch.)", $0.uid) },
                                 selection: $jackManager.prefs.outputDeviceUID
                             )
@@ -2706,7 +2708,7 @@ struct ConfigBodyView: View {
                 // Audio (sample rate / buffer) — icon without badge square
                 JMGroup(icon: "waveform",
                         iconColor: JM.groupAudio,
-                        title: "Audio") {
+                        title: String(localized: "config.group.audio")) {
                     VStack(spacing: 10) {
                         HStack(spacing: 8) {
                             JMParamCard(label: "Sample rate") {
@@ -2728,7 +2730,7 @@ struct ConfigBodyView: View {
                         }
                         HStack(spacing: 5) {
                             Image(systemName: "clock").font(.system(size: 10)).foregroundStyle(JM.textTertiary)
-                            Text("Latence théorique :").font(.system(size: 11)).foregroundStyle(JM.textTertiary)
+                            Text("config.latency").font(.system(size: 11)).foregroundStyle(JM.textTertiary)
                             Text(String(format: "%.1f ms", jackManager.prefs.theoreticalLatency))
                                 .font(.system(size: 11, weight: .semibold)).foregroundStyle(JM.accentAmber)
                         }
@@ -2740,17 +2742,19 @@ struct ConfigBodyView: View {
                 // Options (hog mode, clock drift, MIDI, channel limiter) — icon without badge square
                 JMGroup(icon: "slider.horizontal.3",
                         iconColor: JM.groupOptions,
-                        title: "Options") {
+                        title: String(localized: "config.group.options")) {
                     VStack(spacing: 0) {
                         JMToggleRow(icon: "lock.fill",
                                     iconBg: JM.tintRed, iconColor: JM.accentRed,
-                                    label: "Hog mode", sub: "Monopolise le device audio",
+                                    label: String(localized: "config.hog_mode.label"),
+                                    sub: String(localized: "config.hog_mode.description"),
                                     value: $jackManager.prefs.hogMode)
                             .onChange(of: jackManager.prefs.hogMode) { _, _ in jackManager.savePreferences() }
                         separatorGradient
                         JMToggleRow(icon: "clock.arrow.2.circlepath",
                                     iconBg: JM.tintAmber, iconColor: JM.accentAmber,
-                                    label: "Clock drift correction", sub: "Correction de dérive d'horloge",
+                                    label: String(localized: "config.clock_drift.label"),
+                                    sub: String(localized: "config.clock_drift.description"),
                                     value: $jackManager.prefs.clockDrift)
                             .disabled(!areDifferentPhysicalDevices)
                             .opacity(!areDifferentPhysicalDevices ? 0.4 : 1.0)
@@ -2769,7 +2773,8 @@ struct ConfigBodyView: View {
                         separatorGradient
                         JMToggleRow(icon: "pianokeys",
                                     iconBg: JM.tintIndigo, iconColor: JM.accentIndigo,
-                                    label: "MIDI (coremidi)", sub: "Option expérimentale — peut provoquer des instabilités",
+                                    label: String(localized: "config.midi.label"),
+                                    sub: String(localized: "config.midi.description"),
                                     value: $jackManager.prefs.midiEnabled)
                             .disabled(true)
                             .opacity(0.4)
@@ -2795,11 +2800,11 @@ struct ConfigBodyView: View {
 
                 // Generated command — or installation instructions if Jack is not installed
                 let cmdTitle: String = {
-                    if jackManager.jackInstalled { return "Commande générée" }
+                    if jackManager.jackInstalled { return String(localized: "config.command_box.generated") }
                     switch jackManager.selectedInstallMethod {
-                    case .homebrew: return "Installation requise — Commande Homebrew"
-                    case .pkg:      return "Installation requise — Lien de téléchargement"
-                    case nil:       return "Installation requise"
+                    case .homebrew: return String(localized: "config.command_box.install_homebrew")
+                    case .pkg:      return String(localized: "config.command_box.install_link")
+                    case nil:       return String(localized: "config.command_box.install_required")
                     }
                 }()
 
@@ -2814,7 +2819,7 @@ struct ConfigBodyView: View {
                     switch jackManager.selectedInstallMethod {
                     case .homebrew: return "brew install jack"
                     case .pkg:      return "https://github.com/jackaudio/jack2-releases/releases"
-                    case nil:       return "— sélectionner une méthode d'installation —"
+                    case nil:       return String(localized: "config.command_box.select_method")
                     }
                 }()
 
@@ -2854,18 +2859,12 @@ struct ConfigBodyView: View {
     /// suggesting that hardware clock sync be configured in Audio MIDI Setup.
     private func presentAggregateAlert() {
         let alert = NSAlert()
-        alert.messageText = "Device agrégé macOS"
-        alert.informativeText = """
-            Ce device est un agrégat macOS.
-
-            Si vos sources ont des horloges indépendantes (ex. deux interfaces USB distinctes), pensez à configurer la synchronisation d'horloge dans Audio MIDI Setup — sélectionnez le device agrégé, puis choisissez une source d'horloge maître dans l'onglet dédié.
-
-            Cette configuration hardware est plus robuste que la correction logicielle de Jack.
-            """
-        alert.addButton(withTitle: "Ouvrir Audio MIDI Setup")
-        alert.addButton(withTitle: "OK")
+        alert.messageText = String(localized: "alert.aggregate.title")
+        alert.informativeText = String(localized: "alert.aggregate.message")
+        alert.addButton(withTitle: String(localized: "alert.aggregate.button.open"))
+        alert.addButton(withTitle: String(localized: "common.ok"))
         alert.showsSuppressionButton = true
-        alert.suppressionButton?.title = "Ne plus afficher"
+        alert.suppressionButton?.title = String(localized: "alert.aggregate.suppress")
         let response = alert.runModal()
         if alert.suppressionButton?.state == .on { hideAggregateAlert = true }
         if response == .alertFirstButtonReturn {
@@ -2877,18 +2876,12 @@ struct ConfigBodyView: View {
     /// suggesting a hardware aggregate device as a more robust alternative.
     private func presentClockDriftAlert() {
         let alert = NSAlert()
-        alert.messageText = "Clock drift correction"
-        alert.informativeText = """
-            Cette option active la correction de dérive d'horloge côté Jack.
-
-            Elle est utile si vos devices input et output ont des horloges de référence indépendantes (ex. micro USB + interface audio FireWire).
-
-            Une alternative plus robuste : créer un device agrégé dans Audio MIDI Setup et y configurer la synchronisation d'horloge hardware. Le résultat est plus stable et transparent pour toutes les applications, pas seulement Jack.
-            """
-        alert.addButton(withTitle: "Ouvrir Audio MIDI Setup")
-        alert.addButton(withTitle: "OK")
+        alert.messageText = String(localized: "alert.clock_drift.title")
+        alert.informativeText = String(localized: "alert.clock_drift.message")
+        alert.addButton(withTitle: String(localized: "alert.clock_drift.button.open"))
+        alert.addButton(withTitle: String(localized: "common.ok"))
         alert.showsSuppressionButton = true
-        alert.suppressionButton?.title = "Ne plus afficher"
+        alert.suppressionButton?.title = String(localized: "alert.clock_drift.suppress")
         let response = alert.runModal()
         if alert.suppressionButton?.state == .on { hideClockDriftAlert = true }
         if response == .alertFirstButtonReturn {
@@ -3034,7 +3027,7 @@ struct JMCommandBox: View {
                 }
                 .buttonStyle(.plain)
                 .padding(6)
-                .help("Copier la commande")
+                .help("common.copy_command")
             }
     }
 }
@@ -3056,9 +3049,9 @@ struct LogPanelView: View {
         return "waveform.path"
     }
     var statusText: String {
-        if jackManager.hasWarning { return "Attention — voir les logs" }
-        if jackManager.isRunning  { return "Jack est actif" }
-        return "Jack est arrêté"
+        if jackManager.hasWarning { return String(localized: "log.badge.warning") }
+        if jackManager.isRunning  { return String(localized: "log.header.running") }
+        return String(localized: "log.header.stopped")
     }
 
     var body: some View {
@@ -3086,7 +3079,7 @@ struct LogPanelView: View {
 
                 HStack(spacing: 8) {
                     Image(systemName: "terminal").font(.system(size: 10)).foregroundStyle(JM.textTertiary)
-                    Text("LOGS JACK").font(.system(size: 9, weight: .semibold))
+                    Text("log.panel.title").font(.system(size: 9, weight: .semibold))
                         .foregroundStyle(JM.textTertiary).tracking(1)
                     Spacer()
                     Button { jackManager.clearLogs() } label: {
@@ -3109,7 +3102,7 @@ struct LogPanelView: View {
                         LazyVStack(alignment: .leading, spacing: 0) {
                             ForEach(jackManager.logLines) { line in LogLineView(line: line).id(line.id) }
                             if jackManager.logLines.isEmpty {
-                                Text("En attente de logs…")
+                                Text("log.panel.empty")
                                     .font(.system(size: 10, design: .monospaced))
                                     .foregroundStyle(JM.textTertiary).padding(12)
                             }
@@ -3195,8 +3188,8 @@ struct ChannelPickerToggleRow: View {
     var body: some View {
         JMToggleRow(icon: "square.split.2x1",
                     iconBg: JM.tintTeal, iconColor: JM.accentTeal,
-                    label: "Limiter les canaux",
-                    sub: enabled ? summary : "Sélectionner les canaux input/output",
+                    label: String(localized: "config.channels.label"),
+                    sub: enabled ? summary : String(localized: "config.channels.description"),
                     value: $enabled)
             .onChange(of: enabled) { _, on in
                 if on {
@@ -3220,7 +3213,7 @@ struct ChannelPickerToggleRow: View {
                 HStack(spacing: 4) {
                     Image(systemName: "slider.horizontal.3")
                         .font(.system(size: 11))
-                    Text("Modifier")
+                    Text("config.channels.button")
                         .font(.system(size: 10))
                 }
                 .foregroundStyle(JM.accentTeal)
@@ -3241,7 +3234,7 @@ struct ChannelPickerSheet: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Sélection des canaux")
+            Text("channel_picker.title")
                 .font(.system(size: 13, weight: .semibold))
                 .foregroundStyle(JM.textPrimary)
             if maxIn > 0 {
@@ -3252,7 +3245,7 @@ struct ChannelPickerSheet: View {
             }
             HStack {
                 Spacer()
-                Button("Confirmer") { isPresented = false }
+                Button("common.confirm") { isPresented = false }
                     .buttonStyle(.plain)
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundStyle(JM.accentGreen)
@@ -3368,6 +3361,7 @@ struct StatusBarView: View {
         let count = sel.count
         if count == max { return "\(count)/\(max) ch" }
         let ranges = channelRangeString(sel)
+        // TODO: plurals - Étape 6
         let label = count == 1 ? "canal" : "canaux"
         return "\(count)/\(max) ch (\(label) \(ranges))"
     }
@@ -3534,7 +3528,7 @@ struct NodeBadgeSheet: View {
 
     private let df: DateFormatter = {
         let f = DateFormatter(); f.dateStyle = .medium; f.timeStyle = .short
-        f.locale = Locale(identifier: "fr_FR"); return f
+        return f
     }()
 
     // MARK: Body
@@ -3564,7 +3558,9 @@ struct NodeBadgeSheet: View {
                     Text(node.id)
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundStyle(JM.textPrimary)
-                    Text(isSystemNode ? "Interface audio Jack" : "Client Jack")
+                    Text(verbatim: isSystemNode
+                         ? String(localized: "node_badge.type.system")
+                         : String(localized: "node_badge.type.client"))
                         .font(.system(size: 11))
                         .foregroundStyle(JM.textTertiary)
                 }
@@ -3602,19 +3598,21 @@ struct NodeBadgeSheet: View {
 
     @ViewBuilder private var systemNodeContent: some View {
         let inputName  = jackManager.savedInputDeviceName.isEmpty
-            ? "Périphérique par défaut" : jackManager.savedInputDeviceName
+            ? String(localized: "node_badge.default_device") : jackManager.savedInputDeviceName
         let outputName = jackManager.savedOutputDeviceName.isEmpty
-            ? "Périphérique par défaut" : jackManager.savedOutputDeviceName
+            ? String(localized: "node_badge.default_device") : jackManager.savedOutputDeviceName
         // Capture node: outputs → channels going into Jack; playback node: inputs → channels coming from Jack
         let channelCount = isCaptureNode ? node.outputs.count : node.inputs.count
-        let channelLabel = isCaptureNode ? "Canaux capture" : "Canaux playback"
+        let channelLabel = isCaptureNode
+            ? String(localized: "node_badge.channels.capture")
+            : String(localized: "node_badge.channels.playback")
         let channelIcon  = isCaptureNode ? "arrow.right.circle" : "arrow.left.circle"
         let channelColor = isCaptureNode ? JM.accentCyan : JM.accentPurple
 
         if isCaptureNode {
-            infoRow(icon: "mic.fill", color: JM.accentCyan, label: "Entrée", value: inputName)
+            infoRow(icon: "mic.fill", color: JM.accentCyan, label: String(localized: "common.input"), value: inputName)
         } else {
-            infoRow(icon: "speaker.wave.2.fill", color: JM.accentPurple, label: "Sortie", value: outputName)
+            infoRow(icon: "speaker.wave.2.fill", color: JM.accentPurple, label: String(localized: "common.output"), value: outputName)
         }
         Divider()
         infoRow(icon: "waveform",   color: JM.accentAmber, label: "Sample rate",
@@ -3632,10 +3630,10 @@ struct NodeBadgeSheet: View {
         if let app = runningApp {
             // GUI application registered with NSWorkspace
             infoRow(icon: "app.fill", color: badgeColor,
-                    label: "Nom", value: app.localizedName ?? node.id)
+                    label: String(localized: "node_badge.app.label.name"), value: app.localizedName ?? node.id)
             if let path = bundlePath {
                 VStack(alignment: .leading, spacing: 4) {
-                    rowLabel(icon: "folder", color: JM.accentAmber, label: "Chemin")
+                    rowLabel(icon: "folder", color: JM.accentAmber, label: String(localized: "node_badge.app.label.path"))
                     Text(path)
                         .font(.system(size: 10, design: .monospaced))
                         .foregroundStyle(JM.textSecondary)
@@ -3645,7 +3643,7 @@ struct NodeBadgeSheet: View {
             }
             if let date = appModDate {
                 infoRow(icon: "clock", color: JM.accentTeal,
-                        label: "Modifié", value: df.string(from: date))
+                        label: String(localized: "common.modified"), value: df.string(from: date))
             }
             if let pid = runningApp?.processIdentifier {
                 infoRow(icon: "number", color: JM.textTertiary,
@@ -3654,10 +3652,10 @@ struct NodeBadgeSheet: View {
         } else if let pid = ProcessHelper.findPID(forJackClient: node.id) {
             // CLI process — not visible to NSWorkspace, found via process table scan
             infoRow(icon: "terminal", color: badgeColor,
-                    label: "Type", value: "Client CLI")
+                    label: String(localized: "node_badge.app.label.type"), value: "Client CLI")
             if let path = ProcessHelper.executablePath(for: pid) {
                 VStack(alignment: .leading, spacing: 4) {
-                    rowLabel(icon: "folder", color: JM.accentAmber, label: "Chemin")
+                    rowLabel(icon: "folder", color: JM.accentAmber, label: String(localized: "node_badge.app.label.path"))
                     Text(path)
                         .font(.system(size: 10, design: .monospaced))
                         .foregroundStyle(JM.textSecondary)
@@ -3667,7 +3665,7 @@ struct NodeBadgeSheet: View {
             }
             if let args = ProcessHelper.commandLine(for: pid), args.count > 1 {
                 VStack(alignment: .leading, spacing: 4) {
-                    rowLabel(icon: "terminal", color: JM.accentTeal, label: "Commande")
+                    rowLabel(icon: "terminal", color: JM.accentTeal, label: String(localized: "node_badge.app.label.command"))
                     Text(args.joined(separator: " "))
                         .font(.system(size: 10, design: .monospaced))
                         .foregroundStyle(JM.textSecondary)
@@ -3681,7 +3679,7 @@ struct NodeBadgeSheet: View {
             HStack(spacing: 8) {
                 Image(systemName: "exclamationmark.triangle")
                     .foregroundStyle(JM.accentAmber)
-                Text("Application non trouvée dans les processus actifs")
+                Text("node_badge.app.not_found")
                     .font(.system(size: 11))
                     .foregroundStyle(JM.textSecondary)
             }
@@ -3723,7 +3721,7 @@ struct PatchbayPlaceholderView: View {
         VStack(spacing: 16) {
             Image(systemName: "point.3.connected.trianglepath.dotted")
                 .font(.system(size: 48)).foregroundStyle(JM.textTertiary)
-            Text("Patchbay").font(.title2).foregroundStyle(JM.textSecondary)
+            Text("common.patchbay").font(.title2).foregroundStyle(JM.textSecondary)
             Text("À venir dans la prochaine session").font(.callout).foregroundStyle(JM.textTertiary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity).background(JM.bgBase)

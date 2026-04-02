@@ -63,34 +63,34 @@ final class NotificationManager: NSObject, ObservableObject {
     ///   `false` if an external Jack process was detected.
     func notifyJackStarted(launchedByUs: Bool) {
         let body = launchedByUs
-            ? "Le serveur Jack a démarré via JackMate."
-            : "Un serveur Jack externe est en cours d'exécution."
-        sendSystem(title: "Jack est actif", body: body, id: "jack.started")
+            ? String(localized: "notification.jack_started.body_local")
+            : String(localized: "notification.jack_started.body_external")
+        sendSystem(title: String(localized: "notification.jack_started.title"), body: body, id: "jack.started")
         showToast(ToastMessage(
-            text:  "Jack est actif",
+            text:  String(localized: "notification.jack_started.title"),
             icon:  "waveform.path.ecg",
             color: .green))
     }
 
     /// Posts a notification and toast indicating that the Jack server has stopped.
     func notifyJackStopped() {
-        sendSystem(title: "Jack s'est arrêté",
-                   body:  "Le serveur Jack n'est plus actif.",
+        sendSystem(title: String(localized: "notification.jack_stopped.title"),
+                   body:  String(localized: "notification.jack_stopped.body"),
                    id:    "jack.stopped")
         showToast(ToastMessage(
-            text:  "Jack s'est arrêté",
+            text:  String(localized: "notification.jack_stopped.title"),
             icon:  "waveform.path",
             color: .secondary))
     }
 
     /// Posts a critical notification and toast indicating that Jack failed to start.
     func notifyJackFailed() {
-        sendSystem(title: "Jack n'a pas démarré",
-                   body:  "Vérifiez la configuration dans JackMate.",
+        sendSystem(title: String(localized: "notification.jack_failed.title"),
+                   body:  String(localized: "notification.jack_failed.body"),
                    id:    "jack.failed",
                    sound: .defaultCritical)
         showToast(ToastMessage(
-            text:  "Échec du démarrage",
+            text:  String(localized: "notification.toast.start_failed"),
             icon:  "exclamationmark.triangle.fill",
             color: .red))
     }

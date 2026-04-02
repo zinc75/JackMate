@@ -221,7 +221,7 @@ final class JackManager: ObservableObject {
         jackInstalled     = jackExecutableURL != nil
         loadPreferences()
         if jackExecutableURL == nil {
-            statusMessage = "⚠️ Exécutable Jack introuvable."
+            statusMessage = String(localized: "jack.status.executable_not_found")
         } else {
             fetchInstalledVersion()
             fetchLatestJackVersion()
@@ -277,7 +277,7 @@ final class JackManager: ObservableObject {
         jackExecutableURL = url
         let nowInstalled = url != nil
         if nowInstalled && !jackInstalled {
-            statusMessage         = "JackMate prêt."
+            statusMessage         = String(localized: "jack.status.ready")
             selectedInstallMethod = nil
             fetchInstalledVersion()
             fetchLatestJackVersion()
@@ -409,18 +409,18 @@ final class JackManager: ObservableObject {
 
     func startJack() {
         guard let execURL = jackExecutableURL else {
-            statusMessage = "⚠️ Exécutable Jack introuvable."
+            statusMessage = String(localized: "jack.status.executable_not_found")
             return
         }
         guard !isRunning else {
-            statusMessage = "⚠️ Jack est déjà actif."
+            statusMessage = String(localized: "jack.status.already_running")
             return
         }
 
         logLines.removeAll()
         pendingLogLines.removeAll()
         hasWarning    = false
-        statusMessage = "💈 Démarrage de Jack…"
+        statusMessage = String(localized: "jack.status.starting")
         launchedByUs  = true
         
         // Enable log capture for the startup window
@@ -491,10 +491,10 @@ final class JackManager: ObservableObject {
             let running = checkJackRunning()
             if running {
                 runningCommand = launchedArgs
-                statusMessage = "⚡ Jack est actif."
+                statusMessage = String(localized: "jack.status.running")
                 NotificationManager.shared.notifyJackStarted(launchedByUs: true)
             } else {
-                statusMessage = "⚠️ Jack n'a pas démarré."
+                statusMessage = String(localized: "jack.status.start_failed")
                 launchedByUs  = false
                 NotificationManager.shared.notifyJackFailed()
                 // Only open the log panel on failure
@@ -504,7 +504,7 @@ final class JackManager: ObservableObject {
     }
 
     func stopJack() {
-        statusMessage = "💈 Arrêt de Jack…"
+        statusMessage = String(localized: "jack.status.stopping")
         runningCommand = nil
         jackProcess?.terminate()
 
@@ -518,7 +518,7 @@ final class JackManager: ObservableObject {
             process.waitUntilExit()
             DispatchQueue.main.async {
                 self?.launchedByUs = false
-                self?.statusMessage = "💨 Jack arrêté."
+                self?.statusMessage = String(localized: "jack.status.stopped")
             }
         }
     }
@@ -613,12 +613,12 @@ final class JackManager: ObservableObject {
                 if running != previousIsRunning {
                     if running {
                         if !launchedByUs {
-                            statusMessage = "⚡ Jack actif (lancé en externe)."
+                            statusMessage = String(localized: "jack.status.external")
                             NotificationManager.shared.notifyJackStarted(launchedByUs: false)
                         }
                     } else if previousIsRunning {
                         runningCommand = nil
-                        statusMessage = "💨 Jack s'est arrêté."
+                        statusMessage = String(localized: "jack.status.stopped_external")
                         NotificationManager.shared.notifyJackStopped()
                     }
                     previousIsRunning = running

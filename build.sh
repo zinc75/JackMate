@@ -106,7 +106,7 @@ spin() {
 }
 
 # ── Step 1: Compile C bridge ─────────────────────────────────────────────────────
-echo "[1/5] Compiling C bridge (JackBridge.c)..."
+echo "[1/6] Compiling C bridge (JackBridge.c)..."
 
 for ARCH in arm64 x86_64; do
     CLANG_LOG=$(mktemp)
@@ -132,7 +132,7 @@ done
 echo ""
 
 # ── Step 2: Compile Swift ────────────────────────────────────────────────────────
-echo "[2/5] Compiling Swift sources..."
+echo "[2/6] Compiling Swift sources..."
 
 # Collect Swift files (bash 3.2 compatible — no mapfile)
 SWIFT_FILES=()
@@ -171,7 +171,7 @@ done
 echo ""
 
 # ── Step 3: Universal binary ────────────────────────────────────────────────────
-echo "[3/5] Creating universal binary (arm64 + x86_64)..."
+echo "[3/6] Creating universal binary (arm64 + x86_64)..."
 
 xcrun lipo -create \
     "$BUILD_DIR/intermediates/${APP_NAME}-arm64" \
@@ -181,8 +181,56 @@ spin $! "      -> universal  "
 wait $!
 echo ""
 
-# ── Step 4: Compile asset catalog ───────────────────────────────────────────────
-echo "[4/5] Compiling Assets.xcassets..."
+# ── Step 4: Compile localisations ───────────────────────────────────────────────
+echo "[4/6] Compiling localisations (xcstrings → lproj)..."
+
+XCSTRINGS_SRC="$SCRIPT_DIR/src/Localizable.xcstrings"
+if [ -f "$XCSTRINGS_SRC" ]; then
+    python3 - "$XCSTRINGS_SRC" "$BUILD_DIR/intermediates" <<'PYEOF'
+import json, sys, pathlib
+
+src = pathlib.Path(sys.argv[1])
+out_base = pathlib.Path(sys.argv[2])
+
+data = json.loads(src.read_text())
+strings = data.get("strings", {})
+
+# Collect all languages present in localizations
+langs = set()
+for entry in strings.values():
+    langs.update(entry.get("localizations", {}).keys())
+
+for lang in langs:
+    out_dir = out_base / f"{lang}.lproj"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    lines = []
+    for key, entry in strings.items():
+        loc = entry.get("localizations", {}).get(lang, {})
+        # Handle plain stringUnit
+        unit = loc.get("stringUnit", {})
+        value = unit.get("value")
+        # Handle plural variations — use "other" as the default fallback
+        if value is None:
+            plural = loc.get("variations", {}).get("plural", {})
+            value = (plural.get("other", {}).get("stringUnit", {}).get("value")
+                     or plural.get("one", {}).get("stringUnit", {}).get("value"))
+        # No localisation for this lang: fall back to the key (which IS the FR source string)
+        if value is None:
+            value = key
+        escaped_key = key.replace("\\", "\\\\").replace('"', '\\"')
+        escaped_val = value.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n")
+        lines.append(f'"{escaped_key}" = "{escaped_val}";')
+    out_file = out_dir / "Localizable.strings"
+    out_file.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"      -> {lang}: {len(lines)} strings")
+PYEOF
+else
+    echo "      Warning: Localizable.xcstrings not found — app will use hardcoded strings."
+fi
+echo ""
+
+# ── Step 5: Compile asset catalog ───────────────────────────────────────────────
+echo "[5/6] Compiling Assets.xcassets..."
 
 if [ -d "$ASSETS_DIR" ]; then
     mkdir -p "$BUILD_DIR/intermediates/assets"
@@ -214,8 +262,8 @@ else
 fi
 echo ""
 
-# ── Step 5: Assemble .app bundle ─────────────────────────────────────────────────
-echo "[5/5] Assembling .app bundle..."
+# ── Step 6: Assemble .app bundle ─────────────────────────────────────────────────
+echo "[6/6] Assembling .app bundle..."
 
 mkdir -p "$APP_BUNDLE/Contents/MacOS"
 mkdir -p "$APP_BUNDLE/Contents/Resources"
@@ -234,9 +282,11 @@ if [ -d "$BUILD_DIR/intermediates/assets" ]; then
 fi
 for LANG in en fr de it es; do
     LPROJ_SRC="$SCRIPT_DIR/src/${LANG}.lproj"
-    if [ -d "$LPROJ_SRC" ]; then
+    LPROJ_INTERMEDIATES="$BUILD_DIR/intermediates/${LANG}.lproj"
+    if [ -d "$LPROJ_SRC" ] || [ -d "$LPROJ_INTERMEDIATES" ]; then
         mkdir -p "$APP_BUNDLE/Contents/Resources/${LANG}.lproj"
         cp "$LPROJ_SRC/InfoPlist.strings" "$APP_BUNDLE/Contents/Resources/${LANG}.lproj/" 2>/dev/null || true
+        cp "$LPROJ_INTERMEDIATES/Localizable.strings" "$APP_BUNDLE/Contents/Resources/${LANG}.lproj/" 2>/dev/null || true
     fi
 done
 printf "✓\n"
