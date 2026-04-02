@@ -81,7 +81,7 @@ Head to the [Releases](https://github.com/zinc75/JackMate/releases) page, downlo
 
 ### Build from source
 
-**Requirements:** Xcode (full install, not just Command Line Tools) — install from the [Mac App Store](https://apps.apple.com/app/xcode/id497799835).
+**Requirements:** Xcode (full install, not just Command Line Tools) — install from the [Mac App Store](https://apps.apple.com/app/xcode/id497799835). Python 3 is also required (bundled with Xcode — no separate install needed).
 
 Clone the repository and build:
 
