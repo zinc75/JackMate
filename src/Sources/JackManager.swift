@@ -60,6 +60,31 @@ struct JackLogLine: Identifiable {
     }
 }
 
+// MARK: - JackState
+
+/// Represents the lifecycle state of the Jack server.
+///
+/// Used instead of emoji-pattern matching on the localised `statusMessage` string.
+enum JackState: Equatable {
+    case ready, starting, running, external, startFailed,
+         stopping, stopped, stoppedExternal, alreadyRunning, executableNotFound
+
+    fileprivate var localizationKey: String.LocalizationValue {
+        switch self {
+        case .ready:              return "jack.status.ready"
+        case .starting:           return "jack.status.starting"
+        case .running:            return "jack.status.running"
+        case .external:           return "jack.status.external"
+        case .startFailed:        return "jack.status.start_failed"
+        case .stopping:           return "jack.status.stopping"
+        case .stopped:            return "jack.status.stopped"
+        case .stoppedExternal:    return "jack.status.stopped_external"
+        case .alreadyRunning:     return "jack.status.already_running"
+        case .executableNotFound: return "jack.status.executable_not_found"
+        }
+    }
+}
+
 // MARK: - JackPreferences
 
 /// Persisted user preferences for the Jack server command line.
@@ -183,6 +208,7 @@ final class JackManager: ObservableObject {
     @Published var installedJackVersion:  String?       = nil
     @Published var latestJackVersion:     String?       = nil
     @Published var jackUpdateAvailable:   Bool          = false
+    @Published var jackState:             JackState     = .ready
     @Published var statusMessage:         String        = String(localized: "jack.status.ready")
     @Published var prefs                               = JackPreferences()
 
@@ -221,7 +247,7 @@ final class JackManager: ObservableObject {
         jackInstalled     = jackExecutableURL != nil
         loadPreferences()
         if jackExecutableURL == nil {
-            statusMessage = String(localized: "jack.status.executable_not_found")
+            setState(.executableNotFound)
         } else {
             fetchInstalledVersion()
             fetchLatestJackVersion()
@@ -268,6 +294,14 @@ final class JackManager: ObservableObject {
         d.set(savedOutputDeviceName,  forKey: "outputDeviceName")
     }
 
+    // MARK: - State transitions
+
+    /// Sets both `jackState` and the matching localised `statusMessage` atomically.
+    private func setState(_ state: JackState) {
+        jackState     = state
+        statusMessage = String(localized: state.localizationKey)
+    }
+
     // MARK: - Executable detection
 
     /// Re-checks whether the Jack executable is available.
@@ -277,7 +311,7 @@ final class JackManager: ObservableObject {
         jackExecutableURL = url
         let nowInstalled = url != nil
         if nowInstalled && !jackInstalled {
-            statusMessage         = String(localized: "jack.status.ready")
+            setState(.ready)
             selectedInstallMethod = nil
             fetchInstalledVersion()
             fetchLatestJackVersion()
@@ -409,19 +443,19 @@ final class JackManager: ObservableObject {
 
     func startJack() {
         guard let execURL = jackExecutableURL else {
-            statusMessage = String(localized: "jack.status.executable_not_found")
+            setState(.executableNotFound)
             return
         }
         guard !isRunning else {
-            statusMessage = String(localized: "jack.status.already_running")
+            setState(.alreadyRunning)
             return
         }
 
         logLines.removeAll()
         pendingLogLines.removeAll()
-        hasWarning    = false
-        statusMessage = String(localized: "jack.status.starting")
-        launchedByUs  = true
+        hasWarning   = false
+        setState(.starting)
+        launchedByUs = true
         
         // Enable log capture for the startup window
         startupLogCaptureEnabled = true
@@ -491,11 +525,11 @@ final class JackManager: ObservableObject {
             let running = checkJackRunning()
             if running {
                 runningCommand = launchedArgs
-                statusMessage = String(localized: "jack.status.running")
+                setState(.running)
                 NotificationManager.shared.notifyJackStarted(launchedByUs: true)
             } else {
-                statusMessage = String(localized: "jack.status.start_failed")
-                launchedByUs  = false
+                setState(.startFailed)
+                launchedByUs = false
                 NotificationManager.shared.notifyJackFailed()
                 // Only open the log panel on failure
                 showLogPanel = true
@@ -504,7 +538,7 @@ final class JackManager: ObservableObject {
     }
 
     func stopJack() {
-        statusMessage = String(localized: "jack.status.stopping")
+        setState(.stopping)
         runningCommand = nil
         jackProcess?.terminate()
 
@@ -518,7 +552,7 @@ final class JackManager: ObservableObject {
             process.waitUntilExit()
             DispatchQueue.main.async {
                 self?.launchedByUs = false
-                self?.statusMessage = String(localized: "jack.status.stopped")
+                self?.setState(.stopped)
             }
         }
     }
@@ -613,12 +647,12 @@ final class JackManager: ObservableObject {
                 if running != previousIsRunning {
                     if running {
                         if !launchedByUs {
-                            statusMessage = String(localized: "jack.status.external")
+                            setState(.external)
                             NotificationManager.shared.notifyJackStarted(launchedByUs: false)
                         }
                     } else if previousIsRunning {
                         runningCommand = nil
-                        statusMessage = String(localized: "jack.status.stopped_external")
+                        setState(.stoppedExternal)
                         NotificationManager.shared.notifyJackStopped()
                     }
                     previousIsRunning = running

@@ -6,6 +6,15 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.8.3] — 2026-04-03
+
+### Refactored
+- `JackState` enum introduced (`ready`, `starting`, `running`, `external`, `startFailed`, `stopping`, `stopped`, `stoppedExternal`, `alreadyRunning`, `executableNotFound`)
+- Transitional state detection in `MenuBarView` and `ContentView` moved from `statusMessage.contains("💈")` to `jackState == .starting || .stopping`
+- Emoji prefixes `💈` / `💨` removed from `jack.status.*` strings in `Localizable.xcstrings` (FR, EN, DE)
+
+---
+
 ## [1.8.2] — 2026-04-03
 
 ### Added

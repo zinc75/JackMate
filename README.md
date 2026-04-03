@@ -2,7 +2,7 @@
 
 A native macOS app (Swift/SwiftUI) for managing the JACK audio server from your menu bar or as a standard window.
 
-**Current version: 1.8.2** — Actively developed.
+**Current version: 1.8.3** — Actively developed.
 
 <!-- TODO: add badges once repo is public -->
 <!-- Internationalization badges for supported languages ? -->

@@ -27,14 +27,16 @@ struct MenuBarView: View {
     /// Accent colour reflecting the current Jack state.
     var statusColor: Color {
         if jackManager.isRunning { return JM.accentGreen }
-        if jackManager.statusMessage.contains("💈") { return JM.accentAmber }
+        let state = jackManager.jackState
+        if state == .starting || state == .stopping { return JM.accentAmber }
         return JM.accentRed
     }
 
     /// Short localised string describing the current Jack state.
     var statusText: String {
         if jackManager.isRunning { return String(localized: "common.jack_running") }
-        if jackManager.statusMessage.contains("💈") { return String(localized: "common.jack_starting") }
+        let state = jackManager.jackState
+        if state == .starting || state == .stopping { return String(localized: "common.jack_starting") }
         return String(localized: "common.jack_stopped")
     }
 

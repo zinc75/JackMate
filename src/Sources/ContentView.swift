@@ -622,20 +622,19 @@ struct SidebarView: View {
         .background(JM.bgBase)
     }
 
-    /// LED colour: green when running, amber while starting, red when stopped.
+    /// LED colour: green when running, amber while starting or stopping, red when stopped.
     var jackFooterColor: Color {
         if jackManager.isRunning { return JM.accentGreen }
-        let msg = jackManager.statusMessage
-        // Starting indicator: only shown while Jack is not yet running
-        if msg.contains("💈") { return JM.accentAmber }
+        let state = jackManager.jackState
+        if state == .starting || state == .stopping { return JM.accentAmber }
         return JM.accentRed
     }
 
     /// Short status label displayed next to the footer LED.
     var jackFooterText: String {
         if jackManager.isRunning { return String(localized: "common.jack_running") }
-        let msg = jackManager.statusMessage
-        if msg.contains("💈") { return String(localized: "common.jack_starting") }
+        let state = jackManager.jackState
+        if state == .starting || state == .stopping { return String(localized: "common.jack_starting") }
         return String(localized: "common.jack_stopped")
     }
 }
@@ -3708,21 +3707,6 @@ struct NodeBadgeSheet: View {
                 .font(.system(size: 10, weight: .semibold))
                 .foregroundStyle(JM.textTertiary)
         }
-    }
-}
-
-// MARK: - PatchbayPlaceholderView
-
-/// Fallback view shown when the patchbay canvas is unavailable.
-struct PatchbayPlaceholderView: View {
-    var body: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "point.3.connected.trianglepath.dotted")
-                .font(.system(size: 48)).foregroundStyle(JM.textTertiary)
-            Text("common.patchbay").font(.title2).foregroundStyle(JM.textSecondary)
-            Text("À venir dans la prochaine session").font(.callout).foregroundStyle(JM.textTertiary)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity).background(JM.bgBase)
     }
 }
 

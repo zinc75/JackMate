@@ -2782,19 +2782,19 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "💈 Jack wird gestartet…"
+            "value": "Jack wird gestartet…"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "💈 Starting Jack…"
+            "value": "Starting Jack…"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "💈 Démarrage de Jack…"
+            "value": "Démarrage de Jack…"
           }
         }
       }
@@ -2804,19 +2804,19 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "💨 Jack gestoppt."
+            "value": "Jack gestoppt."
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "💨 Jack stopped."
+            "value": "Jack stopped."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "💨 Jack arrêté."
+            "value": "Jack arrêté."
           }
         }
       }
@@ -2826,19 +2826,19 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "💨 Jack wurde gestoppt."
+            "value": "Jack wurde gestoppt."
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "💨 Jack has stopped."
+            "value": "Jack has stopped."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "💨 Jack s'est arrêté."
+            "value": "Jack s'est arrêté."
           }
         }
       }
@@ -2848,19 +2848,19 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "💈 Jack wird gestoppt…"
+            "value": "Jack wird gestoppt…"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "💈 Stopping Jack…"
+            "value": "Stopping Jack…"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "💈 Arrêt de Jack…"
+            "value": "Arrêt de Jack…"
           }
         }
       }
@@ -5825,8 +5825,7 @@
       }
     },
     "© 2026 Éric Bavu": {},
-    "·": {},
-    "À venir dans la prochaine session": {}
+    "·": {}
   },
   "version": "1.0"
 }
