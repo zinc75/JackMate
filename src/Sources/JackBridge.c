@@ -402,7 +402,7 @@ JMClient *jm_client_open(const char *client_name, const char *lib_path) {
     c->jack_client = c->f_open(client_name, JackNoStartServer, &status);
     if (!c->jack_client) {
         snprintf(c->error, sizeof(c->error),
-                 "jack_client_open échoué (status=%u). Jack est-il démarré?", status);
+                 "jack_client_open failed (status=%u). Is Jack running?", status);
         return c;
     }
 

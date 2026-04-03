@@ -6,6 +6,20 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.8.1] — 2026-04-03
+
+### Added
+- Full English translation: 100% of UI strings translated (262 keys in `Localizable.xcstrings`)
+- `InfoPlist.xcstrings`: localized `NSMicrophoneUsageDescription` (EN + FR)
+- Proper plural forms for selection count (`canvas.selection.count`): "1 client selected" / "N clients selected"
+
+### Changed
+- `config.hog_mode.description` EN: "Takes exclusive access of the audio device" (aligned with Jack man page)
+- Error message in Jack bridge translated to English
+- `statusMessage` default value and `StudioManager.summary` now properly localized
+
+---
+
 ## [1.8.0] — 2026-04-02
 
 ### Added

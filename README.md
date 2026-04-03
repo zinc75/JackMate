@@ -2,7 +2,7 @@
 
 A native macOS app (Swift/SwiftUI) for managing the JACK audio server from your menu bar or as a standard window.
 
-**Current version: 1.8.0** — Actively developed.
+**Current version: 1.8.1** — Actively developed.
 
 <!-- TODO: add badges once repo is public -->
 <!-- ![macOS](https://img.shields.io/badge/macOS-15.7%2B-blue) -->
@@ -54,6 +54,7 @@ A native macOS app (Swift/SwiftUI) for managing the JACK audio server from your 
 - Installation helper modal when Jack is absent: choose between Homebrew or .pkg, with copyable command
 - Start button and studio loading disabled when Jack is not installed
 - Light and Dark mode support
+- English and French UI — German, Italian, Spanish coming in v1.8.2–1.8.4
 
 ---
 

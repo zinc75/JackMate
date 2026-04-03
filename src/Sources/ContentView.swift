@@ -389,7 +389,7 @@ struct ContentView: View {
                                 let collCount    = selNodes.filter { $0.isCollapsed }.count
                                 let willCollapse = (selNodes.count - collCount) >= collCount
                                 HStack(spacing: 0) {
-                                    Text("\(selCount) client\(selCount > 1 ? "s" : "") sélectionné\(selCount > 1 ? "s" : "")")
+                                    Text(String(localized: "canvas.selection.count \(selCount)"))
                                         .padding(.trailing, 8)
                                     Rectangle().fill(JM.border).frame(width: 0.5, height: 12)
                                         .padding(.horizontal, 8)
@@ -2271,8 +2271,7 @@ struct ConfigHeaderView: View {
                     .onHover { hoveredBtn = $0 ? "tidy" : nil }
                     .help(patchbayManager.selectedNodeIds.isEmpty
                           ? String(localized: "toolbar.tidy.all")
-                          : String(format: String(localized: "toolbar.tidy.selected"),
-                                   patchbayManager.selectedNodeIds.count)) // TODO: plurals - Étape 6
+                          : String(localized: "toolbar.tidy.selected \(patchbayManager.selectedNodeIds.count)"))
 
                     Rectangle().fill(JM.borderFaint).frame(width: 0.5).frame(maxHeight: .infinity)
 
@@ -2309,10 +2308,8 @@ struct ConfigHeaderView: View {
                     .help(patchbayManager.selectedNodeIds.isEmpty
                           ? String(localized: "toolbar.collapse.no_selection")
                           : willCollapse
-                              ? String(format: String(localized: "toolbar.collapse.action"),
-                                       patchbayManager.selectedNodeIds.count) // TODO: plurals - Étape 6
-                              : String(format: String(localized: "toolbar.expand.action"),
-                                       patchbayManager.selectedNodeIds.count)) // TODO: plurals - Étape 6
+                              ? String(localized: "toolbar.collapse.action \(patchbayManager.selectedNodeIds.count)")
+                              : String(localized: "toolbar.expand.action \(patchbayManager.selectedNodeIds.count)"))
 
                     Rectangle().fill(JM.borderFaint).frame(width: 0.5).frame(maxHeight: .infinity)
 
@@ -3361,8 +3358,9 @@ struct StatusBarView: View {
         let count = sel.count
         if count == max { return "\(count)/\(max) ch" }
         let ranges = channelRangeString(sel)
-        // TODO: plurals - Étape 6
-        let label = count == 1 ? "canal" : "canaux"
+        let label = count == 1
+            ? String(localized: "config.channel.unit.one")
+            : String(localized: "config.channel.unit.other")
         return "\(count)/\(max) ch (\(label) \(ranges))"
     }
 

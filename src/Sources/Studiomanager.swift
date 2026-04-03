@@ -159,7 +159,8 @@ struct Studio: Identifiable, Codable {
 
     /// Short human-readable summary shown in the studio list.
     var summary: String {
-        "\(clients.filter { $0.jackName != "system" }.count) clients · \(connections.count) connexions"
+        let clientCount = clients.filter { $0.jackName != "system" }.count
+        return String(localized: "\(connections.count) connexions · \(clientCount) clients")
     }
 }
 

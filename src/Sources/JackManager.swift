@@ -183,7 +183,7 @@ final class JackManager: ObservableObject {
     @Published var installedJackVersion:  String?       = nil
     @Published var latestJackVersion:     String?       = nil
     @Published var jackUpdateAvailable:   Bool          = false
-    @Published var statusMessage:         String        = "JackMate prêt."
+    @Published var statusMessage:         String        = String(localized: "jack.status.ready")
     @Published var prefs                               = JackPreferences()
 
     /// Command tokens used to launch the current Jack server (nil if not launched by us or stopped).

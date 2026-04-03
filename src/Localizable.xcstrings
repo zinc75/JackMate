@@ -8,10 +8,29 @@
 
     },
     "%@ — déjà connecté" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ — already connected"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ — déjà connecté"
+          }
+        }
+      }
     },
     "%@ → %@ ↗" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ → %2$@ ↗"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
@@ -23,18 +42,14 @@
     "%lld" : {
 
     },
-    "%lld client%@ sélectionné%@" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$lld client%2$@ sélectionné%3$@"
-          }
-        }
-      }
-    },
     "%lld connexions · %lld clients" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld connections · %2$lld clients"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
@@ -60,6 +75,12 @@
     },
     "about.button.source" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Source code"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -69,8 +90,13 @@
       }
     },
     "about.button.support" : {
-      "extractionState" : "stale",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support ☕"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -81,6 +107,12 @@
     },
     "about.description" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack audio server management for macOS."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -91,6 +123,12 @@
     },
     "about.license" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free, open source software distributed under the MIT licence."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -102,6 +140,12 @@
     "about.version" : {
       "comment" : "%1$@ = version string, %2$@ = build number",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %1$@ (build %2$@)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -112,6 +156,12 @@
     },
     "alert.aggregate.button.open" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Audio MIDI Setup"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -122,6 +172,12 @@
     },
     "alert.aggregate.message" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This device is a macOS aggregate.\n\nIf your sources have independent clocks (e.g. two separate USB interfaces), consider configuring clock synchronisation in Audio MIDI Setup — select the aggregate device, then choose a master clock source in the dedicated tab.\n\nThis hardware configuration is more robust than Jack's software correction."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -132,6 +188,12 @@
     },
     "alert.aggregate.suppress" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't show this again"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -142,6 +204,12 @@
     },
     "alert.aggregate.title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS Aggregate Device"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -152,6 +220,12 @@
     },
     "alert.clock_drift.button.open" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Audio MIDI Setup"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -162,6 +236,12 @@
     },
     "alert.clock_drift.message" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This option enables Jack's clock drift correction.\n\nIt is useful if your input and output devices have independent reference clocks (e.g. USB microphone + FireWire audio interface).\n\nA more robust alternative: create an aggregate device in Audio MIDI Setup and configure hardware clock synchronisation there. The result is more stable and transparent for all applications, not just Jack."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -172,6 +252,12 @@
     },
     "alert.clock_drift.suppress" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't show this again"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -182,6 +268,12 @@
     },
     "alert.clock_drift.title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clock drift correction"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -192,6 +284,12 @@
     },
     "alert.close.button.hide_window" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close window"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -202,6 +300,12 @@
     },
     "alert.close.button.quit" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit JackMate"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -212,6 +316,12 @@
     },
     "alert.close.button.quit_and_stop" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit and stop Jack"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -222,6 +332,12 @@
     },
     "alert.close.jack_running.message" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What would you like to do?\n\n• Close window leaves Jack active and JackMate accessible from the menu bar.\n• Quit JackMate closes the application but leaves Jack running in the background.\n• Quit and stop Jack stops the Jack server and closes JackMate."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -232,6 +348,12 @@
     },
     "alert.close.jack_running.title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack server is running"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -242,6 +364,12 @@
     },
     "alert.close.jack_stopped.message" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Closing this window does not quit JackMate. The menu bar icon lets you reopen it at any time."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -252,6 +380,12 @@
     },
     "alert.close.jack_stopped.title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMate stays active in the menu bar"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -263,65 +397,55 @@
     "auto-launch" : {
 
     },
-    "canvas.badge.offscreen" : {
-      "comment" : "%lld = client count",
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld hors vue"
-          }
-        }
-      }
-    },
-    "canvas.selection.collapse" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "collapser"
-          }
-        }
-      }
-    },
-    "canvas.selection.count" : {
+    "canvas.selection.count %lld" : {
       "comment" : "%lld = selected client count",
-      "extractionState" : "stale",
       "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld client(s) sélectionné(s)"
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld client selected"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld clients selected"
+                }
+              }
+            }
           }
-        }
-      }
-    },
-    "canvas.selection.expand" : {
-      "extractionState" : "stale",
-      "localizations" : {
+        },
         "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "décollapser"
-          }
-        }
-      }
-    },
-    "canvas.selection.tidy" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "organiser"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld client sélectionné"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld clients sélectionnés"
+                }
+              }
+            }
           }
         }
       }
     },
     "canvas.tooltip.repositioned" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Client repositioned · avoids overlap"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -332,6 +456,12 @@
     },
     "capture_studio.clients.hint" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the shell command to relaunch each app (optional)."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -342,6 +472,12 @@
     },
     "capture_studio.clients.placeholder" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "e.g. /usr/bin/supercollider --headless"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -354,6 +490,12 @@
       "comment" : "%lld = next studio number",
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Studio %lld"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -364,6 +506,12 @@
     },
     "capture_studio.name.label" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Studio name"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -374,6 +522,12 @@
     },
     "capture_studio.name.placeholder" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "e.g. ProTools session"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -384,6 +538,12 @@
     },
     "capture_studio.section.clients" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clients not detected automatically"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -394,6 +554,12 @@
     },
     "capture_studio.section.command" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Captured Jack command"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -404,6 +570,12 @@
     },
     "capture_studio.title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capture studio"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -414,6 +586,12 @@
     },
     "channel_picker.title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Channel selection"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -426,21 +604,29 @@
 
     },
     "collapser" : {
-
-    },
-    "common.buffer_size" : {
-      "extractionState" : "stale",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Collapse"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Buffer size"
+            "value" : "Collapser"
           }
         }
       }
     },
     "common.cancel" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -451,6 +637,12 @@
     },
     "common.clients" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clients"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -461,6 +653,12 @@
     },
     "common.close" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -471,6 +669,12 @@
     },
     "common.confirm" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -481,6 +685,12 @@
     },
     "common.connections" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connections"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -491,6 +701,12 @@
     },
     "common.copy_command" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy command"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -501,6 +717,12 @@
     },
     "common.create" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -511,6 +733,12 @@
     },
     "common.created" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Created"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -521,6 +749,12 @@
     },
     "common.delete" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -531,6 +765,12 @@
     },
     "common.input" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Input"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -541,6 +781,12 @@
     },
     "common.jack_running" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack running"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -551,6 +797,12 @@
     },
     "common.jack_starting" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starting…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -561,6 +813,12 @@
     },
     "common.jack_stopped" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack stopped"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -571,6 +829,12 @@
     },
     "common.loaded" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loaded"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -581,6 +845,12 @@
     },
     "common.modified" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modified"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -591,6 +861,12 @@
     },
     "common.no_more_message" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't show this message again"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -601,6 +877,12 @@
     },
     "common.ok" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -611,6 +893,12 @@
     },
     "common.output" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Output"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -621,6 +909,12 @@
     },
     "common.patchbay" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Patchbay"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -631,6 +925,12 @@
     },
     "common.sample_rate" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sample rate"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -641,6 +941,12 @@
     },
     "common.save" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -649,8 +955,48 @@
         }
       }
     },
+    "config.channel.unit.one" : {
+      "comment" : "Singular channel label — FR: canal, EN: channel",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "channel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "canal"
+          }
+        }
+      }
+    },
+    "config.channel.unit.other" : {
+      "comment" : "Plural channel label — FR: canaux, EN: channels",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "channels"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "canaux"
+          }
+        }
+      }
+    },
     "config.channels.button" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -661,6 +1007,12 @@
     },
     "config.channels.description" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select input/output channels"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -671,6 +1023,12 @@
     },
     "config.channels.label" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit channels"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -681,6 +1039,12 @@
     },
     "config.clock_drift.description" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clock drift correction"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -691,6 +1055,12 @@
     },
     "config.clock_drift.label" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clock drift correction"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -701,6 +1071,12 @@
     },
     "config.command_box.generated" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generated command"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -710,8 +1086,13 @@
       }
     },
     "config.command_box.install_homebrew" : {
-      "extractionState" : "stale",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installation required — Homebrew command"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -721,8 +1102,13 @@
       }
     },
     "config.command_box.install_link" : {
-      "extractionState" : "stale",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installation required — Download link"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -733,6 +1119,12 @@
     },
     "config.command_box.install_required" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installation required"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -742,8 +1134,13 @@
       }
     },
     "config.command_box.select_method" : {
-      "extractionState" : "stale",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "— select an installation method —"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -754,6 +1151,12 @@
     },
     "config.group.audio" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -764,6 +1167,12 @@
     },
     "config.group.devices" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio devices"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -774,6 +1183,12 @@
     },
     "config.group.options" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Options"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -784,16 +1199,28 @@
     },
     "config.hog_mode.description" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Takes exclusive access of the audio device"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monopolise le device audio"
+            "value" : "Accès exclusif au device audio"
           }
         }
       }
     },
     "config.hog_mode.label" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hog mode"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -804,6 +1231,12 @@
     },
     "config.input.empty" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No input"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -814,6 +1247,12 @@
     },
     "config.latency" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theoretical latency:"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -824,6 +1263,12 @@
     },
     "config.locked_banner" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration locked — Jack is running"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -834,6 +1279,12 @@
     },
     "config.midi.description" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Experimental option — may cause instability"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -844,6 +1295,12 @@
     },
     "config.midi.label" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MIDI (coremidi)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -854,6 +1311,12 @@
     },
     "config.output.empty" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No output"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -862,44 +1325,137 @@
         }
       }
     },
-    "connect_all.action.connect_pairs" : {
-      "comment" : "%lld = nombre de paires",
-      "extractionState" : "stale",
+    "connect_all.action.connect_pairs %lld" : {
+      "comment" : "%lld = number of port pairs to connect",
       "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Connect %lld pair"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Connect %lld pairs"
+                }
+              }
+            }
+          }
+        },
         "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connecter %lld paire(s)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Connecter %lld paire"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Connecter %lld paires"
+                }
+              }
+            }
           }
         }
       }
     },
-    "connect_all.action.connect_total" : {
-      "comment" : "%lld = nombre total de connexions",
-      "extractionState" : "stale",
+    "connect_all.action.connect_total %lld" : {
+      "comment" : "%lld = total number of connections to make",
       "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Connect %lld connection"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Connect %lld connections"
+                }
+              }
+            }
+          }
+        },
         "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connecter %lld connexion(s)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Connecter %lld connexion"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Connecter %lld connexions"
+                }
+              }
+            }
           }
         }
       }
     },
-    "connect_all.action.more_connections" : {
-      "comment" : "%lld = nombre de connexions supplémentaires",
-      "extractionState" : "stale",
+    "connect_all.action.more_connections %lld" : {
+      "comment" : "%lld = number of additional connections not shown",
       "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "and %lld more connection…"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "and %lld more connections…"
+                }
+              }
+            }
+          }
+        },
         "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "et %lld autre(s) connexion(s)…"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "et %lld autre connexion…"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "et %lld autres connexions…"
+                }
+              }
+            }
           }
         }
       }
     },
     "connect_all.already_connected" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "already connected"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -911,6 +1467,12 @@
     "connect_all.mode.fanout" : {
       "comment" : "%1$lld = n sorties, %2$lld = m entrées",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fan-out — %1$lld output(s) to %2$lld inputs"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -922,6 +1484,12 @@
     "connect_all.mode.wrap" : {
       "comment" : "%1$lld = n sorties, %2$lld = m entrées",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wrap — cycle %1$lld outputs over %2$lld inputs"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -933,6 +1501,12 @@
     "connect_all.subtitle" : {
       "comment" : "%1$lld = n sorties, %2$lld = m entrées",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "· %1$lld outputs / %2$lld inputs"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -941,21 +1515,30 @@
         }
       }
     },
-    "Connecter %lld connexion%@" : {
+    "décollapser" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expand"
+          }
+        },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Connecter %1$lld connexion%2$@"
+            "state" : "translated",
+            "value" : "Décollapser"
           }
         }
       }
     },
-    "décollapser" : {
-
-    },
     "delete_studio.label.created_on" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Created on"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -966,6 +1549,12 @@
     },
     "delete_studio.label.modified_on" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modified on"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -976,6 +1565,12 @@
     },
     "delete_studio.label.name" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -986,6 +1581,12 @@
     },
     "delete_studio.title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this studio?"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -996,6 +1597,12 @@
     },
     "delete_studio.warning" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This action is irreversible."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1007,6 +1614,12 @@
     "error.jack.activation_failed" : {
       "comment" : "%lld = error code",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack activation failed (code %lld)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1017,6 +1630,12 @@
     },
     "error.jack.alloc_failed" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Memory allocation failed"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1027,6 +1646,12 @@
     },
     "error.jack.client_not_connected" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack client not connected"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1038,6 +1663,12 @@
     "error.jack.connect_refused" : {
       "comment" : "%1$@ = from port, %2$@ = to port, %3$lld = error code",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connection %1$@ → %2$@ refused (code %3$lld)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1049,6 +1680,12 @@
     "error.jack.connection_failed" : {
       "comment" : "%@ = error message",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack connection failed: %@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1060,6 +1697,12 @@
     "error.jack.disconnect_refused" : {
       "comment" : "%1$@ = from port, %2$@ = to port, %3$lld = error code",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disconnection %1$@ → %2$@ refused (code %3$lld)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1071,6 +1714,12 @@
     "error.jack.incompatible_types" : {
       "comment" : "%1$@ = source type, %2$@ = destination type",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incompatible types: %1$@ → %2$@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1079,18 +1728,14 @@
         }
       }
     },
-    "et %lld autre%@ connexion%@…" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "et %1$lld autre%2$@ connexion%3$@…"
-          }
-        }
-      }
-    },
     "header.button.audio_midi" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio MIDI Setup"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1101,6 +1746,12 @@
     },
     "header.button.logs" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack logs"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1111,6 +1762,12 @@
     },
     "header.button.save_studio" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save studio"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1121,6 +1778,12 @@
     },
     "header.button.start_jack" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Jack"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1131,6 +1794,12 @@
     },
     "header.button.stop_jack" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop Jack"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1142,6 +1811,12 @@
     "header.clients_connections" : {
       "comment" : "%1$lld = client count, %2$lld = connection count",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld clients · %2$lld connections"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1152,6 +1827,12 @@
     },
     "header.filter.audio" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1162,6 +1843,12 @@
     },
     "header.filter.cv" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CV"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1172,6 +1859,12 @@
     },
     "header.filter.midi" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MIDI"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1182,6 +1875,12 @@
     },
     "header.status.exec_missing" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Executable not found"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1192,6 +1891,12 @@
     },
     "header.status.update_available" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack update available — click to download"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1202,6 +1907,12 @@
     },
     "header.tab.config" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack Configuration"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1212,6 +1923,12 @@
     },
     "jack_not_installed.body" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack Audio Connection Kit is a free, open-source professional audio server required for JackMate to function.\n\nYou can continue to browse and configure settings. Starting Jack and loading studios are disabled until Jack is installed."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1221,8 +1938,13 @@
       }
     },
     "jack_not_installed.install_prompt" : {
-      "extractionState" : "stale",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose a Jack installation method:"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1232,8 +1954,13 @@
       }
     },
     "jack_not_installed.method.homebrew" : {
-      "extractionState" : "stale",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Homebrew"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1244,6 +1971,12 @@
     },
     "jack_not_installed.method.official" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Official Jack Audio website"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1253,8 +1986,13 @@
       }
     },
     "jack_not_installed.method.pkg" : {
-      "extractionState" : "stale",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ".pkg package"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1265,6 +2003,12 @@
     },
     "jack_not_installed.subtitle" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMate could not find Jack on this system."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1275,6 +2019,12 @@
     },
     "jack_not_installed.title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack Audio Connection Kit required"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1285,6 +2035,12 @@
     },
     "jack.status.already_running" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚠️ Jack is already running."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1295,6 +2051,12 @@
     },
     "jack.status.executable_not_found" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚠️ Jack executable not found."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1305,6 +2067,12 @@
     },
     "jack.status.external" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚡ Jack running (started externally)."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1315,6 +2083,12 @@
     },
     "jack.status.ready" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMate ready."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1325,6 +2099,12 @@
     },
     "jack.status.running" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚡ Jack is running."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1335,6 +2115,12 @@
     },
     "jack.status.start_failed" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚠️ Jack failed to start."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1345,6 +2131,12 @@
     },
     "jack.status.starting" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "💈 Starting Jack…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1355,6 +2147,12 @@
     },
     "jack.status.stopped" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "💨 Jack stopped."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1365,6 +2163,12 @@
     },
     "jack.status.stopped_external" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "💨 Jack has stopped."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1375,6 +2179,12 @@
     },
     "jack.status.stopping" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "💈 Stopping Jack…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1388,6 +2198,12 @@
     },
     "log.badge.warning" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning — see logs"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1398,6 +2214,12 @@
     },
     "log.header.running" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack is running"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1408,6 +2230,12 @@
     },
     "log.header.stopped" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack is stopped"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1418,6 +2246,12 @@
     },
     "log.panel.empty" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waiting for logs…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1428,6 +2262,12 @@
     },
     "log.panel.title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JACK LOGS"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1439,6 +2279,12 @@
     "log.patchbay.auto_connect_cancelled" : {
       "comment" : "%1$lld = connection count, %2$@ = client name",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "↺ Auto-connect cancelled, %1$lld connection(s) restored for \"%2$@\""
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1451,6 +2297,12 @@
       "comment" : "%@ = error.localizedDescription",
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚠️ Patchbay bridge: %@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1461,6 +2313,12 @@
     },
     "log.patchbay.bridge_retry" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚠️ Patchbay: bridge not connected after open(), retrying in 2s"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1471,6 +2329,12 @@
     },
     "log.patchbay.connected" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "→ Patchbay connected to Jack"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1482,6 +2346,12 @@
     "log.patchbay.disconnected_all_node" : {
       "comment" : "%@ = node ID",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "↛ All disconnected for %@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1493,6 +2363,12 @@
     "log.patchbay.disconnected_inputs" : {
       "comment" : "%@ = node ID",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "↛ All inputs of %@ disconnected"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1504,6 +2380,12 @@
     "log.patchbay.disconnected_outputs" : {
       "comment" : "%@ = node ID",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "↛ All outputs of %@ disconnected"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1514,6 +2396,12 @@
     },
     "log.patchbay.jack_not_active" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚠️ Patchbay: Jack is not active, connection cancelled"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1524,6 +2412,12 @@
     },
     "log.patchbay.jack_shutdown" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚠️ Jack shutdown detected"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1535,6 +2429,12 @@
     "log.patchbay.loaded" : {
       "comment" : "%1$lld = port count, %2$lld = connection count",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "→ Loaded %1$lld ports, %2$lld connections"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1545,6 +2445,12 @@
     },
     "log.patchbay.refused_direction" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚠️ Connection refused: invalid direction"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1556,6 +2462,12 @@
     "log.patchbay.refused_types" : {
       "comment" : "%1$@ = source type, %2$@ = destination type",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚠️ Connection refused: incompatible types (%1$@ → %2$@)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1569,6 +2481,12 @@
     },
     "menu.app.about" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About JackMate…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1579,6 +2497,12 @@
     },
     "menu.help.documentation" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMate Documentation"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1589,6 +2513,12 @@
     },
     "menu.view.configuration" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1599,6 +2529,12 @@
     },
     "menu.view.patchbay" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Patchbay"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1609,6 +2545,12 @@
     },
     "menubar.action.quit" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1619,6 +2561,12 @@
     },
     "menubar.action.show" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show JackMate…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1629,6 +2577,12 @@
     },
     "menubar.action.start_jack" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1639,6 +2593,12 @@
     },
     "menubar.action.stop_jack" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1647,43 +2607,16 @@
         }
       }
     },
-    "menubar.status.running" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Jack actif"
-          }
-        }
-      }
-    },
-    "menubar.status.starting" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Démarrage…"
-          }
-        }
-      }
-    },
-    "menubar.status.stopped" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Jack arrêté"
-          }
-        }
-      }
-    },
     "node_badge.app.label.command" : {
       "comment" : "Label for the command row in the CLI node info sheet",
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Command"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1696,6 +2629,12 @@
       "comment" : "Label for the name row in the app node info sheet",
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1708,6 +2647,12 @@
       "comment" : "Label for the path row in the node info sheet",
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Path"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1720,6 +2665,12 @@
       "comment" : "Label for the type row in the CLI node info sheet",
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1732,6 +2683,12 @@
       "comment" : "Shown when the app is not found in the running process list",
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Application not found in active processes"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1744,6 +2701,12 @@
       "comment" : "Channel label for a capture (input) system node",
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capture channels"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1756,6 +2719,12 @@
       "comment" : "Channel label for a playback (output) system node",
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Playback channels"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1768,6 +2737,12 @@
       "comment" : "Fallback device name when no device name has been saved",
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default device"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1780,6 +2755,12 @@
       "comment" : "Node type subtitle: regular Jack client application",
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack client"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1792,6 +2773,12 @@
       "comment" : "Node type subtitle: system Jack audio interface node",
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack audio interface"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1802,6 +2789,12 @@
     },
     "notification.jack_failed.body" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check your configuration in JackMate."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1812,6 +2805,12 @@
     },
     "notification.jack_failed.title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack failed to start"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1822,6 +2821,12 @@
     },
     "notification.jack_started.body_external" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An external Jack server is running."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1832,6 +2837,12 @@
     },
     "notification.jack_started.body_local" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Jack server has started via JackMate."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1842,6 +2853,12 @@
     },
     "notification.jack_started.title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack is running"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1852,6 +2869,12 @@
     },
     "notification.jack_stopped.body" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Jack server is no longer active."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1862,6 +2885,12 @@
     },
     "notification.jack_stopped.title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack has stopped"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1872,6 +2901,12 @@
     },
     "notification.toast.start_failed" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start failed"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1885,6 +2920,12 @@
     },
     "patchbay.ctx.disconnect_all" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disconnect all"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1895,6 +2936,12 @@
     },
     "patchbay.ctx.disconnect_all_inputs" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disconnect all inputs"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1905,6 +2952,12 @@
     },
     "patchbay.ctx.disconnect_all_outputs" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disconnect all outputs"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1915,6 +2968,12 @@
     },
     "patchbay.ctx.disconnect_client" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disconnect entire client"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1925,6 +2984,12 @@
     },
     "patchbay.ctx.disconnect_port" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disconnect this port"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1935,6 +3000,12 @@
     },
     "patchbay.ctx.section.connect_to" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CONNECT ALL TO"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1945,22 +3016,16 @@
     },
     "patchbay.ctx.section.disconnect_from" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DISCONNECT FROM"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "DÉCONNECTER DE"
-          }
-        }
-      }
-    },
-    "patchbay.pill.already_connected" : {
-      "comment" : "%@ = port label",
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ — déjà connecté"
           }
         }
       }
@@ -1971,6 +3036,12 @@
     "save_choice.button.update" : {
       "comment" : "%@ = studio name",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update \"%@\""
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1981,6 +3052,12 @@
     },
     "save_choice.new.placeholder" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New studio name"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1991,6 +3068,12 @@
     },
     "save_choice.section.new" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CREATE NEW STUDIO"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2001,6 +3084,12 @@
     },
     "save_choice.section.update" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UPDATE"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2012,6 +3101,12 @@
     "save_choice.subtitle" : {
       "comment" : "%@ = studio name",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" has been modified"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2022,6 +3117,12 @@
     },
     "save_choice.title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save studio"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2032,6 +3133,12 @@
     },
     "sidebar.inputs.empty" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No devices"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2043,6 +3150,12 @@
     "sidebar.inputs.title" : {
       "comment" : "%lld = device count",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inputs (%lld)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2054,6 +3167,12 @@
     "sidebar.outputs.title" : {
       "comment" : "%lld = device count",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Outputs (%lld)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2064,6 +3183,12 @@
     },
     "sidebar.studio.progress.done" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Studio loaded ✓"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2074,6 +3199,12 @@
     },
     "sidebar.studio.progress.partial" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚠️ Studio partially loaded"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2084,6 +3215,12 @@
     },
     "sidebar.studio.progress.preparing" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preparing…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2094,6 +3231,12 @@
     },
     "sidebar.studio.tooltip.active" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active studio"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2104,6 +3247,12 @@
     },
     "sidebar.studio.tooltip.cannot_delete" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot delete an active studio"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2114,6 +3263,12 @@
     },
     "sidebar.studio.tooltip.delete" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2124,6 +3279,12 @@
     },
     "sidebar.studio.tooltip.inspect" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inspect studio"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2134,6 +3295,12 @@
     },
     "sidebar.studio.tooltip.jack_missing" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack not installed"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2144,6 +3311,12 @@
     },
     "sidebar.studio.tooltip.load" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Load this studio"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2154,6 +3327,12 @@
     },
     "sidebar.studio.tooltip.stop" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop studio"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2164,6 +3343,12 @@
     },
     "sidebar.studios.empty" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No saved studios"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2175,6 +3360,12 @@
     "sidebar.studios.title" : {
       "comment" : "%lld = studio count",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Studios (%lld)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2185,6 +3376,12 @@
     },
     "stop_studio.badge.external" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "external"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2195,6 +3392,12 @@
     },
     "stop_studio.button.stop" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop studio"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2205,6 +3408,12 @@
     },
     "stop_studio.clients_to_close" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clients to be closed:"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2215,6 +3424,12 @@
     },
     "stop_studio.done" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Studio stopped."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2225,6 +3440,12 @@
     },
     "stop_studio.jack_stays" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack will remain active."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2235,6 +3456,12 @@
     },
     "stop_studio.no_clients" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No applications currently running to close."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2245,6 +3472,12 @@
     },
     "stop_studio.phase.closing" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Closing Jack clients…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2255,6 +3488,12 @@
     },
     "stop_studio.phase.disconnecting" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disconnecting cables..."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2265,6 +3504,12 @@
     },
     "stop_studio.phase.waiting" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waiting for closure..."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2275,6 +3520,12 @@
     },
     "stop_studio.terminal_hint" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy the command and run it in Terminal."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2286,6 +3537,12 @@
     "stop_studio.title" : {
       "comment" : "%@ = studio name",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop \"%@\""
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2296,6 +3553,12 @@
     },
     "stop_studio.unresponsive" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "These applications did not respond:"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2307,6 +3570,12 @@
     "studio_inspect.clients.title" : {
       "comment" : "%lld = client count",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clients (%lld)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2318,6 +3587,12 @@
     "studio_inspect.connections.title" : {
       "comment" : "%lld = connection count",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connections (%lld)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2328,6 +3603,12 @@
     },
     "studio_inspect.label.buffer" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buffer"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2338,6 +3619,12 @@
     },
     "studio_inspect.label.command" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Command"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2348,6 +3635,12 @@
     },
     "studio_inspect.section.dates" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dates"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2358,6 +3651,12 @@
     },
     "studio_inspect.section.jack_config" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack Configuration"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2368,6 +3667,12 @@
     },
     "studio.progress.applying_config" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Applying Jack settings…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2378,6 +3683,12 @@
     },
     "studio.progress.closing_clients" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Closing Jack clients…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2388,6 +3699,12 @@
     },
     "studio.progress.connecting_bridge" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connecting to Jack bridge…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2399,6 +3716,12 @@
     "studio.progress.launching_client" : {
       "comment" : "%@ = client label",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Launching %@…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2409,6 +3732,12 @@
     },
     "studio.progress.restoring_connections" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restoring connections…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2419,6 +3748,12 @@
     },
     "studio.progress.starting_jack" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starting Jack…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2429,6 +3764,12 @@
     },
     "studio.progress.stopping_jack" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stopping Jack for configuration change…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2439,6 +3780,12 @@
     },
     "studio.progress.waiting_ports" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waiting for Jack ports…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2447,19 +3794,55 @@
         }
       }
     },
-    "toolbar.collapse.action" : {
-      "comment" : "%lld = client count",
+    "toolbar.collapse.action %lld" : {
+      "comment" : "%lld = selected client count",
       "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Collapse %lld selected client"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Collapse %lld selected clients"
+                }
+              }
+            }
+          }
+        },
         "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Collapser %lld client(s) sélectionné(s)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Collapser %lld client sélectionné"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Collapser %lld clients sélectionnés"
+                }
+              }
+            }
           }
         }
       }
     },
     "toolbar.collapse.no_selection" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Collapse/expand — select clients first"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2468,19 +3851,55 @@
         }
       }
     },
-    "toolbar.expand.action" : {
-      "comment" : "%lld = client count",
+    "toolbar.expand.action %lld" : {
+      "comment" : "%lld = selected client count",
       "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Expand %lld selected client"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Expand %lld selected clients"
+                }
+              }
+            }
+          }
+        },
         "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Décollapser %lld client(s) sélectionné(s)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Décollapser %lld client sélectionné"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Décollapser %lld clients sélectionnés"
+                }
+              }
+            }
           }
         }
       }
     },
     "toolbar.recenter" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recenter and fit zoom"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2491,6 +3910,12 @@
     },
     "toolbar.refresh" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh Jack ports and connections"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2501,6 +3926,12 @@
     },
     "toolbar.tidy.all" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidy — arrange all nodes"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2509,19 +3940,55 @@
         }
       }
     },
-    "toolbar.tidy.selected" : {
-      "comment" : "%lld = node count",
+    "toolbar.tidy.selected %lld" : {
+      "comment" : "%lld = selected node count",
       "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tidy — arrange %lld selected node"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tidy — arrange %lld selected nodes"
+                }
+              }
+            }
+          }
+        },
         "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tidy — ranger %lld nœud(s) sélectionné(s)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tidy — ranger %lld nœud sélectionné"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tidy — ranger %lld nœuds sélectionnés"
+                }
+              }
+            }
           }
         }
       }
     },
     "toolbar.transport.hide" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide transport bar"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2532,6 +3999,12 @@
     },
     "toolbar.transport.show" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show transport bar"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2542,6 +4015,12 @@
     },
     "toolbar.zoom_reset" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom 100%"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2552,6 +4031,12 @@
     },
     "transport.bpm.label" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "BPM"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2562,6 +4047,12 @@
     },
     "transport.format.bbt" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "BBT (bar|beat|tick)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2572,6 +4063,12 @@
     },
     "transport.format.frames" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frames"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2582,6 +4079,12 @@
     },
     "transport.format.hms" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HMS (hh:mm:ss)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2592,6 +4095,12 @@
     },
     "transport.format.invalid" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid format"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2602,6 +4111,12 @@
     },
     "transport.format.label_bbt" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bar|beat|tick"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2612,6 +4127,12 @@
     },
     "transport.format.label_frames" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "frames"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2622,6 +4143,12 @@
     },
     "transport.format.label_hms" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hh:mm:ss"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2633,6 +4160,12 @@
     "transport.goto.popover_title" : {
       "comment" : "%@ = format label (ex: hh:mm:ss)",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Format: %@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2643,6 +4176,12 @@
     },
     "transport.goto.title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2653,6 +4192,12 @@
     },
     "transport.position.tooltip" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Click to go to a position · Right-click to change format"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2663,6 +4208,12 @@
     },
     "transport.timebase.become" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Become Timebase Master (provides BPM and BBT to other clients)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2673,6 +4224,12 @@
     },
     "transport.timebase.release" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Release the Timebase Master role"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",

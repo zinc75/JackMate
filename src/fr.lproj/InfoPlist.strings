@@ -1,2 +1,2 @@
 /* Demande d'autorisation microphone — affichée par macOS lors de la première demande d'accès */
-NSMicrophoneUsageDescription = "JackMate a besoin d'accéder au microphone pour intéragir avec le serveur Jack.";
+NSMicrophoneUsageDescription = "JackMate a besoin d'accéder au microphone pour interagir avec le serveur Jack.";

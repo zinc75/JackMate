@@ -168,8 +168,7 @@ struct ConnectAllSheet: View {
             // Mode buttons (only shown for asymmetric port counts)
             if !p.isSymmetric {
                 HStack(spacing: 6) {
-                    // TODO: plurals - Étape 6
-                    modeButton("Connecter \(min(p.n, p.m)) paire\(min(p.n, p.m) > 1 ? "s" : "")",
+                    modeButton(String(localized: "connect_all.action.connect_pairs \(min(p.n, p.m))"),
                                mode: .minAbandon, binding: plan.mode)
                     modeButton(p.altModeLabel, mode: p.altMode, binding: plan.mode)
                 }
@@ -207,8 +206,7 @@ struct ConnectAllSheet: View {
                 }
             }
             if hidden > 0 {
-                // TODO: plurals - Étape 6
-                Text("et \(hidden) autre\(hidden > 1 ? "s" : "") connexion\(hidden > 1 ? "s" : "")…")
+                Text(String(localized: "connect_all.action.more_connections \(hidden)"))
                     .font(.system(size: 9))
                     .foregroundStyle(.tertiary)
                     .padding(.top, 2)
@@ -283,8 +281,7 @@ struct ConnectAllSheet: View {
                 onConfirm(plans)
                 dismiss()
             } label: {
-                // TODO: plurals - Étape 6
-                Text("Connecter \(totalConnections) connexion\(totalConnections > 1 ? "s" : "")")
+                Text(String(localized: "connect_all.action.connect_total \(totalConnections)"))
                     .font(.system(size: 12, weight: .semibold))
             }
             .keyboardShortcut(.return)
