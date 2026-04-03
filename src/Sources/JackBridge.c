@@ -201,7 +201,7 @@ static const char *DEFAULT_LIBJACK_PATHS[] = {
     (client)->field = (typeof((client)->field))dlsym((client)->lib_handle, sym); \
     if (!(client)->field) { \
         snprintf((client)->error, sizeof((client)->error), \
-                 "Symbole manquant: %s", sym); \
+                 "Missing symbol: %s", sym); \
         return false; \
     } \
 } while(0)
@@ -388,7 +388,7 @@ JMClient *jm_client_open(const char *client_name, const char *lib_path) {
     }
     if (!c->lib_handle) {
         snprintf(c->error, sizeof(c->error),
-                 "libjack.dylib introuvable");
+                 "libjack.dylib not found");
         return c;
     }
 
@@ -484,7 +484,7 @@ int jm_client_activate(JMClient *c) {
 }
 
 const char *jm_last_error(JMClient *c) {
-    if (!c) return "Client nul";
+    if (!c) return "Null client";
     return c->error[0] ? c->error : NULL;
 }
 

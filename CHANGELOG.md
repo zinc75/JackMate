@@ -6,6 +6,20 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.8.2] — 2026-04-03
+
+### Added
+- Full German (DE) translation: 249/262 keys in `Localizable.xcstrings`
+  (13 remaining are empty technical literal keys with no translatable content)
+- `%lld hors vue`: EN (`%lld out of view`) and DE (`%lld außerhalb des Sichtbereichs`) translations added
+- `de.lproj/InfoPlist.strings`: `NSMicrophoneUsageDescription` already present in DE
+
+### Fixed
+- `JackBridge.c`: last 3 French error messages translated to English (`"Missing symbol"`, `"libjack.dylib not found"`, `"Null client"`)
+- `Hog mode` and `Clock drift correction` labels kept in English for DE (standard audio terminology)
+
+---
+
 ## [1.8.1] — 2026-04-03
 
 ### Added
