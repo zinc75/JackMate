@@ -21,6 +21,12 @@
             "state": "translated",
             "value": "%@ — déjà connecté"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — già connesso"
+          }
         }
       }
     },
@@ -41,6 +47,12 @@
         "fr": {
           "stringUnit": {
             "state": "new",
+            "value": "%1$@ → %2$@ ↗"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
             "value": "%1$@ → %2$@ ↗"
           }
         }
@@ -66,6 +78,12 @@
             "state": "new",
             "value": "%1$lld connexions · %2$lld clients"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld connessioni · %2$lld client"
+          }
         }
       }
     },
@@ -81,6 +99,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld out of view"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld hors vue"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld fuori dalla vista"
           }
         }
       }
@@ -110,6 +140,12 @@
             "state": "translated",
             "value": "Code source"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codice sorgente"
+          }
         }
       }
     },
@@ -131,6 +167,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Soutenir ☕"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supporta ☕"
           }
         }
       }
@@ -154,6 +196,12 @@
             "state": "translated",
             "value": "Gestion du serveur audio Jack pour macOS."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gestione del server audio Jack per macOS."
+          }
         }
       }
     },
@@ -175,6 +223,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Logiciel libre open source distribué sous licence MIT."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Software libero open source distribuito sotto licenza MIT."
           }
         }
       }
@@ -199,6 +253,12 @@
             "state": "translated",
             "value": "Version %1$@ (build %2$@)"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versione %1$@ (build %2$@)"
+          }
         }
       }
     },
@@ -220,6 +280,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ouvrir Audio MIDI Setup"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri Configurazione Audio MIDI"
           }
         }
       }
@@ -243,6 +309,12 @@
             "state": "translated",
             "value": "Ce device est un agrégat macOS.\n\nSi vos sources ont des horloges indépendantes (ex. deux interfaces USB distinctes), pensez à configurer la synchronisation d'horloge dans Audio MIDI Setup — sélectionnez le device agrégé, puis choisissez une source d'horloge maître dans l'onglet dédié.\n\nCette configuration hardware est plus robuste que la correction logicielle de Jack."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questo dispositivo è un aggregato macOS.\n\nSe le tue sorgenti hanno orologi indipendenti (es. due interfacce USB distinte), configura la sincronizzazione degli orologi in Configurazione Audio MIDI — seleziona il dispositivo aggregato, quindi scegli una sorgente di clock master nella scheda dedicata.\n\nQuesta configurazione hardware è più robusta della correzione software di Jack."
+          }
         }
       }
     },
@@ -264,6 +336,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ne plus afficher"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non mostrare più"
           }
         }
       }
@@ -287,6 +365,12 @@
             "state": "translated",
             "value": "Device agrégé macOS"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dispositivo aggregato macOS"
+          }
         }
       }
     },
@@ -308,6 +392,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ouvrir Audio MIDI Setup"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri Configurazione Audio MIDI"
           }
         }
       }
@@ -331,6 +421,12 @@
             "state": "translated",
             "value": "Cette option active la correction de dérive d'horloge côté Jack.\n\nElle est utile si vos devices input et output ont des horloges de référence indépendantes (ex. micro USB + interface audio FireWire).\n\nUne alternative plus robuste : créer un device agrégé dans Audio MIDI Setup et y configurer la synchronisation d'horloge hardware. Le résultat est plus stable et transparent pour toutes les applications, pas seulement Jack."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questa opzione attiva la correzione della deriva d'orologio lato Jack.\n\nÈ utile se i tuoi dispositivi input e output hanno orologi di riferimento indipendenti (es. microfono USB + interfaccia audio FireWire).\n\nUn'alternativa più robusta: crea un dispositivo aggregato in Configurazione Audio MIDI e configura la sincronizzazione dell'orologio hardware. Il risultato è più stabile e trasparente per tutte le applicazioni, non solo Jack."
+          }
         }
       }
     },
@@ -353,6 +449,12 @@
             "state": "translated",
             "value": "Ne plus afficher"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non mostrare più"
+          }
         }
       }
     },
@@ -371,6 +473,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clock drift correction"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Clock drift correction"
@@ -397,6 +505,12 @@
             "state": "translated",
             "value": "Fermer la fenêtre"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiudi la finestra"
+          }
         }
       }
     },
@@ -418,6 +532,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quitter JackMate"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esci da JackMate"
           }
         }
       }
@@ -441,6 +561,12 @@
             "state": "translated",
             "value": "Quitter et éteindre Jack"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esci e spegni Jack"
+          }
         }
       }
     },
@@ -462,6 +588,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Que souhaitez-vous faire ?\n\n• Fermer la fenêtre laisse Jack actif et JackMate accessible depuis la barre de menus.\n• Quitter JackMate ferme l'application mais laisse Jack tourner en arrière-plan.\n• Quitter et éteindre Jack arrête le serveur Jack et ferme JackMate."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cosa vuoi fare?\n\n• Chiudi la finestra lascia Jack attivo e JackMate accessibile dalla barra dei menu.\n• Esci da JackMate chiude l'applicazione ma lascia Jack in esecuzione in background.\n• Esci e spegni Jack ferma il server Jack e chiude JackMate."
           }
         }
       }
@@ -485,6 +617,12 @@
             "state": "translated",
             "value": "Le serveur Jack est actif"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il server Jack è attivo"
+          }
         }
       }
     },
@@ -506,6 +644,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fermer cette fenêtre ne quitte pas JackMate. L'icône dans la barre de menus vous permet de la rouvrir à tout moment."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiudere questa finestra non esce da JackMate. L'icona nella barra dei menu ti permette di riaprirla in qualsiasi momento."
           }
         }
       }
@@ -529,6 +673,12 @@
             "state": "translated",
             "value": "JackMate reste actif dans la barre de menus"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "JackMate resta attivo nella barra dei menu"
+          }
         }
       }
     },
@@ -544,6 +694,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Auto-launch"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lancement automatique"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avvio automatico"
           }
         }
       }
@@ -604,6 +766,24 @@
               }
             }
           }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld client selezionato"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld client selezionati"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -625,6 +805,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Client repositionné · évite un chevauchement"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Client riposizionato · evita la sovrapposizione"
           }
         }
       }
@@ -648,6 +834,12 @@
             "state": "translated",
             "value": "Entrez la commande shell pour relancer chaque app (optionnel)."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inserisci il comando shell per riavviare ogni app (opzionale)."
+          }
         }
       }
     },
@@ -670,6 +862,12 @@
             "state": "translated",
             "value": "Ex: /usr/bin/supercollider --headless"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es: /usr/bin/supercollider --headless"
+          }
         }
       }
     },
@@ -690,6 +888,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Studio %lld"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Studio %lld"
@@ -716,6 +920,12 @@
             "state": "translated",
             "value": "Nom du studio"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nome dello studio"
+          }
         }
       }
     },
@@ -737,6 +947,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ex: Session ProTools"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es: Sessione ProTools"
           }
         }
       }
@@ -760,6 +976,12 @@
             "state": "translated",
             "value": "Clients non détectés automatiquement"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Client non rilevati automaticamente"
+          }
         }
       }
     },
@@ -781,6 +1003,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Commande Jack capturée"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comando Jack acquisito"
           }
         }
       }
@@ -804,6 +1032,12 @@
             "state": "translated",
             "value": "Capturer le studio"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acquisisci lo studio"
+          }
         }
       }
     },
@@ -825,6 +1059,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sélection des canaux"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selezione dei canali"
           }
         }
       }
@@ -848,6 +1088,12 @@
             "state": "translated",
             "value": "Collapser"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprimi"
+          }
         }
       }
     },
@@ -869,6 +1115,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Annuler"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annulla"
           }
         }
       }
@@ -892,6 +1144,12 @@
             "state": "translated",
             "value": "Clients"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Client"
+          }
         }
       }
     },
@@ -913,6 +1171,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fermer"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiudi"
           }
         }
       }
@@ -936,6 +1200,12 @@
             "state": "translated",
             "value": "Confirmer"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conferma"
+          }
         }
       }
     },
@@ -957,6 +1227,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Connexions"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connessioni"
           }
         }
       }
@@ -980,6 +1256,12 @@
             "state": "translated",
             "value": "Copier la commande"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia il comando"
+          }
         }
       }
     },
@@ -1001,6 +1283,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Créer"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crea"
           }
         }
       }
@@ -1024,6 +1312,12 @@
             "state": "translated",
             "value": "Créé"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Creato"
+          }
         }
       }
     },
@@ -1045,6 +1339,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Supprimer"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elimina"
           }
         }
       }
@@ -1068,6 +1368,12 @@
             "state": "translated",
             "value": "Entrée"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingresso"
+          }
         }
       }
     },
@@ -1089,6 +1395,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Jack actif"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack attivo"
           }
         }
       }
@@ -1112,6 +1424,12 @@
             "state": "translated",
             "value": "Démarrage…"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avvio…"
+          }
         }
       }
     },
@@ -1133,6 +1451,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Jack arrêté"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack fermo"
           }
         }
       }
@@ -1156,6 +1480,12 @@
             "state": "translated",
             "value": "Chargé"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caricato"
+          }
         }
       }
     },
@@ -1177,6 +1507,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Modifié"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modificato"
           }
         }
       }
@@ -1200,6 +1536,12 @@
             "state": "translated",
             "value": "Ne plus afficher ce message"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non mostrare più questo messaggio"
+          }
         }
       }
     },
@@ -1218,6 +1560,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "OK"
@@ -1244,6 +1592,12 @@
             "state": "translated",
             "value": "Sortie"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uscita"
+          }
         }
       }
     },
@@ -1262,6 +1616,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Patchbay"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Patchbay"
@@ -1288,6 +1648,12 @@
             "state": "translated",
             "value": "Sample rate"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sample rate"
+          }
         }
       }
     },
@@ -1309,6 +1675,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sauvegarder"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salva"
           }
         }
       }
@@ -1333,6 +1705,12 @@
             "state": "translated",
             "value": "canal"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "canale"
+          }
         }
       }
     },
@@ -1356,6 +1734,12 @@
             "state": "translated",
             "value": "canaux"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "canali"
+          }
         }
       }
     },
@@ -1377,6 +1761,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Modifier"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifica"
           }
         }
       }
@@ -1400,6 +1790,12 @@
             "state": "translated",
             "value": "Sélectionner les canaux input/output"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seleziona i canali input/output"
+          }
         }
       }
     },
@@ -1421,6 +1817,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Limiter les canaux"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limita i canali"
           }
         }
       }
@@ -1444,6 +1846,12 @@
             "state": "translated",
             "value": "Correction de dérive d'horloge"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Correzione della deriva d'orologio"
+          }
         }
       }
     },
@@ -1462,6 +1870,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clock drift correction"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Clock drift correction"
@@ -1488,6 +1902,12 @@
             "state": "translated",
             "value": "Commande générée"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comando generato"
+          }
         }
       }
     },
@@ -1509,6 +1929,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Installation requise — Commande Homebrew"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Installazione richiesta — Comando Homebrew"
           }
         }
       }
@@ -1532,6 +1958,12 @@
             "state": "translated",
             "value": "Installation requise — Lien de téléchargement"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Installazione richiesta — Link di download"
+          }
         }
       }
     },
@@ -1553,6 +1985,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Installation requise"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Installazione richiesta"
           }
         }
       }
@@ -1576,6 +2014,12 @@
             "state": "translated",
             "value": "— sélectionner une méthode d'installation —"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— seleziona un metodo di installazione —"
+          }
         }
       }
     },
@@ -1594,6 +2038,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Audio"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Audio"
@@ -1620,6 +2070,12 @@
             "state": "translated",
             "value": "Devices audio"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dispositivi audio"
+          }
         }
       }
     },
@@ -1641,6 +2097,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Options"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opzioni"
           }
         }
       }
@@ -1664,6 +2126,12 @@
             "state": "translated",
             "value": "Accès exclusif au device audio"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accesso esclusivo al dispositivo audio"
+          }
         }
       }
     },
@@ -1682,6 +2150,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hog mode"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Hog mode"
@@ -1708,6 +2182,12 @@
             "state": "translated",
             "value": "Pas d'entrée"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun ingresso"
+          }
         }
       }
     },
@@ -1729,6 +2209,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Latence théorique :"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Latenza teorica :"
           }
         }
       }
@@ -1752,6 +2238,12 @@
             "state": "translated",
             "value": "Configuration verrouillée — Jack est actif"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configurazione bloccata — Jack è attivo"
+          }
         }
       }
     },
@@ -1774,6 +2266,12 @@
             "state": "translated",
             "value": "Option expérimentale — peut provoquer des instabilités"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opzione sperimentale — può causare instabilità"
+          }
         }
       }
     },
@@ -1792,6 +2290,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MIDI (coremidi)"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "MIDI (coremidi)"
@@ -1817,6 +2321,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pas de sortie"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessuna uscita"
           }
         }
       }
@@ -1873,6 +2383,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Connecter %lld paires"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Connetti %lld coppia"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Connetti %lld coppie"
                 }
               }
             }
@@ -1936,6 +2464,24 @@
               }
             }
           }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Connetti %lld connessione"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Connetti %lld connessioni"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1995,6 +2541,24 @@
               }
             }
           }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "e %lld altra connessione…"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "e %lld altre connessioni…"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -2016,6 +2580,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "déjà connecté"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "già connesso"
           }
         }
       }
@@ -2040,6 +2610,12 @@
             "state": "translated",
             "value": "Fan-out — %1$lld sortie(s) vers %2$lld entrées"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fan-out — %1$lld uscita/e verso %2$lld ingressi"
+          }
         }
       }
     },
@@ -2062,6 +2638,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wrap — cycler %1$lld sorties sur %2$lld entrées"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wrap — cicla %1$lld uscite su %2$lld ingressi"
           }
         }
       }
@@ -2086,6 +2668,12 @@
             "state": "translated",
             "value": "· %1$lld sorties / %2$lld entrées"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "· %1$lld uscite / %2$lld ingressi"
+          }
         }
       }
     },
@@ -2107,6 +2695,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Créé le"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Creato il"
           }
         }
       }
@@ -2130,6 +2724,12 @@
             "state": "translated",
             "value": "Modifié le"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modificato il"
+          }
         }
       }
     },
@@ -2151,6 +2751,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nom"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nome"
           }
         }
       }
@@ -2174,6 +2780,12 @@
             "state": "translated",
             "value": "Supprimer ce studio ?"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminare questo studio?"
+          }
         }
       }
     },
@@ -2196,6 +2808,12 @@
             "state": "translated",
             "value": "Cette action est irréversible."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questa azione è irreversibile."
+          }
         }
       }
     },
@@ -2217,6 +2835,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Décollapser"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Espandi"
           }
         }
       }
@@ -2241,6 +2865,12 @@
             "state": "translated",
             "value": "Activation Jack échouée (code %lld)"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attivazione Jack fallita (codice %lld)"
+          }
         }
       }
     },
@@ -2263,6 +2893,12 @@
             "state": "translated",
             "value": "Allocation mémoire échouée"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allocazione memoria fallita"
+          }
         }
       }
     },
@@ -2284,6 +2920,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Client Jack non connecté"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Client Jack non connesso"
           }
         }
       }
@@ -2308,6 +2950,12 @@
             "state": "translated",
             "value": "Connexion %1$@ → %2$@ refusée (code %3$lld)"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connessione %1$@ → %2$@ rifiutata (codice %3$lld)"
+          }
         }
       }
     },
@@ -2330,6 +2978,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Connexion Jack échouée : %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connessione Jack fallita: %@"
           }
         }
       }
@@ -2354,6 +3008,12 @@
             "state": "translated",
             "value": "Déconnexion %1$@ → %2$@ refusée (code %3$lld)"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disconnessione %1$@ → %2$@ rifiutata (codice %3$lld)"
+          }
         }
       }
     },
@@ -2377,6 +3037,12 @@
             "state": "translated",
             "value": "Types incompatibles : %1$@ → %2$@"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipi incompatibili: %1$@ → %2$@"
+          }
         }
       }
     },
@@ -2398,6 +3064,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Configuration Audio MIDI"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configurazione Audio MIDI"
           }
         }
       }
@@ -2421,6 +3093,12 @@
             "state": "translated",
             "value": "Logs Jack"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log Jack"
+          }
         }
       }
     },
@@ -2442,6 +3120,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sauver studio"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salva studio"
           }
         }
       }
@@ -2465,6 +3149,12 @@
             "state": "translated",
             "value": "Démarrer Jack"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avvia Jack"
+          }
         }
       }
     },
@@ -2486,6 +3176,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Arrêter Jack"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ferma Jack"
           }
         }
       }
@@ -2510,6 +3206,12 @@
             "state": "translated",
             "value": "%1$lld clients · %2$lld connexions"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld client · %2$lld connessioni"
+          }
         }
       }
     },
@@ -2528,6 +3230,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Audio"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Audio"
@@ -2554,6 +3262,12 @@
             "state": "translated",
             "value": "CV"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CV"
+          }
         }
       }
     },
@@ -2572,6 +3286,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MIDI"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "MIDI"
@@ -2598,6 +3318,12 @@
             "state": "translated",
             "value": "Exécutable introuvable"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eseguibile non trovato"
+          }
         }
       }
     },
@@ -2619,6 +3345,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mise à jour Jack disponible — cliquer pour télécharger"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiornamento Jack disponibile — clicca per scaricare"
           }
         }
       }
@@ -2642,6 +3374,12 @@
             "state": "translated",
             "value": "Configuration Jack"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configurazione Jack"
+          }
         }
       }
     },
@@ -2663,6 +3401,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "⚠️ Jack est déjà actif."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Jack è già attivo."
           }
         }
       }
@@ -2686,6 +3430,12 @@
             "state": "translated",
             "value": "⚠️ Exécutable Jack introuvable."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Eseguibile Jack non trovato."
+          }
         }
       }
     },
@@ -2707,6 +3457,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "⚡ Jack actif (lancé en externe)."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚡ Jack attivo (avviato esternamente)."
           }
         }
       }
@@ -2730,6 +3486,12 @@
             "state": "translated",
             "value": "JackMate prêt."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "JackMate pronto."
+          }
         }
       }
     },
@@ -2751,6 +3513,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "⚡ Jack est actif."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚡ Jack è attivo."
           }
         }
       }
@@ -2774,6 +3542,12 @@
             "state": "translated",
             "value": "⚠️ Jack n'a pas démarré."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Jack non si è avviato."
+          }
         }
       }
     },
@@ -2795,6 +3569,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Démarrage de Jack…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avvio di Jack…"
           }
         }
       }
@@ -2818,6 +3598,12 @@
             "state": "translated",
             "value": "Jack arrêté."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack fermo."
+          }
         }
       }
     },
@@ -2839,6 +3625,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Jack s'est arrêté."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack si è fermato."
           }
         }
       }
@@ -2862,6 +3654,12 @@
             "state": "translated",
             "value": "Arrêt de Jack…"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arresto di Jack…"
+          }
         }
       }
     },
@@ -2883,6 +3681,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Jack Audio Connection Kit est un serveur audio professionnel open source et gratuit, requis pour faire fonctionner JackMate.\n\nVous pouvez continuer à parcourir et configurer les paramètres. Le démarrage de Jack et le chargement des studios sont désactivés jusqu'à ce que Jack soit installé."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack Audio Connection Kit è un server audio professionale gratuito e open source necessario per il funzionamento di JackMate.\n\nPuoi continuare a sfogliare e configurare le impostazioni. L'avvio di Jack e il caricamento degli studi sono disabilitati fino a quando Jack non è installato."
           }
         }
       }
@@ -2906,6 +3710,12 @@
             "state": "translated",
             "value": "Choisissez une méthode d'installation de Jack :"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli un metodo di installazione di Jack:"
+          }
         }
       }
     },
@@ -2924,6 +3734,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Homebrew"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Homebrew"
@@ -2950,6 +3766,12 @@
             "state": "translated",
             "value": "Site officiel Jack Audio"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sito ufficiale Jack Audio"
+          }
         }
       }
     },
@@ -2971,6 +3793,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Paquet .pkg"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pacchetto .pkg"
           }
         }
       }
@@ -2994,6 +3822,12 @@
             "state": "translated",
             "value": "JackMate n'a pas trouvé Jack sur ce système."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "JackMate non ha trovato Jack su questo sistema."
+          }
         }
       }
     },
@@ -3015,6 +3849,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Jack Audio Connection Kit requis"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack Audio Connection Kit richiesto"
           }
         }
       }
@@ -3038,6 +3878,12 @@
             "state": "translated",
             "value": "Attention — voir les logs"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attenzione — controlla i log"
+          }
         }
       }
     },
@@ -3059,6 +3905,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Jack est actif"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack è attivo"
           }
         }
       }
@@ -3082,6 +3934,12 @@
             "state": "translated",
             "value": "Jack est arrêté"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack è fermo"
+          }
         }
       }
     },
@@ -3103,6 +3961,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "En attente de logs…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In attesa di log…"
           }
         }
       }
@@ -3126,6 +3990,12 @@
             "state": "translated",
             "value": "LOGS JACK"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LOG JACK"
+          }
         }
       }
     },
@@ -3148,6 +4018,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "↺ Auto-connect annulé, %1$lld connexion(s) restaurée(s) pour « %2$@ »"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "↺ Auto-connect annullato, %1$lld connessione/i ripristinata/e per « %2$@ »"
           }
         }
       }
@@ -3173,6 +4049,12 @@
             "state": "translated",
             "value": "⚠️ Patchbay bridge : %@"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Patchbay bridge: %@"
+          }
         }
       }
     },
@@ -3195,6 +4077,12 @@
             "state": "translated",
             "value": "⚠️ Patchbay: bridge non connecté après open(), nouvel essai dans 2s"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Patchbay: bridge non connesso dopo open(), nuovo tentativo tra 2s"
+          }
         }
       }
     },
@@ -3216,6 +4104,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "→ Patchbay connecté à Jack"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "→ Patchbay connesso a Jack"
           }
         }
       }
@@ -3240,6 +4134,12 @@
             "state": "translated",
             "value": "↛ Tout déconnecté pour %@"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "↛ Tutto disconnesso per %@"
+          }
         }
       }
     },
@@ -3262,6 +4162,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "↛ Toutes les entrées de %@ déconnectées"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "↛ Tutti gli ingressi di %@ disconnessi"
           }
         }
       }
@@ -3286,6 +4192,12 @@
             "state": "translated",
             "value": "↛ Toutes les sorties de %@ déconnectées"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "↛ Tutte le uscite di %@ disconnesse"
+          }
         }
       }
     },
@@ -3308,6 +4220,12 @@
             "state": "translated",
             "value": "⚠️ Patchbay: Jack n'est pas actif, connexion annulée"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Patchbay: Jack non è attivo, connessione annullata"
+          }
         }
       }
     },
@@ -3329,6 +4247,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "⚠️ Jack shutdown détecté"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Jack shutdown rilevato"
           }
         }
       }
@@ -3353,6 +4277,12 @@
             "state": "translated",
             "value": "→ Chargé %1$lld ports, %2$lld connexions"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "→ Caricati %1$lld porte, %2$lld connessioni"
+          }
         }
       }
     },
@@ -3374,6 +4304,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "⚠️ Connexion refusée : direction invalide"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Connessione rifiutata: direzione non valida"
           }
         }
       }
@@ -3398,6 +4334,12 @@
             "state": "translated",
             "value": "⚠️ Connexion refusée : types incompatibles (%1$@ → %2$@)"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Connessione rifiutata: tipi incompatibili (%1$@ → %2$@)"
+          }
         }
       }
     },
@@ -3419,6 +4361,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "À propos de JackMate…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Informazioni su JackMate…"
           }
         }
       }
@@ -3442,6 +4390,12 @@
             "state": "translated",
             "value": "Documentation JackMate"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Documentazione JackMate"
+          }
         }
       }
     },
@@ -3464,6 +4418,12 @@
             "state": "translated",
             "value": "Configuration"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configurazione"
+          }
         }
       }
     },
@@ -3482,6 +4442,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Patchbay"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Patchbay"
@@ -3508,6 +4474,12 @@
             "state": "translated",
             "value": "Quitter"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esci"
+          }
         }
       }
     },
@@ -3529,6 +4501,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Afficher JackMate…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra JackMate…"
           }
         }
       }
@@ -3552,6 +4530,12 @@
             "state": "translated",
             "value": "Démarrer"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avvia"
+          }
         }
       }
     },
@@ -3573,6 +4557,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Arrêter"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ferma"
           }
         }
       }
@@ -3598,6 +4588,12 @@
             "state": "translated",
             "value": "Commande"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comando"
+          }
         }
       }
     },
@@ -3621,6 +4617,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nom"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nome"
           }
         }
       }
@@ -3646,6 +4648,12 @@
             "state": "translated",
             "value": "Chemin"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Percorso"
+          }
         }
       }
     },
@@ -3669,6 +4677,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Type"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo"
           }
         }
       }
@@ -3694,6 +4708,12 @@
             "state": "translated",
             "value": "Application non trouvée dans les processus actifs"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Applicazione non trovata nei processi attivi"
+          }
         }
       }
     },
@@ -3717,6 +4737,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Canaux capture"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Canali capture"
           }
         }
       }
@@ -3742,6 +4768,12 @@
             "state": "translated",
             "value": "Canaux playback"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Canali playback"
+          }
         }
       }
     },
@@ -3766,6 +4798,12 @@
             "state": "translated",
             "value": "Périphérique par défaut"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dispositivo predefinito"
+          }
         }
       }
     },
@@ -3786,6 +4824,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Client Jack"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Client Jack"
@@ -3814,6 +4858,12 @@
             "state": "translated",
             "value": "Interface audio Jack"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interfaccia audio Jack"
+          }
         }
       }
     },
@@ -3835,6 +4885,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vérifiez la configuration dans JackMate."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Controlla la configurazione in JackMate."
           }
         }
       }
@@ -3858,6 +4914,12 @@
             "state": "translated",
             "value": "Jack n'a pas démarré"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack non si è avviato"
+          }
         }
       }
     },
@@ -3879,6 +4941,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un serveur Jack externe est en cours d'exécution."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un server Jack esterno è in esecuzione."
           }
         }
       }
@@ -3902,6 +4970,12 @@
             "state": "translated",
             "value": "Le serveur Jack a démarré via JackMate."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il server Jack è stato avviato tramite JackMate."
+          }
         }
       }
     },
@@ -3923,6 +4997,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Jack est actif"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack è attivo"
           }
         }
       }
@@ -3946,6 +5026,12 @@
             "state": "translated",
             "value": "Le serveur Jack n'est plus actif."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il server Jack non è più attivo."
+          }
         }
       }
     },
@@ -3967,6 +5053,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Jack s'est arrêté"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack si è fermato"
           }
         }
       }
@@ -3990,6 +5082,12 @@
             "state": "translated",
             "value": "Échec du démarrage"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avvio fallito"
+          }
         }
       }
     },
@@ -4005,6 +5103,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Arrange"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Organiser"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disponi"
           }
         }
       }
@@ -4028,6 +5138,12 @@
             "state": "translated",
             "value": "Déconnecter tout"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disconnetti tutto"
+          }
         }
       }
     },
@@ -4049,6 +5165,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Déconnecter toutes les entrées"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disconnetti tutti gli ingressi"
           }
         }
       }
@@ -4072,6 +5194,12 @@
             "state": "translated",
             "value": "Déconnecter toutes les sorties"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disconnetti tutte le uscite"
+          }
         }
       }
     },
@@ -4093,6 +5221,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Déconnecter tout le client"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disconnetti tutto il client"
           }
         }
       }
@@ -4116,6 +5250,12 @@
             "state": "translated",
             "value": "Déconnecter ce port"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disconnetti questa porta"
+          }
         }
       }
     },
@@ -4138,6 +5278,12 @@
             "state": "translated",
             "value": "TOUT CONNECTER À"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CONNETTI TUTTO A"
+          }
         }
       }
     },
@@ -4159,6 +5305,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "DÉCONNECTER DE"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DISCONNETTI DA"
           }
         }
       }
@@ -4183,6 +5335,12 @@
             "state": "translated",
             "value": "Mettre à jour «%@»"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiorna «%@»"
+          }
         }
       }
     },
@@ -4204,6 +5362,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nom du nouveau studio"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nome del nuovo studio"
           }
         }
       }
@@ -4227,6 +5391,12 @@
             "state": "translated",
             "value": "CRÉER UN NOUVEAU STUDIO"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CREA UN NUOVO STUDIO"
+          }
         }
       }
     },
@@ -4248,6 +5418,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "METTRE À JOUR"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AGGIORNA"
           }
         }
       }
@@ -4272,6 +5448,12 @@
             "state": "translated",
             "value": "«%@» a été modifié"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» è stato modificato"
+          }
         }
       }
     },
@@ -4294,6 +5476,12 @@
             "state": "translated",
             "value": "Sauvegarder le studio"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salva lo studio"
+          }
         }
       }
     },
@@ -4315,6 +5503,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aucun device"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun dispositivo"
           }
         }
       }
@@ -4339,6 +5533,12 @@
             "state": "translated",
             "value": "Entrées (%lld)"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingressi (%lld)"
+          }
         }
       }
     },
@@ -4362,6 +5562,12 @@
             "state": "translated",
             "value": "Sorties (%lld)"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uscite (%lld)"
+          }
         }
       }
     },
@@ -4383,6 +5589,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Studio chargé ✓"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Studio caricato ✓"
           }
         }
       }
@@ -4406,6 +5618,12 @@
             "state": "translated",
             "value": "⚠️ Studio partiellement chargé"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Studio parzialmente caricato"
+          }
         }
       }
     },
@@ -4427,6 +5645,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Préparation…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparazione…"
           }
         }
       }
@@ -4450,6 +5674,12 @@
             "state": "translated",
             "value": "Studio actif"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Studio attivo"
+          }
         }
       }
     },
@@ -4471,6 +5701,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Impossible de supprimer un studio actif"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile eliminare uno studio attivo"
           }
         }
       }
@@ -4494,6 +5730,12 @@
             "state": "translated",
             "value": "Supprimer"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elimina"
+          }
         }
       }
     },
@@ -4515,6 +5757,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Inspecter le studio"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ispeziona lo studio"
           }
         }
       }
@@ -4538,6 +5786,12 @@
             "state": "translated",
             "value": "Jack non installé"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack non installato"
+          }
         }
       }
     },
@@ -4559,6 +5813,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Charger ce studio"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carica questo studio"
           }
         }
       }
@@ -4582,6 +5842,12 @@
             "state": "translated",
             "value": "Arrêter le studio"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ferma lo studio"
+          }
         }
       }
     },
@@ -4603,6 +5869,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aucun studio sauvegardé"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessuno studio salvato"
           }
         }
       }
@@ -4627,6 +5899,12 @@
             "state": "translated",
             "value": "Studios (%lld)"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Studio (%lld)"
+          }
         }
       }
     },
@@ -4648,6 +5926,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "hors studio"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "fuori studio"
           }
         }
       }
@@ -4671,6 +5955,12 @@
             "state": "translated",
             "value": "Arrêter le studio"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ferma lo studio"
+          }
         }
       }
     },
@@ -4692,6 +5982,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Clients qui seront fermés :"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Client che verranno chiusi:"
           }
         }
       }
@@ -4715,6 +6011,12 @@
             "state": "translated",
             "value": "Studio arrêté."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Studio fermato."
+          }
         }
       }
     },
@@ -4736,6 +6038,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Jack restera actif."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack rimarrà attivo."
           }
         }
       }
@@ -4759,6 +6067,12 @@
             "state": "translated",
             "value": "Aucune application en cours à fermer."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessuna applicazione in esecuzione da chiudere."
+          }
         }
       }
     },
@@ -4780,6 +6094,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fermeture des clients Jack…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiusura dei client Jack…"
           }
         }
       }
@@ -4803,6 +6123,12 @@
             "state": "translated",
             "value": "Déconnexion des câbles..."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disconnessione dei cavi..."
+          }
         }
       }
     },
@@ -4825,6 +6151,12 @@
             "state": "translated",
             "value": "En attente de fermeture..."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In attesa di chiusura..."
+          }
         }
       }
     },
@@ -4846,6 +6178,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Copiez la commande et exécutez-la dans Terminal."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia il comando ed eseguilo nel Terminale."
           }
         }
       }
@@ -4870,6 +6208,12 @@
             "state": "translated",
             "value": "Arrêter « %@ »"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ferma « %@ »"
+          }
         }
       }
     },
@@ -4891,6 +6235,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ces applications n'ont pas répondu :"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queste applicazioni non hanno risposto:"
           }
         }
       }
@@ -4914,6 +6264,12 @@
             "state": "translated",
             "value": "Application des réglages Jack…"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Applicazione delle impostazioni Jack…"
+          }
         }
       }
     },
@@ -4936,6 +6292,12 @@
             "state": "translated",
             "value": "Fermeture des clients Jack…"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiusura dei client Jack…"
+          }
         }
       }
     },
@@ -4957,6 +6319,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Connexion au bridge Jack…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connessione al bridge Jack…"
           }
         }
       }
@@ -4981,6 +6349,12 @@
             "state": "translated",
             "value": "Lancement de %@…"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avvio di %@…"
+          }
         }
       }
     },
@@ -5002,6 +6376,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Restauration des connexions…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ripristino delle connessioni…"
           }
         }
       }
@@ -5025,6 +6405,12 @@
             "state": "translated",
             "value": "Démarrage de Jack…"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avvio di Jack…"
+          }
         }
       }
     },
@@ -5047,6 +6433,12 @@
             "state": "translated",
             "value": "Arrêt de Jack pour changement de configuration…"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arresto di Jack per cambio di configurazione…"
+          }
         }
       }
     },
@@ -5068,6 +6460,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "En attente des ports Jack…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In attesa delle porte Jack…"
           }
         }
       }
@@ -5092,6 +6490,12 @@
             "state": "translated",
             "value": "Clients (%lld)"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Client (%lld)"
+          }
         }
       }
     },
@@ -5115,6 +6519,12 @@
             "state": "translated",
             "value": "Connexions (%lld)"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connessioni (%lld)"
+          }
         }
       }
     },
@@ -5133,6 +6543,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buffer"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Buffer"
@@ -5159,6 +6575,12 @@
             "state": "translated",
             "value": "Commande"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comando"
+          }
         }
       }
     },
@@ -5181,6 +6603,12 @@
             "state": "translated",
             "value": "Dates"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date"
+          }
         }
       }
     },
@@ -5202,6 +6630,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Configuration Jack"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configurazione Jack"
           }
         }
       }
@@ -5262,6 +6696,24 @@
               }
             }
           }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Comprimi %lld client selezionato"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Comprimi %lld client selezionati"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -5283,6 +6735,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Collapse/expand — sélectionner des clients d'abord"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprimi/Espandi — seleziona prima i client"
           }
         }
       }
@@ -5343,6 +6801,24 @@
               }
             }
           }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Espandi %lld client selezionato"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Espandi %lld client selezionati"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -5364,6 +6840,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Recentrer et ajuster le zoom"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ricentra e adatta lo zoom"
           }
         }
       }
@@ -5387,6 +6869,12 @@
             "state": "translated",
             "value": "Actualiser les ports et connexions Jack"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiorna porte e connessioni Jack"
+          }
         }
       }
     },
@@ -5408,6 +6896,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tidy — ranger tous les nœuds"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tidy — riordina tutti i nodi"
           }
         }
       }
@@ -5468,6 +6962,24 @@
               }
             }
           }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Tidy — riordina %lld nodo selezionato"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Tidy — riordina %lld nodi selezionati"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -5489,6 +7001,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Masquer la barre transport"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nascondi la barra transport"
           }
         }
       }
@@ -5512,6 +7030,12 @@
             "state": "translated",
             "value": "Afficher la barre transport"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra la barra transport"
+          }
         }
       }
     },
@@ -5530,6 +7054,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zoom 100 %"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Zoom 100 %"
@@ -5556,6 +7086,12 @@
             "state": "translated",
             "value": "BPM"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BPM"
+          }
         }
       }
     },
@@ -5578,6 +7114,12 @@
             "state": "translated",
             "value": "BBT (mesure|temps|tick)"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BBT (misura|tempo|tick)"
+          }
         }
       }
     },
@@ -5596,6 +7138,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Frames"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Frames"
@@ -5622,6 +7170,12 @@
             "state": "translated",
             "value": "HMS (hh:mm:ss)"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HMS (hh:mm:ss)"
+          }
         }
       }
     },
@@ -5643,6 +7197,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Format invalide"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formato non valido"
           }
         }
       }
@@ -5666,6 +7226,12 @@
             "state": "translated",
             "value": "mesure|temps|tick"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "misura|tempo|tick"
+          }
         }
       }
     },
@@ -5688,6 +7254,12 @@
             "state": "translated",
             "value": "frames"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "frames"
+          }
         }
       }
     },
@@ -5706,6 +7278,12 @@
           }
         },
         "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "hh:mm:ss"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "hh:mm:ss"
@@ -5733,6 +7311,12 @@
             "state": "translated",
             "value": "Format : %@"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formato: %@"
+          }
         }
       }
     },
@@ -5754,6 +7338,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aller à"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vai a"
           }
         }
       }
@@ -5777,6 +7367,12 @@
             "state": "translated",
             "value": "Cliquer pour aller à une position · Clic droit pour changer le format"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clicca per andare a una posizione · Clic destro per cambiare il formato"
+          }
         }
       }
     },
@@ -5799,6 +7395,12 @@
             "state": "translated",
             "value": "Devenir Timebase Master (fournit BPM et BBT aux autres clients)"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diventa Timebase Master (fornisce BPM e BBT agli altri client)"
+          }
         }
       }
     },
@@ -5820,6 +7422,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Relâcher le rôle de Timebase Master"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rilascia il ruolo di Timebase Master"
           }
         }
       }

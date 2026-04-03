@@ -6,6 +6,16 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.8.4] — 2026-04-03
+
+### Added
+- Full Italian (IT) translation: 248/261 keys in `Localizable.xcstrings`
+  (13 remaining are empty technical literal keys with no translatable content)
+- `it.lproj/InfoPlist.strings`: `NSMicrophoneUsageDescription` localised in IT
+- Structural fix: added `fr` source value to `organiser`, `%lld hors vue`, `auto-launch` keys (missing value caused them to be skipped in future language exports)
+
+---
+
 ## [1.8.3] — 2026-04-03
 
 ### Refactored
