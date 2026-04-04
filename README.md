@@ -2,7 +2,7 @@
 
 A native macOS app (Swift/SwiftUI) for managing the JACK audio server from your menu bar or as a standard window.
 
-**Current version: 1.8.4** — Actively developed.
+**Current version: 1.8.5** — Actively developed.
 
 <!-- TODO: add badges once repo is public -->
 <!-- Internationalization badges for supported languages ? -->
@@ -55,8 +55,8 @@ A native macOS app (Swift/SwiftUI) for managing the JACK audio server from your 
 - Installation helper modal when Jack is absent: choose between Homebrew or .pkg, with copyable command
 - Start button and studio loading disabled when Jack is not installed
 - Light and Dark mode support
-- English, French, German, and Italian UI — Spanish coming next
-- Want to add your language? See [`i18n/TRANSLATING.md`](i18n/TRANSLATING.md)
+- 🇫🇷 French · 🇬🇧 English · 🇩🇪 German · 🇮🇹 Italian · 🇪🇸 Spanish
+- Want to add your language? See [`i18n/`](i18n/)
 
 ---
 
@@ -172,7 +172,8 @@ JackMate/
 
 Contributions are welcome. Some areas that could use community help:
 
-- **Localization** — UI strings are externalized in `src/Localizable.xcstrings` (source language: French). Translations into additional languages are welcome.
+- **Localization** — Available languages: 🇫🇷 French · 🇬🇧 English · 🇩🇪 German · 🇮🇹 Italian · 🇪🇸 Spanish.
+  Want to add yours? Copy [`i18n/Localizable_template.strings`](i18n/Localizable_template.strings), translate it, and open a pull request. See [`i18n/`](i18n/) for the full contributor guide.
 - **Bug reports** — open an issue with your macOS version, JACK version, and steps to reproduce.
 - **Pull requests** — please open an issue first to discuss significant changes.
 

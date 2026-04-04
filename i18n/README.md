@@ -5,9 +5,9 @@ Thank you for helping translate JackMate!
 ## What you need to do
 
 1. Copy `Localizable_template.strings` and rename it `Localizable_XX.strings`
-   (where `XX` is the language code, e.g. `es`, `pt`, `ja`, `nl`…)
+   (where `XX` is the language code, e.g. `pt`, `ja`, `nl`, `pl`…)
 2. Translate the values on the right side of each `=`
-3. Submit your file as a pull request, or send it by email
+3. Open a pull request with your file
 
 That's it. You don't need to touch any Xcode project file.
 
@@ -26,7 +26,7 @@ That's it. You don't need to touch any Xcode project file.
 Some keys have `[one]` / `[other]` suffixes — translate both:
 
 ```
-"toolbar.tidy.selected %lld [one]"  = "Tidy — sort 1 selected node";
+"toolbar.tidy.selected %lld [one]"   = "Tidy — sort 1 selected node";
 "toolbar.tidy.selected %lld [other]" = "Tidy — sort %lld selected nodes";
 ```
 

@@ -6,6 +6,15 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.8.5] — 2026-04-04
+
+### Added
+- Full Spanish (ES) translation: 251/261 keys in `Localizable.xcstrings`
+  (10 remaining are empty technical literal keys with no translatable content)
+- `es.lproj/InfoPlist.strings`: `NSMicrophoneUsageDescription` localised in ES
+
+---
+
 ## [1.8.4] — 2026-04-03
 
 ### Added
