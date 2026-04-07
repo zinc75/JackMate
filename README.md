@@ -1,17 +1,27 @@
-# JackMate
+<div align="center">
+  <img src="https://zinc75.github.io/JackMate/assets/icon.png" width="128" alt="JackMate icon">
+  <h1>JackMate</h1>
+  <p>Native macOS app for managing the JACK audio server — from your menu bar or as a standard window.</p>
 
-A native macOS app (Swift/SwiftUI) for managing the JACK audio server from your menu bar or as a standard window.
+  ![macOS](https://img.shields.io/badge/macOS-15.7%2B-lightgrey?logo=apple)
+  ![Swift](https://img.shields.io/badge/Swift-5.0-orange?logo=swift)
+  ![License](https://img.shields.io/badge/license-MIT-green)
+  ![Version](https://img.shields.io/badge/version-1.8.5-blue)
+  ![Languages](https://img.shields.io/badge/languages-FR%20EN%20DE%20IT%20ES-blueviolet)
 
-**Current version: 1.8.5** — Actively developed.
-
-<!-- TODO: add badges once repo is public -->
-<!-- ![macOS](https://img.shields.io/badge/macOS-15.7%2B-blue) -->
-<!-- ![Swift](https://img.shields.io/badge/Swift-5.0-orange) -->
-<!-- [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow)](https://buymeacoffee.com/TODO) -->
+  **[📖 Documentation](https://zinc75.github.io/JackMate/)** · **[⬇️ Download](https://github.com/zinc75/JackMate/releases)**
+</div>
 
 ---
 
-<!-- TODO: add a screenshot or short GIF here showcasing the patchbay + menubar -->
+<div align="center">
+  <img src="https://zinc75.github.io/JackMate/assets/screenshots/patchbay.png" alt="Patchbay view" width="80%">
+</div>
+
+<div align="center">
+  <img src="https://zinc75.github.io/JackMate/assets/screenshots/configuration.png" alt="Configuration view" width="49%">
+  <img src="https://zinc75.github.io/JackMate/assets/screenshots/menubar.png" alt="Menu bar" width="49%">
+</div>
 
 ---
 
@@ -28,7 +38,6 @@ A native macOS app (Swift/SwiftUI) for managing the JACK audio server from your 
 - Smart loading: full command comparison (all parameters, channel selection), restarts Jack only if necessary
 - Graceful shutdown of all clients (GUI and CLI) before switching studios
 - Automatic save and relaunch of CLI clients (full command with arguments)
-- Progress modal during studio loading
 
 ### Patchbay
 - Visual editor for Jack client connections
@@ -46,22 +55,17 @@ A native macOS app (Swift/SwiftUI) for managing the JACK audio server from your 
 
 ### Interface
 - Menu bar mode and standard window mode
-- Dynamic minimum size depending on active view (880×800 Configuration, 1100×780 Patchbay)
 - Native macOS menus: View ⌘1/⌘2, Help with documentation link, custom About panel
-- About panel: version, copyright, MIT licence, GitHub link and Buy Me a Coffee
 - Automatic Jack detection at launch and on every app reactivation
-- Jack version check: green ✓ badge if up to date, clickable amber ↑ badge if update available (GitHub API, 24h cache)
-- Installation helper modal when Jack is absent: choose between Homebrew or .pkg, with copyable command
-- Start button and studio loading disabled when Jack is not installed
-- Light and Dark mode support
-- 🇫🇷 French · 🇬🇧 English · 🇩🇪 German · 🇮🇹 Italian · 🇪🇸 Spanish
-- Want to add your language? See [`i18n/`](i18n/)
+- Jack version check: green ✓ badge if up to date, clickable amber ↑ badge if update available
+- Installation helper modal when Jack is absent (Homebrew or .pkg, with copyable command)
+- 🇫🇷 French · 🇬🇧 English · 🇩🇪 German · 🇮🇹 Italian · 🇪🇸 Spanish — want to add yours? See [`i18n/`](i18n/)
 
 ---
 
 ## Documentation
 
-Full documentation at **[zinc75.github.io/JackMate](https://zinc75.github.io/JackMate/)** *(coming soon — GitHub Pages activation pending)*
+Full documentation at **[zinc75.github.io/JackMate](https://zinc75.github.io/JackMate/)**.
 
 ---
 
@@ -95,10 +99,9 @@ See [`src/`](src/) for full build instructions, tech stack, and project structur
 
 ## Contributing
 
-Contributions are welcome. Some areas that could use community help:
+Contributions are welcome:
 
-- **Localization** — Available languages: 🇫🇷 French · 🇬🇧 English · 🇩🇪 German · 🇮🇹 Italian · 🇪🇸 Spanish.
-  Want to add yours? Copy [`i18n/Localizable_template.strings`](i18n/Localizable_template.strings), translate it, and open a pull request. See [`i18n/`](i18n/) for the full contributor guide.
+- **Localization** — Copy [`i18n/Localizable_template.strings`](i18n/Localizable_template.strings), translate it, and open a pull request. See [`i18n/`](i18n/) for the full guide.
 - **Bug reports** — open an issue with your macOS version, JACK version, and steps to reproduce.
 - **Pull requests** — please open an issue first to discuss significant changes.
 
@@ -108,7 +111,7 @@ Contributions are welcome. Some areas that could use community help:
 
 JackMate is free and open source. If it saves you time or fits into your workflow, consider buying me a coffee.
 
-Beyond the warm feeling, contributions go toward the **Apple Developer account** ($99/year) required to notarize the app — which would remove the Gatekeeper warning on first launch and make installation seamless for everyone.
+Contributions go toward the **Apple Developer account** ($99/year) required to notarize the app — which would remove the Gatekeeper warning on first launch and make installation seamless for everyone.
 
 <!-- TODO: replace with real Buy Me A Coffee link once account is created -->
 <!-- [![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/TODO) -->
