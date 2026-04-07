@@ -6,6 +6,14 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [infra] — 2026-04-07
+
+### Documentation
+- Full Quarto documentation site: home page + 6 guide pages (Configuration, Patchbay, Studios, Transport, Menu Bar, Alternatives)
+- Published via `gh-pages` branch — available at [zinc75.github.io/JackMate](https://zinc75.github.io/JackMate/) once GitHub Pages is activated
+
+---
+
 ## [1.8.5] — 2026-04-04
 
 ### Added
