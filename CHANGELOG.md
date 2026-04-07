@@ -6,6 +6,13 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.8.6] — 2026-04-07
+
+### Changed
+- Help menu Documentation link now points to `https://zinc75.github.io/JackMate/`
+
+---
+
 ## [infra] — 2026-04-07
 
 ### Documentation

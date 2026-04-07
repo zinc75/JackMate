@@ -6,7 +6,7 @@
   ![macOS](https://img.shields.io/badge/macOS-15.7%2B-lightgrey?logo=apple)
   ![Swift](https://img.shields.io/badge/Swift-5.0-orange?logo=swift)
   ![License](https://img.shields.io/badge/license-MIT-green)
-  ![Version](https://img.shields.io/badge/version-1.8.5-blue)
+  ![Version](https://img.shields.io/badge/version-1.8.6-blue)
   ![Languages](https://img.shields.io/badge/languages-FR%20EN%20DE%20IT%20ES-blueviolet)
 
   **[📖 Documentation](https://zinc75.github.io/JackMate/)** · **[⬇️ Download](https://github.com/zinc75/JackMate/releases)**
