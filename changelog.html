@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Changelog – JackMate</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./assets/icon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-86a676ce5307890add4e0cff6447c4f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="assets/custom.css">
+<meta property="og:title" content="Changelog – JackMate">
+<meta property="og:description" content="Jack Audio server manager for macOS">
+<meta property="og:site_name" content="JackMate">
+<meta name="twitter:title" content="Changelog – JackMate">
+<meta name="twitter:description" content="Jack Audio server manager for macOS">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./assets/icon.png" alt="JackMate" class="navbar-logo light-content">
+    <img src="./assets/icon.png" alt="JackMate" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">JackMate</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guide" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Guide</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-guide">    
+        <li>
+    <a class="dropdown-item" href="./guide/configuration.html">
+ <span class="dropdown-text">Configuration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./guide/patchbay.html">
+ <span class="dropdown-text">Patchbay</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./guide/studios.html">
+ <span class="dropdown-text">Studios</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./guide/transport.html">
+ <span class="dropdown-text">Transport</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./guide/menubar.html">
+ <span class="dropdown-text">Menu Bar</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./guide/alternatives.html">
+ <span class="dropdown-text">Alternatives</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./changelog.html" aria-current="page"> 
+<span class="menu-text">Changelog</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/zinc75/JackMate"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./guide/alternatives.html">Reference</a></li><li class="breadcrumb-item"><a href="./changelog.html">Changelog</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Guide</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./guide/configuration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Configuration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./guide/patchbay.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Patchbay</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./guide/studios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Studios</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./guide/transport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transport</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./guide/menubar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Menu Bar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./guide/alternatives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Alternatives</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./changelog.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Changelog</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#infra-2026-04-07" id="toc-infra-2026-04-07" class="nav-link active" data-scroll-target="#infra-2026-04-07">[infra] — 2026-04-07</a>
+  <ul class="collapse">
+  <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation">Documentation</a></li>
+  </ul></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">[1.8.5] — 2026-04-04</a>
+  <ul class="collapse">
+  <li><a href="#added" id="toc-added" class="nav-link" data-scroll-target="#added">Added</a></li>
+  </ul></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">[1.8.4] — 2026-04-03</a>
+  <ul class="collapse">
+  <li><a href="#added-1" id="toc-added-1" class="nav-link" data-scroll-target="#added-1">Added</a></li>
+  </ul></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">[1.8.3] — 2026-04-03</a>
+  <ul class="collapse">
+  <li><a href="#refactored" id="toc-refactored" class="nav-link" data-scroll-target="#refactored">Refactored</a></li>
+  </ul></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">[1.8.2] — 2026-04-03</a>
+  <ul class="collapse">
+  <li><a href="#added-2" id="toc-added-2" class="nav-link" data-scroll-target="#added-2">Added</a></li>
+  <li><a href="#fixed" id="toc-fixed" class="nav-link" data-scroll-target="#fixed">Fixed</a></li>
+  </ul></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">[1.8.1] — 2026-04-03</a>
+  <ul class="collapse">
+  <li><a href="#added-3" id="toc-added-3" class="nav-link" data-scroll-target="#added-3">Added</a></li>
+  <li><a href="#changed" id="toc-changed" class="nav-link" data-scroll-target="#changed">Changed</a></li>
+  </ul></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">[1.8.0] — 2026-04-02</a>
+  <ul class="collapse">
+  <li><a href="#added-4" id="toc-added-4" class="nav-link" data-scroll-target="#added-4">Added</a></li>
+  </ul></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">[1.7.4] — 2026-03-28</a>
+  <ul class="collapse">
+  <li><a href="#fixed-1" id="toc-fixed-1" class="nav-link" data-scroll-target="#fixed-1">Fixed</a></li>
+  </ul></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">[1.7.3] — 2026-03-28</a>
+  <ul class="collapse">
+  <li><a href="#fixed-2" id="toc-fixed-2" class="nav-link" data-scroll-target="#fixed-2">Fixed</a></li>
+  <li><a href="#build" id="toc-build" class="nav-link" data-scroll-target="#build">Build</a></li>
+  </ul></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">[1.7.2] — 2026-03-27</a>
+  <ul class="collapse">
+  <li><a href="#documentation-1" id="toc-documentation-1" class="nav-link" data-scroll-target="#documentation-1">Documentation</a></li>
+  </ul></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">[1.7.1] — 2026-03-27</a>
+  <ul class="collapse">
+  <li><a href="#added-5" id="toc-added-5" class="nav-link" data-scroll-target="#added-5">Added</a></li>
+  </ul></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">[1.7.0] — 2026-03-27</a>
+  <ul class="collapse">
+  <li><a href="#added-6" id="toc-added-6" class="nav-link" data-scroll-target="#added-6">Added</a></li>
+  </ul></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">[1.6.2] — 2026-03-27</a>
+  <ul class="collapse">
+  <li><a href="#added-7" id="toc-added-7" class="nav-link" data-scroll-target="#added-7">Added</a></li>
+  </ul></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">[1.6.1] — 2026-03-27</a>
+  <ul class="collapse">
+  <li><a href="#added-8" id="toc-added-8" class="nav-link" data-scroll-target="#added-8">Added</a></li>
+  </ul></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">[1.6.0] — 2026-03-27</a>
+  <ul class="collapse">
+  <li><a href="#added-9" id="toc-added-9" class="nav-link" data-scroll-target="#added-9">Added</a></li>
+  </ul></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">[1.5.1] — 2026-03-27</a>
+  <ul class="collapse">
+  <li><a href="#fixed-3" id="toc-fixed-3" class="nav-link" data-scroll-target="#fixed-3">Fixed</a></li>
+  </ul></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">[1.5.0] — 2026-03-27</a>
+  <ul class="collapse">
+  <li><a href="#added-10" id="toc-added-10" class="nav-link" data-scroll-target="#added-10">Added</a></li>
+  </ul></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">[1.4.1] — 2026-03-27</a>
+  <ul class="collapse">
+  <li><a href="#fixed-4" id="toc-fixed-4" class="nav-link" data-scroll-target="#fixed-4">Fixed</a></li>
+  </ul></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">[1.4.0] — 2026-03-27</a>
+  <ul class="collapse">
+  <li><a href="#added-11" id="toc-added-11" class="nav-link" data-scroll-target="#added-11">Added</a></li>
+  </ul></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">[1.3.1] — 2026-03-27</a>
+  <ul class="collapse">
+  <li><a href="#fixed-5" id="toc-fixed-5" class="nav-link" data-scroll-target="#fixed-5">Fixed</a></li>
+  </ul></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">[1.3.0] — 2026-03-27</a>
+  <ul class="collapse">
+  <li><a href="#added-12" id="toc-added-12" class="nav-link" data-scroll-target="#added-12">Added</a></li>
+  <li><a href="#changed-1" id="toc-changed-1" class="nav-link" data-scroll-target="#changed-1">Changed</a></li>
+  </ul></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">[1.2.0] — 2026-03-26</a>
+  <ul class="collapse">
+  <li><a href="#added-13" id="toc-added-13" class="nav-link" data-scroll-target="#added-13">Added</a></li>
+  <li><a href="#fixed-6" id="toc-fixed-6" class="nav-link" data-scroll-target="#fixed-6">Fixed</a></li>
+  </ul></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">[1.1.0] — 2026-03-26</a>
+  <ul class="collapse">
+  <li><a href="#added-14" id="toc-added-14" class="nav-link" data-scroll-target="#added-14">Added</a></li>
+  </ul></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">[1.0.0] — 2026-03-26</a>
+  <ul class="collapse">
+  <li><a href="#fixed-stabilized" id="toc-fixed-stabilized" class="nav-link" data-scroll-target="#fixed-stabilized">Fixed / Stabilized</a></li>
+  </ul></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">[0.9.0] — 2026-03-23</a>
+  <ul class="collapse">
+  <li><a href="#added-jack-transport" id="toc-added-jack-transport" class="nav-link" data-scroll-target="#added-jack-transport">Added — JACK Transport</a></li>
+  </ul></li>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">[0.8.0] — 2026-03-23</a>
+  <ul class="collapse">
+  <li><a href="#added-group-drag-advanced-selection" id="toc-added-group-drag-advanced-selection" class="nav-link" data-scroll-target="#added-group-drag-advanced-selection">Added — Group drag &amp; advanced selection</a></li>
+  </ul></li>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">[0.7.0] — 2026-03-22</a>
+  <ul class="collapse">
+  <li><a href="#added-toolbar-connect-all-automatic-layout-sugiyama" id="toc-added-toolbar-connect-all-automatic-layout-sugiyama" class="nav-link" data-scroll-target="#added-toolbar-connect-all-automatic-layout-sugiyama">Added — Toolbar, Connect-All, automatic layout (Sugiyama)</a></li>
+  </ul></li>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">[0.6.0] — 2026-03-22</a>
+  <ul class="collapse">
+  <li><a href="#added-visual-polish-node-collapse" id="toc-added-visual-polish-node-collapse" class="nav-link" data-scroll-target="#added-visual-polish-node-collapse">Added — Visual polish + node collapse</a></li>
+  </ul></li>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">[0.5.0] — 2026-03-21</a>
+  <ul class="collapse">
+  <li><a href="#added-full-studios" id="toc-added-full-studios" class="nav-link" data-scroll-target="#added-full-studios">Added — Full studios</a></li>
+  </ul></li>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">[0.4.0] — 2026-03-20</a>
+  <ul class="collapse">
+  <li><a href="#added-improved-patchbay-studiomanager-foundations" id="toc-added-improved-patchbay-studiomanager-foundations" class="nav-link" data-scroll-target="#added-improved-patchbay-studiomanager-foundations">Added — Improved patchbay + StudioManager foundations</a></li>
+  </ul></li>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">[0.3.0] — 2026-03-19</a>
+  <ul class="collapse">
+  <li><a href="#added-functional-patchbay" id="toc-added-functional-patchbay" class="nav-link" data-scroll-target="#added-functional-patchbay">Added — Functional patchbay</a></li>
+  </ul></li>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">[0.2.0] — 2026-03-18</a>
+  <ul class="collapse">
+  <li><a href="#added-ui-logs" id="toc-added-ui-logs" class="nav-link" data-scroll-target="#added-ui-logs">Added — UI + logs</a></li>
+  </ul></li>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">[0.1.0] — 2026-03-18</a>
+  <ul class="collapse">
+  <li><a href="#first-working-version" id="toc-first-working-version" class="nav-link" data-scroll-target="#first-working-version">First working version</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./guide/alternatives.html">Reference</a></li><li class="breadcrumb-item"><a href="./changelog.html">Changelog</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Changelog</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>All notable changes to this project are documented here.</p>
+<p>Format: <a href="https://semver.org">Semantic Versioning</a>. Versions 0.x cover the initial development phase (before stabilization). Version 1.0 marks the first stable and complete release.</p>
+<hr>
+<section id="infra-2026-04-07" class="level2">
+<h2 class="anchored" data-anchor-id="infra-2026-04-07">[infra] — 2026-04-07</h2>
+<section id="documentation" class="level3">
+<h3 class="anchored" data-anchor-id="documentation">Documentation</h3>
+<ul>
+<li>Full Quarto documentation site: home page + 6 guide pages (Configuration, Patchbay, Studios, Transport, Menu Bar, Alternatives)</li>
+<li>Published via <code>gh-pages</code> branch — available at <a href="https://zinc75.github.io/JackMate/">zinc75.github.io/JackMate</a> once GitHub Pages is activated</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">[1.8.5] — 2026-04-04</h2>
+<section id="added" class="level3">
+<h3 class="anchored" data-anchor-id="added">Added</h3>
+<ul>
+<li>Full Spanish (ES) translation: 251/261 keys in <code>Localizable.xcstrings</code> (10 remaining are empty technical literal keys with no translatable content)</li>
+<li><code>es.lproj/InfoPlist.strings</code>: <code>NSMicrophoneUsageDescription</code> localised in ES</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">[1.8.4] — 2026-04-03</h2>
+<section id="added-1" class="level3">
+<h3 class="anchored" data-anchor-id="added-1">Added</h3>
+<ul>
+<li>Full Italian (IT) translation: 248/261 keys in <code>Localizable.xcstrings</code> (13 remaining are empty technical literal keys with no translatable content)</li>
+<li><code>it.lproj/InfoPlist.strings</code>: <code>NSMicrophoneUsageDescription</code> localised in IT</li>
+<li>Structural fix: added <code>fr</code> source value to <code>organiser</code>, <code>%lld hors vue</code>, <code>auto-launch</code> keys (missing value caused them to be skipped in future language exports)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">[1.8.3] — 2026-04-03</h2>
+<section id="refactored" class="level3">
+<h3 class="anchored" data-anchor-id="refactored">Refactored</h3>
+<ul>
+<li><code>JackState</code> enum introduced (<code>ready</code>, <code>starting</code>, <code>running</code>, <code>external</code>, <code>startFailed</code>, <code>stopping</code>, <code>stopped</code>, <code>stoppedExternal</code>, <code>alreadyRunning</code>, <code>executableNotFound</code>)</li>
+<li>Transitional state detection in <code>MenuBarView</code> and <code>ContentView</code> moved from <code>statusMessage.contains("💈")</code> to <code>jackState == .starting || .stopping</code></li>
+<li>Emoji prefixes <code>💈</code> / <code>💨</code> removed from <code>jack.status.*</code> strings in <code>Localizable.xcstrings</code> (FR, EN, DE)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">[1.8.2] — 2026-04-03</h2>
+<section id="added-2" class="level3">
+<h3 class="anchored" data-anchor-id="added-2">Added</h3>
+<ul>
+<li>Full German (DE) translation: 249/262 keys in <code>Localizable.xcstrings</code> (13 remaining are empty technical literal keys with no translatable content)</li>
+<li><code>%lld hors vue</code>: EN (<code>%lld out of view</code>) and DE (<code>%lld außerhalb des Sichtbereichs</code>) translations added</li>
+<li><code>de.lproj/InfoPlist.strings</code>: <code>NSMicrophoneUsageDescription</code> already present in DE</li>
+</ul>
+</section>
+<section id="fixed" class="level3">
+<h3 class="anchored" data-anchor-id="fixed">Fixed</h3>
+<ul>
+<li><code>JackBridge.c</code>: last 3 French error messages translated to English (<code>"Missing symbol"</code>, <code>"libjack.dylib not found"</code>, <code>"Null client"</code>)</li>
+<li><code>Hog mode</code> and <code>Clock drift correction</code> labels kept in English for DE (standard audio terminology)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">[1.8.1] — 2026-04-03</h2>
+<section id="added-3" class="level3">
+<h3 class="anchored" data-anchor-id="added-3">Added</h3>
+<ul>
+<li>Full English translation: 100% of UI strings translated (262 keys in <code>Localizable.xcstrings</code>)</li>
+<li><code>InfoPlist.xcstrings</code>: localized <code>NSMicrophoneUsageDescription</code> (EN + FR)</li>
+<li>Proper plural forms for selection count (<code>canvas.selection.count</code>): “1 client selected” / “N clients selected”</li>
+</ul>
+</section>
+<section id="changed" class="level3">
+<h3 class="anchored" data-anchor-id="changed">Changed</h3>
+<ul>
+<li><code>config.hog_mode.description</code> EN: “Takes exclusive access of the audio device” (aligned with Jack man page)</li>
+<li>Error message in Jack bridge translated to English</li>
+<li><code>statusMessage</code> default value and <code>StudioManager.summary</code> now properly localized</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">[1.8.0] — 2026-04-02</h2>
+<section id="added-4" class="level3">
+<h3 class="anchored" data-anchor-id="added-4">Added</h3>
+<ul>
+<li>Full i18n infrastructure: all UI strings externalized into <code>Localizable.xcstrings</code> (~272 keys), source language French</li>
+<li><code>String(localized:)</code> / <code>Text("key")</code> applied across the entire codebase (JackMateApp, NotificationManager, MenuBarView, TransportBarView, JackNotInstalledView, ConnectAllSheet, JackManager, JackBridgeWrapper, PatchbayView, PatchbayManager, StudioManager, ContentView)</li>
+<li>Key naming convention: <code>vue.composant.etat</code> snake_case, shared keys under <code>common.*</code></li>
+<li>Distribution build pipeline updated: <code>sync_to_distribution.sh</code> copies <code>Localizable.xcstrings</code>; <code>build.sh</code> compiles it to per-language <code>Localizable.strings</code> at build time (step [4/6])</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">[1.7.4] — 2026-03-28</h2>
+<section id="fixed-1" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-1">Fixed</h3>
+<ul>
+<li>Patchbay client info sheet (click on the 2-letter badge): CLI clients (jack_metro, a2jmidid, etc.) are not visible to <code>NSWorkspace</code> — added fallback via <code>ProcessHelper.findPID(forJackClient:)</code> to display their executable path, full command line, and PID</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">[1.7.3] — 2026-03-28</h2>
+<section id="fixed-2" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-2">Fixed</h3>
+<ul>
+<li>Patchbay client names empty in Release build: <code>String(cString:)</code> moved inside <code>withUnsafeBytes</code> closures in <code>getPorts()</code> and <code>getConnections()</code> — the C pointer is only valid for the duration of the closure; using it after the closure returns is undefined behaviour exploited by the Release optimizer</li>
+<li><code>PatchbayManager</code>: <code>bridge</code> property now captured explicitly on the main actor before dispatching to background queues — prevents a <code>@MainActor</code> property access from a <code>nonisolated</code> context in Release builds</li>
+<li><code>windowShouldClose</code> annotated <code>@MainActor</code> for compatibility with command-line builds</li>
+</ul>
+</section>
+<section id="build" class="level3">
+<h3 class="anchored" data-anchor-id="build">Build</h3>
+<ul>
+<li><code>build.sh</code>: animated progress spinner (braille) on each compilation step, ✓ checkmark on completion</li>
+<li><code>build.sh</code>: <code>actool</code> output cleaned up — system-level <code>dyld</code> noise suppressed, XML summary hidden, real warnings still surfaced</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">[1.7.2] — 2026-03-27</h2>
+<section id="documentation-1" class="level3">
+<h3 class="anchored" data-anchor-id="documentation-1">Documentation</h3>
+<ul>
+<li>English <code>///</code> docstrings added to all public and internal types, properties, and methods across the entire codebase</li>
+<li>All <code>//</code> and <code>///</code> code comments translated to English (UI strings unchanged)</li>
+<li>Files covered: <code>ContentView.swift</code>, <code>Patchbayview.swift</code>, <code>Patchbaymanager.swift</code>, <code>JackBridgeWrapper.swift</code>, <code>JackBridge.c/h</code>, <code>Studiomanager.swift</code>, <code>JackManager.swift</code>, <code>ConnectAllSheet.swift</code>, <code>CoreAudioManager.swift</code>, <code>MenuBarView.swift</code>, <code>TransportBarView.swift</code>, <code>TransportObserver.swift</code>, <code>NotificationManager.swift</code>, <code>JackMateApp.swift</code>, <code>WindowDelegate.swift</code>, <code>Theme.swift</code>, <code>JackNotInstalledView.swift</code>, <code>ProcessHelper.swift</code></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">[1.7.1] — 2026-03-27</h2>
+<section id="added-5" class="level3">
+<h3 class="anchored" data-anchor-id="added-5">Added</h3>
+<ul>
+<li>Parsing of the installed Jack version via <code>jackd --version</code></li>
+<li>GitHub API call (<code>jackaudio/jack2-releases</code>) with 24h UserDefaults cache</li>
+<li>Version badge in the Configuration header: green ✓ if up to date, clickable amber ↑ if an update is available</li>
+<li>Semantic version comparison (major.minor.patch), silent if no network or Jack is absent</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">[1.7.0] — 2026-03-27</h2>
+<section id="added-6" class="level3">
+<h3 class="anchored" data-anchor-id="added-6">Added</h3>
+<ul>
+<li>Jack detection at launch and on every app reactivation: <code>jackInstalled</code>, <code>recheckInstallation()</code></li>
+<li><code>JackNotInstalledView</code> modal: installation helper with Homebrew or .pkg choice, copyable command, and colored glow on the command block</li>
+<li>Generated command block adapts its title and content to installation state and chosen method</li>
+<li>Start Jack button and studio loading grayed out / disabled when Jack is absent</li>
+<li>Automatic re-display of the modal when opening the window from the menu bar (custom <code>mainWindowDidOpen</code> notification)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">[1.6.2] — 2026-03-27</h2>
+<section id="added-7" class="level3">
+<h3 class="anchored" data-anchor-id="added-7">Added</h3>
+<ul>
+<li>Custom About panel (SwiftUI NSPanel): app icon, version/build, copyright, MIT licence, GitHub and Buy Me a Coffee links</li>
+<li>Services menu removed</li>
+<li>View menu: ⌘1 Configuration / ⌘2 Patchbay navigation</li>
+<li>Help menu: link to JackMate documentation</li>
+<li>Minimum Configuration window height raised to 880×800</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">[1.6.1] — 2026-03-27</h2>
+<section id="added-8" class="level3">
+<h3 class="anchored" data-anchor-id="added-8">Added</h3>
+<ul>
+<li><code>NSAlert</code> (with “Don’t show again” checkbox) when selecting an aggregate device — suggests configuring clock sync in Audio MIDI Setup, with a direct Open button</li>
+<li><code>NSAlert</code> (with “Don’t show again” checkbox) when enabling Clock drift correction — suggests the macOS aggregate device as an alternative</li>
+<li>Clock drift correction toggle grayed out and forced to <code>false</code> when input and output are the same physical hardware (same UID, or two built-in devices)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">[1.6.0] — 2026-03-27</h2>
+<section id="added-9" class="level3">
+<h3 class="anchored" data-anchor-id="added-9">Added</h3>
+<ul>
+<li>Aggregate device constraint: if an aggregate device is selected on input or output, the other side is automatically forced to the same device</li>
+<li><code>isBuiltIn: Bool</code> added to <code>AudioDeviceInfo</code> (built-in transport detection)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">[1.5.1] — 2026-03-27</h2>
+<section id="fixed-3" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-3">Fixed</h3>
+<ul>
+<li>Xrun counter automatically reset to zero on Jack stop and start (voluntary stop, crash, or external cause)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">[1.5.0] — 2026-03-27</h2>
+<section id="added-10" class="level3">
+<h3 class="anchored" data-anchor-id="added-10">Added</h3>
+<ul>
+<li>Explicit input/output channel selection via LED picker (<code>--input-list</code> / <code>--output-list</code>)</li>
+<li>Sheet modal with numbered clickable LED rows, green glow on active channels</li>
+<li>Minimum 1 active channel guaranteed, reset to all channels on each toggle activation</li>
+<li>Footer: permanent channel chips (<code>N/Nmax ch</code> with selected range details)</li>
+<li><code>JackSnapshot</code> extended: <code>limitChannels</code>, <code>selectedInChannels</code>, <code>selectedOutChannels</code> — backward-compatible JSON</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">[1.4.1] — 2026-03-27</h2>
+<section id="fixed-4" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-4">Fixed</h3>
+<ul>
+<li>MIDI (coremidi) toggle grayed out and disabled — experimental option causing instabilities</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">[1.4.0] — 2026-03-27</h2>
+<section id="added-11" class="level3">
+<h3 class="anchored" data-anchor-id="added-11">Added</h3>
+<ul>
+<li>“Audio MIDI Setup” button in the Configuration toolbar (left of the terminal icon) — opens the native macOS Audio MIDI Setup app, <code>pianokeys</code> icon, tooltip on hover</li>
+<li>Minimum Patchbay view width raised to 1100px</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">[1.3.1] — 2026-03-27</h2>
+<section id="fixed-5" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-5">Fixed</h3>
+<ul>
+<li>Appearance forced to dark mode (<code>NSApp.appearance = .darkAqua</code>) — sidebar, log, and menubar popover stable in macOS Light mode</li>
+<li>Log panel: semi-transparent background via SwiftUI opacity (VisualEffectView incompatible with ZStack overlay)</li>
+<li>Menu bar info icons switched to monochrome</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">[1.3.0] — 2026-03-27</h2>
+<section id="added-12" class="level3">
+<h3 class="anchored" data-anchor-id="added-12">Added</h3>
+<ul>
+<li>Detection of CLI Jack clients by scanning the process table (<code>proc_listallpids</code> + <code>proc_pidpath</code> + <code>sysctl KERN_PROCARGS2</code>)</li>
+<li><code>ProcessHelper</code>: new file — <code>findPID(forJackClient:)</code>, <code>commandLine(for:)</code>, <code>executablePath(for:)</code>, <code>terminate(pid:)</code></li>
+<li>Automatic save of CLI client launch commands in the studio JSON at <code>buildStudio()</code></li>
+<li>Automatic relaunch of CLI clients when loading a studio</li>
+<li><code>terminateAllJackClients()</code>: closes all Jack clients (GUI via NSWorkspace + CLI via PID scan)</li>
+<li><code>stopJackGracefully()</code>: SIGTERM → 3s delay → SIGKILL → stopJack (correct order)</li>
+<li><code>suppressJackStopCleanup</code> flag to avoid double-kill during a studio load with Jack restart</li>
+</ul>
+</section>
+<section id="changed-1" class="level3">
+<h3 class="anchored" data-anchor-id="changed-1">Changed</h3>
+<ul>
+<li>“Stop Jack” button (interface, menu bar, JackMateApp) now uses <code>stopJackGracefully()</code> everywhere</li>
+<li>Stop Studio now also closes CLI clients</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">[1.2.0] — 2026-03-26</h2>
+<section id="added-13" class="level3">
+<h3 class="anchored" data-anchor-id="added-13">Added</h3>
+<ul>
+<li>Full Jack command comparison on studio load (all parameters, options, devices) — order-independent token comparison</li>
+<li>Closure of ALL clients (GUI + CLI from the studio) before loading a new studio</li>
+<li>Jack restart only if configuration differs or Jack was started outside JackMate</li>
+<li>1.5s delay between stop and start Jack to allow system resource release</li>
+<li>Studio loading progress modal with auto-close</li>
+<li><code>StudioManager.cliProcesses</code>: tracking of processes launched by <code>launchCLI()</code></li>
+<li><code>JackSnapshot</code> extended: <code>hogMode</code>, <code>clockDrift</code>, <code>midiEnabled</code> with backward-compatible decoding</li>
+</ul>
+</section>
+<section id="fixed-6" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-6">Fixed</h3>
+<ul>
+<li>Studios saved with older JSON versions still readable (<code>decodeIfPresent</code> + default values)</li>
+<li>Race condition: <code>isRunning</code> forced to <code>false</code> before <code>startJack()</code> to prevent guard deadlock</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">[1.1.0] — 2026-03-26</h2>
+<section id="added-14" class="level3">
+<h3 class="anchored" data-anchor-id="added-14">Added</h3>
+<ul>
+<li>Real executable name displayed in the generated command (<code>jackd</code> or <code>jackdmp</code> depending on installation)</li>
+<li>Subtle copy button with animated checkmark feedback</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">[1.0.0] — 2026-03-26</h2>
+<section id="fixed-stabilized" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-stabilized">Fixed / Stabilized</h3>
+<ul>
+<li>Fixed patchbay reconnection bug after Stop/Start Jack (root cause: Jack 1.9.11 → updated to 1.9.22)</li>
+<li>Defensive Combine/retry improvements retained as a safety net</li>
+<li><code>.removeDuplicates()</code> on <code>$isRunning</code>, <code>retryConnectTask</code>, <code>handleJackStopped()</code> unified</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">[0.9.0] — 2026-03-23</h2>
+<section id="added-jack-transport" class="level3">
+<h3 class="anchored" data-anchor-id="added-jack-transport">Added — JACK Transport</h3>
+<ul>
+<li>Transport bar: Play / Pause / Stop / Seek</li>
+<li>BBT, HMS, Frames display</li>
+<li>Timebase master, BPM</li>
+<li>C bridge + Swift wrapper + transport state polling</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">[0.8.0] — 2026-03-23</h2>
+<section id="added-group-drag-advanced-selection" class="level3">
+<h3 class="anchored" data-anchor-id="added-group-drag-advanced-selection">Added — Group drag &amp; advanced selection</h3>
+<ul>
+<li>Group drag: selected clients move together</li>
+<li>Multi-selection: Shift+click, ⌘A</li>
+<li>Selection badge on collapse/expand button</li>
+<li>Actionable selection overlay</li>
+<li>Out-of-view node indicators with direction arrows</li>
+<li>100% zoom reset (toolbar button + double-tap)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">[0.7.0] — 2026-03-22</h2>
+<section id="added-toolbar-connect-all-automatic-layout-sugiyama" class="level3">
+<h3 class="anchored" data-anchor-id="added-toolbar-connect-all-automatic-layout-sugiyama">Added — Toolbar, Connect-All, automatic layout (Sugiyama)</h3>
+<ul>
+<li>Automatic patchbay node layout (Sugiyama algorithm)</li>
+<li>Partial tidy selection (Shift+click)</li>
+<li>Connect-All: bulk connection between two clients</li>
+<li>Patchbay-accurate canvas preview in ConnectAllSheet</li>
+<li>Unified 40px toolbar, mass collapse/expand</li>
+<li>Repositioning toast, homogenized overlays</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">[0.6.0] — 2026-03-22</h2>
+<section id="added-visual-polish-node-collapse" class="level3">
+<h3 class="anchored" data-anchor-id="added-visual-polish-node-collapse">Added — Visual polish + node collapse</h3>
+<ul>
+<li>Node collapse/expand, meta-cables</li>
+<li>Port pills on hover, pill for unconnected nodes, click-to-connect</li>
+<li>Diagonal gradient border on cards and nodes</li>
+<li>MenuBarView visual overhaul</li>
+<li>Dynamic minimum size based on active view</li>
+<li>Automatic Configuration ↔︎ Patchbay switch</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">[0.5.0] — 2026-03-21</h2>
+<section id="added-full-studios" class="level3">
+<h3 class="anchored" data-anchor-id="added-full-studios">Added — Full studios</h3>
+<ul>
+<li>Full studio capture (Jack parameters + clients + connections + node positions)</li>
+<li>Robust load/save, stabilized patchbay</li>
+<li>Stop Studio: quit apps + disconnect cables</li>
+<li>Studio inspection modal</li>
+<li>Marquee on long studio names</li>
+<li>Auto-switch to Patchbay on studio load</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">[0.4.0] — 2026-03-20</h2>
+<section id="added-improved-patchbay-studiomanager-foundations" class="level3">
+<h3 class="anchored" data-anchor-id="added-improved-patchbay-studiomanager-foundations">Added — Improved patchbay + StudioManager foundations</h3>
+<ul>
+<li>Patchbay spatial consistency (centering, drag constraints)</li>
+<li>Collision management</li>
+<li>StudioManager beginnings</li>
+<li>Stability overhaul: xrun counts, improved Jack handling</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">[0.3.0] — 2026-03-19</h2>
+<section id="added-functional-patchbay" class="level3">
+<h3 class="anchored" data-anchor-id="added-functional-patchbay">Added — Functional patchbay</h3>
+<ul>
+<li>Cables, animations, real-time updates</li>
+<li>JackBridge for patchbay</li>
+<li>Physical input source selector</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">[0.2.0] — 2026-03-18</h2>
+<section id="added-ui-logs" class="level3">
+<h3 class="anchored" data-anchor-id="added-ui-logs">Added — UI + logs</h3>
+<ul>
+<li>System notifications</li>
+<li>Semi-transparent log window</li>
+<li>Initial look and feel</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">[0.1.0] — 2026-03-18</h2>
+<section id="first-working-version" class="level3">
+<h3 class="anchored" data-anchor-id="first-working-version">First working version</h3>
+<ul>
+<li>Start / stop Jack from the menu bar</li>
+<li>Basic configuration</li>
+</ul>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>JackMate · © 2026 Éric Bavu · <a href="https://github.com/zinc75/JackMate/blob/main/LICENSE">MIT License</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
