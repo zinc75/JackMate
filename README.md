@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://zinc75.github.io/JackMate/assets/icon.png" width="128" alt="JackMate icon">
+  <img src="https://raw.githubusercontent.com/zinc75/JackMate/gh-pages/assets/icon.png" width="128" alt="JackMate icon">
   <h1>JackMate</h1>
   <p>Native macOS app for managing the JACK audio server — from your menu bar or as a standard window.</p>
 
@@ -15,12 +15,12 @@
 ---
 
 <div align="center">
-  <img src="https://zinc75.github.io/JackMate/assets/screenshots/patchbay.png" alt="Patchbay view" width="80%">
+  <img src="https://raw.githubusercontent.com/zinc75/JackMate/gh-pages/assets/screenshots/patchbay.png" alt="Patchbay view" width="80%">
 </div>
 
 <div align="center">
-  <img src="https://zinc75.github.io/JackMate/assets/screenshots/configuration.png" alt="Configuration view" width="49%">
-  <img src="https://zinc75.github.io/JackMate/assets/screenshots/menubar.png" alt="Menu bar" width="49%">
+  <img src="https://raw.githubusercontent.com/zinc75/JackMate/gh-pages/assets/screenshots/configuration.png" alt="Configuration view" width="49%">
+  <img src="https://raw.githubusercontent.com/zinc75/JackMate/gh-pages/assets/screenshots/menubar.png" alt="Menu bar" width="49%">
 </div>
 
 ---
