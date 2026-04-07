@@ -59,6 +59,12 @@ A native macOS app (Swift/SwiftUI) for managing the JACK audio server from your 
 
 ---
 
+## Documentation
+
+Full documentation at **[zinc75.github.io/JackMate](https://zinc75.github.io/JackMate/)** *(coming soon — GitHub Pages activation pending)*
+
+---
+
 ## Requirements
 
 - macOS 15.7 (Sequoia) or later — Intel and Apple Silicon
