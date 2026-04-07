@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Configure Jack Audio Server from JackMate">
+
+<title>Configuration – JackMate</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/icon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-86a676ce5307890add4e0cff6447c4f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../assets/custom.css">
+<meta property="og:title" content="Configuration – JackMate">
+<meta property="og:description" content="Configure Jack Audio Server from JackMate">
+<meta property="og:image" content="../assets/screenshots/configuration-all.png">
+<meta property="og:site_name" content="JackMate">
+<meta property="og:image:alt" content="JackMate window in Configuration view">
+<meta name="twitter:title" content="Configuration – JackMate">
+<meta name="twitter:description" content="Configure Jack Audio Server from JackMate">
+<meta name="twitter:image" content="../assets/screenshots/configuration-all.png">
+<meta name="twitter:image:alt" content="JackMate window in Configuration view">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/icon.png" alt="JackMate" class="navbar-logo light-content">
+    <img src="../assets/icon.png" alt="JackMate" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">JackMate</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guide" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Guide</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-guide">    
+        <li>
+    <a class="dropdown-item" href="../guide/configuration.html">
+ <span class="dropdown-text">Configuration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guide/patchbay.html">
+ <span class="dropdown-text">Patchbay</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guide/studios.html">
+ <span class="dropdown-text">Studios</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guide/transport.html">
+ <span class="dropdown-text">Transport</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guide/menubar.html">
+ <span class="dropdown-text">Menu Bar</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../guide/alternatives.html">
+ <span class="dropdown-text">Alternatives</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/zinc75/JackMate"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guide/configuration.html">Guide</a></li><li class="breadcrumb-item"><a href="../guide/configuration.html">Configuration</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Guide</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/configuration.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Configuration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/patchbay.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Patchbay</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/studios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Studios</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/transport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transport</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/menubar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Menu Bar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/alternatives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Alternatives</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#toolbar" id="toc-toolbar" class="nav-link active" data-scroll-target="#toolbar">Toolbar</a></li>
+  <li><a href="#audio-devices" id="toc-audio-devices" class="nav-link" data-scroll-target="#audio-devices">Audio Devices</a>
+  <ul class="collapse">
+  <li><a href="#input" id="toc-input" class="nav-link" data-scroll-target="#input">Input</a></li>
+  <li><a href="#output" id="toc-output" class="nav-link" data-scroll-target="#output">Output</a></li>
+  <li><a href="#aggregate-devices" id="toc-aggregate-devices" class="nav-link" data-scroll-target="#aggregate-devices">Aggregate devices</a></li>
+  <li><a href="#channel-selection" id="toc-channel-selection" class="nav-link" data-scroll-target="#channel-selection">Channel selection</a></li>
+  </ul></li>
+  <li><a href="#audio" id="toc-audio" class="nav-link" data-scroll-target="#audio">Audio</a>
+  <ul class="collapse">
+  <li><a href="#sample-rate" id="toc-sample-rate" class="nav-link" data-scroll-target="#sample-rate">Sample Rate</a></li>
+  <li><a href="#buffer-size" id="toc-buffer-size" class="nav-link" data-scroll-target="#buffer-size">Buffer Size</a></li>
+  <li><a href="#theoretical-latency" id="toc-theoretical-latency" class="nav-link" data-scroll-target="#theoretical-latency">Theoretical latency</a></li>
+  </ul></li>
+  <li><a href="#options" id="toc-options" class="nav-link" data-scroll-target="#options">Options</a>
+  <ul class="collapse">
+  <li><a href="#hog-mode" id="toc-hog-mode" class="nav-link" data-scroll-target="#hog-mode">Hog Mode</a></li>
+  <li><a href="#clock-drift-correction" id="toc-clock-drift-correction" class="nav-link" data-scroll-target="#clock-drift-correction">Clock Drift Correction</a></li>
+  <li><a href="#midi-coremidi" id="toc-midi-coremidi" class="nav-link" data-scroll-target="#midi-coremidi">MIDI (coremidi)</a></li>
+  </ul></li>
+  <li><a href="#jack-version" id="toc-jack-version" class="nav-link" data-scroll-target="#jack-version">Jack Version</a></li>
+  <li><a href="#generated-command" id="toc-generated-command" class="nav-link" data-scroll-target="#generated-command">Generated Command</a></li>
+  <li><a href="#starting-jack" id="toc-starting-jack" class="nav-link" data-scroll-target="#starting-jack">Starting Jack</a>
+  <ul class="collapse">
+  <li><a href="#jack-not-installed" id="toc-jack-not-installed" class="nav-link" data-scroll-target="#jack-not-installed">Jack not installed</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guide/configuration.html">Guide</a></li><li class="breadcrumb-item"><a href="../guide/configuration.html">Configuration</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Configuration</h1>
+</div>
+
+<div>
+  <div class="description">
+    Configure Jack Audio Server from JackMate
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The <strong>Configuration</strong> view is JackMate’s starting point. This is where you define how Jack should start.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Configuration is locked while Jack is running. Stop Jack to change any parameter.</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/configuration-all.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Configuration view — Jack stopped, all parameters editable"><img src="../assets/screenshots/configuration-all.png" class="img-fluid figure-img" alt="JackMate window in Configuration view"></a></p>
+<figcaption>Configuration view — Jack stopped, all parameters editable</figcaption>
+</figure>
+</div>
+<hr>
+<section id="toolbar" class="level2">
+<h2 class="anchored" data-anchor-id="toolbar">Toolbar</h2>
+<p>The toolbar at the top of the Configuration view contains:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Button</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Audio MIDI Setup</strong></td>
+<td>Opens macOS <strong>Audio MIDI Setup</strong> utility (piano keys icon)</td>
+</tr>
+<tr class="even">
+<td><strong>Terminal</strong></td>
+<td>Opens/closes the Jack log panel</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>Audio MIDI Setup</strong> button lets you create aggregate devices, configure clock sync between two interfaces, or inspect available hardware — without leaving JackMate.</p>
+<hr>
+</section>
+<section id="audio-devices" class="level2">
+<h2 class="anchored" data-anchor-id="audio-devices">Audio Devices</h2>
+<section id="input" class="level3">
+<h3 class="anchored" data-anchor-id="input">Input</h3>
+<p>Select the audio interface that will provide <strong>inputs</strong> to Jack. All available CoreAudio interfaces are listed with their channel count.</p>
+<p>Choose <strong>“No Input”</strong> if you don’t need recording (pure playback music production, for example).</p>
+</section>
+<section id="output" class="level3">
+<h3 class="anchored" data-anchor-id="output">Output</h3>
+<p>Select the audio interface used for <strong>playback</strong>. Input and output can be different interfaces — Jack handles clock sync between them.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Compatible sample rates.</strong> JackMate automatically computes sample rates supported by both interfaces simultaneously. Only compatible frequencies are shown in the selector.</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/configuration-devices-audio.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Audio device and output selection, sample rate picker"><img src="../assets/screenshots/configuration-devices-audio.png" class="img-fluid figure-img" alt="Audio Devices and Audio sections with the sample rate picker open"></a></p>
+<figcaption>Audio device and output selection, sample rate picker</figcaption>
+</figure>
+</div>
+</section>
+<section id="aggregate-devices" class="level3">
+<h3 class="anchored" data-anchor-id="aggregate-devices">Aggregate devices</h3>
+<p>If you select an <strong>aggregate device</strong> (created in Audio MIDI Setup) as input or output, JackMate automatically forces the other side to the same device. Aggregate devices manage their own clock — using two separate sides makes no sense here.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Clock synchronisation.</strong> When an aggregate device is selected, JackMate shows an alert recommending that you configure clock sync in <strong>Audio MIDI Setup</strong> before starting Jack. Skip this only if your aggregate is already correctly set up.</p>
+</div>
+</div>
+</section>
+<section id="channel-selection" class="level3">
+<h3 class="anchored" data-anchor-id="channel-selection">Channel selection</h3>
+<p>By default, Jack exposes all channels of the selected interface. You can restrict active channels using the <strong>LED picker</strong>:</p>
+<ol type="1">
+<li>Enable the <strong>Channels</strong> toggle in the Devices section</li>
+<li>A sheet appears with a row of numbered LEDs (one per channel)</li>
+<li>Click a LED to toggle it — active channels glow green</li>
+<li>At least one channel must remain active (automatic constraint)</li>
+<li>The footer permanently shows the active selection (<code>N/Nmax ch</code>)</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/configuration-channel-picker.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="LED picker — granular input/output channel selection"><img src="../assets/screenshots/configuration-channel-picker.png" class="img-fluid figure-img" alt="LED picker sheet open. Row of numbered LEDs, some glowing green (active), others off. Open by enabling the Channels toggle in the Devices section (Jack stopped)."></a></p>
+<figcaption>LED picker — granular input/output channel selection</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+</section>
+<section id="audio" class="level2">
+<h2 class="anchored" data-anchor-id="audio">Audio</h2>
+<section id="sample-rate" class="level3">
+<h3 class="anchored" data-anchor-id="sample-rate">Sample Rate</h3>
+<p>Sampling frequency in Hz. Common values:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>44,100 Hz</td>
+<td>CD, classical music production</td>
+</tr>
+<tr class="even">
+<td>48,000 Hz</td>
+<td>Video audio, broadcast</td>
+</tr>
+<tr class="odd">
+<td>88,200 / 96,000 Hz</td>
+<td>High resolution, mastering</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="buffer-size" class="level3">
+<h3 class="anchored" data-anchor-id="buffer-size">Buffer Size</h3>
+<p>Number of frames per processing cycle. This directly impacts latency:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Buffer</th>
+<th>Theoretical latency (48 kHz)</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>64 frames</td>
+<td>~1.3 ms</td>
+<td>Live playing, ultra-low latency</td>
+</tr>
+<tr class="even">
+<td>128 frames</td>
+<td>~2.7 ms</td>
+<td>Standard recording</td>
+</tr>
+<tr class="odd">
+<td>256 frames</td>
+<td>~5.3 ms</td>
+<td>Monitoring, mixing</td>
+</tr>
+<tr class="even">
+<td>512 frames</td>
+<td>~10.7 ms</td>
+<td>Production, heavy plugins</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="theoretical-latency" class="level3">
+<h3 class="anchored" data-anchor-id="theoretical-latency">Theoretical latency</h3>
+<p>JackMate computes and displays the <strong>theoretical round-trip latency</strong> in real time (<code>2 × buffer / sample_rate</code>). Use this value to estimate the playability of a setup.</p>
+<hr>
+</section>
+</section>
+<section id="options" class="level2">
+<h2 class="anchored" data-anchor-id="options">Options</h2>
+<section id="hog-mode" class="level3">
+<h3 class="anchored" data-anchor-id="hog-mode">Hog Mode</h3>
+<p>When enabled, Jack <strong>monopolises</strong> the audio interface — no other application can use it simultaneously. Guarantees maximum stability and performance.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In hog mode, macOS system output (notifications, other apps) is cut off. Use in dedicated production contexts only.</p>
+</div>
+</div>
+</section>
+<section id="clock-drift-correction" class="level3">
+<h3 class="anchored" data-anchor-id="clock-drift-correction">Clock Drift Correction</h3>
+<p>Corrects clock drift between two audio interfaces used simultaneously. Enable if you are using different devices for input and output.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Clock drift correction is automatically disabled (and forced off) when input and output are the same physical hardware (same UID, or both built-in devices). In that case the toggle is greyed out.</p>
+</div>
+</div>
+<p>JackMate shows informational alerts in two situations when you interact with this toggle:</p>
+<p><strong>When activating Clock Drift Correction with non-aggregate devices</strong> — JackMate suggests using a macOS aggregate device instead, which handles clocking at the OS level and is generally more reliable than Jack’s software correction.</p>
+<p><strong>When selecting an aggregate device</strong> — JackMate reminds you to configure clock synchronisation in Audio MIDI Setup before starting Jack. Using an aggregate device without proper clock sync configured can cause xruns or instability.</p>
+<p>Both alerts include a “Don’t show again” checkbox so they only appear once.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/configuration-clock-drift.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Clock drift and aggregate device alerts — shown once, dismissable"><img src="../assets/screenshots/configuration-clock-drift.png" class="img-fluid figure-img" alt="(1) Alert shown when enabling Clock Drift Correction with non-aggregate devices ; (2) Alert shown when selecting an aggregate device"></a></p>
+<figcaption>Clock drift and aggregate device alerts — shown once, dismissable</figcaption>
+</figure>
+</div>
+</section>
+<section id="midi-coremidi" class="level3">
+<h3 class="anchored" data-anchor-id="midi-coremidi">MIDI (coremidi)</h3>
+<p>Enables <strong>MIDI via CoreMIDI</strong> support. Jack then exposes the MIDI ports of connected interfaces as Jack clients, making them routable in the patchbay.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Experimental option.</strong> The MIDI toggle is currently disabled due to observed instabilities. It will be re-enabled in a future version.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="jack-version" class="level2">
+<h2 class="anchored" data-anchor-id="jack-version">Jack Version</h2>
+<p>The Configuration header displays a <strong>version badge</strong> indicating the state of your Jack installation:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Badge</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>✓ 1.9.22</code> (green)</td>
+<td>Up to date</td>
+</tr>
+<tr class="even">
+<td><code>↑ 1.9.22</code> (amber, clickable)</td>
+<td>Update available on GitHub</td>
+</tr>
+<tr class="odd">
+<td><em>(absent)</em></td>
+<td>Jack not installed or version not detectable</td>
+</tr>
+</tbody>
+</table>
+<p>JackMate compares the installed version (<code>jackd --version</code>) against the latest release on <a href="https://github.com/jackaudio/jack2/releases">jackaudio/jack2</a>. The comparison is cached for 24 hours — no network call on repeated JackMate launches the same day. If no network is available, the badge is hidden.</p>
+<hr>
+</section>
+<section id="generated-command" class="level2">
+<h2 class="anchored" data-anchor-id="generated-command">Generated Command</h2>
+<p>The <strong>Generated Command</strong> section shows the <code>jackd</code> command JackMate will execute, updated in real time as you adjust parameters. Useful for debugging or copying into a script.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/configuration-commande.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="The jackd command generated in real time from current parameters"><img src="../assets/screenshots/configuration-commande.png" class="img-fluid figure-img" alt="Generated Command block showing the complete jackdmp command"></a></p>
+<figcaption>The <code>jackd</code> command generated in real time from current parameters</figcaption>
+</figure>
+</div>
+<p>A discrete <strong>copy button</strong> (with animated checkmark feedback) lets you copy the command to the clipboard.</p>
+<hr>
+</section>
+<section id="starting-jack" class="level2">
+<h2 class="anchored" data-anchor-id="starting-jack">Starting Jack</h2>
+<p>Click <strong>Start Jack</strong> in the header. JackMate:</p>
+<ol type="1">
+<li>Saves the configuration</li>
+<li>Launches <code>jackdmp</code> with the defined parameters</li>
+<li>Automatically switches to the <strong>Patchbay</strong> view</li>
+<li>Displays the status in the sidebar and the menu bar</li>
+</ol>
+<p>To stop Jack, click <strong>Stop Jack</strong>. Active connections are terminated.</p>
+<section id="jack-not-installed" class="level3">
+<h3 class="anchored" data-anchor-id="jack-not-installed">Jack not installed</h3>
+<p>If Jack is not found at launch, JackMate shows an installation guide modal with the appropriate command (Homebrew or <code>.pkg</code> download), coloured glow highlighting the command block. The <strong>Start Jack</strong> button is disabled until Jack is installed.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/configuration-jack-not-found.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Jack installation guide — shown at launch when Jack is not found"><img src="../assets/screenshots/configuration-jack-not-found.png" class="img-fluid figure-img" alt="GThe modal shows installation instructions with a command block glowing amber. Two options visible: Homebrew and .pkg download."></a></p>
+<figcaption>Jack installation guide — shown at launch when Jack is not found</figcaption>
+</figure>
+</div>
+<div style="display:none;height:0;overflow:hidden;" aria-hidden="true">
+<p><i class="fa-solid fa-check" aria-label="check"></i></p>
+</div>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>JackMate · © 2026 Éric Bavu · <a href="https://github.com/zinc75/JackMate/blob/main/LICENSE">MIT License</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

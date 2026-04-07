@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Connect Jack clients visually">
+
+<title>Patchbay – JackMate</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/icon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-86a676ce5307890add4e0cff6447c4f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../assets/custom.css">
+<meta property="og:title" content="Patchbay – JackMate">
+<meta property="og:description" content="Connect Jack clients visually">
+<meta property="og:image" content="../assets/screenshots/patchbay-view.png">
+<meta property="og:site_name" content="JackMate">
+<meta property="og:image:alt" content="JackMate window maximised in Patchbay view. Several nodes visible">
+<meta name="twitter:title" content="Patchbay – JackMate">
+<meta name="twitter:description" content="Connect Jack clients visually">
+<meta name="twitter:image" content="../assets/screenshots/patchbay-view.png">
+<meta name="twitter:image:alt" content="JackMate window maximised in Patchbay view. Several nodes visible">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/icon.png" alt="JackMate" class="navbar-logo light-content">
+    <img src="../assets/icon.png" alt="JackMate" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">JackMate</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guide" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Guide</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-guide">    
+        <li>
+    <a class="dropdown-item" href="../guide/configuration.html">
+ <span class="dropdown-text">Configuration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guide/patchbay.html">
+ <span class="dropdown-text">Patchbay</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guide/studios.html">
+ <span class="dropdown-text">Studios</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guide/transport.html">
+ <span class="dropdown-text">Transport</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guide/menubar.html">
+ <span class="dropdown-text">Menu Bar</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../guide/alternatives.html">
+ <span class="dropdown-text">Alternatives</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/zinc75/JackMate"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guide/configuration.html">Guide</a></li><li class="breadcrumb-item"><a href="../guide/patchbay.html">Patchbay</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Guide</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/configuration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Configuration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/patchbay.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Patchbay</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/studios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Studios</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/transport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transport</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/menubar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Menu Bar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/alternatives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Alternatives</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#concepts" id="toc-concepts" class="nav-link active" data-scroll-target="#concepts">Concepts</a>
+  <ul class="collapse">
+  <li><a href="#clients-and-ports" id="toc-clients-and-ports" class="nav-link" data-scroll-target="#clients-and-ports">Clients and ports</a></li>
+  <li><a href="#connections" id="toc-connections" class="nav-link" data-scroll-target="#connections">Connections</a></li>
+  </ul></li>
+  <li><a href="#canvas-navigation" id="toc-canvas-navigation" class="nav-link" data-scroll-target="#canvas-navigation">Canvas navigation</a>
+  <ul class="collapse">
+  <li><a href="#panning" id="toc-panning" class="nav-link" data-scroll-target="#panning">Panning</a></li>
+  <li><a href="#zoom" id="toc-zoom" class="nav-link" data-scroll-target="#zoom">Zoom</a></li>
+  <li><a href="#re-centring" id="toc-re-centring" class="nav-link" data-scroll-target="#re-centring">Re-centring</a></li>
+  </ul></li>
+  <li><a href="#nodes" id="toc-nodes" class="nav-link" data-scroll-target="#nodes">Nodes</a>
+  <ul class="collapse">
+  <li><a href="#badge" id="toc-badge" class="nav-link" data-scroll-target="#badge">Badge</a></li>
+  <li><a href="#collapse-expand" id="toc-collapse-expand" class="nav-link" data-scroll-target="#collapse-expand">Collapse / expand</a></li>
+  <li><a href="#moving-a-node" id="toc-moving-a-node" class="nav-link" data-scroll-target="#moving-a-node">Moving a node</a></li>
+  <li><a href="#multiple-selection" id="toc-multiple-selection" class="nav-link" data-scroll-target="#multiple-selection">Multiple selection</a></li>
+  <li><a href="#group-drag" id="toc-group-drag" class="nav-link" data-scroll-target="#group-drag">Group drag</a></li>
+  <li><a href="#out-of-view-nodes" id="toc-out-of-view-nodes" class="nav-link" data-scroll-target="#out-of-view-nodes">Out-of-view nodes</a></li>
+  </ul></li>
+  <li><a href="#connections-1" id="toc-connections-1" class="nav-link" data-scroll-target="#connections-1">Connections</a>
+  <ul class="collapse">
+  <li><a href="#creating-a-connection" id="toc-creating-a-connection" class="nav-link" data-scroll-target="#creating-a-connection">Creating a connection</a></li>
+  <li><a href="#removing-a-connection" id="toc-removing-a-connection" class="nav-link" data-scroll-target="#removing-a-connection">Removing a connection</a></li>
+  <li><a href="#port-hover" id="toc-port-hover" class="nav-link" data-scroll-target="#port-hover">Port hover</a></li>
+  </ul></li>
+  <li><a href="#connect-all" id="toc-connect-all" class="nav-link" data-scroll-target="#connect-all">Connect All</a></li>
+  <li><a href="#toolbar" id="toc-toolbar" class="nav-link" data-scroll-target="#toolbar">Toolbar</a>
+  <ul class="collapse">
+  <li><a href="#tidy-layout" id="toc-tidy-layout" class="nav-link" data-scroll-target="#tidy-layout">Tidy layout</a></li>
+  </ul></li>
+  <li><a href="#log-panel" id="toc-log-panel" class="nav-link" data-scroll-target="#log-panel">Log panel</a></li>
+  <li><a href="#footer" id="toc-footer" class="nav-link" data-scroll-target="#footer">Footer</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guide/configuration.html">Guide</a></li><li class="breadcrumb-item"><a href="../guide/patchbay.html">Patchbay</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Patchbay</h1>
+</div>
+
+<div>
+  <div class="description">
+    Connect Jack clients visually
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The <strong>Patchbay</strong> view shows the live state of the Jack Audio universe: all connected clients, their ports, and the connections between them.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Patchbay is only available while Jack is running.</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/patchbay-view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Patchbay view — session with multiple connected Jack clients"><img src="../assets/screenshots/patchbay-view.png" class="img-fluid figure-img" alt="JackMate window maximised in Patchbay view. Several nodes visible"></a></p>
+<figcaption>Patchbay view — session with multiple connected Jack clients</figcaption>
+</figure>
+</div>
+<hr>
+<section id="concepts" class="level2">
+<h2 class="anchored" data-anchor-id="concepts">Concepts</h2>
+<section id="clients-and-ports" class="level3">
+<h3 class="anchored" data-anchor-id="clients-and-ports">Clients and ports</h3>
+<p>In Jack, each audio application is a <strong>client</strong>. Each client exposes <strong>ports</strong>:</p>
+<ul>
+<li><strong>Output ports</strong> — on the left side of the node</li>
+<li><strong>Input ports</strong> — on the right side of the node</li>
+</ul>
+<p>The two system clients <code>system (capture)</code> and <code>system (playback)</code> represent the physical audio interface.</p>
+</section>
+<section id="connections" class="level3">
+<h3 class="anchored" data-anchor-id="connections">Connections</h3>
+<p>A <strong>connection</strong> links an output port to an input port. Audio signal flows left to right. A Jack connection is not exclusive — a port can be connected to multiple destinations.</p>
+<hr>
+</section>
+</section>
+<section id="canvas-navigation" class="level2">
+<h2 class="anchored" data-anchor-id="canvas-navigation">Canvas navigation</h2>
+<section id="panning" class="level3">
+<h3 class="anchored" data-anchor-id="panning">Panning</h3>
+<p>Click and drag on the canvas background to move the view.</p>
+<p>When moving nodes or panning near the <strong>canvas edges</strong>, a subtle <strong>haptic feedback</strong> is triggered on the trackpad — indicating you’ve reached the boundary.</p>
+</section>
+<section id="zoom" class="level3">
+<h3 class="anchored" data-anchor-id="zoom">Zoom</h3>
+<ul>
+<li><strong>Pinch</strong> on trackpad — smooth zoom centred on the cursor</li>
+<li><strong>Vertical scroll</strong> with the mouse wheel — discrete zoom</li>
+<li>A <strong>zoom indicator</strong> appears temporarily as an overlay while zooming</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/patchbay-zoom.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Zoom overlay — shown during trackpad zoom"><img src="../assets/screenshots/patchbay-zoom.png" class="img-fluid figure-img" alt="Patchbay canvas during active zoom: semi-transparent overlay at canvas centre showing zoom percentage"></a></p>
+<figcaption>Zoom overlay — shown during trackpad zoom</figcaption>
+</figure>
+</div>
+</section>
+<section id="re-centring" class="level3">
+<h3 class="anchored" data-anchor-id="re-centring">Re-centring</h3>
+<p>Click the <strong>⊕ Re-centre</strong> button in the header to fit and centre all visible nodes. Click on the magnifier 1:1 to reset zoom to 100% (only active when already zoomed-in or zoomed-out).</p>
+<hr>
+</section>
+</section>
+<section id="nodes" class="level2">
+<h2 class="anchored" data-anchor-id="nodes">Nodes</h2>
+<p>Each Jack client is represented as a <strong>box</strong> (node) on the canvas.</p>
+<section id="badge" class="level3">
+<h3 class="anchored" data-anchor-id="badge">Badge</h3>
+<p>The top-left corner of each node shows a <strong>badge</strong> with the client’s initials (two letters, colour generated deterministically).</p>
+<p>For system clients: - 🎙 <code>system (capture)</code> — microphone icon, cyan colour - 🔊 <code>system (playback)</code> — speaker icon, violet colour</p>
+<p><strong>Click the badge</strong> to open a detailed info sheet for that client.</p>
+<p>The sheet displays: - <strong>GUI applications</strong>: name, bundle path, PID, icon - <strong>CLI clients</strong> (<code>jack_metro</code>, <code>a2jmidid</code>, etc.): executable path, full command line, PID — detected by scanning the process table</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/patchbay-node-infosheet.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Node badge and detailed client info sheet"><img src="../assets/screenshots/patchbay-node-infosheet.png" class="img-fluid figure-img" alt="Close-up on a non-system node"></a></p>
+<figcaption>Node badge and detailed client info sheet</figcaption>
+</figure>
+</div>
+</section>
+<section id="collapse-expand" class="level3">
+<h3 class="anchored" data-anchor-id="collapse-expand">Collapse / expand</h3>
+<p>Click the <strong>arrow</strong> next to the node name to collapse it. A collapsed node hides its ports but remains on the canvas. The toolbar buttons <strong>Collapse all</strong> / <strong>Expand all</strong> act on every node at once.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/patchbay-collapsed.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Collapsed nodes — compact view, wires preserved"><img src="../assets/screenshots/patchbay-collapsed.png" class="img-fluid figure-img" alt="Patchbay canvas with a mix of expanded and collapsed nodes. Collapsed nodes appear as compact pills."></a></p>
+<figcaption>Collapsed nodes — compact view, wires preserved</figcaption>
+</figure>
+</div>
+</section>
+<section id="moving-a-node" class="level3">
+<h3 class="anchored" data-anchor-id="moving-a-node">Moving a node</h3>
+<p>Click and drag the box to reposition it freely.</p>
+</section>
+<section id="multiple-selection" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-selection">Multiple selection</h3>
+<p>Select several nodes simultaneously:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Action</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Shift + click</strong> on a node</td>
+<td>Add/remove from selection</td>
+</tr>
+<tr class="even">
+<td><strong>⌘A</strong></td>
+<td>Select all nodes</td>
+</tr>
+<tr class="odd">
+<td><strong>Click + drag</strong> on empty canvas</td>
+<td>Marquee selection rectangle</td>
+</tr>
+</tbody>
+</table>
+<p>A <strong>count badge</strong> appears on the collapse/expand button when a selection is active. Click the badge or outside any node to deselect.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/patchbay-selected.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Multiple selection"><img src="../assets/screenshots/patchbay-selected.png" class="img-fluid figure-img" alt="Patchbay canvas with one or more nodes selected - allows group drag,  group collapse, or group re-organize."></a></p>
+<figcaption>Multiple selection</figcaption>
+</figure>
+</div>
+</section>
+<section id="group-drag" class="level3">
+<h3 class="anchored" data-anchor-id="group-drag">Group drag</h3>
+<p>With multiple nodes selected, drag any one of them — <strong>all selected nodes move together</strong>, preserving their relative positions.</p>
+</section>
+<section id="out-of-view-nodes" class="level3">
+<h3 class="anchored" data-anchor-id="out-of-view-nodes">Out-of-view nodes</h3>
+<p>When nodes are outside the visible canvas area, <strong>directional indicators</strong> appear on the window edges. Click an indicator to centre the view on the corresponding node.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/patchbay-outofview.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Directional indicators — nodes outside the visible area"><img src="../assets/screenshots/patchbay-outofview.png" class="img-fluid figure-img" alt="Patchbay canvas with one or more nodes outside the visible area. Directional indicators (arrows or pills) appear on the canvas edges."></a></p>
+<figcaption>Directional indicators — nodes outside the visible area</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+</section>
+<section id="connections-1" class="level2">
+<h2 class="anchored" data-anchor-id="connections-1">Connections</h2>
+<section id="creating-a-connection" class="level3">
+<h3 class="anchored" data-anchor-id="creating-a-connection">Creating a connection</h3>
+<p>Click an <strong>output port</strong> (dot on the left of a node) then an <strong>input port</strong> (dot on the right of another node). The connection is established instantly in Jack.</p>
+</section>
+<section id="removing-a-connection" class="level3">
+<h3 class="anchored" data-anchor-id="removing-a-connection">Removing a connection</h3>
+<p>Click an existing <strong>wire</strong> to remove it.</p>
+</section>
+<section id="port-hover" class="level3">
+<h3 class="anchored" data-anchor-id="port-hover">Port hover</h3>
+<p>Hovering over a port animates a circle around it. Connections linked to that port are highlighted. A light <strong>haptic feedback</strong> fires on the trackpad when the cursor snaps onto a port.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/patchbay-hover-node.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Port hover — the connected wire is highlighted"><img src="../assets/screenshots/patchbay-hover-node.png" class="img-fluid figure-img" alt="Close-up on two nodes with a visible connection wire between them. Hover over a port (dot) to see the circle animation and wire highlighting."></a></p>
+<figcaption>Port hover — the connected wire is highlighted</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+</section>
+<section id="connect-all" class="level2">
+<h2 class="anchored" data-anchor-id="connect-all">Connect All</h2>
+<p><strong>Connect All</strong> establishes connections in bulk between two clients — useful for quickly linking a DAW to <code>system (playback)</code> or wiring an effect chain.</p>
+<ol type="1">
+<li>Click the <strong>Connect All</strong> button in the toolbar (or right-click a node → Connect All)</li>
+<li>A sheet opens with a canvas preview of both clients</li>
+<li>Select the source client and the destination client</li>
+<li>Choose the connection mode: <strong>modulo</strong> (cycles channels if counts differ) or <strong>1-to-1</strong></li>
+<li>Click <strong>Connect</strong> — all matching ports are wired at once</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/patchbay-connect-all.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Connect All — bulk connection between two clients"><img src="../assets/screenshots/patchbay-connect-all.png" class="img-fluid figure-img" alt="ConnectAllSheet: patchbay-faithful canvas preview of source and destination clients, client pickers, connection mode selector."></a></p>
+<figcaption>Connect All — bulk connection between two clients</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+<section id="toolbar" class="level2">
+<h2 class="anchored" data-anchor-id="toolbar">Toolbar</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Button</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Tidy</strong></td>
+<td>Automatically reorganises nodes on the canvas (Sugiyama layout)</td>
+</tr>
+<tr class="even">
+<td><strong>Collapse/expand</strong></td>
+<td>Collapse or expand clients (either all or selected nodes)</td>
+</tr>
+<tr class="odd">
+<td><strong>⊕ Re-centre</strong></td>
+<td>Fit and centre all nodes; double-click to reset zoom to 100%</td>
+</tr>
+<tr class="even">
+<td><strong>↻ Refresh</strong></td>
+<td>Force-resync ports and connections from Jack</td>
+</tr>
+<tr class="odd">
+<td><strong>Transport</strong></td>
+<td>Open the transport panel</td>
+</tr>
+<tr class="even">
+<td><strong>Save as Studio</strong></td>
+<td>Save the current state as a named studio</td>
+</tr>
+<tr class="odd">
+<td><strong>Open Audio Midi Setup</strong></td>
+<td>Quick access to macOS configuration panel</td>
+</tr>
+<tr class="even">
+<td><strong>Logs</strong></td>
+<td>Open/close the Jack log panel (filtered outputs)</td>
+</tr>
+</tbody>
+</table>
+<section id="tidy-layout" class="level3">
+<h3 class="anchored" data-anchor-id="tidy-layout">Tidy layout</h3>
+<p>The <strong>Tidy</strong> button automatically arranges nodes using a hierarchical layout algorithm (Sugiyama). It minimises wire crossings and groups clients by signal flow (sources left, sinks right).</p>
+<p>You can also Tidy a <strong>selection only</strong>: Shift-click nodes to select them, then click Tidy — only the selected nodes are rearranged.</p>
+<figure class="screenshot-placeholder figure">
+  <div class="placeholder-inner">
+    <span class="placeholder-icon">🎬</span>
+    <p class="placeholder-label">Screencast — Tidy layout</p>
+    <p class="placeholder-desc">Short screen recording (~3s): canvas with nodes scattered randomly → click Tidy → nodes animate smoothly into a clean hierarchical layout. Record at 2x speed or use a fast animation. Export as animated GIF or short MP4. This is the best candidate for a hero animation on the homepage and in the GitHub README.</p>
+  </div>
+  <figcaption>Tidy layout — automatic Sugiyama arrangement in one click</figcaption>
+</figure>
+<hr>
+</section>
+</section>
+<section id="log-panel" class="level2">
+<h2 class="anchored" data-anchor-id="log-panel">Log panel</h2>
+<p>The <strong>log panel</strong> appears on the right side of the canvas. It shows the raw output of the Jack process in real time.</p>
+<p>An <strong>orange badge</strong> on the Terminal button signals warnings in the logs.</p>
+<p><strong>Xruns</strong> (audio dropouts) are counted and displayed in the footer. A <strong>Reset</strong> button clears the counter.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/patchbay-logs.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Easy access to Jack log panel in real time"><img src="../assets/screenshots/patchbay-logs.png" class="img-fluid figure-img" alt="Patchbay view with the Terminal log panel open on the right."></a></p>
+<figcaption>Easy access to Jack log panel in real time</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+<section id="footer" class="level2">
+<h2 class="anchored" data-anchor-id="footer">Footer</h2>
+<p>The bar at the bottom of the interface permanently shows:</p>
+<ul>
+<li><strong>Active input interface</strong></li>
+<li><strong>Active output interface</strong></li>
+<li><strong>Sample rate</strong>, <strong>buffer size</strong>, <strong>theoretical latency</strong></li>
+<li><strong>Xrun counter</strong> (if &gt; 0)</li>
+<li><strong>Loaded studio</strong> (with a modification indicator if the patchbay has diverged from the saved state)</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/patchbay-footer.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Footer — live session info, xrun count and loaded studio"><img src="../assets/screenshots/patchbay-footer.png" class="img-fluid figure-img" alt="Cropped close-up of the Patchbay footer bar."></a></p>
+<figcaption>Footer — live session info, xrun count and loaded studio</figcaption>
+</figure>
+</div>
+<div style="display:none;height:0;overflow:hidden;" aria-hidden="true">
+<p><i class="fa-solid fa-check" aria-label="check"></i></p>
+</div>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>JackMate · © 2026 Éric Bavu · <a href="https://github.com/zinc75/JackMate/blob/main/LICENSE">MIT License</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

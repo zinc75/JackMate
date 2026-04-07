@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="How JackMate compares to other Jack management tools">
+
+<title>Alternatives – JackMate</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/icon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-86a676ce5307890add4e0cff6447c4f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../assets/custom.css">
+<meta property="og:title" content="Alternatives – JackMate">
+<meta property="og:description" content="How JackMate compares to other Jack management tools">
+<meta property="og:site_name" content="JackMate">
+<meta name="twitter:title" content="Alternatives – JackMate">
+<meta name="twitter:description" content="How JackMate compares to other Jack management tools">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/icon.png" alt="JackMate" class="navbar-logo light-content">
+    <img src="../assets/icon.png" alt="JackMate" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">JackMate</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guide" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Guide</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-guide">    
+        <li>
+    <a class="dropdown-item" href="../guide/configuration.html">
+ <span class="dropdown-text">Configuration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guide/patchbay.html">
+ <span class="dropdown-text">Patchbay</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guide/studios.html">
+ <span class="dropdown-text">Studios</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guide/transport.html">
+ <span class="dropdown-text">Transport</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guide/menubar.html">
+ <span class="dropdown-text">Menu Bar</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../guide/alternatives.html">
+ <span class="dropdown-text">Alternatives</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/zinc75/JackMate"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guide/alternatives.html">Reference</a></li><li class="breadcrumb-item"><a href="../guide/alternatives.html">Alternatives</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Guide</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/configuration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Configuration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/patchbay.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Patchbay</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/studios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Studios</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/transport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transport</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/menubar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Menu Bar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/alternatives.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Alternatives</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#when-to-choose-jackmate" id="toc-when-to-choose-jackmate" class="nav-link active" data-scroll-target="#when-to-choose-jackmate">When to choose JackMate</a></li>
+  <li><a href="#when-to-look-elsewhere" id="toc-when-to-look-elsewhere" class="nav-link" data-scroll-target="#when-to-look-elsewhere">When to look elsewhere</a></li>
+  <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison">Comparison</a></li>
+  <li><a href="#notes-on-alternatives" id="toc-notes-on-alternatives" class="nav-link" data-scroll-target="#notes-on-alternatives">Notes on alternatives</a>
+  <ul class="collapse">
+  <li><a href="#qjackctl" id="toc-qjackctl" class="nav-link" data-scroll-target="#qjackctl">QJackCtl</a></li>
+  <li><a href="#patchage" id="toc-patchage" class="nav-link" data-scroll-target="#patchage">Patchage</a></li>
+  <li><a href="#patchance" id="toc-patchance" class="nav-link" data-scroll-target="#patchance">Patchance</a></li>
+  <li><a href="#catia" id="toc-catia" class="nav-link" data-scroll-target="#catia">Catia</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guide/alternatives.html">Reference</a></li><li class="breadcrumb-item"><a href="../guide/alternatives.html">Alternatives</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Alternatives</h1>
+</div>
+
+<div>
+  <div class="description">
+    How JackMate compares to other Jack management tools
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Several tools exist to manage the Jack Audio Connection Kit. Here is how JackMate compares to the most common alternatives on macOS.</p>
+<hr>
+<section id="when-to-choose-jackmate" class="level2">
+<h2 class="anchored" data-anchor-id="when-to-choose-jackmate">When to choose JackMate</h2>
+<ul>
+<li>You work <strong>on macOS</strong> and want a tool that feels native</li>
+<li>You need to <strong>save and restore complete sessions</strong> (studios)</li>
+<li>You want <strong>menu bar access</strong> without keeping a window open</li>
+<li>You use <strong>CLI Jack clients</strong> (<code>jack_metro</code>, <code>a2jmidid</code>…) that you want saved and relaunched automatically</li>
+<li>You want <strong>bulk connections</strong> between clients in one step</li>
+</ul>
+</section>
+<section id="when-to-look-elsewhere" class="level2">
+<h2 class="anchored" data-anchor-id="when-to-look-elsewhere">When to look elsewhere</h2>
+<ul>
+<li>You work on <strong>Linux</strong> — Patchance (transport + PipeWire) or QJackCtl (mature, full-featured) are better choices</li>
+<li>You need <strong>ALSA or PipeWire</strong> alongside JACK — Patchage or Patchance handle mixed graphs</li>
+<li>You need <strong>static patchbay presets</strong> (connection snapshots that survive across sessions without reloading a full studio) — QJackCtl’s patchbay preset system is purpose-built for this.</li>
+</ul>
+<hr>
+</section>
+<section id="comparison" class="level2">
+<h2 class="anchored" data-anchor-id="comparison">Comparison</h2>
+<style>
+.alt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  background: var(--jm-bg);
+}
+.alt-table th {
+  background: rgba(255,255,255,0.04);
+  color: var(--jm-muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--jm-border-med);
+  border-top: none;
+  text-align: center;
+}
+.alt-table th:first-child { text-align: left; }
+.alt-table td {
+  padding: 0.52rem 0.9rem;
+  border-top: 1px solid var(--jm-border);
+  color: var(--jm-text-dim);
+  text-align: center;
+  vertical-align: middle;
+  background: var(--jm-bg);
+}
+.alt-table tbody tr:first-child td { border-top: none; }
+.alt-table td:first-child {
+  text-align: left;
+  font-weight: 500;
+  color: var(--jm-text);
+}
+.alt-table tbody tr:hover td { background: rgba(255,255,255,0.025); }
+.alt-table .col-jm { color: var(--jm-red); font-weight: 700; }
+.alt-table .na { color: var(--jm-muted); font-size: 0.85rem; }
+.alt-cell { display: inline-flex; align-items: center; gap: 0.45rem; }
+</style>
+
+<div class="alt-table-wrap">
+
+<table class="alt-table caption-top table">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Feature</th>
+<th class="col-jm" data-quarto-table-cell-role="th">JackMate</th>
+<th data-quarto-table-cell-role="th">QJackCtl</th>
+<th data-quarto-table-cell-role="th">Patchage</th>
+<th data-quarto-table-cell-role="th">Patchance</th>
+<th data-quarto-table-cell-role="th">Catia</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>macOS native UI</td>
+<td><span class="led led-green"></span></td>
+<td><span class="alt-cell"><span class="led led-red"></span></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+</tr>
+<tr class="even">
+<td>macOS support</td>
+<td><span class="alt-cell"><span class="led led-green"></span> </span></td>
+<td><span class="alt-cell"><span class="led led-green"></span> </span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="alt-cell"><span class="led led-red"></span> </span></td>
+<td><span class="alt-cell"><span class="led led-amber"></span> </span></td>
+</tr>
+<tr class="odd">
+<td>Menu bar mode</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+</tr>
+<tr class="even">
+<td>Visual patchbay canvas</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-green"></span></td>
+</tr>
+<tr class="odd">
+<td>Free node repositioning</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-green"></span></td>
+</tr>
+<tr class="even">
+<td>Auto-layout (Sugiyama)</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-amber"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+</tr>
+<tr class="odd">
+<td>Group node drag</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-green"></span></td>
+</tr>
+<tr class="even">
+<td>Studios (save / restore sessions)</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-amber"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+</tr>
+<tr class="odd">
+<td>CLI client save &amp; relaunch</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+</tr>
+<tr class="even">
+<td>Bulk connect (Connect All)</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="alt-cell"><span class="led led-green"></span></span></td>
+<td><span class="led led-red"></span></td>
+</tr>
+<tr class="odd">
+<td>Jack Transport controls</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-green"></span></td>
+</tr>
+<tr class="even">
+<td>Jack server config UI</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+</tr>
+<tr class="odd">
+<td>i18n</td>
+<td><span class="alt-cell"><span class="led led-green"></span></span></td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+</tr>
+<tr class="even">
+<td>Open source</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-green"></span></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<p><span style="font-size:0.82rem; color:var(--jm-muted);"> <span class="led led-amber" style="display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:middle;"></span> partial &nbsp;·&nbsp; <span class="led led-red" style="display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:middle;"></span> not available &nbsp;·&nbsp; <span class="led led-green" style="display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:middle;"></span> supported </span></p>
+<hr>
+</section>
+<section id="notes-on-alternatives" class="level2">
+<h2 class="anchored" data-anchor-id="notes-on-alternatives">Notes on alternatives</h2>
+<section id="qjackctl" class="level3">
+<h3 class="anchored" data-anchor-id="qjackctl">QJackCtl</h3>
+<p>The reference Jack management tool, cross-platform (Linux, macOS, Windows). Mature and feature-rich: server configuration, patchbay with patchbay presets (static routing snapshots), transport controls, logs. Its interface is Qt-based and does not follow macOS design conventions. Nodes can be freely repositioned. No studios, no bulk connection, no CLI client management.</p>
+</section>
+<section id="patchage" class="level3">
+<h3 class="anchored" data-anchor-id="patchage">Patchage</h3>
+<p>A lightweight visual patchbay focused on clarity. Supports JACK and ALSA (Linux only in practice). Nodes are freely draggable; the graph is clean and readable. No server configuration, no transport controls, no session management. Not actively maintained for macOS.</p>
+</section>
+<section id="patchance" class="level3">
+<h3 class="anchored" data-anchor-id="patchance">Patchance</h3>
+<p>A more recent Python-based patchbay with JACK and PipeWire support (Linux only). Introduces <strong>port grouping</strong> — ports can be connected by group, which acts as a limited Connect All equivalent. Supports transport controls (play/stop/seek). Nodes are freely repositioned with undo/redo. No session save/restore.</p>
+</section>
+<section id="catia" class="level3">
+<h3 class="anchored" data-anchor-id="catia">Catia</h3>
+<p>Part of the <a href="https://kx.studio/Applications:Cadence">Cadence</a> suite (KXStudio). Visual patchbay with integrated Jack Transport controls. Clean and lightweight. Targeted at Linux, also available for macOS. No session management, no server config UI.</p>
+<div style="display:none;height:0;overflow:hidden;" aria-hidden="true">
+<p><i class="fa-solid fa-check" aria-label="check"></i></p>
+</div>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>JackMate · © 2026 Éric Bavu · <a href="https://github.com/zinc75/JackMate/blob/main/LICENSE">MIT License</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

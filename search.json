@@ -1,0 +1,498 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "JackMate",
+    "section": "",
+    "text": "Start, configure, and patch your Jack Audio Server in a few clicks. A native macOS interface built for musicians and audio engineers.\n      \n        \n           Download\n        \n        \n           Getting started"
+  },
+  {
+    "objectID": "index.html#what-jackmate-does",
+    "href": "index.html#what-jackmate-does",
+    "title": "JackMate",
+    "section": "What JackMate does",
+    "text": "What JackMate does\n\n\n\n\n  \n  \n    \n    \n      📷\n      Configuration view\n    \n    \n    \n      \n      Get started\n      Configure Jackin seconds\n      Select audio interfaces, sample rate and buffer size. JackMate computes compatible sample rates in real time and generates the exact jackdmp command — no terminal required. Hog mode, channel selection, aggregate device support, and a live latency readout.\n      Explore Configuration \n    \n  \n\n  \n  \n    \n    \n      📷\n      Patchbay — active session\n    \n    \n    \n      \n      Connect\n      Patch visually,like a pro\n      See every active Jack client and draw connections with the mouse — just like a hardware patch bay. Multi-select, group drag, Sugiyama auto-layout, and Connect All for bulk wiring in one click. Haptic feedback on ports and canvas edges.\n      Explore Patchbay \n    \n  \n\n  \n  \n    \n    \n      📷\n      Studios — sidebar list\n    \n    \n    \n      \n      Save & restore\n      Your sessions,always ready\n      Save the complete state of your patchbay — connections, node positions, Jack config, and CLI client commands — as a named Studio. Load in one click. JackMate restarts Jack only when the configuration has changed, and relaunches every CLI client automatically.\n      Explore Studios \n    \n  \n\n  \n  \n    \n    \n      📷\n      Transport bar\n    \n    \n    \n      \n      Play & sync\n      Jack Transport,front and centre\n      Play, pause, stop, and seek from the patchbay toolbar. Display position as BBT, timecode or frames — click to cycle. Set BPM and claim the Jack timebase master role to drive every connected DAW in perfect sync.\n      Explore Transport \n    \n  \n\n  \n  \n    \n    \n      📷\n      Menu bar popover\n    \n    \n    \n      \n      Always there\n      Jack in yourmenu bar\n      JackMate lives in your menu bar. Start and stop Jack, load a studio, check the xrun count and current latency — even with the main window closed. A single icon, always within reach.\n      Explore Menu Bar"
+  },
+  {
+    "objectID": "index.html#philosophy",
+    "href": "index.html#philosophy",
+    "title": "JackMate",
+    "section": "Philosophy",
+    "text": "Philosophy\nJackMate doesn’t replace Jack — it tames it.\nJack is powerful but austere. Configuring jackd by hand, re-entering connections after every restart, monitoring xruns in a terminal… all of that disappears with JackMate.\nThe interface is intentionally dark, dense and precise — in the spirit of professional audio tools and modern development environments."
+  },
+  {
+    "objectID": "index.html#requirements",
+    "href": "index.html#requirements",
+    "title": "JackMate",
+    "section": "Requirements",
+    "text": "Requirements\n\n\n\n\nMinimum\n\n\n\n\nmacOS\n15 Sequoia\n\n\nJack Audio Connection Kit\n1.9.x (jackdmp)\n\n\nArchitecture\nApple Silicon or Intel\n\n\nLanguages\nEnglish · French · German · Italian · Spanish\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nJack must be installed separately. JackMate automatically searches for jackdmp in /usr/local/bin and common locations. If Jack is not found at launch, JackMate shows installation instructions (Homebrew or .pkg)."
+  },
+  {
+    "objectID": "guide/transport.html",
+    "href": "guide/transport.html",
+    "title": "Transport",
+    "section": "",
+    "text": "The Transport bar appears at the bottom of the Patchbay view when Jack is running. It lets you control Jack Transport — the shared timeline that synchronises all Jack-aware applications.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Transport"
+    ]
+  },
+  {
+    "objectID": "guide/transport.html#transport-controls",
+    "href": "guide/transport.html#transport-controls",
+    "title": "Transport",
+    "section": "Transport controls",
+    "text": "Transport controls\n\nPlay / Pause / Stop\n\n\n\nButton\nAction\n\n\n\n\n▶ Play\nStarts Jack Transport playback\n\n\n⏸ Pause\nPauses playback at the current position\n\n\n⏹ Stop\nStops playback and rewinds to position 0\n\n\n\nAny Jack-aware application (DAW, looper, etc.) connected to the server will follow these commands in sync.\n\n\nSeek\nClick on the position display and type a value directly, or use the forward and rewind buttons.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Transport"
+    ]
+  },
+  {
+    "objectID": "guide/transport.html#position-display-modes",
+    "href": "guide/transport.html#position-display-modes",
+    "title": "Transport",
+    "section": "Position display modes",
+    "text": "Position display modes\nClick the position display to cycle through three display modes:\n\n\n\nMode\nFormat\nDescription\n\n\n\n\nBBT\n001:01:000\nBars, Beats, Ticks — musical time\n\n\nHMS\n0:00:00.000\nHours, Minutes, Seconds, milliseconds\n\n\nFrames\n000000 fr\nRaw sample frame count\n\n\n\nBBT is the most common mode for music production. HMS is useful for video synchronisation or when working with a fixed timeline. Frames is used for precise sample-accurate work.\n\n\n\nPosition display modes — BBT, HMS, Frames",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Transport"
+    ]
+  },
+  {
+    "objectID": "guide/transport.html#bpm",
+    "href": "guide/transport.html#bpm",
+    "title": "Transport",
+    "section": "BPM",
+    "text": "BPM\nThe BPM field displays the current tempo in beats per minute.\n\nWhen JackMate is the timebase master: the BPM field is editable. Click to type a value or scroll to adjust.\nWhen another application is the timebase master: the field shows the tempo reported by that application (read-only).",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Transport"
+    ]
+  },
+  {
+    "objectID": "guide/transport.html#timebase-master",
+    "href": "guide/transport.html#timebase-master",
+    "title": "Transport",
+    "section": "Timebase master",
+    "text": "Timebase master\nThe timebase master is the application responsible for providing BBT position and tempo information to the Jack Transport. Only one application can be timebase master at a time.\nJackMate can claim or release the timebase master role:\n\n\n\nState\nIndicator\n\n\n\n\nJackMate is timebase master\nMaster indicator lit (green or amber)\n\n\n\n\nNo timebase master | BBT display may be unavailable |\nClick the Master button in the transport bar to toggle JackMate’s timebase master status.\n\n\n\n\n\n\nTip\n\n\n\nIf your DAW (Ardour, Reaper, etc.) manages tempo and time signature, let it be the timebase master. Use JackMate as master only when no DAW provides this role.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Transport"
+    ]
+  },
+  {
+    "objectID": "guide/alternatives.html",
+    "href": "guide/alternatives.html",
+    "title": "Alternatives",
+    "section": "",
+    "text": "Several tools exist to manage the Jack Audio Connection Kit. Here is how JackMate compares to the most common alternatives on macOS.",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Alternatives"
+    ]
+  },
+  {
+    "objectID": "guide/alternatives.html#when-to-choose-jackmate",
+    "href": "guide/alternatives.html#when-to-choose-jackmate",
+    "title": "Alternatives",
+    "section": "When to choose JackMate",
+    "text": "When to choose JackMate\n\nYou work on macOS and want a tool that feels native\nYou need to save and restore complete sessions (studios)\nYou want menu bar access without keeping a window open\nYou use CLI Jack clients (jack_metro, a2jmidid…) that you want saved and relaunched automatically\nYou want bulk connections between clients in one step",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Alternatives"
+    ]
+  },
+  {
+    "objectID": "guide/alternatives.html#when-to-look-elsewhere",
+    "href": "guide/alternatives.html#when-to-look-elsewhere",
+    "title": "Alternatives",
+    "section": "When to look elsewhere",
+    "text": "When to look elsewhere\n\nYou work on Linux — Patchance (transport + PipeWire) or QJackCtl (mature, full-featured) are better choices\nYou need ALSA or PipeWire alongside JACK — Patchage or Patchance handle mixed graphs\nYou need static patchbay presets (connection snapshots that survive across sessions without reloading a full studio) — QJackCtl’s patchbay preset system is purpose-built for this.",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Alternatives"
+    ]
+  },
+  {
+    "objectID": "guide/alternatives.html#comparison",
+    "href": "guide/alternatives.html#comparison",
+    "title": "Alternatives",
+    "section": "Comparison",
+    "text": "Comparison\n\n\n\n\n\n\n\nFeature\nJackMate\nQJackCtl\nPatchage\nPatchance\nCatia\n\n\n\n\nmacOS native UI\n\n\n\n\n\n\n\nmacOS support\n \n \n\n \n \n\n\nMenu bar mode\n\n\n\n\n\n\n\nVisual patchbay canvas\n\n\n\n\n\n\n\nFree node repositioning\n\n\n\n\n\n\n\nAuto-layout (Sugiyama)\n\n\n\n\n\n\n\nGroup node drag\n\n\n\n\n\n\n\nStudios (save / restore sessions)\n\n\n\n\n\n\n\nCLI client save & relaunch\n\n\n\n\n\n\n\nBulk connect (Connect All)\n\n\n\n\n\n\n\nJack Transport controls\n\n\n\n\n\n\n\nJack server config UI\n\n\n\n\n\n\n\ni18n\n\n\n\n\n\n\n\nOpen source\n\n\n\n\n\n\n\n\n\n\n  partial  ·   not available  ·   supported",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Alternatives"
+    ]
+  },
+  {
+    "objectID": "guide/alternatives.html#notes-on-alternatives",
+    "href": "guide/alternatives.html#notes-on-alternatives",
+    "title": "Alternatives",
+    "section": "Notes on alternatives",
+    "text": "Notes on alternatives\n\nQJackCtl\nThe reference Jack management tool, cross-platform (Linux, macOS, Windows). Mature and feature-rich: server configuration, patchbay with patchbay presets (static routing snapshots), transport controls, logs. Its interface is Qt-based and does not follow macOS design conventions. Nodes can be freely repositioned. No studios, no bulk connection, no CLI client management.\n\n\nPatchage\nA lightweight visual patchbay focused on clarity. Supports JACK and ALSA (Linux only in practice). Nodes are freely draggable; the graph is clean and readable. No server configuration, no transport controls, no session management. Not actively maintained for macOS.\n\n\nPatchance\nA more recent Python-based patchbay with JACK and PipeWire support (Linux only). Introduces port grouping — ports can be connected by group, which acts as a limited Connect All equivalent. Supports transport controls (play/stop/seek). Nodes are freely repositioned with undo/redo. No session save/restore.\n\n\nCatia\nPart of the Cadence suite (KXStudio). Visual patchbay with integrated Jack Transport controls. Clean and lightweight. Targeted at Linux, also available for macOS. No session management, no server config UI.",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Alternatives"
+    ]
+  },
+  {
+    "objectID": "guide/configuration.html",
+    "href": "guide/configuration.html",
+    "title": "Configuration",
+    "section": "",
+    "text": "The Configuration view is JackMate’s starting point. This is where you define how Jack should start.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "guide/configuration.html#toolbar",
+    "href": "guide/configuration.html#toolbar",
+    "title": "Configuration",
+    "section": "Toolbar",
+    "text": "Toolbar\nThe toolbar at the top of the Configuration view contains:\n\n\n\n\n\n\n\nButton\nAction\n\n\n\n\nAudio MIDI Setup\nOpens macOS Audio MIDI Setup utility (piano keys icon)\n\n\nTerminal\nOpens/closes the Jack log panel\n\n\n\nThe Audio MIDI Setup button lets you create aggregate devices, configure clock sync between two interfaces, or inspect available hardware — without leaving JackMate.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "guide/configuration.html#audio-devices",
+    "href": "guide/configuration.html#audio-devices",
+    "title": "Configuration",
+    "section": "Audio Devices",
+    "text": "Audio Devices\n\nInput\nSelect the audio interface that will provide inputs to Jack. All available CoreAudio interfaces are listed with their channel count.\nChoose “No Input” if you don’t need recording (pure playback music production, for example).\n\n\nOutput\nSelect the audio interface used for playback. Input and output can be different interfaces — Jack handles clock sync between them.\n\n\n\n\n\n\nTip\n\n\n\nCompatible sample rates. JackMate automatically computes sample rates supported by both interfaces simultaneously. Only compatible frequencies are shown in the selector.\n\n\n\n\n\nAudio device and output selection, sample rate picker\n\n\n\n\nAggregate devices\nIf you select an aggregate device (created in Audio MIDI Setup) as input or output, JackMate automatically forces the other side to the same device. Aggregate devices manage their own clock — using two separate sides makes no sense here.\n\n\n\n\n\n\nWarning\n\n\n\nClock synchronisation. When an aggregate device is selected, JackMate shows an alert recommending that you configure clock sync in Audio MIDI Setup before starting Jack. Skip this only if your aggregate is already correctly set up.\n\n\n\n\nChannel selection\nBy default, Jack exposes all channels of the selected interface. You can restrict active channels using the LED picker:\n\nEnable the Channels toggle in the Devices section\nA sheet appears with a row of numbered LEDs (one per channel)\nClick a LED to toggle it — active channels glow green\nAt least one channel must remain active (automatic constraint)\nThe footer permanently shows the active selection (N/Nmax ch)\n\n\n\n\nLED picker — granular input/output channel selection",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "guide/configuration.html#audio",
+    "href": "guide/configuration.html#audio",
+    "title": "Configuration",
+    "section": "Audio",
+    "text": "Audio\n\nSample Rate\nSampling frequency in Hz. Common values:\n\n\n\nValue\nTypical use\n\n\n\n\n44,100 Hz\nCD, classical music production\n\n\n48,000 Hz\nVideo audio, broadcast\n\n\n88,200 / 96,000 Hz\nHigh resolution, mastering\n\n\n\n\n\nBuffer Size\nNumber of frames per processing cycle. This directly impacts latency:\n\n\n\nBuffer\nTheoretical latency (48 kHz)\nUse case\n\n\n\n\n64 frames\n~1.3 ms\nLive playing, ultra-low latency\n\n\n128 frames\n~2.7 ms\nStandard recording\n\n\n256 frames\n~5.3 ms\nMonitoring, mixing\n\n\n512 frames\n~10.7 ms\nProduction, heavy plugins\n\n\n\n\n\nTheoretical latency\nJackMate computes and displays the theoretical round-trip latency in real time (2 × buffer / sample_rate). Use this value to estimate the playability of a setup.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "guide/configuration.html#options",
+    "href": "guide/configuration.html#options",
+    "title": "Configuration",
+    "section": "Options",
+    "text": "Options\n\nHog Mode\nWhen enabled, Jack monopolises the audio interface — no other application can use it simultaneously. Guarantees maximum stability and performance.\n\n\n\n\n\n\nWarning\n\n\n\nIn hog mode, macOS system output (notifications, other apps) is cut off. Use in dedicated production contexts only.\n\n\n\n\nClock Drift Correction\nCorrects clock drift between two audio interfaces used simultaneously. Enable if you are using different devices for input and output.\n\n\n\n\n\n\nNote\n\n\n\nClock drift correction is automatically disabled (and forced off) when input and output are the same physical hardware (same UID, or both built-in devices). In that case the toggle is greyed out.\n\n\nJackMate shows informational alerts in two situations when you interact with this toggle:\nWhen activating Clock Drift Correction with non-aggregate devices — JackMate suggests using a macOS aggregate device instead, which handles clocking at the OS level and is generally more reliable than Jack’s software correction.\nWhen selecting an aggregate device — JackMate reminds you to configure clock synchronisation in Audio MIDI Setup before starting Jack. Using an aggregate device without proper clock sync configured can cause xruns or instability.\nBoth alerts include a “Don’t show again” checkbox so they only appear once.\n\n\n\nClock drift and aggregate device alerts — shown once, dismissable\n\n\n\n\nMIDI (coremidi)\nEnables MIDI via CoreMIDI support. Jack then exposes the MIDI ports of connected interfaces as Jack clients, making them routable in the patchbay.\n\n\n\n\n\n\nWarning\n\n\n\nExperimental option. The MIDI toggle is currently disabled due to observed instabilities. It will be re-enabled in a future version.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "guide/configuration.html#jack-version",
+    "href": "guide/configuration.html#jack-version",
+    "title": "Configuration",
+    "section": "Jack Version",
+    "text": "Jack Version\nThe Configuration header displays a version badge indicating the state of your Jack installation:\n\n\n\nBadge\nMeaning\n\n\n\n\n✓ 1.9.22 (green)\nUp to date\n\n\n↑ 1.9.22 (amber, clickable)\nUpdate available on GitHub\n\n\n(absent)\nJack not installed or version not detectable\n\n\n\nJackMate compares the installed version (jackd --version) against the latest release on jackaudio/jack2. The comparison is cached for 24 hours — no network call on repeated JackMate launches the same day. If no network is available, the badge is hidden.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "guide/configuration.html#generated-command",
+    "href": "guide/configuration.html#generated-command",
+    "title": "Configuration",
+    "section": "Generated Command",
+    "text": "Generated Command\nThe Generated Command section shows the jackd command JackMate will execute, updated in real time as you adjust parameters. Useful for debugging or copying into a script.\n\n\n\nThe jackd command generated in real time from current parameters\n\n\nA discrete copy button (with animated checkmark feedback) lets you copy the command to the clipboard.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "guide/configuration.html#starting-jack",
+    "href": "guide/configuration.html#starting-jack",
+    "title": "Configuration",
+    "section": "Starting Jack",
+    "text": "Starting Jack\nClick Start Jack in the header. JackMate:\n\nSaves the configuration\nLaunches jackdmp with the defined parameters\nAutomatically switches to the Patchbay view\nDisplays the status in the sidebar and the menu bar\n\nTo stop Jack, click Stop Jack. Active connections are terminated.\n\nJack not installed\nIf Jack is not found at launch, JackMate shows an installation guide modal with the appropriate command (Homebrew or .pkg download), coloured glow highlighting the command block. The Start Jack button is disabled until Jack is installed.\n\n\n\nJack installation guide — shown at launch when Jack is not found",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "guide/studios.html",
+    "href": "guide/studios.html",
+    "title": "Studios",
+    "section": "",
+    "text": "A studio is a complete snapshot of your Jack session: parameter configuration, node positions on the canvas, active connections, and CLI client commands. Reload in one click to restore your exact setup.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Studios"
+    ]
+  },
+  {
+    "objectID": "guide/studios.html#concept",
+    "href": "guide/studios.html#concept",
+    "title": "Studios",
+    "section": "Concept",
+    "text": "Concept\nEvery time you build a patchbay — connecting your DAW to your interface, routing effects, organising clients — you can save it as a named studio. JackMate will faithfully restore all connections at your next session.\n\n\n\n\n\n\nNote\n\n\n\nStudios do not save the internal state of Jack applications (loaded plugins, VST parameters…). They restore only the connections between ports and re-launch CLI clients.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Studios"
+    ]
+  },
+  {
+    "objectID": "guide/studios.html#saving-a-studio",
+    "href": "guide/studios.html#saving-a-studio",
+    "title": "Studios",
+    "section": "Saving a studio",
+    "text": "Saving a studio\n\nFrom the Patchbay\nClick Save as Studio in the Patchbay toolbar. A window prompts you for a name.\n\n\nFrom the sidebar\nAt the bottom of the sidebar, a Studios section is always visible. Enter a name in the text field and click Capture.\n\n\n\n\n\n\nImportant\n\n\n\nJack must be running to capture a studio. The “Capture” button is disabled if Jack is stopped.\n\n\n\n\n\nCapture / Save studio state\n\n\n\n\nWhat is saved\n\n\n\nElement\nSaved\n\n\n\n\nPort connections\n✓\n\n\nNode positions on canvas\n✓\n\n\nCollapsed / expanded nodes\n✓\n\n\nJack configuration (sample rate, buffer…)\n✓\n\n\nCLI client launch commands\n✓\n\n\nInternal state of Jack clients\n✗\n\n\n\n\n\n\nInfo modal on any saved studio\n\n\n\n\nCLI clients\nJackMate detects CLI Jack clients (jack_metro, a2jmidid, and similar) by scanning the process table. Their full launch command is saved in the studio JSON and automatically re-launched when the studio is loaded.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Studios"
+    ]
+  },
+  {
+    "objectID": "guide/studios.html#loading-a-studio",
+    "href": "guide/studios.html#loading-a-studio",
+    "title": "Studios",
+    "section": "Loading a studio",
+    "text": "Loading a studio\n\nFrom the sidebar\nClick the ▶ button to the right of the studio name. JackMate:\n\nCompares the studio’s Jack command with the currently running Jack configuration\nIf different (or if Jack was started externally): restarts Jack with the saved parameters\nRe-launches any saved CLI clients\nRestores available connections\nRestores node positions\nShows a result summary\n\nA progress modal is displayed during loading and closes automatically when the operation completes.\n\n\nSmart Jack restart\nJackMate performs a full comparison of the Jack command (all parameters, options, devices) before deciding to restart:\n\n\n\n\n\n\n\nSituation\nBehaviour\n\n\n\n\nSame Jack config already running\nNo restart — connections restored immediately\n\n\nDifferent config or external Jack\nJack stopped, restarted with saved config\n\n\nJack stopped\nJack started with saved config\n\n\n\nA 1.5 s delay between stop and start ensures system resources are properly released.\n\n\nLoad result\n\n\n\n\n\n\n\nCase\nBehaviour\n\n\n\n\nAll clients present\nAll connections restored\n\n\nSome clients absent\nAvailable connections restored, missing ones skipped\n\n\nJack stopped\n▶ button disabled\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nIf a client is absent at load time (application not running), launch the application then reload the studio — JackMate does not require a restart.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Studios"
+    ]
+  },
+  {
+    "objectID": "guide/studios.html#modification-indicator",
+    "href": "guide/studios.html#modification-indicator",
+    "title": "Studios",
+    "section": "Modification indicator",
+    "text": "Modification indicator\nOnce a studio is loaded, the footer shows its name with a modification indicator (orange dot) if the current patchbay diverges from the loaded studio — connection added, removed, or node moved.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Studios"
+    ]
+  },
+  {
+    "objectID": "guide/studios.html#deleting-a-studio",
+    "href": "guide/studios.html#deleting-a-studio",
+    "title": "Studios",
+    "section": "Deleting a studio",
+    "text": "Deleting a studio\nIn the Studios sidebar section, hover over a studio to reveal the trash icon. Click to delete. Deletion is immediate.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Studios"
+    ]
+  },
+  {
+    "objectID": "guide/studios.html#save-files",
+    "href": "guide/studios.html#save-files",
+    "title": "Studios",
+    "section": "Save files",
+    "text": "Save files\nStudios are stored as JSON in JackMate’s Application Support folder:\n~/Library/Application Support/JackMate/studios/\n  my-studio.json\n  live-set.json\nThese files are human-readable and can be backed up manually or versioned with your project.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Studios"
+    ]
+  },
+  {
+    "objectID": "guide/patchbay.html",
+    "href": "guide/patchbay.html",
+    "title": "Patchbay",
+    "section": "",
+    "text": "The Patchbay view shows the live state of the Jack Audio universe: all connected clients, their ports, and the connections between them.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Patchbay"
+    ]
+  },
+  {
+    "objectID": "guide/patchbay.html#concepts",
+    "href": "guide/patchbay.html#concepts",
+    "title": "Patchbay",
+    "section": "Concepts",
+    "text": "Concepts\n\nClients and ports\nIn Jack, each audio application is a client. Each client exposes ports:\n\nOutput ports — on the left side of the node\nInput ports — on the right side of the node\n\nThe two system clients system (capture) and system (playback) represent the physical audio interface.\n\n\nConnections\nA connection links an output port to an input port. Audio signal flows left to right. A Jack connection is not exclusive — a port can be connected to multiple destinations.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Patchbay"
+    ]
+  },
+  {
+    "objectID": "guide/patchbay.html#canvas-navigation",
+    "href": "guide/patchbay.html#canvas-navigation",
+    "title": "Patchbay",
+    "section": "Canvas navigation",
+    "text": "Canvas navigation\n\nPanning\nClick and drag on the canvas background to move the view.\nWhen moving nodes or panning near the canvas edges, a subtle haptic feedback is triggered on the trackpad — indicating you’ve reached the boundary.\n\n\nZoom\n\nPinch on trackpad — smooth zoom centred on the cursor\nVertical scroll with the mouse wheel — discrete zoom\nA zoom indicator appears temporarily as an overlay while zooming\n\n\n\n\nZoom overlay — shown during trackpad zoom\n\n\n\n\nRe-centring\nClick the ⊕ Re-centre button in the header to fit and centre all visible nodes. Click on the magnifier 1:1 to reset zoom to 100% (only active when already zoomed-in or zoomed-out).",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Patchbay"
+    ]
+  },
+  {
+    "objectID": "guide/patchbay.html#nodes",
+    "href": "guide/patchbay.html#nodes",
+    "title": "Patchbay",
+    "section": "Nodes",
+    "text": "Nodes\nEach Jack client is represented as a box (node) on the canvas.\n\nBadge\nThe top-left corner of each node shows a badge with the client’s initials (two letters, colour generated deterministically).\nFor system clients: - 🎙 system (capture) — microphone icon, cyan colour - 🔊 system (playback) — speaker icon, violet colour\nClick the badge to open a detailed info sheet for that client.\nThe sheet displays: - GUI applications: name, bundle path, PID, icon - CLI clients (jack_metro, a2jmidid, etc.): executable path, full command line, PID — detected by scanning the process table\n\n\n\nNode badge and detailed client info sheet\n\n\n\n\nCollapse / expand\nClick the arrow next to the node name to collapse it. A collapsed node hides its ports but remains on the canvas. The toolbar buttons Collapse all / Expand all act on every node at once.\n\n\n\nCollapsed nodes — compact view, wires preserved\n\n\n\n\nMoving a node\nClick and drag the box to reposition it freely.\n\n\nMultiple selection\nSelect several nodes simultaneously:\n\n\n\nAction\nResult\n\n\n\n\nShift + click on a node\nAdd/remove from selection\n\n\n⌘A\nSelect all nodes\n\n\nClick + drag on empty canvas\nMarquee selection rectangle\n\n\n\nA count badge appears on the collapse/expand button when a selection is active. Click the badge or outside any node to deselect.\n\n\n\nMultiple selection\n\n\n\n\nGroup drag\nWith multiple nodes selected, drag any one of them — all selected nodes move together, preserving their relative positions.\n\n\nOut-of-view nodes\nWhen nodes are outside the visible canvas area, directional indicators appear on the window edges. Click an indicator to centre the view on the corresponding node.\n\n\n\nDirectional indicators — nodes outside the visible area",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Patchbay"
+    ]
+  },
+  {
+    "objectID": "guide/patchbay.html#connections-1",
+    "href": "guide/patchbay.html#connections-1",
+    "title": "Patchbay",
+    "section": "Connections",
+    "text": "Connections\n\nCreating a connection\nClick an output port (dot on the left of a node) then an input port (dot on the right of another node). The connection is established instantly in Jack.\n\n\nRemoving a connection\nClick an existing wire to remove it.\n\n\nPort hover\nHovering over a port animates a circle around it. Connections linked to that port are highlighted. A light haptic feedback fires on the trackpad when the cursor snaps onto a port.\n\n\n\nPort hover — the connected wire is highlighted",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Patchbay"
+    ]
+  },
+  {
+    "objectID": "guide/patchbay.html#connect-all",
+    "href": "guide/patchbay.html#connect-all",
+    "title": "Patchbay",
+    "section": "Connect All",
+    "text": "Connect All\nConnect All establishes connections in bulk between two clients — useful for quickly linking a DAW to system (playback) or wiring an effect chain.\n\nClick the Connect All button in the toolbar (or right-click a node → Connect All)\nA sheet opens with a canvas preview of both clients\nSelect the source client and the destination client\nChoose the connection mode: modulo (cycles channels if counts differ) or 1-to-1\nClick Connect — all matching ports are wired at once\n\n\n\n\nConnect All — bulk connection between two clients",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Patchbay"
+    ]
+  },
+  {
+    "objectID": "guide/patchbay.html#toolbar",
+    "href": "guide/patchbay.html#toolbar",
+    "title": "Patchbay",
+    "section": "Toolbar",
+    "text": "Toolbar\n\n\n\n\n\n\n\nButton\nAction\n\n\n\n\nTidy\nAutomatically reorganises nodes on the canvas (Sugiyama layout)\n\n\nCollapse/expand\nCollapse or expand clients (either all or selected nodes)\n\n\n⊕ Re-centre\nFit and centre all nodes; double-click to reset zoom to 100%\n\n\n↻ Refresh\nForce-resync ports and connections from Jack\n\n\nTransport\nOpen the transport panel\n\n\nSave as Studio\nSave the current state as a named studio\n\n\nOpen Audio Midi Setup\nQuick access to macOS configuration panel\n\n\nLogs\nOpen/close the Jack log panel (filtered outputs)\n\n\n\n\nTidy layout\nThe Tidy button automatically arranges nodes using a hierarchical layout algorithm (Sugiyama). It minimises wire crossings and groups clients by signal flow (sources left, sinks right).\nYou can also Tidy a selection only: Shift-click nodes to select them, then click Tidy — only the selected nodes are rearranged.\n\n  \n    🎬\n    Screencast — Tidy layout\n    Short screen recording (~3s): canvas with nodes scattered randomly → click Tidy → nodes animate smoothly into a clean hierarchical layout. Record at 2x speed or use a fast animation. Export as animated GIF or short MP4. This is the best candidate for a hero animation on the homepage and in the GitHub README.\n  \n  Tidy layout — automatic Sugiyama arrangement in one click",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Patchbay"
+    ]
+  },
+  {
+    "objectID": "guide/patchbay.html#log-panel",
+    "href": "guide/patchbay.html#log-panel",
+    "title": "Patchbay",
+    "section": "Log panel",
+    "text": "Log panel\nThe log panel appears on the right side of the canvas. It shows the raw output of the Jack process in real time.\nAn orange badge on the Terminal button signals warnings in the logs.\nXruns (audio dropouts) are counted and displayed in the footer. A Reset button clears the counter.\n\n\n\nEasy access to Jack log panel in real time",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Patchbay"
+    ]
+  },
+  {
+    "objectID": "guide/patchbay.html#footer",
+    "href": "guide/patchbay.html#footer",
+    "title": "Patchbay",
+    "section": "Footer",
+    "text": "Footer\nThe bar at the bottom of the interface permanently shows:\n\nActive input interface\nActive output interface\nSample rate, buffer size, theoretical latency\nXrun counter (if &gt; 0)\nLoaded studio (with a modification indicator if the patchbay has diverged from the saved state)\n\n\n\n\nFooter — live session info, xrun count and loaded studio",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Patchbay"
+    ]
+  },
+  {
+    "objectID": "guide/menubar.html",
+    "href": "guide/menubar.html",
+    "title": "Menu Bar",
+    "section": "",
+    "text": "JackMate lives in your menu bar. The icon is always present, even with the window closed — you keep control of Jack without ever switching applications.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Menu Bar"
+    ]
+  },
+  {
+    "objectID": "guide/menubar.html#status-icon",
+    "href": "guide/menubar.html#status-icon",
+    "title": "Menu Bar",
+    "section": "Status icon",
+    "text": "Status icon\nThe JackMate icon in the menu bar reflects Jack’s state in real time:\n\n\n\nIcon\nMeaning\n\n\n\n\nNormal icon\nJack stopped\n\n\nAnimated / active icon\nJack running\n\n\n\nClick the icon to open the quick control panel.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Menu Bar"
+    ]
+  },
+  {
+    "objectID": "guide/menubar.html#quick-control-panel",
+    "href": "guide/menubar.html#quick-control-panel",
+    "title": "Menu Bar",
+    "section": "Quick control panel",
+    "text": "Quick control panel\n\nHeader\nThe panel header shows: - The JackMate logo - A LED indicator coloured by Jack’s state (green = running, red = stopped) - A Start Jack or Stop Jack button depending on the current state\nThe button uses the same style as in the main window — same colour, same behaviour.\n\n\n\nQuick control panel — Jack running\n\n\n\n\nSystem information\nWhen Jack is running, the panel shows:\n\n\n\nField\nColour\nDescription\n\n\n\n\nInput interface\ncyan\nName of the active capture interface\n\n\nOutput interface\nviolet\nName of the active playback interface\n\n\nSample rate\norange\nSampling frequency in Hz\n\n\nLatency\namber\nCalculated theoretical round-trip latency\n\n\n\nThese values are updated in real time from the active Jack configuration.\n\n\nActions\nTwo action buttons are available at the bottom of the panel:\n\n\n\n\n\n\n\nAction\nDescription\n\n\n\n\nOpen JackMate\nBrings the main window to the front (creates it if needed)\n\n\nQuit\nStops Jack (if running) and quits the application",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Menu Bar"
+    ]
+  },
+  {
+    "objectID": "guide/menubar.html#background-operation",
+    "href": "guide/menubar.html#background-operation",
+    "title": "Menu Bar",
+    "section": "Background operation",
+    "text": "Background operation\nJackMate is designed to run in the background. Typical workflow:\n\nLaunch JackMate\nConfigure and start Jack from the main window\nClose the window — Jack keeps running\nUse the menu bar icon to monitor state or stop Jack\n\n\n\n\n\n\n\nNote\n\n\n\nClosing the main window does not quit JackMate. To quit completely, use Quit from the menu bar panel, or ⌘Q from the main window.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Menu Bar"
+    ]
+  },
+  {
+    "objectID": "guide/menubar.html#auto-launch-at-login",
+    "href": "guide/menubar.html#auto-launch-at-login",
+    "title": "Menu Bar",
+    "section": "Auto-launch at login",
+    "text": "Auto-launch at login\nJackMate can be set to launch at macOS startup via Login Items in System Settings → General → Login Items.\nOnce configured, JackMate will be available in your menu bar from the moment you log in — ready to start Jack whenever you need it.",
+    "crumbs": [
+      "Home",
+      "Guide",
+      "Menu Bar"
+    ]
+  }
+]
