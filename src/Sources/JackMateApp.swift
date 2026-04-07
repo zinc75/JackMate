@@ -198,10 +198,10 @@ struct JackMateApp: App {
                 .keyboardShortcut("2")
             }
 
-            // ── Help menu ────────────────────────────────────────────────
-            CommandGroup(after: .help) {
+            // ── Help menu — replace default (removes "JackMate Help" helpbook item) ──
+            CommandGroup(replacing: .help) {
                 Button("menu.help.documentation") {
-                    NSWorkspace.shared.open(URL(string: "https://docs.jackmate.app")!)
+                    NSWorkspace.shared.open(URL(string: "https://zinc75.github.io/JackMate/")!)
                 }
             }
         }
