@@ -6,6 +6,13 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.8.7] — 2026-04-07
+
+### Fixed
+- Help menu: removed default "JackMate Help" item (was pointing to a non-existent help book)
+
+---
+
 ## [1.8.6] — 2026-04-07
 
 ### Changed
