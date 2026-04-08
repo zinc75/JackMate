@@ -12,7 +12,7 @@
   <p>Native macOS app for managing the JACK audio server — from your menu bar or as a standard window.</p>
 
 
-    **[Documentation](https://zinc75.github.io/JackMate/)** · **[Download](https://github.com/zinc75/JackMate/releases)**
+  **[Documentation](https://zinc75.github.io/JackMate/)** · **[Download](https://github.com/zinc75/JackMate/releases)**
 
 
 </div>
