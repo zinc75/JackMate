@@ -918,7 +918,7 @@
     "href": "index.html#philosophy",
     "title": "JackMate",
     "section": "Philosophy",
-    "text": "Philosophy\nJackMate doesn’t replace Jack — it tames it.\nJack is powerful but austere. Configuring jackd by hand, re-entering connections after every restart, monitoring xruns in a terminal… all of that disappears with JackMate.\nThe interface is intentionally dark, dense and precise — in the spirit of professional audio tools and modern development environments."
+    "text": "Philosophy\nJackMate doesn’t replace Jack — it tames it.\nJack is powerful but austere. Configuring jackd by hand, re-entering connections after every restart, monitoring xruns in a terminal… all of that disappears with JackMate.\nThe interface is intentionally dark, dense and precise — in the spirit of professional audio tools and modern development environments.\n\n\n\nScreencast"
   },
   {
     "objectID": "index.html#requirements",
