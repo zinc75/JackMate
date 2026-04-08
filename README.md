@@ -19,13 +19,9 @@
 
 ---
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/zinc75/JackMate/gh-pages/assets/screenshots/patchbay.png" alt="Patchbay view" width="45%">
-  <img src="https://raw.githubusercontent.com/zinc75/JackMate/gh-pages/assets/screenshots/configuration.png" alt="Configuration view" width="45%">
-  <img src="https://raw.githubusercontent.com/zinc75/JackMate/gh-pages/assets/screenshots/menubar.png" alt="Menu bar" width="49%">
-</div>
+![](https://zinc75.github.io/JackMate/assets/screencast/screencast.gif)
 
----
+
 
 ## Features
 
