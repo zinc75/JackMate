@@ -1,25 +1,26 @@
 <div align="center">
+
   ![macOS](https://img.shields.io/badge/macOS-15.7%2B-lightgrey?logo=apple)
   ![Swift](https://img.shields.io/badge/Swift-5.0-orange?logo=swift)
   ![License](https://img.shields.io/badge/license-MIT-green)
   ![Version](https://img.shields.io/badge/version-1.8.7-blue)
   ![Languages](https://img.shields.io/badge/languages-FR%20EN%20DE%20IT%20ES-blueviolet)
-</div>
-
----
 
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/zinc75/JackMate/gh-pages/assets/icon.png" width="128" alt="JackMate icon">
+    <img src="https://raw.githubusercontent.com/zinc75/JackMate/gh-pages/assets/icon.png" width="128" alt="JackMate icon">
   <h1>JackMate</h1>
   <p>Native macOS app for managing the JACK audio server — from your menu bar or as a standard window.</p>
+
+
     **[Documentation](https://zinc75.github.io/JackMate/)** · **[Download](https://github.com/zinc75/JackMate/releases)**
+
+
 </div>
 
 ---
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/zinc75/JackMate/gh-pages/assets/screenshots/patchbay.png" alt="Patchbay view" width="49%">
+  <img src="https://raw.githubusercontent.com/zinc75/JackMate/gh-pages/assets/screenshots/patchbay.png" alt="Patchbay view" width="80%">
 </div>
 
 <div align="center">
