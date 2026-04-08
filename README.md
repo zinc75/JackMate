@@ -19,9 +19,11 @@
 
 ---
 
-![](https://zinc75.github.io/JackMate/assets/screencast/screencast.gif)
+<div align="center">
+  <img src="https://raw.githubusercontent.com/zinc75/JackMate/gh-pages/assets/screencast/screecast.gif" alt="Screencast" width="85%"> >
+</div>
 
-
+---
 
 ## Features
 
