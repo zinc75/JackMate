@@ -20,7 +20,7 @@
 ---
 
 <div align="center">
-  <img src="https://zinc75.github.io/JackMate/assets/screencast/screencast.gif" alt="Screencast" width="85%">
+  <img src="https://zinc75.github.io/JackMate/assets/screencast/screencast.gif" alt="Screencast" width="100%">
 </div>
 
 ---
