@@ -925,6 +925,6 @@
     "href": "index.html#requirements",
     "title": "JackMate",
     "section": "Requirements",
-    "text": "Requirements\n\n\n\n\nMinimum\n\n\n\n\nmacOS\n15 Sequoia\n\n\nJack Audio Connection Kit\n1.9.x (jackdmp)\n\n\nArchitecture\nApple Silicon or Intel\n\n\nLanguages\nEnglish · French · German · Italian · Spanish\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nJack must be installed separately. JackMate automatically searches for jackdmp in /usr/local/bin and common locations. If Jack is not found at launch, JackMate shows installation instructions (Homebrew or .pkg)."
+    "text": "Requirements\n\n\n\n\nMinimum\n\n\n\n\nmacOS\n15.0 Sequoia\n\n\nJack Audio Connection Kit\n1.9.x (jackdmp)\n\n\nArchitecture\nApple Silicon or Intel\n\n\nLanguages\nEnglish · French · German · Italian · Spanish\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nJack must be installed separately. JackMate automatically searches for jackdmp in /usr/local/bin and common locations. If Jack is not found at launch, JackMate shows installation instructions (Homebrew or .pkg)."
   }
 ]
