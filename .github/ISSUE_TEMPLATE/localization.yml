@@ -1,0 +1,64 @@
+name: Localization
+description: Report a missing, incorrect, or improvable translation
+title: "[Localization] "
+labels: ["localization"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        JackMate is available in English, French, German, Italian, and Spanish.
+        Use this template to report translation issues or suggest improvements.
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      options:
+        - English (EN)
+        - French (FR)
+        - German (DE)
+        - Italian (IT)
+        - Spanish (ES)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Issue type
+      options:
+        - Missing translation (untranslated string)
+        - Incorrect translation
+        - Awkward / unnatural phrasing
+        - Suggestion / improvement
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Where does this string appear?
+      description: Panel, button, tooltip, alert, menu item…
+      placeholder: e.g. Configuration panel → sample rate picker tooltip
+    validations:
+      required: true
+
+  - type: input
+    id: current
+    attributes:
+      label: Current text (if applicable)
+      placeholder: The text as it appears now in the app
+
+  - type: textarea
+    id: suggested
+    attributes:
+      label: Suggested text
+      description: Your proposed translation or correction.
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Any extra context that might help (screenshot, usage scenario…)

@@ -13,3 +13,7 @@ DerivedData/
 # ── Releases (DMGs produced by make_dmg.sh — uploaded manually to GitHub) ────
 # Note: releases/ lives outside this repo (at project root/distribution/releases/)
 # Nothing to ignore here for that folder.
+
+# ── GitHub configuration (override global gitignore which ignores all dotfolders) ──
+!.github/
+!.github/**

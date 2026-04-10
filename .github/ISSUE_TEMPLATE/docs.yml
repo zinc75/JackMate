@@ -1,0 +1,54 @@
+name: Documentation Issue
+description: Report an error, missing information, or unclear content in the JackMate documentation
+title: "[Docs] "
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Found something wrong or missing in the [JackMate documentation](https://zinc75.github.io/JackMate/)?
+        Let us know below.
+
+  - type: dropdown
+    id: page
+    attributes:
+      label: Documentation page
+      options:
+        - Home / Overview
+        - Configuration
+        - Patchbay
+        - Studios
+        - Transport
+        - Menu Bar
+        - Alternatives
+        - Other / Not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Issue type
+      options:
+        - Factual error
+        - Missing information
+        - Unclear or confusing content
+        - Outdated content
+        - Broken link or image
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What is wrong or missing? Please be as specific as possible.
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested correction or addition
+      description: How should it read? What information should be added?

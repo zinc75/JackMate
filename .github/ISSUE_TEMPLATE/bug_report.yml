@@ -1,0 +1,91 @@
+name: Bug Report
+description: Report a bug or unexpected behavior in JackMate
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a bug.
+        Please fill in as much information as possible — it helps a lot.
+
+  - type: input
+    id: jackmate_version
+    attributes:
+      label: JackMate version
+      description: Found in JackMate → About JackMate
+      placeholder: e.g. 1.8.7
+    validations:
+      required: true
+
+  - type: input
+    id: macos_version
+    attributes:
+      label: macOS version
+      description: Apple menu → About This Mac
+      placeholder: e.g. macOS 15.3 (Sequoia)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: architecture
+    attributes:
+      label: Architecture
+      options:
+        - Apple Silicon (M1/M2/M3/M4/M5)
+        - Intel
+    validations:
+      required: true
+
+  - type: input
+    id: jack_version
+    attributes:
+      label: Jack version
+      description: Visible in the JackMate Configuration panel
+      placeholder: e.g. 1.9.22
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear and concise description of the bug.
+      placeholder: Describe the bug…
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Step-by-step instructions to reproduce the issue.
+      placeholder: |
+        1. Open JackMate
+        2. Click on…
+        3. …
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: |
+        If the bug has a visual component (UI glitch, wrong layout, missing element…),
+        please attach one or more screenshots — they help pinpoint the problem much faster.
+        Drag and drop images here or paste from clipboard.
+      placeholder: Attach screenshots here (drag & drop or paste)
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Jack logs (optional)
+      description: Paste relevant lines from the JackMate log panel if applicable.
+      render: shell

@@ -1,0 +1,59 @@
+name: Feature Request
+description: Suggest a new feature or enhancement for JackMate
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea to improve JackMate? Great — describe it below.
+        The clearer the description, the easier it is to evaluate and implement.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the situation or limitation you're running into.
+      placeholder: I find it difficult to… / There is currently no way to…
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Describe the feature or behavior you'd like to see.
+    validations:
+      required: true
+
+  - type: textarea
+    id: mockup
+    attributes:
+      label: Mockup or visual explanation
+      description: |
+        A sketch, screenshot annotation, or detailed description of how the feature
+        should look and feel goes a long way toward understanding the request.
+        Drag and drop images here, paste from clipboard, or describe the UI in words.
+      placeholder: Attach a mockup, annotated screenshot, or describe the expected UI/UX…
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Have you found any workarounds or alternative approaches?
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Which part of JackMate does this relate to?
+      options:
+        - Configuration panel
+        - Patchbay
+        - Studios
+        - Transport
+        - Menu bar
+        - Connect All
+        - General / Other
+    validations:
+      required: true
