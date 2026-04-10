@@ -32,7 +32,7 @@
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.music</string>
     <key>LSMinimumSystemVersion</key>
-    <string>15.7</string>
+    <string>15.0</string>
 
     <!-- The app manages its own activation policy (menubar + window modes).
          LSUIElement = false : the app appears in the Dock by default.

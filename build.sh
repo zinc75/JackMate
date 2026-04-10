@@ -17,7 +17,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 APP_NAME="JackMate"
 BUNDLE_ID="io.github.zinc75.JackMate"
-DEPLOYMENT_TARGET="15.7"
+DEPLOYMENT_TARGET="15.0"
 VERSION="$(cat "$SCRIPT_DIR/src/VERSION" 2>/dev/null || echo "1.0.0")"
 
 SOURCES_DIR="$SCRIPT_DIR/src/Sources"

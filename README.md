@@ -1,6 +1,6 @@
 <div align="center">
 
-  ![macOS](https://img.shields.io/badge/macOS-15.7%2B-lightgrey?logo=apple)
+  ![macOS](https://img.shields.io/badge/macOS-15.0%2B-lightgrey?logo=apple)
   ![Swift](https://img.shields.io/badge/Swift-5.0-orange?logo=swift)
   ![License](https://img.shields.io/badge/license-MIT-green)
   ![Version](https://img.shields.io/badge/version-1.8.7-blue)
@@ -71,7 +71,7 @@ Full documentation at **[zinc75.github.io/JackMate](https://zinc75.github.io/Jac
 
 ## Requirements
 
-- macOS 15.7 (Sequoia) or later — Intel and Apple Silicon
+- macOS 15.0 (Sequoia) or later — Intel and Apple Silicon
 - [JACK2](https://jackaudio.org/downloads/) installed (`/usr/local/lib/libjack.dylib` or `/opt/homebrew/lib/libjack.dylib`)
 
 ---
