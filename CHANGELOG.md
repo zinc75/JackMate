@@ -8,6 +8,9 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ## [1.8.7] — 2026-04-07
 
+### Changed
+- Minimum macOS version: 15.0 (all Sequoia versions, Intel and Apple Silicon)
+
 ### Fixed
 - Help menu: removed default "JackMate Help" item (was pointing to a non-existent help book)
 
