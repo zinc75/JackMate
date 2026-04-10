@@ -16,7 +16,7 @@
     "href": "changelog.html#section",
     "title": "Changelog",
     "section": "[1.8.7] — 2026-04-07",
-    "text": "[1.8.7] — 2026-04-07\n\nFixed\n\nHelp menu: removed default “JackMate Help” item (was pointing to a non-existent help book)",
+    "text": "[1.8.7] — 2026-04-07\n\nChanged\n\nMinimum macOS version: 15.0 (all Sequoia versions, Intel and Apple Silicon)\n\n\n\nFixed\n\nHelp menu: removed default “JackMate Help” item (was pointing to a non-existent help book)",
     "crumbs": [
       "Home",
       "Reference",
