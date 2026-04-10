@@ -114,6 +114,10 @@ struct JMPopUpButton<T: Hashable & CustomStringConvertible>: NSViewRepresentable
     class Coordinator: NSObject {
         var parent: JMPopUpButton
         init(_ p: JMPopUpButton) { parent = p }
+        // Explicit deinit with @_optimize(none) works around a Swift optimizer crash
+        // (signal 11 in EarlyPerfInliner) triggered when targeting macOS 15.0 with Xcode 26.
+        // Remove when compiler is fixed.
+        @_optimize(none) deinit {}
         
         @objc func selectionChanged(_ sender: NSPopUpButton) {
             // Use the item tag rather than indexOfSelectedItem to survive duplicate titles
