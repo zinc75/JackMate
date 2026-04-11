@@ -54,6 +54,11 @@ struct JMPopUpButton<T: Hashable & CustomStringConvertible>: NSViewRepresentable
     }
 
     func updateNSView(_ button: NSPopUpButton, context: Context) {
+        // Keep the coordinator in sync with the current options.
+        // Without this, selectionChanged uses a stale options array after device plug/unplug,
+        // causing wrong UIDs to be written to preferences.
+        context.coordinator.parent = self
+
         // Repopulate if the option list has changed
         let currentTags = button.itemArray.map { $0.tag }
         let expectedTags = Array(0..<options.count)
@@ -500,6 +505,11 @@ struct ContentView: View {
         }
         .onChange(of: jackManager.jackInstalled) { _, installed in
             if !installed { showJackNotInstalled = true }
+        }
+        .onChange(of: audioManager.allDevices) { _, _ in
+            // Refresh the Jack internal UID table whenever the device list changes
+            // (plug/unplug) so buildShellCommand has up-to-date mappings.
+            jackManager.refreshJackDeviceNames()
         }
         .onChange(of: jackManager.isRunning) { _, running in
             if running {

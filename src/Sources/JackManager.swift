@@ -135,32 +135,42 @@ struct JackPreferences {
         }
 
 
+        // NOTE: Process.arguments passes strings directly to the executable without shell
+        // interpretation — no quoting needed. Adding literal quotes would corrupt the UID
+        // (especially for devices with spaces or special characters like RØDE AI-Micro).
         if let inUID = inputUID, !inUID.isEmpty,
            let outUID = outputUID, !outUID.isEmpty,
            inUID == outUID {
-            args += ["-d", "\"\(inUID)\""]
+            args += ["-d", inUID]
         } else {
             if let inUID = inputUID, !inUID.isEmpty {
-                args += ["-C", "\"\(inUID)\""]
+                args += ["-C", inUID]
             }
             if let outUID = outputUID, !outUID.isEmpty {
-                args += ["-P", "\"\(outUID)\""]
+                args += ["-P", outUID]
             }
         }
         return args
     }
 
     /// Command string for display in the Configuration panel.
+    ///
+    /// UIDs containing spaces or special characters are wrapped in quotes so the
+    /// displayed command is valid when copy-pasted into a terminal.
+    /// Note: `buildCommand` does NOT add quotes — `Process.arguments` passes strings
+    /// directly to the executable without shell interpretation.
     func commandPreview(executableName: String = "jackdmp",
                         maxInChannels: Int = 0,
                         maxOutChannels: Int = 0) -> String {
-        buildCommand(
+        let tokens = buildCommand(
             executablePath: executableName,
             inputUID:  inputDeviceUID.isEmpty  ? nil : inputDeviceUID,
             outputUID: outputDeviceUID.isEmpty ? nil : outputDeviceUID,
             maxInChannels:  maxInChannels,
             maxOutChannels: maxOutChannels
-        ).joined(separator: " ")
+        )
+        // Wrap tokens that contain spaces in double quotes for shell-safe display.
+        return tokens.map { $0.contains(" ") ? "\"\($0)\"" : $0 }.joined(separator: " ")
     }
 }
 
@@ -251,6 +261,7 @@ final class JackManager: ObservableObject {
         } else {
             fetchInstalledVersion()
             fetchLatestJackVersion()
+            fetchJackDeviceNames()
         }
         startMonitoring()
     }
@@ -467,7 +478,7 @@ final class JackManager: ObservableObject {
             executablePath: execURL.path,
             inputUID: inputUID,
             outputUID: outputUID)
-        let shellCmd  = args.joined(separator: " ")
+        let shellCmd  = buildShellCommand(args: args)
 
         // Launch the process and capture stdout + stderr
         let process    = Process()
@@ -643,7 +654,9 @@ final class JackManager: ObservableObject {
     func startMonitoring() {
         monitorTask = Task {
             while !Task.isCancelled {
-                let running = checkJackRunning()
+                // Freeze state while jackd -l is running for UID enumeration —
+                // that brief subprocess must not be mistaken for a real Jack server.
+                let running = isFetchingJackNames ? previousIsRunning : checkJackRunning()
                 if running != previousIsRunning {
                     if running {
                         if !launchedByUs {
@@ -685,6 +698,137 @@ final class JackManager: ObservableObject {
             }
             return name == "jackdmp" || name == "jackd"
         }
+    }
+
+    // MARK: - Jack device UID mapping (non-ASCII workaround)
+
+    // Workaround for a Jack2 encoding bug (jackaudio/jack2 — CFStringGetSystemEncoding):
+    // Jack stores CoreAudio UIDs using CFStringGetSystemEncoding() — kCFStringEncodingMacRoman
+    // on most macOS systems — instead of kCFStringEncodingUTF8. For devices with non-ASCII
+    // names (e.g. RØDE AI-Micro), the bytes stored internally don't match the UTF-8 UID
+    // returned by CoreAudio, so Jack silently falls back to the default device.
+    //
+    // Strategy: run `jackd -d coreaudio -l`, capture raw output bytes (including the
+    // corrupted non-UTF-8 bytes Jack stores), and build a byte-level match table.
+    // When launching Jack, UIDs with non-ASCII chars are substituted with a
+    // `$(printf '\xNN...')` shell expression that emits the exact bytes Jack expects.
+    //
+    // Self-healing after upstream fix: once Jack outputs correct UTF-8 UIDs,
+    // the MacRoman-encoded lookup finds no match → jackRawUID() returns nil →
+    // the plain CoreAudio UTF-8 UID is passed directly, which then works correctly.
+    // No code change will be needed here after the upstream fix is merged.
+
+    /// Raw-byte UIDs extracted from `jackd -d coreaudio -l` output.
+    private var jackRawUIDs: [Data] = []
+
+    /// `true` while `jackd -d coreaudio -l` is running to enumerate devices.
+    /// The monitoring loop checks this flag and freezes its state during the fetch
+    /// so the brief `jackd` subprocess is not mistaken for a real Jack server start.
+    private var isFetchingJackNames: Bool = false
+
+    /// Runs `jackd -d coreaudio -l` and stores the raw internal UIDs.
+    ///
+    /// Called at init and forwarded from `refreshJackDeviceNames()` on device change.
+    func fetchJackDeviceNames() {
+        guard let execURL = jackExecutableURL else { return }
+        isFetchingJackNames = true
+        Task.detached { [execURL] in
+            let process = Process()
+            process.executableURL = execURL
+            process.arguments     = ["-d", "coreaudio", "-l"]
+            let pipe = Pipe()
+            process.standardOutput = pipe
+            process.standardError  = pipe
+            try? process.run()
+            process.waitUntilExit()
+            let rawData = pipe.fileHandleForReading.readDataToEndOfFile()
+            let uids    = Self.extractJackRawUIDs(from: rawData)
+            await MainActor.run {
+                self.jackRawUIDs = uids
+                self.isFetchingJackNames = false
+                self.appendLogs(["[JackMate] Jack UID table: \(uids.count) device(s) found"])
+            }
+        }
+    }
+
+    /// Re-fetches Jack's internal UID table. Call on CoreAudio device plug/unplug.
+    func refreshJackDeviceNames() {
+        fetchJackDeviceNames()
+    }
+
+    /// Extracts Jack-internal UIDs from `jackd -d coreaudio -l` output.
+    ///
+    /// jackd 1.9.x output format:
+    ///   `Device ID = 'N' name = '...', internal name = 'UID'`
+    ///
+    /// Uses ISO Latin-1 as a 1:1 byte↔character mapping so that non-UTF-8 bytes
+    /// (e.g. 0xAF for Ø in MacRoman) are preserved through the decode/re-encode
+    /// round-trip without loss or substitution.
+    private nonisolated static func extractJackRawUIDs(from data: Data) -> [Data] {
+        guard let text = String(data: data, encoding: .isoLatin1) else { return [] }
+        let marker = "internal name = '"
+        var results: [Data] = []
+        var searchRange = text.startIndex..<text.endIndex
+        while let markerRange = text.range(of: marker, range: searchRange) {
+            let uidStart = markerRange.upperBound
+            guard let closeQuote = text[uidStart...].firstIndex(of: "'") else { break }
+            let uidString = String(text[uidStart..<closeQuote])
+            if !uidString.isEmpty, let uidData = uidString.data(using: .isoLatin1) {
+                results.append(uidData)
+            }
+            let next = text.index(after: closeQuote)
+            searchRange = next..<text.endIndex
+        }
+        return results
+    }
+
+    /// Returns the raw Jack-internal bytes for a CoreAudio UID, or `nil` if the UID
+    /// is pure ASCII (no encoding mismatch possible) or no match is found in the table.
+    ///
+    /// Encodes the CoreAudio UID as MacRoman — mirroring `CFStringGetSystemEncoding()`
+    /// on macOS — then looks for a byte-for-byte match in `jackRawUIDs`.
+    /// Falls back to ISO Latin-1 if MacRoman yields no match.
+    private func jackRawUID(forCoreAudioUID uid: String) -> Data? {
+        guard uid.unicodeScalars.contains(where: { !$0.isASCII }) else { return nil }
+        if let encoded = uid.data(using: .macOSRoman), jackRawUIDs.contains(encoded) {
+            return encoded
+        }
+        if let encoded = uid.data(using: .isoLatin1), jackRawUIDs.contains(encoded) {
+            return encoded
+        }
+        return nil
+    }
+
+    /// Builds the `/bin/bash -c` command string from a `buildCommand` token array.
+    ///
+    /// Handles three cases:
+    /// - Non-ASCII UIDs with a known Jack raw encoding → `$(printf '\xNN...')` to
+    ///   pass the exact internal bytes Jack expects.
+    /// - UIDs with spaces (ASCII or non-ASCII without mapping) → double-quoted.
+    /// - Everything else → passed as-is.
+    private func buildShellCommand(args: [String]) -> String {
+        args.enumerated().map { i, arg in
+            if i == 0 {
+                // Executable path — quote if it contains spaces
+                return arg.contains(" ") ? "\"\(arg)\"" : arg
+            }
+            if arg.hasPrefix("-") {
+                // Flag tokens (-d, -C, -P, -r, …) — never transform
+                return arg
+            }
+            if arg.unicodeScalars.contains(where: { !$0.isASCII }),
+               let rawData = jackRawUID(forCoreAudioUID: arg) {
+                // Non-ASCII UID with a Jack match: emit raw bytes via printf
+                let hex = rawData.map { String(format: "\\x%02x", $0) }.joined()
+                return "\"$(printf '\(hex)')\""
+            }
+            if arg.contains(" ") {
+                // ASCII UID with spaces (or non-ASCII without a mapping): double-quote
+                let escaped = arg.replacingOccurrences(of: "\"", with: "\\\"")
+                return "\"\(escaped)\""
+            }
+            return arg
+        }.joined(separator: " ")
     }
 
     // MARK: - Shell helper

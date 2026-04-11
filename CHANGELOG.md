@@ -6,6 +6,29 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.8.9] — 2026-04-11
+
+### Fixed
+- Devices with non-ASCII characters in their UID (e.g. RØDE AI-Micro) were silently
+  falling back to the default device: Jack 1.9.22 stores CoreAudio UIDs using MacRoman
+  encoding instead of UTF-8, causing a mismatch when the correct UTF-8 UID is passed.
+  Workaround: JackMate runs `jackd -d coreaudio -l` at startup and on device change,
+  extracts the raw internal UIDs, and injects them via `$(printf '\xNN...')` in the
+  shell command. Self-healing: automatically disabled once Jack fixes the bug upstream.
+- Jack UID table is now refreshed on CoreAudio device plug/unplug
+- Fixed false "Jack is running" detection while `jackd -l` enumeration was in progress
+
+---
+
+## [1.8.8] — 2026-04-10
+
+### Fixed
+- Configuration panel: `JMPopUpButton` coordinator was stale after device plug/unplug, causing wrong device UID to be written to preferences
+- `buildCommand`: removed literal quote characters from UID tokens — `Process.arguments` passes strings directly to the executable without shell interpretation; literal quotes corrupted UIDs containing spaces or non-ASCII characters (e.g. RØDE AI-Micro)
+- `commandPreview`: UIDs containing spaces are now correctly wrapped in double quotes for display only
+
+---
+
 ## [1.8.7] — 2026-04-07
 
 ### Changed
