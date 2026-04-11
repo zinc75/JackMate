@@ -2597,6 +2597,20 @@ struct ConfigBodyView: View {
         return audioManager.outputDevices.first(where: { $0.uid == jackManager.prefs.outputDeviceUID })?.outputChannels ?? 0
     }
 
+    /// True when the current device selection will cause Jack to create a silent aggregate:
+    /// input and output UIDs differ, and at least one device is duplex (same UID covers both
+    /// directions, like RØDE AI-Micro). Strictly unidirectional devices don't trigger this.
+    var isJackAggregate: Bool {
+        let inUID  = jackManager.prefs.inputDeviceUID
+        let outUID = jackManager.prefs.outputDeviceUID
+        guard !inUID.isEmpty, !outUID.isEmpty, inUID != outUID else { return false }
+        let inDev  = audioManager.allDevices.first { $0.uid == inUID  }
+        let outDev = audioManager.allDevices.first { $0.uid == outUID }
+        let inIsDuplex  = (inDev?.inputChannels  ?? 0) > 0 && (inDev?.outputChannels  ?? 0) > 0
+        let outIsDuplex = (outDev?.inputChannels ?? 0) > 0 && (outDev?.outputChannels ?? 0) > 0
+        return inIsDuplex || outIsDuplex
+    }
+
     var compatibleRates: [Double] {
         audioManager.compatibleSampleRates(
             inputUID:  jackManager.prefs.inputDeviceUID,
@@ -2799,6 +2813,16 @@ struct ConfigBodyView: View {
                             selectedOut: $jackManager.prefs.selectedOutChannels,
                             enabled:     $jackManager.prefs.limitChannels
                         )
+                        .disabled(isJackAggregate)
+                        .opacity(isJackAggregate ? 0.4 : 1.0)
+                        .onChange(of: isJackAggregate) { _, aggregate in
+                            if aggregate && jackManager.prefs.limitChannels {
+                                jackManager.prefs.limitChannels = false
+                                jackManager.prefs.selectedInChannels  = []
+                                jackManager.prefs.selectedOutChannels = []
+                                jackManager.savePreferences()
+                            }
+                        }
                         .onChange(of: jackManager.prefs.limitChannels)       { _, _ in jackManager.savePreferences() }
                         .onChange(of: jackManager.prefs.selectedInChannels)  { _, _ in jackManager.savePreferences() }
                         .onChange(of: jackManager.prefs.selectedOutChannels) { _, _ in jackManager.savePreferences() }
@@ -3338,13 +3362,35 @@ struct StatusBarView: View {
 
     @State private var displayedXrunCount: UInt32 = 0
 
-    private var maxInChannels: Int {
-        guard !jackManager.prefs.inputDeviceUID.isEmpty else { return 0 }
-        return audioManager.inputDevices.first(where: { $0.uid == jackManager.prefs.inputDeviceUID })?.inputChannels ?? 0
+    private var inUID:  String { jackManager.prefs.inputDeviceUID }
+    private var outUID: String { jackManager.prefs.outputDeviceUID }
+    private var inDev:  AudioDeviceInfo? { audioManager.allDevices.first { $0.uid == inUID  } }
+    private var outDev: AudioDeviceInfo? { audioManager.allDevices.first { $0.uid == outUID } }
+
+    /// True when the current device selection will cause Jack to create a silent aggregate:
+    /// input and output UIDs differ, and at least one device is duplex (same UID covers both
+    /// directions). Evaluated from device selection alone, independent of Jack's running state.
+    private var isJackAggregate: Bool {
+        guard !inUID.isEmpty, !outUID.isEmpty, inUID != outUID else { return false }
+        let inIsDuplex  = (inDev?.inputChannels  ?? 0) > 0 && (inDev?.outputChannels  ?? 0) > 0
+        let outIsDuplex = (outDev?.inputChannels ?? 0) > 0 && (outDev?.outputChannels ?? 0) > 0
+        return inIsDuplex || outIsDuplex
     }
+
+    /// Total capture channels available to Jack, including the secondary device when aggregate.
+    private var maxInChannels: Int {
+        guard !inUID.isEmpty else { return 0 }
+        let base = inDev?.inputChannels ?? 0
+        guard isJackAggregate, let od = outDev, od.inputChannels > 0 else { return base }
+        return base + od.inputChannels   // outDev contributes its inputs as extra capture channels
+    }
+
+    /// Total playback channels available to Jack, including the secondary device when aggregate.
     private var maxOutChannels: Int {
-        guard !jackManager.prefs.outputDeviceUID.isEmpty else { return 0 }
-        return audioManager.outputDevices.first(where: { $0.uid == jackManager.prefs.outputDeviceUID })?.outputChannels ?? 0
+        guard !outUID.isEmpty else { return 0 }
+        let base = outDev?.outputChannels ?? 0
+        guard isJackAggregate, let id = inDev, id.outputChannels > 0 else { return base }
+        return base + id.outputChannels  // inDev contributes its outputs as extra playback channels
     }
 
     /// Converts a sorted array of 0-based channel indices to a human-readable range string (1-based).
@@ -3364,6 +3410,17 @@ struct StatusBarView: View {
         }
         ranges.append(start == end ? "\(start)" : "\(start)-\(end)")
         return ranges.joined(separator: ", ")
+    }
+
+    private func inChannelChipText() -> String {
+        guard maxInChannels > 0 else { return "" }
+        // limitChannels is forced false when aggregate — selectedInChannels will be empty → N/N ch
+        return channelChipText(selected: jackManager.prefs.limitChannels ? jackManager.prefs.selectedInChannels : [], max: maxInChannels)
+    }
+
+    private func outChannelChipText() -> String {
+        guard maxOutChannels > 0 else { return "" }
+        return channelChipText(selected: jackManager.prefs.limitChannels ? jackManager.prefs.selectedOutChannels : [], max: maxOutChannels)
     }
 
     private func channelChipText(selected: [Int], max: Int) -> String {
@@ -3407,13 +3464,24 @@ struct StatusBarView: View {
 
     var body: some View {
         HStack(spacing: 10) {
-            if !jackManager.savedInputDeviceName.isEmpty {
-                SBChip(icon: "mic.fill", color: JM.accentCyan,
-                       text: jackManager.savedInputDeviceName)
-            }
-            if !jackManager.savedOutputDeviceName.isEmpty {
-                SBChip(icon: "speaker.wave.2.fill", color: JM.accentViolet,
-                       text: jackManager.savedOutputDeviceName)
+            if jackManager.isRunning && !jackManager.launchedByUs {
+                // External Jack session — device info not accessible via Jack API
+                SBChip(icon: "exclamationmark.circle", color: JM.textTertiary,
+                       text: String(localized: "status_bar.external_jack"))
+            } else {
+                // Jack not running, or launched by JackMate — show config-based device info
+                if !jackManager.savedInputDeviceName.isEmpty {
+                    SBChip(icon: "mic.fill", color: JM.accentCyan,
+                           text: jackManager.savedInputDeviceName)
+                }
+                if !jackManager.savedOutputDeviceName.isEmpty {
+                    SBChip(icon: "speaker.wave.2.fill", color: JM.accentViolet,
+                           text: jackManager.savedOutputDeviceName)
+                }
+                if isJackAggregate {
+                    SBChip(icon: "arrow.triangle.merge", color: JM.accentAmber,
+                           text: String(localized: "status_bar.aggregate"))
+                }
             }
             SBChip(icon: "waveform", color: JM.accentOrange,
                    text: String(format: "%.0f Hz", jackManager.prefs.sampleRate))
@@ -3422,12 +3490,10 @@ struct StatusBarView: View {
             SBChip(icon: "clock", color: JM.accentAmber,
                    text: String(format: "%.1f ms", jackManager.prefs.theoreticalLatency))
             if maxInChannels > 0 {
-                SBChip(icon: "mic.fill", color: JM.accentGreen,
-                       text: channelChipText(selected: jackManager.prefs.limitChannels ? jackManager.prefs.selectedInChannels : [], max: maxInChannels) + " in")
+                SBChip(icon: "mic.fill", color: JM.accentGreen, text: inChannelChipText() + " in")
             }
             if maxOutChannels > 0 {
-                SBChip(icon: "speaker.wave.2.fill", color: JM.accentGreen,
-                       text: channelChipText(selected: jackManager.prefs.limitChannels ? jackManager.prefs.selectedOutChannels : [], max: maxOutChannels) + " out")
+                SBChip(icon: "speaker.wave.2.fill", color: JM.accentGreen, text: outChannelChipText() + " out")
             }
             
             // Xrun counter read from the bridge (atomic, near-zero overhead)
@@ -3508,6 +3574,9 @@ struct SBChip: View {
 /// (name, bundle path, modification date, PID).
 struct NodeBadgeSheet: View {
     let node: PatchbayNode
+    /// Hardware segments when Jack was launched by JackMate (system nodes only).
+    /// Empty for regular client nodes — their display is completely unaffected.
+    let segments: [SystemNodeSegment]
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var jackManager: JackManager
 
@@ -3516,8 +3585,9 @@ struct NodeBadgeSheet: View {
     private var isSystemNode:  Bool { node.id.hasPrefix("system") }
     private var isCaptureNode: Bool { node.id.hasSuffix("(capture)") }
 
-    init(node: PatchbayNode) {
-        self.node = node
+    init(node: PatchbayNode, segments: [SystemNodeSegment] = []) {
+        self.node     = node
+        self.segments = segments
         let a = BadgeUtils.abbrev(node.id)
         self.abbr = a
         self.badgeColor = BadgeUtils.color(a, fullName: node.id)
@@ -3608,10 +3678,6 @@ struct NodeBadgeSheet: View {
     // MARK: - System node content
 
     @ViewBuilder private var systemNodeContent: some View {
-        let inputName  = jackManager.savedInputDeviceName.isEmpty
-            ? String(localized: "node_badge.default_device") : jackManager.savedInputDeviceName
-        let outputName = jackManager.savedOutputDeviceName.isEmpty
-            ? String(localized: "node_badge.default_device") : jackManager.savedOutputDeviceName
         // Capture node: outputs → channels going into Jack; playback node: inputs → channels coming from Jack
         let channelCount = isCaptureNode ? node.outputs.count : node.inputs.count
         let channelLabel = isCaptureNode
@@ -3620,10 +3686,44 @@ struct NodeBadgeSheet: View {
         let channelIcon  = isCaptureNode ? "arrow.right.circle" : "arrow.left.circle"
         let channelColor = isCaptureNode ? JM.accentCyan : JM.accentPurple
 
-        if isCaptureNode {
-            infoRow(icon: "mic.fill", color: JM.accentCyan, label: String(localized: "common.input"), value: inputName)
+        if !segments.isEmpty {
+            // Known Jack launch: show one row per hardware segment (single device or aggregate)
+            ForEach(Array(segments.enumerated()), id: \.offset) { idx, seg in
+                if idx > 0 { Divider() }
+                let roleLabel = seg.isMic
+                    ? String(localized: "common.input")
+                    : String(localized: "common.output")
+                let roleIcon  = seg.isMic ? "mic.fill" : "speaker.wave.2.fill"
+                let roleColor = seg.isMic ? JM.accentCyan : JM.accentPurple
+                infoRow(icon: roleIcon, color: roleColor,
+                        label: roleLabel,
+                        value: "\(seg.deviceName)  ·  \(seg.portCount) ch")
+            }
+            if segments.count > 1 {
+                // Aggregate: small badge below the device list
+                HStack(spacing: 5) {
+                    Image(systemName: "arrow.triangle.merge")
+                        .font(.system(size: 10))
+                        .foregroundStyle(JM.accentAmber)
+                    Text("node_badge.aggregate_label")
+                        .font(.system(size: 11))
+                        .foregroundStyle(JM.textTertiary)
+                }
+                .padding(.top, 2)
+            }
         } else {
-            infoRow(icon: "speaker.wave.2.fill", color: JM.accentPurple, label: String(localized: "common.output"), value: outputName)
+            // Fallback: Jack not launched by JackMate, or no device info available
+            let inputName  = jackManager.savedInputDeviceName.isEmpty
+                ? String(localized: "node_badge.default_device") : jackManager.savedInputDeviceName
+            let outputName = jackManager.savedOutputDeviceName.isEmpty
+                ? String(localized: "node_badge.default_device") : jackManager.savedOutputDeviceName
+            if isCaptureNode {
+                infoRow(icon: "mic.fill", color: JM.accentCyan,
+                        label: String(localized: "common.input"), value: inputName)
+            } else {
+                infoRow(icon: "speaker.wave.2.fill", color: JM.accentPurple,
+                        label: String(localized: "common.output"), value: outputName)
+            }
         }
         Divider()
         infoRow(icon: "waveform",   color: JM.accentAmber, label: "Sample rate",

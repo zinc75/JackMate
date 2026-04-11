@@ -5905,6 +5905,114 @@
         }
       }
     },
+    "status_bar.aggregate": {
+      "comment": "Footer chip shown when Jack has silently created an aggregate device from the two selected devices",
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Von Jack zusammengeführt"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggregated by Jack"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agregado por Jack"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agrégé par Jack"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggregato da Jack"
+          }
+        }
+      }
+    },
+    "status_bar.external_jack": {
+      "comment": "Footer chip shown when Jack is running but was not launched by JackMate — device names are not accessible",
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack extern gestartet"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack started externally"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack iniciado externamente"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack lancé en externe"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack avviato esternamente"
+          }
+        }
+      }
+    },
+    "node_badge.aggregate_label": {
+      "comment": "Small badge shown in the system node sheet when Jack has created an aggregate device",
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack-Aggregate-Gerät"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jack aggregate device"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dispositivo agregado Jack"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggregate Jack"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dispositivo aggregato Jack"
+          }
+        }
+      }
+    },
     "notification.jack_failed.body": {
       "localizations": {
         "de": {

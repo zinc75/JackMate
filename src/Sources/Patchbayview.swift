@@ -59,6 +59,21 @@ struct BadgeUtils {
     }
 }
 
+// MARK: - SystemNodeSegment
+
+/// Describes a hardware device segment within a Jack `system` card.
+///
+/// A system card may have one segment (single device) or two (Jack aggregate).
+/// Used to label the free zone of the card with the device name and role icon.
+struct SystemNodeSegment: Equatable {
+    /// Short CoreAudio device name (e.g. `"RØDE AI-Micro"`).
+    let deviceName: String
+    /// `true` → mic icon (input role), `false` → speaker icon (output role).
+    let isMic: Bool
+    /// Number of Jack ports contributed by this device in this card.
+    let portCount: Int
+}
+
 // MARK: - PatchbayView
 
 /// Root patchbay view: wraps the AppKit canvas and overlays the SwiftUI context menu.
@@ -95,7 +110,7 @@ struct PatchbayView: View {
         canvasArea
             .background(JM.bgBase)
             .sheet(item: $tappedBadgeNode) { node in
-                NodeBadgeSheet(node: node)
+                NodeBadgeSheet(node: node, segments: systemNodeInfo[node.id] ?? [])
             }
             .sheet(item: $connectAllRequest) { req in
                 ConnectAllSheet(request: req) { updatedPlans in
@@ -130,8 +145,58 @@ struct PatchbayView: View {
             ctxNodeSide:      $ctxNodeSide,
             ctxCanvasPos:     $ctxCanvasPos,
             tappedBadgeNode:  $tappedBadgeNode,
-            patchbay:         patchbay
+            patchbay:         patchbay,
+            systemNodeInfo:   systemNodeInfo
         )
+    }
+
+    // MARK: - System device info
+
+    /// Computes device segment labels for the two `system` Jack cards.
+    ///
+    /// Only populated when JackMate launched Jack (device config is known).
+    /// Applies the deterministic Jack aggregate channel ordering:
+    /// - `system (capture)` : `-C` device inputs first, then `-P` device inputs (if duplex)
+    /// - `system (playback)`: `-P` device outputs first, then `-C` device outputs (if duplex)
+    private var systemNodeInfo: [String: [SystemNodeSegment]] {
+        guard jackManager.launchedByUs, jackManager.isRunning else { return [:] }
+        let inUID  = jackManager.prefs.inputDeviceUID
+        let outUID = jackManager.prefs.outputDeviceUID
+        guard !inUID.isEmpty || !outUID.isEmpty else { return [:] }
+
+        let inDev  = audioManager.allDevices.first { $0.uid == inUID  }
+        let outDev = audioManager.allDevices.first { $0.uid == outUID }
+
+        var capture:  [SystemNodeSegment] = []
+        var playback: [SystemNodeSegment] = []
+
+        if inUID == outUID || outUID.isEmpty {
+            // Single device (-d) or input only
+            let dev = inDev ?? outDev
+            if let dev {
+                if dev.inputChannels  > 0 { capture.append(.init(deviceName: dev.name, isMic: true,  portCount: dev.inputChannels))  }
+                if dev.outputChannels > 0 { playback.append(.init(deviceName: dev.name, isMic: false, portCount: dev.outputChannels)) }
+            }
+        } else if inUID.isEmpty {
+            // Output only
+            if let dev = outDev {
+                if dev.inputChannels  > 0 { capture.append(.init(deviceName: dev.name, isMic: true,  portCount: dev.inputChannels))  }
+                if dev.outputChannels > 0 { playback.append(.init(deviceName: dev.name, isMic: false, portCount: dev.outputChannels)) }
+            }
+        } else {
+            // Two different devices (-C inUID -P outUID) → potential aggregate
+            // capture: inDev inputs first, then outDev inputs (if duplex)
+            if let dev = inDev,  dev.inputChannels  > 0 { capture.append(.init(deviceName: dev.name, isMic: true, portCount: dev.inputChannels))  }
+            if let dev = outDev, dev.inputChannels  > 0 { capture.append(.init(deviceName: dev.name, isMic: true, portCount: dev.inputChannels))  }
+            // playback: outDev outputs first, then inDev outputs (if duplex)
+            if let dev = outDev, dev.outputChannels > 0 { playback.append(.init(deviceName: dev.name, isMic: false, portCount: dev.outputChannels)) }
+            if let dev = inDev,  dev.outputChannels > 0 { playback.append(.init(deviceName: dev.name, isMic: false, portCount: dev.outputChannels)) }
+        }
+
+        var result: [String: [SystemNodeSegment]] = [:]
+        if !capture.isEmpty  { result["system (capture)"]  = capture  }
+        if !playback.isEmpty { result["system (playback)"] = playback }
+        return result
     }
 
     // MARK: - Context menu
@@ -453,7 +518,8 @@ struct PatchbayCanvasView: NSViewRepresentable {
     @Binding var ctxNodeSide:      Bool?
     @Binding var ctxCanvasPos:     CGPoint
     @Binding var tappedBadgeNode:  PatchbayNode?
-    let patchbay: PatchbayManager
+    let patchbay:       PatchbayManager
+    let systemNodeInfo: [String: [SystemNodeSegment]]
 
     func makeCoordinator() -> Coordinator { Coordinator(self) }
 
@@ -466,26 +532,29 @@ struct PatchbayCanvasView: NSViewRepresentable {
         v.patchbay         = patchbay
         v.vpOffset         = vpOffset
         v.vpScale          = vpScale
+        v.systemNodeInfo   = systemNodeInfo
         // No timer — redraws only on Jack callbacks or user interaction
         return v
     }
 
     func updateNSView(_ nsView: PatchbayCanvasNSView, context: Context) {
         // Compare before assigning to avoid unnecessary redraws
-        let nodesChanged = nsView.nodes.map(\.id) != nodes.map(\.id) ||
-                           nsView.nodes.map(\.position) != nodes.map(\.position) ||
-                           nsView.nodes.map(\.isCollapsed) != nodes.map(\.isCollapsed)
-        let connsChanged = nsView.connections != connections
-        let vpChanged    = nsView.vpOffset != vpOffset || nsView.vpScale != vpScale
-        let selChanged   = nsView.selectedNodeIds != selectedNodeIds
+        let nodesChanged  = nsView.nodes.map(\.id) != nodes.map(\.id) ||
+                            nsView.nodes.map(\.position) != nodes.map(\.position) ||
+                            nsView.nodes.map(\.isCollapsed) != nodes.map(\.isCollapsed)
+        let connsChanged  = nsView.connections != connections
+        let vpChanged     = nsView.vpOffset != vpOffset || nsView.vpScale != vpScale
+        let selChanged    = nsView.selectedNodeIds != selectedNodeIds
+        let sysInfoChanged = nsView.systemNodeInfo != systemNodeInfo
 
-        if nodesChanged || connsChanged || vpChanged || selChanged {
+        if nodesChanged || connsChanged || vpChanged || selChanged || sysInfoChanged {
             nsView.nodes           = nodes
             nsView.connections     = connections
             nsView.selectedNodeIds = selectedNodeIds
             nsView.patchbay        = patchbay
             nsView.vpOffset        = vpOffset
             nsView.vpScale         = vpScale
+            nsView.systemNodeInfo  = systemNodeInfo
             // Deferred by one cycle to avoid recursive layout
             // (updateNSView runs during SwiftUI's layout pass;
             //  a synchronous needsDisplay would trigger a recursive layoutSubtreeIfNeeded)
@@ -513,6 +582,7 @@ class PatchbayCanvasNSView: NSView {
     var selectedNodeIds: Set<String>      = []
     var vpOffset:    CGSize  = .zero
     var vpScale:     CGFloat = 1.0
+    var systemNodeInfo: [String: [SystemNodeSegment]] = [:]
 
     override var acceptsFirstResponder: Bool { true }
 
@@ -1126,6 +1196,108 @@ class PatchbayCanvasNSView: NSView {
                 label.draw(at: CGPoint(x: nx + nw - labelW - 15 * vpScale, y: rowY + 2 * vpScale))
             }
         }
+
+        // System device labels — drawn in the free zone of system cards
+        // Pass the actual rendered port count so labels never overflow the card height
+        if isSystemNode, let segments = systemNodeInfo[node.id], !segments.isEmpty {
+            let renderedPorts = isCaptureNode ? node.outputs.count : node.inputs.count
+            drawSystemDeviceLabels(ctx: ctx, nx: nx, ny: ny, nw: nw, hh: hh,
+                                   segments: segments, isCaptureCard: isCaptureNode,
+                                   renderedPorts: renderedPorts)
+        }
+    }
+
+    /// Draws device name labels (with mic/speaker icon) in the free zone of a `system` card.
+    ///
+    /// Free zone:
+    /// - `system (capture)` : left half  (`nx` → `nx + nw/2`) — outputs are on the right
+    /// - `system (playback)`: right half  (`nx + nw/2` → `nx + nw`) — inputs are on the left
+    ///
+    /// A vertical bracket bar is drawn flush against the centre divider, spanning the full
+    /// height of each segment's ports. This groups ports by hardware device without moving them.
+    /// Text is truncated with ellipsis if the available width is too narrow.
+    private func drawSystemDeviceLabels(ctx: CGContext,
+                                        nx: CGFloat, ny: CGFloat,
+                                        nw: CGFloat, hh: CGFloat,
+                                        segments: [SystemNodeSegment],
+                                        isCaptureCard: Bool,
+                                        renderedPorts: Int) {
+        // capture card: outputs on right → free zone = left half
+        // playback card: inputs on left  → free zone = right half
+        let zoneX   = isCaptureCard ? nx : nx + nw / 2
+        let zoneW   = nw / 2
+        let centerX = nx + nw / 2   // existing centre divider x position
+        let bodyTop = ny + hh + 3 * vpScale
+
+        let labelFS   = max(8.0, 9.0 * vpScale)
+        let textColor = NSColor.white.withAlphaComponent(0.72)
+
+        // Bracket bar: superimposed on the centre divider
+        let barW: CGFloat = max(1.0, 1.0 * vpScale)
+        let barX  = centerX - barW / 2
+
+        // Text content area: between zone edge and centre
+        let contentPad: CGFloat = max(5.0, 6.0 * vpScale)
+        let contentX    = isCaptureCard ? zoneX + contentPad : centerX + barW + contentPad
+        let contentMaxX = isCaptureCard ? centerX - contentPad : zoneX + zoneW - contentPad
+
+        ctx.saveGState()
+
+        var portOffset = 0
+        var portsRemaining = renderedPorts
+        for segment in segments {
+            guard portsRemaining > 0 else { break }
+            // Clamp segment port count to what's actually rendered
+            let visiblePorts = min(segment.portCount, portsRemaining)
+            let segTop    = bodyTop + CGFloat(portOffset) * rowH * vpScale
+            let segHeight = CGFloat(visiblePorts) * rowH * vpScale
+            let segMidY   = segTop + segHeight / 2
+
+            // Bracket bar spanning the segment height minus vertical margins
+            // so adjacent bars never touch (preserving visual separation between segments)
+            let barVMargin: CGFloat = max(3.0, 4.0 * vpScale)
+            ctx.setFillColor(NSColor.white.withAlphaComponent(0.18).cgColor)
+            ctx.fill(CGRect(x: barX, y: segTop + barVMargin,
+                            width: barW, height: segHeight - barVMargin * 2))
+
+            // Device name — right-aligned for capture (text hugs centre bar), left for playback
+            // Multi-line word wrap when the segment has ≥ 2 ports (enough vertical room)
+            let availableW = contentMaxX - contentX
+            if availableW > 4 {
+                let multiLine = visiblePorts >= 2
+                let paraStyle = NSMutableParagraphStyle()
+                paraStyle.alignment    = isCaptureCard ? .right : .left
+                paraStyle.lineSpacing  = multiLine ? 1.0 : 0
+                paraStyle.lineBreakMode = multiLine ? .byWordWrapping : .byTruncatingTail
+
+                let nameAttrs: [NSAttributedString.Key: Any] = [
+                    .font:            NSFont.systemFont(ofSize: labelFS, weight: .medium),
+                    .foregroundColor: textColor,
+                    .paragraphStyle:  paraStyle
+                ]
+
+                let maxH = segHeight - barVMargin * 2
+                let textH: CGFloat
+                if multiLine {
+                    let bounds = NSAttributedString(string: segment.deviceName, attributes: nameAttrs)
+                        .boundingRect(with: CGSize(width: availableW, height: maxH),
+                                      options: [.usesLineFragmentOrigin, .usesFontLeading])
+                    textH = min(ceil(bounds.height), maxH)
+                } else {
+                    textH = ceil(NSAttributedString(string: "A", attributes: nameAttrs).size().height * 1.2)
+                }
+
+                let textRect = CGRect(x: contentX,
+                                     y: segMidY - textH / 2,
+                                     width: availableW,
+                                     height: textH)
+                (segment.deviceName as NSString).draw(in: textRect, withAttributes: nameAttrs)
+            }
+
+            portOffset += visiblePorts
+            portsRemaining -= visiblePorts
+        }
+        ctx.restoreGState()
     }
 
     private func drawGem(ctx: CGContext, at pt: CGPoint, color: Color,
