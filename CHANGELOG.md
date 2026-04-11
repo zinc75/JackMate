@@ -14,7 +14,8 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
   encoding instead of UTF-8, causing a mismatch when the correct UTF-8 UID is passed.
   Workaround: JackMate runs `jackd -d coreaudio -l` at startup and on device change,
   extracts the raw internal UIDs, and injects them via `$(printf '\xNN...')` in the
-  shell command. Self-healing: automatically disabled once Jack fixes the bug upstream.
+  shell command. Self-healing: automatically disabled once Jack fixes the bug upstream
+  ([jackaudio/jack2#1017](https://github.com/jackaudio/jack2/issues/1017)).
 - Jack UID table is now refreshed on CoreAudio device plug/unplug
 - Fixed false "Jack is running" detection while `jackd -l` enumeration was in progress
 
