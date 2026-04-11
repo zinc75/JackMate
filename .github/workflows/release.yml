@@ -23,23 +23,49 @@ jobs:
           VERSION=$(tr -d ' \n' < src/VERSION)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
+      - name: Get last released version
+        id: last_release
+        run: |
+          # Fetch the most recent release tag from GitHub API (empty string if no release yet)
+          LAST_TAG=$(curl -s \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/latest" \
+            | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('tag_name',''))" 2>/dev/null || echo "")
+          # Strip leading 'v' if present
+          LAST_VERSION="${LAST_TAG#v}"
+          echo "last_version=$LAST_VERSION" >> $GITHUB_OUTPUT
+          echo "Last released version: $LAST_VERSION"
+
       - name: Extract changelog
         id: changelog
         run: |
           VERSION="${{ steps.version.outputs.version }}"
+          LAST_VERSION="${{ steps.last_release.outputs.last_version }}"
 
           if ! grep -q "^## \[$VERSION\]" CHANGELOG.md; then
             echo "Version $VERSION not found in CHANGELOG.md"
             exit 1
           fi
 
-          awk -v ver="$VERSION" '
-            $0 ~ "^## \\[" ver "\\]" {flag=1; next}
-            flag && $0 ~ "^## \\[[0-9]+\\.[0-9]+\\.[0-9]+\\]" {exit}
-            flag {print}
-          ' CHANGELOG.md > release_notes.txt
+          # Extract all changelog entries from [VERSION] down to (but not including) [LAST_VERSION]
+          # If no previous release exists, extract everything from [VERSION] to end of file
+          if [ -z "$LAST_VERSION" ] || ! grep -q "^## \[$LAST_VERSION\]" CHANGELOG.md; then
+            awk -v ver="$VERSION" '
+              $0 ~ "^## \\[" ver "\\]" { flag=1 }
+              flag { print }
+            ' CHANGELOG.md > release_notes.txt
+          else
+            awk -v ver="$VERSION" -v last="$LAST_VERSION" '
+              $0 ~ "^## \\[" ver "\\]" { flag=1 }
+              flag && $0 ~ "^## \\[" last "\\]" { exit }
+              flag { print }
+            ' CHANGELOG.md > release_notes.txt
+          fi
 
+          # Remove leading/trailing blank lines
           sed -i '/./,$!d' release_notes.txt
+          sed -i -e :a -e '/^\s*$/{$d;N;ba}' release_notes.txt
 
           echo "changelog<<EOF" >> $GITHUB_OUTPUT
           cat release_notes.txt >> $GITHUB_OUTPUT
