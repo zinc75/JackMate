@@ -6,6 +6,13 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.9.2] — 2026-04-11
+
+### Fixed
+- Patchbay `system` cards: device name labels and vertical bars overflowed the card boundary when the channel picker was limiting the number of ports exposed by Jack. Each segment is now clamped to the actually rendered port count.
+
+---
+
 ## [1.9.1] — 2026-04-11
 
 ### Added
