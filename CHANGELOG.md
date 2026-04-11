@@ -6,6 +6,25 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.9.1] — 2026-04-11
+
+### Added
+- Status bar: "Aggregated by Jack" chip displayed between device names and sample rate when the device selection will cause Jack to silently create an aggregate device
+- Status bar: "Jack started externally" chip replaces device names when Jack is running but was not launched by JackMate (device info not accessible via Jack API)
+- Status bar: input/output channel counts now correctly sum both devices when Jack creates an aggregate (e.g. 4/4 ch out instead of 2/2 ch out)
+- Configuration: channel picker automatically disabled and reset when device selection triggers a Jack aggregate
+
+---
+
+## [1.9.0] — 2026-04-11
+
+### Added
+- Patchbay `system` cards: hardware device names displayed in the free zone of each card (right-aligned for capture, left-aligned for playback); multi-line wrap when a segment has ≥ 2 ports
+- Patchbay `system` cards: thin vertical bar on the centre divider marks the boundary between two hardware segments when Jack has created an aggregate device
+- Node detail sheet (click on the coloured badge): shows one row per hardware device with its channel count when Jack was launched by JackMate; "Aggregated by Jack" badge when aggregate; falls back to previous behaviour otherwise
+
+---
+
 ## [1.8.9] — 2026-04-11
 
 ### Fixed
