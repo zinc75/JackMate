@@ -1,2 +1,7 @@
-/* Richiesta di accesso al microfono — mostrata da macOS al primo accesso */
-NSMicrophoneUsageDescription = "JackMate ha bisogno di accedere al microfono per interagire con il server audio Jack.";
+/* Accesso al microfono */
+NSMicrophoneUsageDescription = "JackMate richiede l'accesso al microfono per comunicare con il server Jack.";
+
+/* Scrivania / Documenti / Download — per aggiornamento in loco */
+NSDesktopFolderUsageDescription = "JackMate richiede l'accesso alla Scrivania per aggiornarsi nella posizione attuale.";
+NSDocumentsFolderUsageDescription = "JackMate richiede l'accesso a Documenti per aggiornarsi nella posizione attuale.";
+NSDownloadsFolderUsageDescription = "JackMate richiede l'accesso a Download per aggiornarsi nella posizione attuale.";

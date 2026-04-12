@@ -22,6 +22,7 @@ import SwiftUI
 struct MenuBarView: View {
     @EnvironmentObject var jackManager:  JackManager
     @EnvironmentObject var audioManager: CoreAudioManager
+    @EnvironmentObject var updateManager: AppUpdateManager
     @State private var hoveredAction: String? = nil
 
     /// Accent colour reflecting the current Jack state.
@@ -134,6 +135,21 @@ struct MenuBarView: View {
 
             // ── Actions ───────────────────────────────────────────────────
             VStack(spacing: 0) {
+                if updateManager.updateAvailable, let v = updateManager.latestVersion {
+                    MBActionRow(id: "update", icon: "arrow.up.circle.fill",
+                                label: String(localized: "update.menubar.label") + " \(v)",
+                                color: jackManager.isRunning ? JM.textTertiary : JM.accentGreen,
+                                hovered: $hoveredAction) {
+                        guard !jackManager.isRunning else { return }
+                        NSApp.setActivationPolicy(.regular)
+                        NSApp.activate(ignoringOtherApps: true)
+                        NSApp.windows.first(where: { $0.identifier?.rawValue == "main" })?.makeKeyAndOrderFront(nil)
+                        NotificationCenter.default.post(name: .mainWindowDidOpen, object: nil)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                            NotificationCenter.default.post(name: .showAppUpdateSheet, object: nil)
+                        }
+                    }
+                }
                 MBActionRow(id: "open", icon: "macwindow", label: String(localized: "menubar.action.show"),
                             color: JM.textSecondary, hovered: $hoveredAction) {
                     NSApp.setActivationPolicy(.regular)

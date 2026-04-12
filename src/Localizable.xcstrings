@@ -366,76 +366,6 @@
         }
       }
     },
-    "aggregate.warning.captures" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Eingänge"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Captures"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Capturas"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Captures"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Catture"
-          }
-        }
-      }
-    },
-    "aggregate.warning.playbacks" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ausgänge"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Playbacks"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reproducciones"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sorties"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Riproduzioni"
-          }
-        }
-      }
-    },
     "aggregate.warning.start" : {
       "localizations" : {
         "de" : {
@@ -9368,6 +9298,125 @@
             "value" : "Rilascia il ruolo di Timebase Master"
           }
         }
+      }
+    },
+    "update.available.message" : {
+        "localizations" : {
+          "de" : {
+              "stringUnit" : {
+                  "state" : "translated","value" : "Eine neue Version von JackMate steht zum Download bereit. Möchtest du sie jetzt installieren?" } },
+          "en" : { "stringUnit" : { "state" : "translated", "value" : "A new version of JackMate is available. Would you like to install it now?" } },
+          "es" : { "stringUnit" : { "state" : "translated", "value" : "Hay una nueva versión de JackMate disponible. ¿Deseas instalarla ahora?" } },
+          "fr" : { "stringUnit" : { "state" : "translated", "value" : "Une nouvelle version de JackMate est disponible. Voulez-vous l'installer maintenant ?" } },
+          "it" : { "stringUnit" : { "state" : "translated", "value" : "È disponibile una nuova versione di JackMate. Vuoi installarla adesso?" } }
+        }
+    },
+    "update.available.title" : {
+        "localizations" : {
+              "de" : { "stringUnit" : { "state" : "translated", "value" : "Update verfügbar" } },
+              "en" : { "stringUnit" : { "state" : "translated", "value" : "Update available" } },
+              "es" : { "stringUnit" : { "state" : "translated", "value" : "Actualización disponible" } },
+              "fr" : { "stringUnit" : { "state" : "translated", "value" : "Mise à jour disponible" } },
+              "it" : { "stringUnit" : { "state" : "translated", "value" : "Aggiornamento disponibile" } }
+            }
+    },
+    "update.button.install" : {
+        "localizations" : {
+              "de" : { "stringUnit" : { "state" : "translated", "value" : "Installieren & neu starten" } },
+              "en" : { "stringUnit" : { "state" : "translated", "value" : "Install & Relaunch" } },
+              "es" : { "stringUnit" : { "state" : "translated", "value" : "Instalar y relanzar" } },
+              "fr" : { "stringUnit" : { "state" : "translated", "value" : "Installer et relancer" } },
+              "it" : { "stringUnit" : { "state" : "translated", "value" : "Installa e riavvia" } }
+            }
+    },
+    "update.button.later" : {
+        "localizations" : {
+              "de" : { "stringUnit" : { "state" : "translated", "value" : "Später" } },
+              "en" : { "stringUnit" : { "state" : "translated", "value" : "Later" } },
+              "es" : { "stringUnit" : { "state" : "translated", "value" : "Más tarde" } },
+              "fr" : { "stringUnit" : { "state" : "translated", "value" : "Plus tard" } },
+              "it" : { "stringUnit" : { "state" : "translated", "value" : "Più tardi" } }
+            }
+    },
+    "update.button.skip" : {
+        "localizations" : {
+              "de" : { "stringUnit" : { "state" : "translated", "value" : "Diese Version überspringen" } },
+              "en" : { "stringUnit" : { "state" : "translated", "value" : "Skip this version" } },
+              "es" : { "stringUnit" : { "state" : "translated", "value" : "Omitir esta versión" } },
+              "fr" : { "stringUnit" : { "state" : "translated", "value" : "Passer cette version" } },
+              "it" : { "stringUnit" : { "state" : "translated", "value" : "Salta questa versione" } }
+            }
+    },
+    "update.downloading" : {
+        "localizations" : {
+              "de" : { "stringUnit" : { "state" : "translated", "value" : "Wird heruntergeladen…" } },
+              "en" : { "stringUnit" : { "state" : "translated", "value" : "Downloading…" } },
+              "es" : { "stringUnit" : { "state" : "translated", "value" : "Descargando…" } },
+              "fr" : { "stringUnit" : { "state" : "translated", "value" : "Téléchargement…" } },
+              "it" : { "stringUnit" : { "state" : "translated", "value" : "Download in corso…" } }
+            }
+    },
+    "update.error.app_not_found" : {
+        "localizations" : {
+              "de" : { "stringUnit" : { "state" : "translated", "value" : "App nicht im DMG gefunden" } },
+              "en" : { "stringUnit" : { "state" : "translated", "value" : "App not found in DMG" } },
+              "es" : { "stringUnit" : { "state" : "translated", "value" : "App no encontrada en el DMG" } },
+              "fr" : { "stringUnit" : { "state" : "translated", "value" : "Application introuvable dans le DMG" } },
+              "it" : { "stringUnit" : { "state" : "translated", "value" : "App non trovata nel DMG" } }
+            }
+    },
+    "update.error.download" : {
+        "localizations" : {
+              "de" : { "stringUnit" : { "state" : "translated", "value" : "Download fehlgeschlagen" } },
+              "en" : { "stringUnit" : { "state" : "translated", "value" : "Download failed" } },
+              "es" : { "stringUnit" : { "state" : "translated", "value" : "Error en la descarga" } },
+              "fr" : { "stringUnit" : { "state" : "translated", "value" : "Échec du téléchargement" } },
+              "it" : { "stringUnit" : { "state" : "translated", "value" : "Download non riuscito" } }
+            }
+    },
+    "update.error.mount" : {
+        "localizations" : {
+              "de" : { "stringUnit" : { "state" : "translated", "value" : "DMG konnte nicht eingebunden werden" } },
+              "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not mount DMG" } },
+              "es" : { "stringUnit" : { "state" : "translated", "value" : "No se pudo montar el DMG" } },
+              "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible de monter le DMG" } },
+              "it" : { "stringUnit" : { "state" : "translated", "value" : "Impossibile montare il DMG" } }
+            }
+    },
+    "update.installing" : {
+        "localizations" : {
+              "de" : { "stringUnit" : { "state" : "translated", "value" : "Wird installiert…" } },
+              "en" : { "stringUnit" : { "state" : "translated", "value" : "Installing…" } },
+              "es" : { "stringUnit" : { "state" : "translated", "value" : "Instalando…" } },
+              "fr" : { "stringUnit" : { "state" : "translated", "value" : "Installation…" } },
+              "it" : { "stringUnit" : { "state" : "translated", "value" : "Installazione in corso…" } }
+            }
+    },
+    "update.menubar.label" : {
+        "localizations" : {
+              "de" : { "stringUnit" : { "state" : "translated", "value" : "Update verfügbar:" } },
+              "en" : { "stringUnit" : { "state" : "translated", "value" : "Update available:" } },
+              "es" : { "stringUnit" : { "state" : "translated", "value" : "Actualización disponible:" } },
+              "fr" : { "stringUnit" : { "state" : "translated", "value" : "Mise à jour disponible :" } },
+              "it" : { "stringUnit" : { "state" : "translated", "value" : "Aggiornamento disponibile:" } }
+            }
+    },
+    "update.admin.notice" : {
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Falls der obige Pfad Administratorzugriff erfordert, zeigt macOS eine Passwortabfrage an." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "If the path above requires administrator access, macOS will prompt for your password." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Si la ruta anterior requiere acceso de administrador, macOS solicitará tu contraseña." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Si le chemin ci-dessus nécessite des droits administrateur, macOS vous demandera votre mot de passe." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Se il percorso indicato richiede accesso amministratore, macOS chiederà la password." } }
+      }
+    },
+    "update.jack_running.warning" : {
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Jack ist aktiv. Bitte Jack stoppen, bevor du das Update installierst." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Jack is running. Please stop Jack before installing the update." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Jack está activo. Por favor, detén Jack antes de instalar la actualización." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Jack est en cours d'exécution. Veuillez stopper Jack avant d'installer la mise à jour." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Jack è attivo. Ferma Jack prima di installare l'aggiornamento." } }
       }
     }
   },

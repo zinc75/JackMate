@@ -1,2 +1,7 @@
-/* Microphone permission prompt — shown by macOS when the app requests microphone access */
-NSMicrophoneUsageDescription = "JackMate needs microphone access to interact with the Jack audio server.";
+/* Microphone access request */
+NSMicrophoneUsageDescription = "JackMate needs microphone access to communicate with the Jack server.";
+
+/* Desktop / Documents / Downloads access — for in-place self-update */
+NSDesktopFolderUsageDescription = "JackMate needs access to the Desktop to update itself in place.";
+NSDocumentsFolderUsageDescription = "JackMate needs access to the Documents folder to update itself in place.";
+NSDownloadsFolderUsageDescription = "JackMate needs access to the Downloads folder to update itself in place.";

@@ -1,2 +1,7 @@
 /* Demande d'autorisation microphone — affichée par macOS lors de la première demande d'accès */
 NSMicrophoneUsageDescription = "JackMate a besoin d'accéder au microphone pour interagir avec le serveur Jack.";
+
+/* Demande d'accès au Bureau / Documents / Téléchargements — pour la mise à jour en place */
+NSDesktopFolderUsageDescription = "JackMate a besoin d'accéder au Bureau pour se mettre à jour à son emplacement actuel.";
+NSDocumentsFolderUsageDescription = "JackMate a besoin d'accéder aux Documents pour se mettre à jour à son emplacement actuel.";
+NSDownloadsFolderUsageDescription = "JackMate a besoin d'accéder aux Téléchargements pour se mettre à jour à son emplacement actuel.";

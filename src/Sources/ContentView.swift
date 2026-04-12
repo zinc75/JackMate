@@ -172,6 +172,7 @@ enum SidebarNavItem: String, CaseIterable {
 struct ContentView: View {
     @EnvironmentObject var jackManager:  JackManager
     @EnvironmentObject var audioManager: CoreAudioManager
+    @EnvironmentObject var updateManager: AppUpdateManager
     @ObservedObject private var notifications = NotificationManager.shared
     @State private var selection: SidebarNavItem = .configuration
     @StateObject private var patchbayManager = PatchbayManager()
@@ -183,6 +184,7 @@ struct ContentView: View {
     @State private var zoomHideWork: DispatchWorkItem? = nil
     @State private var hoveredSelAction: String? = nil
     @State private var showJackNotInstalled = false
+    @State private var showUpdateSheet = false
 
     // MARK: - Off-screen helpers
 
@@ -490,6 +492,17 @@ struct ContentView: View {
         .sheet(isPresented: $showJackNotInstalled) {
             JackNotInstalledView()
                 .environmentObject(jackManager)
+        }
+        .sheet(isPresented: $showUpdateSheet) {
+            AppUpdateSheet()
+                .environmentObject(updateManager)
+                .environmentObject(jackManager)
+        }
+        .onChange(of: updateManager.updateAvailable) { _, available in
+            if available { showUpdateSheet = true }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .showAppUpdateSheet)) { _ in
+            if updateManager.updateAvailable { showUpdateSheet = true }
         }
         .onAppear {
             patchbayManager.configure(with: jackManager)

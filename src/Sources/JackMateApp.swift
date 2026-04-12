@@ -133,8 +133,9 @@ private struct AboutView: View {
 @main
 struct JackMateApp: App {
 
-    @StateObject private var jackManager  = JackManager()
-    @StateObject private var audioManager = CoreAudioManager()
+    @StateObject private var jackManager   = JackManager()
+    @StateObject private var audioManager  = CoreAudioManager()
+    @StateObject private var updateManager = AppUpdateManager()
 
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
@@ -169,9 +170,11 @@ struct JackMateApp: App {
             ContentView()
                 .environmentObject(jackManager)
                 .environmentObject(audioManager)
+                .environmentObject(updateManager)
                 .mainWindowDelegate()
                 .onAppear {
                     AppDelegate.shared?.jackManager = jackManager
+                    updateManager.checkForUpdates()
                 }
         }
         .windowStyle(.hiddenTitleBar)
@@ -210,6 +213,7 @@ struct JackMateApp: App {
             MenuBarView()
                 .environmentObject(jackManager)
                 .environmentObject(audioManager)
+                .environmentObject(updateManager)
         } label: {
             Image(systemName: jackManager.isRunning
                   ? "waveform.path.ecg"

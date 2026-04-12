@@ -6,6 +6,18 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.9.7] — 2026-04-13
+
+### Added
+- Automatic update check at launch (GitHub releases, 24h cache, silent on network failure)
+- In-place installation: DMG download, mount, atomic bundle replacement at current location, automatic relaunch via bash script
+- "Update available" indicator in the menu bar (disabled while Jack is running)
+- Update sheet: install path, admin password notice, Install / Later / Skip this version buttons
+- Localised TCC descriptions (FR/EN/DE/IT/ES) for Desktop / Documents / Downloads folder access
+- Disabled in App Store builds (`#if !APPSTORE`)
+
+---
+
 ## [1.9.6] — 2026-04-12
 
 ### Improved
