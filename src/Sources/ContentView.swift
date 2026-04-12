@@ -2631,6 +2631,10 @@ struct ConfigBodyView: View {
     @AppStorage("hideAggregateAlert")  var hideAggregateAlert  = false
     @AppStorage("hideClockDriftAlert") var hideClockDriftAlert = false
 
+    @State private var clockDriftPulse: Double = 0.15
+    @State private var showClockDriftInfo = false
+    @State private var isClockDriftInfoHovered = false
+
     let bufferSizes = [16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
 
     var separatorGradient: some View {
@@ -2666,6 +2670,12 @@ struct ConfigBodyView: View {
         audioManager.compatibleSampleRates(
             inputUID:  jackManager.prefs.inputDeviceUID,
             outputUID: jackManager.prefs.outputDeviceUID)
+    }
+
+    /// True when clock drift correction should be visually highlighted:
+    /// different physical devices are selected, correction is disabled, and Jack is not running.
+    var shouldHighlightClockDrift: Bool {
+        areDifferentPhysicalDevices && !jackManager.prefs.clockDrift && !jackManager.isRunning
     }
 
     /// True only when input and output are genuinely different physical hardware.
@@ -2845,6 +2855,40 @@ struct ConfigBodyView: View {
                                     jackManager.savePreferences()
                                 }
                             }
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.orange.opacity(shouldHighlightClockDrift ? clockDriftPulse : 0),
+                                            lineWidth: 1.5)
+                                    .shadow(color: Color.orange.opacity(shouldHighlightClockDrift ? clockDriftPulse * 0.85 : 0),
+                                            radius: 8)
+                                    .padding(.horizontal, -10)
+                            )
+                            // Info button placed just left of the toggle switch
+                            .overlay(alignment: .trailing) {
+                                Button { showClockDriftInfo = true } label: {
+                                    Image(systemName: "info.circle")
+                                        .font(.system(size: 13, weight: .medium))
+                                        .foregroundStyle(shouldHighlightClockDrift
+                                            ? Color.orange.opacity(isClockDriftInfoHovered ? 1.0 : clockDriftPulse)
+                                            : (isClockDriftInfoHovered ? JM.textPrimary : JM.textTertiary))
+                                }
+                                .buttonStyle(.plain)
+                                .padding(.trailing, 40)
+                                .onHover { isClockDriftInfoHovered = $0 }
+                            }
+                            .task(id: shouldHighlightClockDrift) {
+                                guard shouldHighlightClockDrift else {
+                                    clockDriftPulse = 0
+                                    return
+                                }
+                                while !Task.isCancelled {
+                                    withAnimation(.easeInOut(duration: 1.1)) { clockDriftPulse = 0.65 }
+                                    try? await Task.sleep(for: .seconds(1.1))
+                                    guard !Task.isCancelled else { break }
+                                    withAnimation(.easeInOut(duration: 1.1)) { clockDriftPulse = 0.15 }
+                                    try? await Task.sleep(for: .seconds(1.1))
+                                }
+                            }
                         separatorGradient
                         JMToggleRow(icon: "pianokeys",
                                     iconBg: JM.tintIndigo, iconColor: JM.accentIndigo,
@@ -2938,6 +2982,9 @@ struct ConfigBodyView: View {
             .padding(16)
         }
         .background(JM.bgBase)
+        .sheet(isPresented: $showClockDriftInfo) {
+            ClockDriftInfoSheet()
+        }
     }
 
     /// Shows an informational alert when the user selects a macOS aggregate device,
@@ -2993,6 +3040,51 @@ struct ConfigBodyView: View {
 
 /// Grouped settings card: small icon + all-caps title header, then an arbitrary content view.
 /// Uses a subtle gradient background and a `gradientBorder`.
+// MARK: - Clock drift info sheet
+
+/// Informational sheet explaining clock drift correction and suggesting Audio MIDI Setup as an alternative.
+struct ClockDriftInfoSheet: View {
+    @Environment(\.dismiss) var dismiss
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            // Header
+            HStack(spacing: 12) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8).fill(JM.tintAmber).frame(width: 36, height: 36)
+                    Image(systemName: "clock.arrow.2.circlepath")
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundStyle(JM.accentAmber)
+                }
+                Text(String(localized: "alert.clock_drift.title"))
+                    .font(.headline)
+                    .foregroundStyle(JM.textPrimary)
+            }
+
+            // Body
+            Text(String(localized: "alert.clock_drift.message"))
+                .font(.system(size: 12))
+                .foregroundStyle(JM.textPrimary.opacity(0.80))
+                .fixedSize(horizontal: false, vertical: true)
+                .lineSpacing(3)
+
+            // Buttons
+            HStack {
+                Spacer()
+                Button(String(localized: "alert.clock_drift.button.open")) {
+                    NSWorkspace.shared.open(
+                        URL(fileURLWithPath: "/System/Applications/Utilities/Audio MIDI Setup.app"))
+                    dismiss()
+                }
+                Button(String(localized: "common.ok")) { dismiss() }
+                    .keyboardShortcut(.defaultAction)
+            }
+        }
+        .padding(24)
+        .frame(width: 380)
+    }
+}
+
 struct JMGroup<Content: View>: View {
     let icon: String
     let iconColor: Color

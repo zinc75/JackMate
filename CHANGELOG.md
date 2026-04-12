@@ -6,6 +6,14 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.9.6] — 2026-04-12
+
+### Improved
+- Configuration — Clock drift correction: pulsing amber border + glow when the option is disabled with two distinct physical devices selected (animation stops as soon as Jack is running)
+- Configuration — Clock drift correction: `ⓘ` button to the left of the toggle — opens an explanatory sheet with a link to Audio MIDI Setup; pulses in amber in sync with the border
+
+---
+
 ## [1.9.5] — 2026-04-12
 
 ### Improved
