@@ -6,6 +6,13 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.9.5] — 2026-04-12
+
+### Improved
+- Patchbay — client card badge: hover effect (scale ×1.15 + coloured glow) and pointer cursor, making it visually clear that the badge is clickable
+
+---
+
 ## [1.9.4] — 2026-04-12
 
 ### Fixed

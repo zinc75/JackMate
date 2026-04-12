@@ -611,6 +611,8 @@ class PatchbayCanvasNSView: NSView {
     private var isDraggingWire:      Bool      = false
     private var hoveredPort:         JackPort? = nil
     private var hoveredCollapseNode: String?   = nil  // id of the node whose collapse arrow is hovered
+    private var hoveredBadgeNode:    String?   = nil  // id of the node whose badge is hovered
+    private var isShowingBadgeCursor: Bool     = false // whether pointingHand cursor is currently pushed
 
     private struct HoveredPill: Equatable {
         let nodeId: String; let isOutput: Bool; let portType: JackPortType
@@ -646,24 +648,41 @@ class PatchbayCanvasNSView: NSView {
     }
 
     override func mouseMoved(with event: NSEvent) {
-        let pt      = convert(event.locationInWindow, from: nil)
-        let port    = hitTestPort(at: pt)
-        let colNode = hitTestCollapseArrow(at: pt)
-        let pill    = hitTestPill(at: pt)
-        if port?.id != hoveredPort?.id || colNode != hoveredCollapseNode || pill != hoveredPill {
+        let pt        = convert(event.locationInWindow, from: nil)
+        let port      = hitTestPort(at: pt)
+        let colNode   = hitTestCollapseArrow(at: pt)
+        let pill      = hitTestPill(at: pt)
+        let badgeNode = hitTestBadgeNode(at: pt)?.id
+        if port?.id != hoveredPort?.id || colNode != hoveredCollapseNode
+            || pill != hoveredPill || badgeNode != hoveredBadgeNode {
             hoveredPort         = port
             hoveredCollapseNode = colNode
             hoveredPill         = pill
+            hoveredBadgeNode    = badgeNode
             needsDisplay        = true
+            // Push/pop pointing-hand cursor when entering or leaving a badge
+            if badgeNode != nil && !isShowingBadgeCursor {
+                NSCursor.pointingHand.push()
+                isShowingBadgeCursor = true
+            } else if badgeNode == nil && isShowingBadgeCursor {
+                NSCursor.pop()
+                isShowingBadgeCursor = false
+            }
         }
     }
 
     override func mouseExited(with event: NSEvent) {
-        if hoveredPort != nil || hoveredCollapseNode != nil || hoveredPill != nil {
+        if hoveredPort != nil || hoveredCollapseNode != nil
+            || hoveredPill != nil || hoveredBadgeNode != nil {
             hoveredPort         = nil
             hoveredCollapseNode = nil
             hoveredPill         = nil
+            hoveredBadgeNode    = nil
             needsDisplay        = true
+        }
+        if isShowingBadgeCursor {
+            NSCursor.pop()
+            isShowingBadgeCursor = false
         }
     }
 
@@ -1044,9 +1063,15 @@ class PatchbayCanvasNSView: NSView {
         let abbr          = BadgeUtils.abbrev(node.id)
         let isSystemNode  = node.id.hasPrefix("system")
         let isCaptureNode = node.id.hasSuffix("(capture)")
-        let badgeSz    = max(18.0, 26.0 * vpScale)
-        let badgeX     = nx + 8 * vpScale
-        let badgeY     = ny + (hh - badgeSz) / 2
+        let isBadgeHovered = hoveredBadgeNode == node.id
+        let badgeSzBase = max(18.0, 26.0 * vpScale)
+        // Scale up 15% on hover, keeping the badge centred on its resting position
+        let badgeScale  = isBadgeHovered ? 1.15 : 1.0
+        let badgeSz     = badgeSzBase * badgeScale
+        let badgeXBase  = nx + 8 * vpScale
+        let badgeYBase  = ny + (hh - badgeSzBase) / 2
+        let badgeX      = badgeXBase - (badgeSz - badgeSzBase) / 2
+        let badgeY      = badgeYBase - (badgeSz - badgeSzBase) / 2
         let badgeRect  = CGRect(x: badgeX, y: badgeY, width: badgeSz, height: badgeSz)
         let cornerR    = badgeSz * 0.28
         let badgePath  = CGPath(roundedRect: badgeRect,
@@ -1058,6 +1083,16 @@ class PatchbayCanvasNSView: NSView {
                 ? NSColor(hue: 0.524, saturation: 0.70, brightness: 0.78, alpha: 1).cgColor  // cyan
                 : NSColor(hue: 0.78,  saturation: 0.50, brightness: 0.82, alpha: 1).cgColor)  // violet
             : BadgeUtils.nsColor(abbr, fullName: node.id).cgColor
+
+        // Glow on hover: draw the badge shape as a shadow behind the fill
+        if isBadgeHovered {
+            ctx.saveGState()
+            ctx.setShadow(offset: .zero, blur: 10, color: baseColor.copy(alpha: 0.65))
+            ctx.setFillColor(baseColor)
+            ctx.addPath(badgePath)
+            ctx.fillPath()
+            ctx.restoreGState()
+        }
 
         // Gradient fill for the badge
         ctx.saveGState()
