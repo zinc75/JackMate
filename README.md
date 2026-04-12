@@ -114,8 +114,7 @@ JackMate is free and open source. If it saves you time or fits into your workflo
 
 Contributions go toward the **Apple Developer account** ($99/year) required to notarize the app — which would remove the Gatekeeper warning on first launch and make installation seamless for everyone.
 
-<!-- TODO: replace with real Buy Me A Coffee link once account is created -->
-<!-- [![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/TODO) -->
+[![Buy me a coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=zinc75&button_colour=FFDD00&font_colour=000000&font_family=Lato&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/zinc75)
 
 *Buy Me A Coffee link coming soon.*
 
