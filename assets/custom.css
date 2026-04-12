@@ -887,8 +887,6 @@ body { padding-bottom: 3rem !important; }
 }
 /* ── Navbar — Buy Me A Coffee icon ───────────────────── */
 .navbar-bmc-icon {
-  height: 16px;
-  width: auto;
   vertical-align: middle;
   opacity: 0.65;
   transition: opacity 0.18s ease, transform 0.18s ease;
