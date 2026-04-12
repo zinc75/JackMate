@@ -624,13 +624,25 @@ figcaption, .figure-caption {
   transform: translateY(-2px) scale(1.03); color: #fff !important; text-decoration: none;
 }
 .hero-pill-secondary {
-  background: rgba(255,255,255,0.05);
+  background: rgba(20,20,20,0.60);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-color: var(--jm-border-med); color: var(--jm-text-dim) !important;
 }
 .hero-pill-secondary:hover {
-  background: rgba(255,255,255,0.10); border-color: var(--jm-border-hi);
+  background: rgba(20,20,20,0.90); border-color: var(--jm-border-hi);
   color: var(--jm-text) !important; transform: translateY(-2px) scale(1.03); text-decoration: none;
+}
+.hero-pill-sponsor {
+  background: rgba(20,20,20,0.60);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-color: var(--jm-border-med); color: var(--jm-text-dim) !important;
+}
+.hero-pill-sponsor:hover {
+  background: rgba(20,20,20,0.90); border-color: var(--jm-border-hi);
+  color: var(--jm-text) !important; transform: translateY(-2px) scale(1.03); text-decoration: none;
+}
+.bmc-pill-icon {
+  width: 16px; height: 16px; object-fit: contain;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -873,6 +885,19 @@ body { padding-bottom: 3rem !important; }
   .feature-grid { grid-template-columns: 1fr; }
   .feature-card:nth-child(n) { grid-column: span 1; }
 }
+/* ── Navbar — Buy Me A Coffee icon ───────────────────── */
+.navbar-bmc-icon {
+  height: 16px;
+  width: auto;
+  vertical-align: middle;
+  opacity: 0.65;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.navbar a:has(.navbar-bmc-icon):hover .navbar-bmc-icon {
+  opacity: 1;
+  transform: scale(1.10);
+}
+
 /* Back-to-top : sidebar masquée sous 992px → bord gauche viewport */
 @media (max-width: 991.98px) {
   #quarto-back-to-top { left: 50% !important; transform: translateX(-50%) !important; }

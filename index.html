@@ -157,6 +157,10 @@ ul.task-list li input[type="checkbox"] {
 </i> 
 <span class="menu-text"></span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.buymeacoffee.com/zinc75"> 
+<span class="menu-text"><img src="assets/bmc-logo.png" class="navbar-bmc-icon" alt="Buy me a coffee"></span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -292,6 +296,9 @@ ul.task-list li input[type="checkbox"] {
         </a>
         <a href="guide/configuration.html" class="hero-pill hero-pill-secondary">
           <i class="fa-solid fa-book-open"></i> Getting started
+        </a>
+        <a href="https://www.buymeacoffee.com/zinc75" class="hero-pill hero-pill-sponsor" target="_blank" rel="noopener">
+          <img src="assets/bmc-logo.png" alt="" class="bmc-pill-icon"> Buy me a coffee
         </a>
       </div>
     </div>
@@ -436,7 +443,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="fs-icon icon-bg-red"><i class="fa-solid fa-sliders" style="color:#fff"></i></div>
       <p class="fs-label">Get started</p>
       <h2 class="fs-heading anchored">Configure Jack<br>in seconds</h2>
-      <p class="fs-desc">Select audio interfaces, sample rate and buffer size. JackMate computes compatible sample rates in real time and generates the exact <code>jackdmp</code> command — no terminal required. Hog mode, channel selection, aggregate device support, and a live latency readout.</p>
+      <p class="fs-desc">Select audio interfaces, sample rate and buffer size. JackMate computes compatible sample rates in real time and generates the exact <code>jackd</code> command — no terminal required. Hog mode, channel selection, aggregate device support, and a live latency readout.</p>
       <a href="guide/configuration.html" class="fs-cta">Explore Configuration <i class="fa-solid fa-arrow-right"></i></a>
     </div>
   </div>
@@ -555,7 +562,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td>Jack Audio Connection Kit</td>
-<td>1.9.x (<code>jackdmp</code>)</td>
+<td>1.9.x (<code>jackd</code>)</td>
 </tr>
 <tr class="odd">
 <td>Architecture</td>
@@ -577,7 +584,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Jack must be installed separately. JackMate automatically searches for <code>jackdmp</code> in <code>/usr/local/bin</code> and common locations. If Jack is not found at launch, JackMate shows installation instructions (Homebrew or <code>.pkg</code>).</p>
+<p>Jack must be installed separately. JackMate automatically searches for <code>jackdmp</code> or <code>jackd</code> in <code>/usr/local/bin</code> and common locations. If Jack is not found at launch, JackMate shows installation instructions (Homebrew or <code>.pkg</code>).</p>
 </div>
 </div>
 <div style="display:none;height:0;overflow:hidden;" aria-hidden="true">
@@ -588,6 +595,14 @@ Note
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script>
+(function () {
+  document.querySelectorAll('a[href*="buymeacoffee.com"]').forEach(function (a) {
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+  });
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
