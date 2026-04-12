@@ -3,7 +3,7 @@
   ![macOS](https://img.shields.io/badge/macOS-15.0%2B-lightgrey?logo=apple)
   ![Swift](https://img.shields.io/badge/Swift-5.0-orange?logo=swift)
   ![License](https://img.shields.io/badge/license-MIT-green)
-  ![Version](https://img.shields.io/badge/version-1.9.2-blue)
+  ![Version](https://img.shields.io/badge/version-1.9.3-blue)
   ![Languages](https://img.shields.io/badge/languages-FR%20EN%20DE%20IT%20ES-blueviolet)
 
 
@@ -58,6 +58,7 @@
 - Native macOS menus: View ⌘1/⌘2, Help with documentation link, custom About panel
 - Automatic Jack detection at launch and on every app reactivation
 - Jack version check: green ✓ badge if up to date, clickable amber ↑ badge if update available
+- Aggregate warning sheet: when the device selection will cause Jack to silently create an aggregate, a modal shows a patchbay-accurate preview of the resulting channel layout before Jack starts — with a "don't show again" option per device combination
 - Installation helper modal when Jack is absent (Homebrew or .pkg, with copyable command)
 - 🇫🇷 French · 🇬🇧 English · 🇩🇪 German · 🇮🇹 Italian · 🇪🇸 Spanish — want to add yours? See [`i18n/`](i18n/)
 

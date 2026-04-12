@@ -88,7 +88,7 @@ struct MenuBarView: View {
                     }
                     .buttonStyle(.plain)
                 } else {
-                    Button { jackManager.savePreferences(); jackManager.startJack() } label: {
+                    Button { handleStartJack() } label: {
                         HStack(spacing: 4) {
                             Image(systemName: "play.fill").font(.system(size: 8))
                             Text("menubar.action.start_jack").font(.system(size: 11, weight: .semibold))
@@ -150,6 +150,106 @@ struct MenuBarView: View {
             .padding(.vertical, 4)
         }
         .frame(width: 260)
+    }
+
+    // MARK: - Start Jack interception
+
+    private var isJackAggregatePending: Bool {
+        let inUID  = jackManager.prefs.inputDeviceUID
+        let outUID = jackManager.prefs.outputDeviceUID
+        guard !inUID.isEmpty, !outUID.isEmpty, inUID != outUID else { return false }
+        let inDev  = audioManager.allDevices.first { $0.uid == inUID }
+        let outDev = audioManager.allDevices.first { $0.uid == outUID }
+        let inIsDuplex  = (inDev?.inputChannels  ?? 0) > 0 && (inDev?.outputChannels  ?? 0) > 0
+        let outIsDuplex = (outDev?.inputChannels ?? 0) > 0 && (outDev?.outputChannels ?? 0) > 0
+        return inIsDuplex || outIsDuplex
+    }
+
+    /// Floating panel reference — kept alive for the duration of the aggregate warning.
+    private static var aggregatePanel: NSPanel?
+
+    private func handleStartJack() {
+        let inUID  = jackManager.prefs.inputDeviceUID
+        let outUID = jackManager.prefs.outputDeviceUID
+        if isJackAggregatePending
+            && !AggregateWarningSheet.isSuppressed(inUID: inUID, outUID: outUID) {
+            showAggregatePanel()
+        } else {
+            jackManager.savePreferences()
+            jackManager.startJack()
+        }
+    }
+
+    /// Presents the aggregate warning in a floating NSPanel, independent of the main window.
+    private func showAggregatePanel() {
+        Self.aggregatePanel?.close()
+        Self.aggregatePanel = nil
+
+        let layout = buildAggregateLayout()
+
+        let panel = NSPanel(
+            contentRect: .zero,
+            styleMask:   [.titled, .closable],
+            backing:     .buffered,
+            defer:       false
+        )
+        panel.title                = String(localized: "aggregate.warning.title")
+        panel.isFloatingPanel      = true
+        panel.hidesOnDeactivate    = false
+        panel.isReleasedWhenClosed = false
+        panel.backgroundColor      = NSColor(JM.bgBase)
+
+        let close = {
+            Self.aggregatePanel?.close()
+            Self.aggregatePanel = nil
+        }
+
+        let content = AggregateWarningSheet(
+            layout:     layout,
+            onConfirm: {
+                close()
+                jackManager.savePreferences()
+                jackManager.startJack()
+            },
+            onDismiss:  close,
+            hideHeader: true          // NSPanel title bar provides the title
+        )
+
+        let hosting = NSHostingView(rootView: content)
+        hosting.sizingOptions = .intrinsicContentSize
+        panel.contentView     = hosting
+        panel.setContentSize(hosting.fittingSize)
+        // Centre horizontally, shift downward to clear the MenuBarView popover (~280 pt tall).
+        panel.center()
+        if let screen = NSScreen.main {
+            let sf  = screen.frame
+            let pw  = panel.frame.width
+            let ph  = panel.frame.height
+            let ox  = sf.minX + (sf.width - pw) / 2
+            let oy  = sf.midY - ph / 2
+            panel.setFrameOrigin(NSPoint(x: ox, y: oy))
+        }
+        NSApp.activate(ignoringOtherApps: true)
+        panel.makeKeyAndOrderFront(nil)
+
+        Self.aggregatePanel = panel
+    }
+
+    private func buildAggregateLayout() -> AggregateLayout {
+        let inUID  = jackManager.prefs.inputDeviceUID
+        let outUID = jackManager.prefs.outputDeviceUID
+        let inDev  = audioManager.allDevices.first { $0.uid == inUID }
+        let outDev = audioManager.allDevices.first { $0.uid == outUID }
+        let inName  = inDev?.name  ?? inUID
+        let outName = outDev?.name ?? outUID
+        var capBlocks: [(deviceName: String, count: Int)] = []
+        if let n = inDev?.inputChannels,  n > 0 { capBlocks.append((inName,  n)) }
+        if let n = outDev?.inputChannels, n > 0 { capBlocks.append((outName, n)) }
+        var pbBlocks: [(deviceName: String, count: Int)] = []
+        if let n = outDev?.outputChannels, n > 0 { pbBlocks.append((outName, n)) }
+        if let n = inDev?.outputChannels,  n > 0 { pbBlocks.append((inName,  n)) }
+        return AggregateLayout(captureBlocks: capBlocks, playbackBlocks: pbBlocks,
+                               inUID: inUID, outUID: outUID)
     }
 }
 

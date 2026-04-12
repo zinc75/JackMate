@@ -6,6 +6,15 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.9.3] — 2026-04-12
+
+### Added
+- Aggregate warning sheet shown before Jack starts when the device selection will silently create a Jack aggregate: displays a patchbay-accurate preview of the resulting `system (capture)` / `system (playback)` cards, with per-device bracket bars and a "Don't show again for this combination" option
+- Triggered from the Start Jack button in both the main window and the menu bar — Jack only starts after user confirmation
+- From the menu bar: shown in a floating NSPanel independent of the main window (works even when the main window is closed)
+
+---
+
 ## [1.9.2] — 2026-04-11
 
 ### Fixed

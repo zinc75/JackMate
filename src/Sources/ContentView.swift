@@ -2105,13 +2105,15 @@ struct ConfigHeaderView: View {
     @Binding var vpOffset: CGSize
     @Binding var vpScaleBinding: CGFloat
     @EnvironmentObject var jackManager:     JackManager
+    @EnvironmentObject var audioManager:   CoreAudioManager
     @EnvironmentObject var patchbayManager: PatchbayManager
     @EnvironmentObject var studioManager:   StudioManager
 
     let canvasSize: CGSize
 
-    @State private var showSaveChoiceSheet = false
-    @State private var hoveredBtn: String?  = nil
+    @State private var showSaveChoiceSheet    = false
+    @State private var hoveredBtn: String?    = nil
+    @State private var pendingAggregateLayout: AggregateLayout? = nil
 
     /// `true` when the loaded studio differs from the current patchbay state
     /// (clients, connections, or node positions changed by more than 2 pt).
@@ -2529,7 +2531,7 @@ struct ConfigHeaderView: View {
                 .buttonStyle(.plain)
                 .onHover { hoveredBtn = $0 ? "startstop" : nil }
             } else {
-                Button { jackManager.savePreferences(); jackManager.startJack() } label: {
+                Button { handleStartJack() } label: {
                     HStack(spacing: 5) {
                         Image(systemName: "play.fill").font(.system(size: 9))
                         Text("header.button.start_jack").font(.system(size: 11, weight: .semibold)).lineLimit(1)
@@ -2556,6 +2558,56 @@ struct ConfigHeaderView: View {
         .padding(.horizontal, 14)
         .padding(.vertical, 10)
         .background(JM.bgBase)
+        .sheet(item: $pendingAggregateLayout) { layout in
+            AggregateWarningSheet(layout: layout) {
+                jackManager.savePreferences()
+                jackManager.startJack()
+            }
+        }
+    }
+
+    // MARK: Aggregate start interception
+
+    /// Checks whether the current device combination will create a silent Jack aggregate.
+    private var isJackAggregatePending: Bool {
+        let inUID  = jackManager.prefs.inputDeviceUID
+        let outUID = jackManager.prefs.outputDeviceUID
+        guard !inUID.isEmpty, !outUID.isEmpty, inUID != outUID else { return false }
+        let inDev  = audioManager.allDevices.first { $0.uid == inUID  }
+        let outDev = audioManager.allDevices.first { $0.uid == outUID }
+        let inIsDuplex  = (inDev?.inputChannels  ?? 0) > 0 && (inDev?.outputChannels  ?? 0) > 0
+        let outIsDuplex = (outDev?.inputChannels ?? 0) > 0 && (outDev?.outputChannels ?? 0) > 0
+        return inIsDuplex || outIsDuplex
+    }
+
+    /// Builds the `AggregateLayout` for the current device pair (same logic as `systemNodeInfo`).
+    private func buildAggregateLayout() -> AggregateLayout {
+        let inUID  = jackManager.prefs.inputDeviceUID
+        let outUID = jackManager.prefs.outputDeviceUID
+        let inDev  = audioManager.allDevices.first { $0.uid == inUID  }
+        let outDev = audioManager.allDevices.first { $0.uid == outUID }
+        var captureBlocks:  [(deviceName: String, count: Int)] = []
+        var playbackBlocks: [(deviceName: String, count: Int)] = []
+        if let dev = inDev,  dev.inputChannels  > 0 { captureBlocks.append((dev.name,  dev.inputChannels))  }
+        if let dev = outDev, dev.inputChannels  > 0 { captureBlocks.append((dev.name,  dev.inputChannels))  }
+        if let dev = outDev, dev.outputChannels > 0 { playbackBlocks.append((dev.name, dev.outputChannels)) }
+        if let dev = inDev,  dev.outputChannels > 0 { playbackBlocks.append((dev.name, dev.outputChannels)) }
+        return AggregateLayout(captureBlocks: captureBlocks, playbackBlocks: playbackBlocks,
+                               inUID: inUID, outUID: outUID)
+    }
+
+    /// Intercepts the Start Jack button: shows the aggregate warning sheet when needed,
+    /// otherwise starts Jack directly.
+    private func handleStartJack() {
+        let inUID  = jackManager.prefs.inputDeviceUID
+        let outUID = jackManager.prefs.outputDeviceUID
+        if isJackAggregatePending
+            && !AggregateWarningSheet.isSuppressed(inUID: inUID, outUID: outUID) {
+            pendingAggregateLayout = buildAggregateLayout()   // sheet(item:) presents automatically
+        } else {
+            jackManager.savePreferences()
+            jackManager.startJack()
+        }
     }
 
     /// Small coloured line + text legend item used in the patchbay title bar.
@@ -2578,7 +2630,6 @@ struct ConfigBodyView: View {
 
     @AppStorage("hideAggregateAlert")  var hideAggregateAlert  = false
     @AppStorage("hideClockDriftAlert") var hideClockDriftAlert = false
-
 
     let bufferSizes = [16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
 
