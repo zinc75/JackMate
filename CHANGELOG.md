@@ -6,6 +6,14 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.9.4] — 2026-04-12
+
+### Fixed
+- Patchbay port labels: vertical alignment corrected — the optical centre of lowercase letters ("a", "o", "e") now aligns with the gem centre, instead of the text baseline (`midY - ascender + xHeight/2`)
+- Patchbay `system` card device names (free zone, single-line): same optical centering fix; multi-line block centering unchanged
+
+---
+
 ## [1.9.3] — 2026-04-12
 
 ### Added

@@ -1167,11 +1167,16 @@ class PatchbayCanvasNSView: NSView {
             ctx.setFillColor(CGColor(red: 1, green: 1, blue: 1, alpha: 0.05))
             ctx.fill(CGRect(x: nx + nw / 2 - 0.5, y: rowY, width: 1, height: rowH * vpScale))
 
-            let labelFS = max(8.0, 9.0 * vpScale)
+            let labelFS   = max(8.0, 9.0 * vpScale)
+            let labelFont = NSFont.systemFont(ofSize: labelFS)
             let labelAttrs: [NSAttributedString.Key: Any] = [
-                .font: NSFont.systemFont(ofSize: labelFS),
+                .font: labelFont,
                 .foregroundColor: NSColor.white.withAlphaComponent(0.42)
             ]
+            // draw(at:) places the top-left of the text bounding box at that point.
+            // To optically centre lowercase letters (xHeight) on midY:
+            //   top = midY - ascender + xHeight/2
+            let labelY = midY - labelFont.ascender + labelFont.xHeight / 2
 
             if i < node.inputs.count {
                 let port     = node.inputs[i]
@@ -1181,7 +1186,7 @@ class PatchbayCanvasNSView: NSView {
                 drawGem(ctx: ctx, at: CGPoint(x: nx - 1, y: midY), color: col,
                         connected: isConn, hovered: isHover)
                 let label = NSAttributedString(string: port.portName, attributes: labelAttrs)
-                label.draw(at: CGPoint(x: nx + 15 * vpScale, y: rowY + 2 * vpScale))
+                label.draw(at: CGPoint(x: nx + 15 * vpScale, y: labelY))
             }
 
             if i < node.outputs.count {
@@ -1193,7 +1198,7 @@ class PatchbayCanvasNSView: NSView {
                         connected: isConn, hovered: isHover)
                 let label = NSAttributedString(string: port.portName, attributes: labelAttrs)
                 let labelW = label.size().width
-                label.draw(at: CGPoint(x: nx + nw - labelW - 15 * vpScale, y: rowY + 2 * vpScale))
+                label.draw(at: CGPoint(x: nx + nw - labelW - 15 * vpScale, y: labelY))
             }
         }
 
@@ -1277,6 +1282,7 @@ class PatchbayCanvasNSView: NSView {
                 ]
 
                 let maxH = segHeight - barVMargin * 2
+                let labelFont = NSFont.systemFont(ofSize: labelFS, weight: .medium)
                 let textH: CGFloat
                 if multiLine {
                     let bounds = NSAttributedString(string: segment.deviceName, attributes: nameAttrs)
@@ -1284,11 +1290,20 @@ class PatchbayCanvasNSView: NSView {
                                       options: [.usesLineFragmentOrigin, .usesFontLeading])
                     textH = min(ceil(bounds.height), maxH)
                 } else {
-                    textH = ceil(NSAttributedString(string: "A", attributes: nameAttrs).size().height * 1.2)
+                    // Single line: use xHeight for optical vertical centering (same principle as port labels).
+                    // The rect origin is the baseline in CoreGraphics, so we offset by ascender-xHeight
+                    // to place the optical centre of lowercase letters at segMidY.
+                    textH = ceil(labelFont.ascender - labelFont.descender)
                 }
 
+                // draw(in:) also uses top-left origin.
+                // Single line: top = segMidY - ascender + xHeight/2
+                // Multi-line: top = segMidY - textH/2
+                let textOriginY: CGFloat = multiLine
+                    ? segMidY - textH / 2
+                    : segMidY - labelFont.ascender + labelFont.xHeight / 2
                 let textRect = CGRect(x: contentX,
-                                     y: segMidY - textH / 2,
+                                     y: textOriginY,
                                      width: availableW,
                                      height: textH)
                 (segment.deviceName as NSString).draw(in: textRect, withAttributes: nameAttrs)
