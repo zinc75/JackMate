@@ -15,8 +15,8 @@
     "objectID": "changelog.html#section",
     "href": "changelog.html#section",
     "title": "Changelog",
-    "section": "[1.9.8] — 2026-04-13",
-    "text": "[1.9.8] — 2026-04-13\n\nImproved\n\nSidebar: width increased to 245 pt — studio names display without truncation\nStudio list row: reorganised as [icon][name][delete][info][▶] — start button always rightmost\nMain window: minimum widths adjusted (Configuration: 1040 pt, Patchbay: 1200 pt)\nDevice name labels (MarqueeText): fade gradient repositioned for more visible text; scroll distance now computed after layout stabilises\nSecondary “Cancel” buttons in all confirmation sheets now use the standard bordered style for better affordance\nSupport panel: non-blocking prompt shown periodically after Jack starts — option to support the project on Buy Me a Coffee, be reminded later, or dismiss permanently\n\n\n\nFixed\n\nPhysical device detection: CoreAudio UIDs with stream index suffixes (:2, :3…) are now normalised — prevents false positives when the same physical device exposes multiple streams\nClock Drift Correction toggle: the info button’s hit area no longer overlaps the toggle",
+    "section": "[1.9.9] — 2026-04-13",
+    "text": "[1.9.9] — 2026-04-13\n\nImproved\n\nMin-height adapted to small screens (e.g. Macbook Neo)",
     "crumbs": [
       "Home",
       "Reference",
@@ -27,8 +27,8 @@
     "objectID": "changelog.html#section-1",
     "href": "changelog.html#section-1",
     "title": "Changelog",
-    "section": "[1.9.7] — 2026-04-13",
-    "text": "[1.9.7] — 2026-04-13\n\nAdded\n\nAutomatic update check at launch (GitHub releases, 24h cache, silent on network failure)\nIn-place installation: DMG download, mount, atomic bundle replacement at current location, automatic relaunch via bash script\n“Update available” indicator in the menu bar (disabled while Jack is running)\nUpdate sheet: install path, admin password notice, Install / Later / Skip this version buttons\nLocalised TCC descriptions (FR/EN/DE/IT/ES) for Desktop / Documents / Downloads folder access\nDisabled in App Store builds (#if !APPSTORE)",
+    "section": "[1.9.8] — 2026-04-13",
+    "text": "[1.9.8] — 2026-04-13\n\nImproved\n\nSidebar: width increased to 245 pt — studio names display without truncation\nStudio list row: reorganised as [icon][name][delete][info][▶] — start button always rightmost\nMain window: minimum widths adjusted (Configuration: 1040 pt, Patchbay: 1200 pt)\nDevice name labels (MarqueeText): fade gradient repositioned for more visible text; scroll distance now computed after layout stabilises\nSecondary “Cancel” buttons in all confirmation sheets now use the standard bordered style for better affordance\nSupport panel: non-blocking prompt shown periodically after Jack starts — option to support the project on Buy Me a Coffee, be reminded later, or dismiss permanently\n\n\n\nFixed\n\nPhysical device detection: CoreAudio UIDs with stream index suffixes (:2, :3…) are now normalised — prevents false positives when the same physical device exposes multiple streams\nClock Drift Correction toggle: the info button’s hit area no longer overlaps the toggle",
     "crumbs": [
       "Home",
       "Reference",
@@ -39,8 +39,8 @@
     "objectID": "changelog.html#section-2",
     "href": "changelog.html#section-2",
     "title": "Changelog",
-    "section": "[1.9.6] — 2026-04-12",
-    "text": "[1.9.6] — 2026-04-12\n\nImproved\n\nConfiguration — Clock drift correction: pulsing amber border + glow when the option is disabled with two distinct physical devices selected (animation stops as soon as Jack is running)\nConfiguration — Clock drift correction: ⓘ button to the left of the toggle — opens an explanatory sheet with a link to Audio MIDI Setup; pulses in amber in sync with the border",
+    "section": "[1.9.7] — 2026-04-13",
+    "text": "[1.9.7] — 2026-04-13\n\nAdded\n\nAutomatic update check at launch (GitHub releases, 24h cache, silent on network failure)\nIn-place installation: DMG download, mount, atomic bundle replacement at current location, automatic relaunch via bash script\n“Update available” indicator in the menu bar (disabled while Jack is running)\nUpdate sheet: install path, admin password notice, Install / Later / Skip this version buttons\nLocalised TCC descriptions (FR/EN/DE/IT/ES) for Desktop / Documents / Downloads folder access\nDisabled in App Store builds (#if !APPSTORE)",
     "crumbs": [
       "Home",
       "Reference",
@@ -51,8 +51,8 @@
     "objectID": "changelog.html#section-3",
     "href": "changelog.html#section-3",
     "title": "Changelog",
-    "section": "[1.9.5] — 2026-04-12",
-    "text": "[1.9.5] — 2026-04-12\n\nImproved\n\nPatchbay — client card badge: hover effect (scale ×1.15 + coloured glow) and pointer cursor, making it visually clear that the badge is clickable",
+    "section": "[1.9.6] — 2026-04-12",
+    "text": "[1.9.6] — 2026-04-12\n\nImproved\n\nConfiguration — Clock drift correction: pulsing amber border + glow when the option is disabled with two distinct physical devices selected (animation stops as soon as Jack is running)\nConfiguration — Clock drift correction: ⓘ button to the left of the toggle — opens an explanatory sheet with a link to Audio MIDI Setup; pulses in amber in sync with the border",
     "crumbs": [
       "Home",
       "Reference",
@@ -63,8 +63,8 @@
     "objectID": "changelog.html#section-4",
     "href": "changelog.html#section-4",
     "title": "Changelog",
-    "section": "[1.9.4] — 2026-04-12",
-    "text": "[1.9.4] — 2026-04-12\n\nFixed\n\nPatchbay port labels: vertical alignment corrected — the optical centre of lowercase letters (“a”, “o”, “e”) now aligns with the gem centre, instead of the text baseline (midY - ascender + xHeight/2)\nPatchbay system card device names (free zone, single-line): same optical centering fix; multi-line block centering unchanged",
+    "section": "[1.9.5] — 2026-04-12",
+    "text": "[1.9.5] — 2026-04-12\n\nImproved\n\nPatchbay — client card badge: hover effect (scale ×1.15 + coloured glow) and pointer cursor, making it visually clear that the badge is clickable",
     "crumbs": [
       "Home",
       "Reference",
@@ -75,8 +75,8 @@
     "objectID": "changelog.html#section-5",
     "href": "changelog.html#section-5",
     "title": "Changelog",
-    "section": "[1.9.3] — 2026-04-12",
-    "text": "[1.9.3] — 2026-04-12\n\nAdded\n\nAggregate warning sheet shown before Jack starts when the device selection will silently create a Jack aggregate: displays a patchbay-accurate preview of the resulting system (capture) / system (playback) cards, with per-device bracket bars and a “Don’t show again for this combination” option\nTriggered from the Start Jack button in both the main window and the menu bar — Jack only starts after user confirmation\nFrom the menu bar: shown in a floating NSPanel independent of the main window (works even when the main window is closed)",
+    "section": "[1.9.4] — 2026-04-12",
+    "text": "[1.9.4] — 2026-04-12\n\nFixed\n\nPatchbay port labels: vertical alignment corrected — the optical centre of lowercase letters (“a”, “o”, “e”) now aligns with the gem centre, instead of the text baseline (midY - ascender + xHeight/2)\nPatchbay system card device names (free zone, single-line): same optical centering fix; multi-line block centering unchanged",
     "crumbs": [
       "Home",
       "Reference",
@@ -87,8 +87,8 @@
     "objectID": "changelog.html#section-6",
     "href": "changelog.html#section-6",
     "title": "Changelog",
-    "section": "[1.9.2] — 2026-04-11",
-    "text": "[1.9.2] — 2026-04-11\n\nFixed\n\nPatchbay system cards: device name labels and vertical bars overflowed the card boundary when the channel picker was limiting the number of ports exposed by Jack. Each segment is now clamped to the actually rendered port count.",
+    "section": "[1.9.3] — 2026-04-12",
+    "text": "[1.9.3] — 2026-04-12\n\nAdded\n\nAggregate warning sheet shown before Jack starts when the device selection will silently create a Jack aggregate: displays a patchbay-accurate preview of the resulting system (capture) / system (playback) cards, with per-device bracket bars and a “Don’t show again for this combination” option\nTriggered from the Start Jack button in both the main window and the menu bar — Jack only starts after user confirmation\nFrom the menu bar: shown in a floating NSPanel independent of the main window (works even when the main window is closed)",
     "crumbs": [
       "Home",
       "Reference",
@@ -99,8 +99,8 @@
     "objectID": "changelog.html#section-7",
     "href": "changelog.html#section-7",
     "title": "Changelog",
-    "section": "[1.9.1] — 2026-04-11",
-    "text": "[1.9.1] — 2026-04-11\n\nAdded\n\nStatus bar: “Aggregated by Jack” chip displayed between device names and sample rate when the device selection will cause Jack to silently create an aggregate device\nStatus bar: “Jack started externally” chip replaces device names when Jack is running but was not launched by JackMate (device info not accessible via Jack API)\nStatus bar: input/output channel counts now correctly sum both devices when Jack creates an aggregate (e.g. 4/4 ch out instead of 2/2 ch out)\nConfiguration: channel picker automatically disabled and reset when device selection triggers a Jack aggregate",
+    "section": "[1.9.2] — 2026-04-11",
+    "text": "[1.9.2] — 2026-04-11\n\nFixed\n\nPatchbay system cards: device name labels and vertical bars overflowed the card boundary when the channel picker was limiting the number of ports exposed by Jack. Each segment is now clamped to the actually rendered port count.",
     "crumbs": [
       "Home",
       "Reference",
@@ -111,8 +111,8 @@
     "objectID": "changelog.html#section-8",
     "href": "changelog.html#section-8",
     "title": "Changelog",
-    "section": "[1.9.0] — 2026-04-11",
-    "text": "[1.9.0] — 2026-04-11\n\nAdded\n\nPatchbay system cards: hardware device names displayed in the free zone of each card (right-aligned for capture, left-aligned for playback); multi-line wrap when a segment has ≥ 2 ports\nPatchbay system cards: thin vertical bar on the centre divider marks the boundary between two hardware segments when Jack has created an aggregate device\nNode detail sheet (click on the coloured badge): shows one row per hardware device with its channel count when Jack was launched by JackMate; “Aggregated by Jack” badge when aggregate; falls back to previous behaviour otherwise",
+    "section": "[1.9.1] — 2026-04-11",
+    "text": "[1.9.1] — 2026-04-11\n\nAdded\n\nStatus bar: “Aggregated by Jack” chip displayed between device names and sample rate when the device selection will cause Jack to silently create an aggregate device\nStatus bar: “Jack started externally” chip replaces device names when Jack is running but was not launched by JackMate (device info not accessible via Jack API)\nStatus bar: input/output channel counts now correctly sum both devices when Jack creates an aggregate (e.g. 4/4 ch out instead of 2/2 ch out)\nConfiguration: channel picker automatically disabled and reset when device selection triggers a Jack aggregate",
     "crumbs": [
       "Home",
       "Reference",
@@ -123,8 +123,8 @@
     "objectID": "changelog.html#section-9",
     "href": "changelog.html#section-9",
     "title": "Changelog",
-    "section": "[1.8.9] — 2026-04-11",
-    "text": "[1.8.9] — 2026-04-11\n\nFixed\n\nDevices with non-ASCII characters in their UID (e.g. RØDE AI-Micro) were silently falling back to the default device: Jack 1.9.22 stores CoreAudio UIDs using MacRoman encoding instead of UTF-8, causing a mismatch when the correct UTF-8 UID is passed. Workaround: JackMate runs jackd -d coreaudio -l at startup and on device change, extracts the raw internal UIDs, and injects them via $(printf '\\xNN...') in the shell command. Self-healing: automatically disabled once Jack fixes the bug upstream (jackaudio/jack2#1017).\nJack UID table is now refreshed on CoreAudio device plug/unplug\nFixed false “Jack is running” detection while jackd -l enumeration was in progress",
+    "section": "[1.9.0] — 2026-04-11",
+    "text": "[1.9.0] — 2026-04-11\n\nAdded\n\nPatchbay system cards: hardware device names displayed in the free zone of each card (right-aligned for capture, left-aligned for playback); multi-line wrap when a segment has ≥ 2 ports\nPatchbay system cards: thin vertical bar on the centre divider marks the boundary between two hardware segments when Jack has created an aggregate device\nNode detail sheet (click on the coloured badge): shows one row per hardware device with its channel count when Jack was launched by JackMate; “Aggregated by Jack” badge when aggregate; falls back to previous behaviour otherwise",
     "crumbs": [
       "Home",
       "Reference",
@@ -135,8 +135,8 @@
     "objectID": "changelog.html#section-10",
     "href": "changelog.html#section-10",
     "title": "Changelog",
-    "section": "[1.8.8] — 2026-04-10",
-    "text": "[1.8.8] — 2026-04-10\n\nFixed\n\nConfiguration panel: JMPopUpButton coordinator was stale after device plug/unplug, causing wrong device UID to be written to preferences\nbuildCommand: removed literal quote characters from UID tokens — Process.arguments passes strings directly to the executable without shell interpretation; literal quotes corrupted UIDs containing spaces or non-ASCII characters (e.g. RØDE AI-Micro)\ncommandPreview: UIDs containing spaces are now correctly wrapped in double quotes for display only",
+    "section": "[1.8.9] — 2026-04-11",
+    "text": "[1.8.9] — 2026-04-11\n\nFixed\n\nDevices with non-ASCII characters in their UID (e.g. RØDE AI-Micro) were silently falling back to the default device: Jack 1.9.22 stores CoreAudio UIDs using MacRoman encoding instead of UTF-8, causing a mismatch when the correct UTF-8 UID is passed. Workaround: JackMate runs jackd -d coreaudio -l at startup and on device change, extracts the raw internal UIDs, and injects them via $(printf '\\xNN...') in the shell command. Self-healing: automatically disabled once Jack fixes the bug upstream (jackaudio/jack2#1017).\nJack UID table is now refreshed on CoreAudio device plug/unplug\nFixed false “Jack is running” detection while jackd -l enumeration was in progress",
     "crumbs": [
       "Home",
       "Reference",
@@ -147,8 +147,8 @@
     "objectID": "changelog.html#section-11",
     "href": "changelog.html#section-11",
     "title": "Changelog",
-    "section": "[1.8.7] — 2026-04-07",
-    "text": "[1.8.7] — 2026-04-07\n\nChanged\n\nMinimum macOS version: 15.0 (all Sequoia versions, Intel and Apple Silicon)\n\n\n\nFixed\n\nHelp menu: removed default “JackMate Help” item (was pointing to a non-existent help book)",
+    "section": "[1.8.8] — 2026-04-10",
+    "text": "[1.8.8] — 2026-04-10\n\nFixed\n\nConfiguration panel: JMPopUpButton coordinator was stale after device plug/unplug, causing wrong device UID to be written to preferences\nbuildCommand: removed literal quote characters from UID tokens — Process.arguments passes strings directly to the executable without shell interpretation; literal quotes corrupted UIDs containing spaces or non-ASCII characters (e.g. RØDE AI-Micro)\ncommandPreview: UIDs containing spaces are now correctly wrapped in double quotes for display only",
     "crumbs": [
       "Home",
       "Reference",
@@ -158,6 +158,18 @@
   {
     "objectID": "changelog.html#section-12",
     "href": "changelog.html#section-12",
+    "title": "Changelog",
+    "section": "[1.8.7] — 2026-04-07",
+    "text": "[1.8.7] — 2026-04-07\n\nChanged\n\nMinimum macOS version: 15.0 (all Sequoia versions, Intel and Apple Silicon)\n\n\n\nFixed\n\nHelp menu: removed default “JackMate Help” item (was pointing to a non-existent help book)",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Changelog"
+    ]
+  },
+  {
+    "objectID": "changelog.html#section-13",
+    "href": "changelog.html#section-13",
     "title": "Changelog",
     "section": "[1.8.6] — 2026-04-07",
     "text": "[1.8.6] — 2026-04-07\n\nChanged\n\nHelp menu Documentation link now points to https://zinc75.github.io/JackMate/",
@@ -180,8 +192,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-13",
-    "href": "changelog.html#section-13",
+    "objectID": "changelog.html#section-14",
+    "href": "changelog.html#section-14",
     "title": "Changelog",
     "section": "[1.8.5] — 2026-04-04",
     "text": "[1.8.5] — 2026-04-04\n\nAdded\n\nFull Spanish (ES) translation: 251/261 keys in Localizable.xcstrings (10 remaining are empty technical literal keys with no translatable content)\nes.lproj/InfoPlist.strings: NSMicrophoneUsageDescription localised in ES",
@@ -192,8 +204,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-14",
-    "href": "changelog.html#section-14",
+    "objectID": "changelog.html#section-15",
+    "href": "changelog.html#section-15",
     "title": "Changelog",
     "section": "[1.8.4] — 2026-04-03",
     "text": "[1.8.4] — 2026-04-03\n\nAdded\n\nFull Italian (IT) translation: 248/261 keys in Localizable.xcstrings (13 remaining are empty technical literal keys with no translatable content)\nit.lproj/InfoPlist.strings: NSMicrophoneUsageDescription localised in IT\nStructural fix: added fr source value to organiser, %lld hors vue, auto-launch keys (missing value caused them to be skipped in future language exports)",
@@ -204,8 +216,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-15",
-    "href": "changelog.html#section-15",
+    "objectID": "changelog.html#section-16",
+    "href": "changelog.html#section-16",
     "title": "Changelog",
     "section": "[1.8.3] — 2026-04-03",
     "text": "[1.8.3] — 2026-04-03\n\nRefactored\n\nJackState enum introduced (ready, starting, running, external, startFailed, stopping, stopped, stoppedExternal, alreadyRunning, executableNotFound)\nTransitional state detection in MenuBarView and ContentView moved from statusMessage.contains(\"💈\") to jackState == .starting || .stopping\nEmoji prefixes 💈 / 💨 removed from jack.status.* strings in Localizable.xcstrings (FR, EN, DE)",
@@ -216,8 +228,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-16",
-    "href": "changelog.html#section-16",
+    "objectID": "changelog.html#section-17",
+    "href": "changelog.html#section-17",
     "title": "Changelog",
     "section": "[1.8.2] — 2026-04-03",
     "text": "[1.8.2] — 2026-04-03\n\nAdded\n\nFull German (DE) translation: 249/262 keys in Localizable.xcstrings (13 remaining are empty technical literal keys with no translatable content)\n%lld hors vue: EN (%lld out of view) and DE (%lld außerhalb des Sichtbereichs) translations added\nde.lproj/InfoPlist.strings: NSMicrophoneUsageDescription already present in DE\n\n\n\nFixed\n\nJackBridge.c: last 3 French error messages translated to English (\"Missing symbol\", \"libjack.dylib not found\", \"Null client\")\nHog mode and Clock drift correction labels kept in English for DE (standard audio terminology)",
@@ -228,8 +240,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-17",
-    "href": "changelog.html#section-17",
+    "objectID": "changelog.html#section-18",
+    "href": "changelog.html#section-18",
     "title": "Changelog",
     "section": "[1.8.1] — 2026-04-03",
     "text": "[1.8.1] — 2026-04-03\n\nAdded\n\nFull English translation: 100% of UI strings translated (262 keys in Localizable.xcstrings)\nInfoPlist.xcstrings: localized NSMicrophoneUsageDescription (EN + FR)\nProper plural forms for selection count (canvas.selection.count): “1 client selected” / “N clients selected”\n\n\n\nChanged\n\nconfig.hog_mode.description EN: “Takes exclusive access of the audio device” (aligned with Jack man page)\nError message in Jack bridge translated to English\nstatusMessage default value and StudioManager.summary now properly localized",
@@ -240,8 +252,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-18",
-    "href": "changelog.html#section-18",
+    "objectID": "changelog.html#section-19",
+    "href": "changelog.html#section-19",
     "title": "Changelog",
     "section": "[1.8.0] — 2026-04-02",
     "text": "[1.8.0] — 2026-04-02\n\nAdded\n\nFull i18n infrastructure: all UI strings externalized into Localizable.xcstrings (~272 keys), source language French\nString(localized:) / Text(\"key\") applied across the entire codebase (JackMateApp, NotificationManager, MenuBarView, TransportBarView, JackNotInstalledView, ConnectAllSheet, JackManager, JackBridgeWrapper, PatchbayView, PatchbayManager, StudioManager, ContentView)\nKey naming convention: vue.composant.etat snake_case, shared keys under common.*\nDistribution build pipeline updated: sync_to_distribution.sh copies Localizable.xcstrings; build.sh compiles it to per-language Localizable.strings at build time (step [4/6])",
@@ -252,8 +264,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-19",
-    "href": "changelog.html#section-19",
+    "objectID": "changelog.html#section-20",
+    "href": "changelog.html#section-20",
     "title": "Changelog",
     "section": "[1.7.4] — 2026-03-28",
     "text": "[1.7.4] — 2026-03-28\n\nFixed\n\nPatchbay client info sheet (click on the 2-letter badge): CLI clients (jack_metro, a2jmidid, etc.) are not visible to NSWorkspace — added fallback via ProcessHelper.findPID(forJackClient:) to display their executable path, full command line, and PID",
@@ -264,8 +276,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-20",
-    "href": "changelog.html#section-20",
+    "objectID": "changelog.html#section-21",
+    "href": "changelog.html#section-21",
     "title": "Changelog",
     "section": "[1.7.3] — 2026-03-28",
     "text": "[1.7.3] — 2026-03-28\n\nFixed\n\nPatchbay client names empty in Release build: String(cString:) moved inside withUnsafeBytes closures in getPorts() and getConnections() — the C pointer is only valid for the duration of the closure; using it after the closure returns is undefined behaviour exploited by the Release optimizer\nPatchbayManager: bridge property now captured explicitly on the main actor before dispatching to background queues — prevents a @MainActor property access from a nonisolated context in Release builds\nwindowShouldClose annotated @MainActor for compatibility with command-line builds\n\n\n\nBuild\n\nbuild.sh: animated progress spinner (braille) on each compilation step, ✓ checkmark on completion\nbuild.sh: actool output cleaned up — system-level dyld noise suppressed, XML summary hidden, real warnings still surfaced",
@@ -276,8 +288,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-21",
-    "href": "changelog.html#section-21",
+    "objectID": "changelog.html#section-22",
+    "href": "changelog.html#section-22",
     "title": "Changelog",
     "section": "[1.7.2] — 2026-03-27",
     "text": "[1.7.2] — 2026-03-27\n\nDocumentation\n\nEnglish /// docstrings added to all public and internal types, properties, and methods across the entire codebase\nAll // and /// code comments translated to English (UI strings unchanged)\nFiles covered: ContentView.swift, Patchbayview.swift, Patchbaymanager.swift, JackBridgeWrapper.swift, JackBridge.c/h, Studiomanager.swift, JackManager.swift, ConnectAllSheet.swift, CoreAudioManager.swift, MenuBarView.swift, TransportBarView.swift, TransportObserver.swift, NotificationManager.swift, JackMateApp.swift, WindowDelegate.swift, Theme.swift, JackNotInstalledView.swift, ProcessHelper.swift",
@@ -288,8 +300,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-22",
-    "href": "changelog.html#section-22",
+    "objectID": "changelog.html#section-23",
+    "href": "changelog.html#section-23",
     "title": "Changelog",
     "section": "[1.7.1] — 2026-03-27",
     "text": "[1.7.1] — 2026-03-27\n\nAdded\n\nParsing of the installed Jack version via jackd --version\nGitHub API call (jackaudio/jack2-releases) with 24h UserDefaults cache\nVersion badge in the Configuration header: green ✓ if up to date, clickable amber ↑ if an update is available\nSemantic version comparison (major.minor.patch), silent if no network or Jack is absent",
@@ -300,8 +312,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-23",
-    "href": "changelog.html#section-23",
+    "objectID": "changelog.html#section-24",
+    "href": "changelog.html#section-24",
     "title": "Changelog",
     "section": "[1.7.0] — 2026-03-27",
     "text": "[1.7.0] — 2026-03-27\n\nAdded\n\nJack detection at launch and on every app reactivation: jackInstalled, recheckInstallation()\nJackNotInstalledView modal: installation helper with Homebrew or .pkg choice, copyable command, and colored glow on the command block\nGenerated command block adapts its title and content to installation state and chosen method\nStart Jack button and studio loading grayed out / disabled when Jack is absent\nAutomatic re-display of the modal when opening the window from the menu bar (custom mainWindowDidOpen notification)",
@@ -312,8 +324,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-24",
-    "href": "changelog.html#section-24",
+    "objectID": "changelog.html#section-25",
+    "href": "changelog.html#section-25",
     "title": "Changelog",
     "section": "[1.6.2] — 2026-03-27",
     "text": "[1.6.2] — 2026-03-27\n\nAdded\n\nCustom About panel (SwiftUI NSPanel): app icon, version/build, copyright, MIT licence, GitHub and Buy Me a Coffee links\nServices menu removed\nView menu: ⌘1 Configuration / ⌘2 Patchbay navigation\nHelp menu: link to JackMate documentation\nMinimum Configuration window height raised to 880×800",
@@ -324,8 +336,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-25",
-    "href": "changelog.html#section-25",
+    "objectID": "changelog.html#section-26",
+    "href": "changelog.html#section-26",
     "title": "Changelog",
     "section": "[1.6.1] — 2026-03-27",
     "text": "[1.6.1] — 2026-03-27\n\nAdded\n\nNSAlert (with “Don’t show again” checkbox) when selecting an aggregate device — suggests configuring clock sync in Audio MIDI Setup, with a direct Open button\nNSAlert (with “Don’t show again” checkbox) when enabling Clock drift correction — suggests the macOS aggregate device as an alternative\nClock drift correction toggle grayed out and forced to false when input and output are the same physical hardware (same UID, or two built-in devices)",
@@ -336,8 +348,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-26",
-    "href": "changelog.html#section-26",
+    "objectID": "changelog.html#section-27",
+    "href": "changelog.html#section-27",
     "title": "Changelog",
     "section": "[1.6.0] — 2026-03-27",
     "text": "[1.6.0] — 2026-03-27\n\nAdded\n\nAggregate device constraint: if an aggregate device is selected on input or output, the other side is automatically forced to the same device\nisBuiltIn: Bool added to AudioDeviceInfo (built-in transport detection)",
@@ -348,8 +360,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-27",
-    "href": "changelog.html#section-27",
+    "objectID": "changelog.html#section-28",
+    "href": "changelog.html#section-28",
     "title": "Changelog",
     "section": "[1.5.1] — 2026-03-27",
     "text": "[1.5.1] — 2026-03-27\n\nFixed\n\nXrun counter automatically reset to zero on Jack stop and start (voluntary stop, crash, or external cause)",
@@ -360,8 +372,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-28",
-    "href": "changelog.html#section-28",
+    "objectID": "changelog.html#section-29",
+    "href": "changelog.html#section-29",
     "title": "Changelog",
     "section": "[1.5.0] — 2026-03-27",
     "text": "[1.5.0] — 2026-03-27\n\nAdded\n\nExplicit input/output channel selection via LED picker (--input-list / --output-list)\nSheet modal with numbered clickable LED rows, green glow on active channels\nMinimum 1 active channel guaranteed, reset to all channels on each toggle activation\nFooter: permanent channel chips (N/Nmax ch with selected range details)\nJackSnapshot extended: limitChannels, selectedInChannels, selectedOutChannels — backward-compatible JSON",
@@ -372,8 +384,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-29",
-    "href": "changelog.html#section-29",
+    "objectID": "changelog.html#section-30",
+    "href": "changelog.html#section-30",
     "title": "Changelog",
     "section": "[1.4.1] — 2026-03-27",
     "text": "[1.4.1] — 2026-03-27\n\nFixed\n\nMIDI (coremidi) toggle grayed out and disabled — experimental option causing instabilities",
@@ -384,8 +396,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-30",
-    "href": "changelog.html#section-30",
+    "objectID": "changelog.html#section-31",
+    "href": "changelog.html#section-31",
     "title": "Changelog",
     "section": "[1.4.0] — 2026-03-27",
     "text": "[1.4.0] — 2026-03-27\n\nAdded\n\n“Audio MIDI Setup” button in the Configuration toolbar (left of the terminal icon) — opens the native macOS Audio MIDI Setup app, pianokeys icon, tooltip on hover\nMinimum Patchbay view width raised to 1100px",
@@ -396,8 +408,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-31",
-    "href": "changelog.html#section-31",
+    "objectID": "changelog.html#section-32",
+    "href": "changelog.html#section-32",
     "title": "Changelog",
     "section": "[1.3.1] — 2026-03-27",
     "text": "[1.3.1] — 2026-03-27\n\nFixed\n\nAppearance forced to dark mode (NSApp.appearance = .darkAqua) — sidebar, log, and menubar popover stable in macOS Light mode\nLog panel: semi-transparent background via SwiftUI opacity (VisualEffectView incompatible with ZStack overlay)\nMenu bar info icons switched to monochrome",
@@ -408,8 +420,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-32",
-    "href": "changelog.html#section-32",
+    "objectID": "changelog.html#section-33",
+    "href": "changelog.html#section-33",
     "title": "Changelog",
     "section": "[1.3.0] — 2026-03-27",
     "text": "[1.3.0] — 2026-03-27\n\nAdded\n\nDetection of CLI Jack clients by scanning the process table (proc_listallpids + proc_pidpath + sysctl KERN_PROCARGS2)\nProcessHelper: new file — findPID(forJackClient:), commandLine(for:), executablePath(for:), terminate(pid:)\nAutomatic save of CLI client launch commands in the studio JSON at buildStudio()\nAutomatic relaunch of CLI clients when loading a studio\nterminateAllJackClients(): closes all Jack clients (GUI via NSWorkspace + CLI via PID scan)\nstopJackGracefully(): SIGTERM → 3s delay → SIGKILL → stopJack (correct order)\nsuppressJackStopCleanup flag to avoid double-kill during a studio load with Jack restart\n\n\n\nChanged\n\n“Stop Jack” button (interface, menu bar, JackMateApp) now uses stopJackGracefully() everywhere\nStop Studio now also closes CLI clients",
@@ -420,8 +432,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-33",
-    "href": "changelog.html#section-33",
+    "objectID": "changelog.html#section-34",
+    "href": "changelog.html#section-34",
     "title": "Changelog",
     "section": "[1.2.0] — 2026-03-26",
     "text": "[1.2.0] — 2026-03-26\n\nAdded\n\nFull Jack command comparison on studio load (all parameters, options, devices) — order-independent token comparison\nClosure of ALL clients (GUI + CLI from the studio) before loading a new studio\nJack restart only if configuration differs or Jack was started outside JackMate\n1.5s delay between stop and start Jack to allow system resource release\nStudio loading progress modal with auto-close\nStudioManager.cliProcesses: tracking of processes launched by launchCLI()\nJackSnapshot extended: hogMode, clockDrift, midiEnabled with backward-compatible decoding\n\n\n\nFixed\n\nStudios saved with older JSON versions still readable (decodeIfPresent + default values)\nRace condition: isRunning forced to false before startJack() to prevent guard deadlock",
@@ -432,8 +444,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-34",
-    "href": "changelog.html#section-34",
+    "objectID": "changelog.html#section-35",
+    "href": "changelog.html#section-35",
     "title": "Changelog",
     "section": "[1.1.0] — 2026-03-26",
     "text": "[1.1.0] — 2026-03-26\n\nAdded\n\nReal executable name displayed in the generated command (jackd or jackdmp depending on installation)\nSubtle copy button with animated checkmark feedback",
@@ -444,8 +456,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-35",
-    "href": "changelog.html#section-35",
+    "objectID": "changelog.html#section-36",
+    "href": "changelog.html#section-36",
     "title": "Changelog",
     "section": "[1.0.0] — 2026-03-26",
     "text": "[1.0.0] — 2026-03-26\n\nFixed / Stabilized\n\nFixed patchbay reconnection bug after Stop/Start Jack (root cause: Jack 1.9.11 → updated to 1.9.22)\nDefensive Combine/retry improvements retained as a safety net\n.removeDuplicates() on $isRunning, retryConnectTask, handleJackStopped() unified",
@@ -456,8 +468,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-36",
-    "href": "changelog.html#section-36",
+    "objectID": "changelog.html#section-37",
+    "href": "changelog.html#section-37",
     "title": "Changelog",
     "section": "[0.9.0] — 2026-03-23",
     "text": "[0.9.0] — 2026-03-23\n\nAdded — JACK Transport\n\nTransport bar: Play / Pause / Stop / Seek\nBBT, HMS, Frames display\nTimebase master, BPM\nC bridge + Swift wrapper + transport state polling",
@@ -468,8 +480,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-37",
-    "href": "changelog.html#section-37",
+    "objectID": "changelog.html#section-38",
+    "href": "changelog.html#section-38",
     "title": "Changelog",
     "section": "[0.8.0] — 2026-03-23",
     "text": "[0.8.0] — 2026-03-23\n\nAdded — Group drag & advanced selection\n\nGroup drag: selected clients move together\nMulti-selection: Shift+click, ⌘A\nSelection badge on collapse/expand button\nActionable selection overlay\nOut-of-view node indicators with direction arrows\n100% zoom reset (toolbar button + double-tap)",
@@ -480,8 +492,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-38",
-    "href": "changelog.html#section-38",
+    "objectID": "changelog.html#section-39",
+    "href": "changelog.html#section-39",
     "title": "Changelog",
     "section": "[0.7.0] — 2026-03-22",
     "text": "[0.7.0] — 2026-03-22\n\nAdded — Toolbar, Connect-All, automatic layout (Sugiyama)\n\nAutomatic patchbay node layout (Sugiyama algorithm)\nPartial tidy selection (Shift+click)\nConnect-All: bulk connection between two clients\nPatchbay-accurate canvas preview in ConnectAllSheet\nUnified 40px toolbar, mass collapse/expand\nRepositioning toast, homogenized overlays",
@@ -492,8 +504,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-39",
-    "href": "changelog.html#section-39",
+    "objectID": "changelog.html#section-40",
+    "href": "changelog.html#section-40",
     "title": "Changelog",
     "section": "[0.6.0] — 2026-03-22",
     "text": "[0.6.0] — 2026-03-22\n\nAdded — Visual polish + node collapse\n\nNode collapse/expand, meta-cables\nPort pills on hover, pill for unconnected nodes, click-to-connect\nDiagonal gradient border on cards and nodes\nMenuBarView visual overhaul\nDynamic minimum size based on active view\nAutomatic Configuration ↔︎ Patchbay switch",
@@ -504,8 +516,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-40",
-    "href": "changelog.html#section-40",
+    "objectID": "changelog.html#section-41",
+    "href": "changelog.html#section-41",
     "title": "Changelog",
     "section": "[0.5.0] — 2026-03-21",
     "text": "[0.5.0] — 2026-03-21\n\nAdded — Full studios\n\nFull studio capture (Jack parameters + clients + connections + node positions)\nRobust load/save, stabilized patchbay\nStop Studio: quit apps + disconnect cables\nStudio inspection modal\nMarquee on long studio names\nAuto-switch to Patchbay on studio load",
@@ -516,8 +528,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-41",
-    "href": "changelog.html#section-41",
+    "objectID": "changelog.html#section-42",
+    "href": "changelog.html#section-42",
     "title": "Changelog",
     "section": "[0.4.0] — 2026-03-20",
     "text": "[0.4.0] — 2026-03-20\n\nAdded — Improved patchbay + StudioManager foundations\n\nPatchbay spatial consistency (centering, drag constraints)\nCollision management\nStudioManager beginnings\nStability overhaul: xrun counts, improved Jack handling",
@@ -528,8 +540,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-42",
-    "href": "changelog.html#section-42",
+    "objectID": "changelog.html#section-43",
+    "href": "changelog.html#section-43",
     "title": "Changelog",
     "section": "[0.3.0] — 2026-03-19",
     "text": "[0.3.0] — 2026-03-19\n\nAdded — Functional patchbay\n\nCables, animations, real-time updates\nJackBridge for patchbay\nPhysical input source selector",
@@ -540,8 +552,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-43",
-    "href": "changelog.html#section-43",
+    "objectID": "changelog.html#section-44",
+    "href": "changelog.html#section-44",
     "title": "Changelog",
     "section": "[0.2.0] — 2026-03-18",
     "text": "[0.2.0] — 2026-03-18\n\nAdded — UI + logs\n\nSystem notifications\nSemi-transparent log window\nInitial look and feel",
@@ -552,8 +564,8 @@
     ]
   },
   {
-    "objectID": "changelog.html#section-44",
-    "href": "changelog.html#section-44",
+    "objectID": "changelog.html#section-45",
+    "href": "changelog.html#section-45",
     "title": "Changelog",
     "section": "[0.1.0] — 2026-03-18",
     "text": "[0.1.0] — 2026-03-18\n\nFirst working version\n\nStart / stop Jack from the menu bar\nBasic configuration",
