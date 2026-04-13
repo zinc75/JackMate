@@ -486,7 +486,7 @@ struct ContentView: View {
             }
             .frame(minWidth: 480)
         }
-        .frame(minWidth: selection == .configuration ? 880 : 1100,
+        .frame(minWidth: selection == .configuration ? 1040 : 1200,
                minHeight: selection == .configuration ? 800 : 780)
         .background(JM.bgBase)
         .sheet(isPresented: $showJackNotInstalled) {
@@ -645,7 +645,7 @@ struct SidebarView: View {
             .padding(.horizontal, 14).padding(.vertical, 10)
             .background(JM.bgBase)
         }
-        .frame(width: 210)
+        .frame(width: 245)
         .background(JM.bgBase)
     }
 
@@ -883,6 +883,8 @@ struct MarqueeText: View {
     @State private var textW:      CGFloat = 0
     @State private var containerW: CGFloat = 0
     @State private var offset:     CGFloat = 0
+    /// Cancellable task that starts the scroll animation after the layout has settled.
+    @State private var scrollTask: Task<Void, Never>? = nil
 
     private var overflow: CGFloat { max(0, textW - containerW) }
 
@@ -910,7 +912,8 @@ struct MarqueeText: View {
                 LinearGradient(
                     stops: [
                         .init(color: .white, location: 0),
-                        .init(color: .white, location: isScrolling ? 1.0 : 0.77),
+                        // Idle: start fading at 88% so more text is visible before the button.
+                        .init(color: .white, location: isScrolling ? 1.0 : 0.88),
                         .init(color: isScrolling ? .white : .clear, location: 1.0)
                     ],
                     startPoint: .leading, endPoint: .trailing
@@ -918,9 +921,20 @@ struct MarqueeText: View {
                 .animation(.easeInOut(duration: 0.2), value: isScrolling)
             )
             .onChange(of: isScrolling) { _, scrolling in
-                if scrolling, overflow > 4 {
-                    withAnimation(.linear(duration: Double(overflow) / 50).delay(0.5)) {
-                        offset = -overflow
+                // Always cancel any pending scroll task first.
+                scrollTask?.cancel()
+                if scrolling {
+                    // Delay the animation start so the layout (trash+info buttons expanding)
+                    // has time to settle and containerW is re-measured correctly before
+                    // we evaluate overflow and compute the scroll distance.
+                    scrollTask = Task { @MainActor in
+                        try? await Task.sleep(for: .seconds(0.5))
+                        guard !Task.isCancelled else { return }
+                        let ov = overflow   // read AFTER layout settled → correct containerW
+                        guard ov > 4 else { return }
+                        withAnimation(.linear(duration: Double(ov) / 50)) {
+                            offset = -ov
+                        }
                     }
                 } else {
                     withAnimation(.easeOut(duration: 0.2)) {
@@ -964,14 +978,51 @@ struct StudioSidebarRow: View {
                     .font(.system(size: 7.5, weight: .bold))
                     .foregroundStyle(JM.accentAmber)
             }
+
+            // Name — shrinks on hover to leave room for the trash+info buttons (2×18 + spacing).
+            // The animation keeps it in sync with the buttons' fade-in.
             MarqueeText(
                 text:        studio.name,
                 font:        .system(size: 11.5),
                 color:       isLoaded ? JM.textPrimary : JM.textSecondary,
                 isScrolling: isHovered
             )
+            .frame(maxWidth: isHovered ? .infinity : .infinity) // handled by the HStack naturally
             .onTapGesture { showInspectSheet = true }
-            // Stop button (studio loaded) / play button / spinner
+            .animation(.easeInOut(duration: 0.12), value: isHovered)
+
+            // Trash button — visible on hover only, disabled while studio is loaded
+            Button { showDeleteSheet = true } label: {
+                Image(systemName: "trash")
+                    .font(.system(size: 9, weight: .medium))
+                    .foregroundStyle(isLoaded
+                        ? JM.textTertiary.opacity(0.3)
+                        : isTrashHovered ? JM.textPrimary : JM.textTertiary)
+                    .frame(width: 18, height: 18)
+            }
+            .buttonStyle(.plain)
+            .opacity(isHovered ? 1 : 0)
+            .frame(width: isHovered ? 18 : 0)
+            .clipped()
+            .onHover { isTrashHovered = $0 }
+            .disabled(isLoaded)
+            .help(isLoaded ? String(localized: "sidebar.studio.tooltip.cannot_delete") : String(localized: "sidebar.studio.tooltip.delete"))
+
+            // Info/inspect button — visible on hover only
+            Button { showInspectSheet = true } label: {
+                Image(systemName: "info.circle")
+                    .font(.system(size: 9, weight: .medium))
+                    .foregroundStyle(isInfoHovered ? JM.textPrimary : JM.textTertiary)
+                    .frame(width: 18, height: 18)
+            }
+            .buttonStyle(.plain)
+            .opacity(isHovered ? 1 : 0)
+            .frame(width: isHovered ? 18 : 0)
+            .clipped()
+            .onHover { isInfoHovered = $0 }
+            .help(String(localized: "sidebar.studio.tooltip.inspect"))
+
+            // Start button (rightmost) — stop/check/spinner depending on state
             if isLoading {
                 ProgressView()
                     .scaleEffect(0.55)
@@ -999,32 +1050,6 @@ struct StudioSidebarRow: View {
                 .disabled(otherBusy || !jackManager.jackInstalled)
                 .help(jackManager.jackInstalled ? String(localized: "sidebar.studio.tooltip.load") : String(localized: "sidebar.studio.tooltip.jack_missing"))
             }
-            // Info/inspect button — visible on hover only
-            Button { showInspectSheet = true } label: {
-                Image(systemName: "info.circle")
-                    .font(.system(size: 9, weight: .medium))
-                    .foregroundStyle(isInfoHovered ? JM.textPrimary : JM.textTertiary)
-                    .frame(width: 18, height: 18)
-            }
-            .buttonStyle(.plain)
-            .opacity(isHovered ? 1 : 0)
-            .onHover { isInfoHovered = $0 }
-            .help(String(localized: "sidebar.studio.tooltip.inspect"))
-
-            // Trash button — visible on hover only, disabled while studio is loaded
-            Button { showDeleteSheet = true } label: {
-                Image(systemName: "trash")
-                    .font(.system(size: 9, weight: .medium))
-                    .foregroundStyle(isLoaded
-                        ? JM.textTertiary.opacity(0.3)
-                        : isTrashHovered ? JM.textPrimary : JM.textTertiary)
-                    .frame(width: 18, height: 18)
-            }
-            .buttonStyle(.plain)
-            .opacity(isHovered ? 1 : 0)
-            .onHover { isTrashHovered = $0 }
-            .disabled(isLoaded)
-            .help(isLoaded ? String(localized: "sidebar.studio.tooltip.cannot_delete") : String(localized: "sidebar.studio.tooltip.delete"))
         }
         .padding(.horizontal, 14)
         .frame(height: 28)
@@ -2691,13 +2716,33 @@ struct ConfigBodyView: View {
         areDifferentPhysicalDevices && !jackManager.prefs.clockDrift && !jackManager.isRunning
     }
 
+    /// Strips the trailing numeric stream-index from a CoreAudio device UID.
+    ///
+    /// CoreAudio exposes separate input and output streams of the same physical USB device
+    /// with UIDs that differ only in a trailing colon-separated integer, e.g.:
+    ///   `AppleUSBAudioEngine:Vendor:Model:Serial:2`  (output)
+    ///   `AppleUSBAudioEngine:Vendor:Model:Serial:3`  (input)
+    /// Stripping that suffix lets us detect that both UIDs refer to the same hardware.
+    private func physicalBaseUID(_ uid: String) -> String {
+        guard let lastColon = uid.lastIndex(of: ":") else { return uid }
+        let suffix = String(uid[uid.index(after: lastColon)...])
+        guard !suffix.isEmpty, suffix.allSatisfy(\.isNumber) else { return uid }
+        return String(uid[..<lastColon])
+    }
+
     /// True only when input and output are genuinely different physical hardware.
-    /// Built-in mic + built-in speaker count as the same hardware (internal audio codec).
+    ///
+    /// Returns `false` when:
+    /// - Either UID is empty
+    /// - UIDs are identical
+    /// - Both UIDs share the same physical base UID (same device, different stream indices)
+    /// - Both devices are built-in (same internal audio codec)
     var areDifferentPhysicalDevices: Bool {
         let inUID  = jackManager.prefs.inputDeviceUID
         let outUID = jackManager.prefs.outputDeviceUID
         guard !inUID.isEmpty, !outUID.isEmpty else { return false }
         if inUID == outUID { return false }
+        if physicalBaseUID(inUID) == physicalBaseUID(outUID) { return false }
         let inInfo  = audioManager.allDevices.first { $0.uid == inUID }
         let outInfo = audioManager.allDevices.first { $0.uid == outUID }
         if inInfo?.isBuiltIn == true && outInfo?.isBuiltIn == true { return false }
@@ -2875,19 +2920,25 @@ struct ConfigBodyView: View {
                                     .shadow(color: Color.orange.opacity(shouldHighlightClockDrift ? clockDriftPulse * 0.85 : 0),
                                             radius: 8)
                                     .padding(.horizontal, -10)
+                                    .allowsHitTesting(false)
                             )
-                            // Info button placed just left of the toggle switch
+                            // Info button placed just left of the toggle switch.
+                            // Use HStack + fixed Spacer instead of .padding(.trailing:) on the button:
+                            // padding on a .plain button extends its hit area and would block the toggle.
                             .overlay(alignment: .trailing) {
-                                Button { showClockDriftInfo = true } label: {
-                                    Image(systemName: "info.circle")
-                                        .font(.system(size: 13, weight: .medium))
-                                        .foregroundStyle(shouldHighlightClockDrift
-                                            ? Color.orange.opacity(isClockDriftInfoHovered ? 1.0 : clockDriftPulse)
-                                            : (isClockDriftInfoHovered ? JM.textPrimary : JM.textTertiary))
+                                HStack(spacing: 0) {
+                                    Button { showClockDriftInfo = true } label: {
+                                        Image(systemName: "info.circle")
+                                            .font(.system(size: 13, weight: .medium))
+                                            .foregroundStyle(shouldHighlightClockDrift
+                                                ? Color.orange.opacity(isClockDriftInfoHovered ? 1.0 : clockDriftPulse)
+                                                : (isClockDriftInfoHovered ? JM.textPrimary : JM.textTertiary))
+                                    }
+                                    .buttonStyle(.plain)
+                                    .onHover { isClockDriftInfoHovered = $0 }
+                                    // Reserve space for the toggle — Spacer has no hit area.
+                                    Spacer().frame(width: 40)
                                 }
-                                .buttonStyle(.plain)
-                                .padding(.trailing, 40)
-                                .onHover { isClockDriftInfoHovered = $0 }
                             }
                             .task(id: shouldHighlightClockDrift) {
                                 guard shouldHighlightClockDrift else {

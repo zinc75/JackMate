@@ -136,6 +136,7 @@ struct JackMateApp: App {
     @StateObject private var jackManager   = JackManager()
     @StateObject private var audioManager  = CoreAudioManager()
     @StateObject private var updateManager = AppUpdateManager()
+    @StateObject private var donationManager = DonationPromptManager()
 
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
@@ -171,10 +172,13 @@ struct JackMateApp: App {
                 .environmentObject(jackManager)
                 .environmentObject(audioManager)
                 .environmentObject(updateManager)
+                .environmentObject(donationManager)
                 .mainWindowDelegate()
                 .onAppear {
                     AppDelegate.shared?.jackManager = jackManager
                     updateManager.checkForUpdates()
+                    // Subscribe to Jack activations via Combine — independent of window visibility.
+                    donationManager.startObserving(jackManager: jackManager)
                 }
         }
         .windowStyle(.hiddenTitleBar)
@@ -398,4 +402,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.orderOut(nil)
         NSApp.setActivationPolicy(.accessory)
     }
+
 }

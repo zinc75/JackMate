@@ -6,6 +6,22 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.9.8] — 2026-04-13
+
+### Improved
+- Sidebar: width increased to 245 pt — studio names display without truncation
+- Studio list row: reorganised as [icon][name][delete][info][▶] — start button always rightmost
+- Main window: minimum widths adjusted (Configuration: 1040 pt, Patchbay: 1200 pt)
+- Device name labels (MarqueeText): fade gradient repositioned for more visible text; scroll distance now computed after layout stabilises
+- Secondary "Cancel" buttons in all confirmation sheets now use the standard bordered style for better affordance
+- Support panel: non-blocking prompt shown periodically after Jack starts — option to support the project on Buy Me a Coffee, be reminded later, or dismiss permanently
+
+### Fixed
+- Physical device detection: CoreAudio UIDs with stream index suffixes (`:2`, `:3`…) are now normalised — prevents false positives when the same physical device exposes multiple streams
+- Clock Drift Correction toggle: the info button's hit area no longer overlaps the toggle
+
+---
+
 ## [1.9.7] — 2026-04-13
 
 ### Added

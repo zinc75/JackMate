@@ -138,8 +138,7 @@ struct AggregateWarningSheet: View {
             Spacer()
             Button("common.cancel") { doDismiss() }
                 .keyboardShortcut(.escape)
-                .buttonStyle(.plain)
-                .foregroundStyle(.secondary)
+                .buttonStyle(.bordered)
             Button {
                 if suppress {
                     UserDefaults.standard.set(true,

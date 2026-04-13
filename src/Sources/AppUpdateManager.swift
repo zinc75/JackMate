@@ -472,8 +472,7 @@ struct AppUpdateSheet: View {
                     Button(String(localized: "update.button.skip")) {
                         updateManager.skipVersion(); dismiss()
                     }
-                    .buttonStyle(.plain)
-                    .foregroundStyle(JM.textTertiary)
+                    .buttonStyle(.bordered)
                     Spacer()
                     Button(String(localized: "update.button.later")) {
                         updateManager.resetPhase(); dismiss()

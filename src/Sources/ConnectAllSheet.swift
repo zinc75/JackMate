@@ -275,8 +275,7 @@ struct ConnectAllSheet: View {
             Spacer()
             Button("common.cancel") { dismiss() }
                 .keyboardShortcut(.escape)
-                .buttonStyle(.plain)
-                .foregroundStyle(.secondary)
+                .buttonStyle(.bordered)
             Button {
                 onConfirm(plans)
                 dismiss()
