@@ -150,6 +150,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./changelog.html"> 
 <span class="menu-text">Changelog</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./support.html"> 
+<span class="menu-text">Support</span></a>
+  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
@@ -159,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="https://www.buymeacoffee.com/zinc75"> 
-<span class="menu-text"><img src="assets/bmc-icon.svg" class="navbar-bmc-icon" alt="Buy me a coffee"></span></a>
+<span class="menu-text"><span class="navbar-bmc-icon" aria-label="Buy me a coffee"></span></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -252,6 +256,23 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="./changelog.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Changelog</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Support</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./support.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Support JackMate</span></a>
   </div>
 </li>
       </ul>
@@ -414,18 +435,36 @@ ul.task-list li input[type="checkbox"] {
 .fs-item[data-accent="green"]  { box-shadow: 0 0 0 1px rgba(34,197,94,0.12),    0 24px 60px rgba(0,0,0,0.60); }
 .fs-item[data-accent="amber"]  { box-shadow: 0 0 0 1px rgba(245,158,11,0.12),   0 24px 60px rgba(0,0,0,0.60); }
 
-/* Responsive */
+/* Responsive — mobile: stack vertically (text above, screenshot below) */
 @media (max-width: 700px) {
-  .fs-item { min-height: 340px; }
-  .fs-text { padding: 2.5rem 1.8rem; max-width: none; }
-  .fs-heading { font-size: 1.6rem; }
-  .fs-item[data-accent="red"]    .fs-overlay,
-  .fs-item[data-accent="cyan"]   .fs-overlay,
-  .fs-item[data-accent="violet"] .fs-overlay,
-  .fs-item[data-accent="green"]  .fs-overlay,
-  .fs-item[data-accent="amber"]  .fs-overlay {
-    background: linear-gradient(180deg, rgba(8,8,10,0.88) 0%, rgba(8,8,10,0.55) 100%);
+  .fs-item {
+    min-height: unset;
+    display: flex;
+    flex-direction: column;
   }
+  /* Text block: first, full width, solid background (no more fade-to-transparent) */
+  .fs-text {
+    order: 1;
+    position: relative;
+    background: linear-gradient(160deg, #131318 0%, #0f0f14 100%);
+    padding: 2rem 1.5rem 1.5rem;
+    max-width: none;
+  }
+  .fs-heading { font-size: 1.6rem; }
+  /* Screenshot: second, below the text, natural flow */
+  .fs-bg {
+    order: 2;
+    position: relative !important;
+    top: auto !important; bottom: auto !important; right: auto !important;
+    width: 100% !important;
+    height: 300px !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+    flex-shrink: 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  /* Placeholder shown only when image fails — hide on mobile to avoid overlap */
+  .fs-placeholder { display: none; }
 }
 </style>
 
@@ -597,6 +636,7 @@ Note
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script>
 (function () {
+  // Open all BMAC links in a new tab
   document.querySelectorAll('a[href*="buymeacoffee.com"]').forEach(function (a) {
     a.target = '_blank';
     a.rel = 'noopener noreferrer';

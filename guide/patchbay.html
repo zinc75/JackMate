@@ -151,6 +151,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link active" href="../changelog.html" aria-current="page"> 
 <span class="menu-text">Changelog</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../support.html"> 
+<span class="menu-text">Support</span></a>
+  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
@@ -160,7 +164,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="https://www.buymeacoffee.com/zinc75"> 
-<span class="menu-text"><img src="assets/bmc-icon.svg" class="navbar-bmc-icon" alt="Buy me a coffee"></span></a>
+<span class="menu-text"><span class="navbar-bmc-icon" aria-label="Buy me a coffee"></span></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -253,6 +257,23 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../changelog.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Changelog</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Support</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../support.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Support JackMate</span></a>
   </div>
 </li>
       </ul>
@@ -360,7 +381,18 @@ Note
 <li><strong>Output ports</strong> — on the left side of the node</li>
 <li><strong>Input ports</strong> — on the right side of the node</li>
 </ul>
-<p>The two system clients <code>system (capture)</code> and <code>system (playback)</code> represent the physical audio interface.</p>
+<p>The two system clients <code>system (capture)</code> and <code>system (playback)</code> represent the physical audio interface. Unlike regular client nodes, they display additional hardware information <em>(new in v1.9.0)</em>:</p>
+<ul>
+<li><strong>Device name</strong>: the CoreAudio device name is shown in the free zone above the port list</li>
+<li><strong>Aggregate bar</strong>: when Jack has created an internal aggregate (two separate devices used as input and output), each physical device segment is indicated by a vertical bracket bar, with its name and channel count</li>
+</ul>
+<p>Clicking the badge opens a detail sheet with the full hardware breakdown.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/screenshots/patchbay-system-card-aggregate.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="System cards — device names and aggregate bracket bars (new in v1.9.0)"><img src="../assets/screenshots/patchbay-system-card-aggregate.png" class="img-fluid figure-img" alt="Close-up of system (capture) and system (playback) nodes showing CoreAudio device names and vertical aggregate bracket bars separating device segments."></a></p>
+<figcaption>System cards — device names and aggregate bracket bars (new in v1.9.0)</figcaption>
+</figure>
+</div>
 </section>
 <section id="connections" class="level3">
 <h3 class="anchored" data-anchor-id="connections">Connections</h3>
@@ -384,7 +416,7 @@ Note
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/patchbay-zoom.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Zoom overlay — shown during trackpad zoom"><img src="../assets/screenshots/patchbay-zoom.png" class="img-fluid figure-img" alt="Patchbay canvas during active zoom: semi-transparent overlay at canvas centre showing zoom percentage"></a></p>
+<p><a href="../assets/screenshots/patchbay-zoom.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Zoom overlay — shown during trackpad zoom"><img src="../assets/screenshots/patchbay-zoom.png" class="img-fluid figure-img" alt="Patchbay canvas during active zoom: semi-transparent overlay at canvas centre showing zoom percentage"></a></p>
 <figcaption>Zoom overlay — shown during trackpad zoom</figcaption>
 </figure>
 </div>
@@ -406,7 +438,7 @@ Note
 <p>The sheet displays: - <strong>GUI applications</strong>: name, bundle path, PID, icon - <strong>CLI clients</strong> (<code>jack_metro</code>, <code>a2jmidid</code>, etc.): executable path, full command line, PID — detected by scanning the process table</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/patchbay-node-infosheet.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Node badge and detailed client info sheet"><img src="../assets/screenshots/patchbay-node-infosheet.png" class="img-fluid figure-img" alt="Close-up on a non-system node"></a></p>
+<p><a href="../assets/screenshots/patchbay-node-infosheet.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Node badge and detailed client info sheet"><img src="../assets/screenshots/patchbay-node-infosheet.png" class="img-fluid figure-img" alt="Close-up on a non-system node"></a></p>
 <figcaption>Node badge and detailed client info sheet</figcaption>
 </figure>
 </div>
@@ -416,7 +448,7 @@ Note
 <p>Click the <strong>arrow</strong> next to the node name to collapse it. A collapsed node hides its ports but remains on the canvas. The toolbar buttons <strong>Collapse all</strong> / <strong>Expand all</strong> act on every node at once.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/patchbay-collapsed.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Collapsed nodes — compact view, wires preserved"><img src="../assets/screenshots/patchbay-collapsed.png" class="img-fluid figure-img" alt="Patchbay canvas with a mix of expanded and collapsed nodes. Collapsed nodes appear as compact pills."></a></p>
+<p><a href="../assets/screenshots/patchbay-collapsed.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Collapsed nodes — compact view, wires preserved"><img src="../assets/screenshots/patchbay-collapsed.png" class="img-fluid figure-img" alt="Patchbay canvas with a mix of expanded and collapsed nodes. Collapsed nodes appear as compact pills."></a></p>
 <figcaption>Collapsed nodes — compact view, wires preserved</figcaption>
 </figure>
 </div>
@@ -453,7 +485,7 @@ Note
 <p>A <strong>count badge</strong> appears on the collapse/expand button when a selection is active. Click the badge or outside any node to deselect.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/patchbay-selected.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Multiple selection"><img src="../assets/screenshots/patchbay-selected.png" class="img-fluid figure-img" alt="Patchbay canvas with one or more nodes selected - allows group drag,  group collapse, or group re-organize."></a></p>
+<p><a href="../assets/screenshots/patchbay-selected.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Multiple selection"><img src="../assets/screenshots/patchbay-selected.png" class="img-fluid figure-img" alt="Patchbay canvas with one or more nodes selected - allows group drag,  group collapse, or group re-organize."></a></p>
 <figcaption>Multiple selection</figcaption>
 </figure>
 </div>
@@ -467,7 +499,7 @@ Note
 <p>When nodes are outside the visible canvas area, <strong>directional indicators</strong> appear on the window edges. Click an indicator to centre the view on the corresponding node.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/patchbay-outofview.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Directional indicators — nodes outside the visible area"><img src="../assets/screenshots/patchbay-outofview.png" class="img-fluid figure-img" alt="Patchbay canvas with one or more nodes outside the visible area. Directional indicators (arrows or pills) appear on the canvas edges."></a></p>
+<p><a href="../assets/screenshots/patchbay-outofview.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Directional indicators — nodes outside the visible area"><img src="../assets/screenshots/patchbay-outofview.png" class="img-fluid figure-img" alt="Patchbay canvas with one or more nodes outside the visible area. Directional indicators (arrows or pills) appear on the canvas edges."></a></p>
 <figcaption>Directional indicators — nodes outside the visible area</figcaption>
 </figure>
 </div>
@@ -489,7 +521,7 @@ Note
 <p>Hovering over a port animates a circle around it. Connections linked to that port are highlighted. A light <strong>haptic feedback</strong> fires on the trackpad when the cursor snaps onto a port.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/patchbay-hover-node.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Port hover — the connected wire is highlighted"><img src="../assets/screenshots/patchbay-hover-node.png" class="img-fluid figure-img" alt="Close-up on two nodes with a visible connection wire between them. Hover over a port (dot) to see the circle animation and wire highlighting."></a></p>
+<p><a href="../assets/screenshots/patchbay-hover-node.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Port hover — the connected wire is highlighted"><img src="../assets/screenshots/patchbay-hover-node.png" class="img-fluid figure-img" alt="Close-up on two nodes with a visible connection wire between them. Hover over a port (dot) to see the circle animation and wire highlighting."></a></p>
 <figcaption>Port hover — the connected wire is highlighted</figcaption>
 </figure>
 </div>
@@ -508,7 +540,7 @@ Note
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/patchbay-connect-all.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Connect All — bulk connection between two clients"><img src="../assets/screenshots/patchbay-connect-all.png" class="img-fluid figure-img" alt="ConnectAllSheet: patchbay-faithful canvas preview of source and destination clients, client pickers, connection mode selector."></a></p>
+<p><a href="../assets/screenshots/patchbay-connect-all.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Connect All — bulk connection between two clients"><img src="../assets/screenshots/patchbay-connect-all.png" class="img-fluid figure-img" alt="ConnectAllSheet: patchbay-faithful canvas preview of source and destination clients, client pickers, connection mode selector."></a></p>
 <figcaption>Connect All — bulk connection between two clients</figcaption>
 </figure>
 </div>
@@ -586,7 +618,7 @@ Note
 <p><strong>Xruns</strong> (audio dropouts) are counted and displayed in the footer. A <strong>Reset</strong> button clears the counter.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/patchbay-logs.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Easy access to Jack log panel in real time"><img src="../assets/screenshots/patchbay-logs.png" class="img-fluid figure-img" alt="Patchbay view with the Terminal log panel open on the right."></a></p>
+<p><a href="../assets/screenshots/patchbay-logs.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Easy access to Jack log panel in real time"><img src="../assets/screenshots/patchbay-logs.png" class="img-fluid figure-img" alt="Patchbay view with the Terminal log panel open on the right."></a></p>
 <figcaption>Easy access to Jack log panel in real time</figcaption>
 </figure>
 </div>
@@ -602,9 +634,32 @@ Note
 <li><strong>Xrun counter</strong> (if &gt; 0)</li>
 <li><strong>Loaded studio</strong> (with a modification indicator if the patchbay has diverged from the saved state)</li>
 </ul>
+<p>Two additional chips appear in context:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Chip</th>
+<th>When shown</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Aggregated by Jack</strong></td>
+<td>Jack has created an internal aggregate from two separate devices</td>
+</tr>
+<tr class="even">
+<td><strong>Jack started externally</strong></td>
+<td>Jack is running but was not started by JackMate — device names are unavailable via the Jack API and are replaced by this indicator</td>
+</tr>
+</tbody>
+</table>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/patchbay-footer.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Footer — live session info, xrun count and loaded studio"><img src="../assets/screenshots/patchbay-footer.png" class="img-fluid figure-img" alt="Cropped close-up of the Patchbay footer bar."></a></p>
+<p><a href="../assets/screenshots/patchbay-footer.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Footer — live session info, xrun count and loaded studio"><img src="../assets/screenshots/patchbay-footer.png" class="img-fluid figure-img" alt="Cropped close-up of the Patchbay footer bar."></a></p>
 <figcaption>Footer — live session info, xrun count and loaded studio</figcaption>
 </figure>
 </div>
@@ -618,6 +673,7 @@ Note
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script>
 (function () {
+  // Open all BMAC links in a new tab
   document.querySelectorAll('a[href*="buymeacoffee.com"]').forEach(function (a) {
     a.target = '_blank';
     a.rel = 'noopener noreferrer';

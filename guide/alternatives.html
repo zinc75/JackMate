@@ -144,6 +144,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link active" href="../changelog.html" aria-current="page"> 
 <span class="menu-text">Changelog</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../support.html"> 
+<span class="menu-text">Support</span></a>
+  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
@@ -153,7 +157,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="https://www.buymeacoffee.com/zinc75"> 
-<span class="menu-text"><img src="assets/bmc-icon.svg" class="navbar-bmc-icon" alt="Buy me a coffee"></span></a>
+<span class="menu-text"><span class="navbar-bmc-icon" aria-label="Buy me a coffee"></span></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -250,6 +254,23 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Support</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../support.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Support JackMate</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -263,12 +284,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#when-to-choose-jackmate" id="toc-when-to-choose-jackmate" class="nav-link active" data-scroll-target="#when-to-choose-jackmate">When to choose JackMate</a></li>
   <li><a href="#when-to-look-elsewhere" id="toc-when-to-look-elsewhere" class="nav-link" data-scroll-target="#when-to-look-elsewhere">When to look elsewhere</a></li>
   <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison">Comparison</a></li>
-  <li><a href="#notes-on-alternatives" id="toc-notes-on-alternatives" class="nav-link" data-scroll-target="#notes-on-alternatives">Notes on alternatives</a>
+  <li><a href="#notes-on-alternatives-on-macos" id="toc-notes-on-alternatives-on-macos" class="nav-link" data-scroll-target="#notes-on-alternatives-on-macos">Notes on alternatives on macOS</a>
   <ul class="collapse">
   <li><a href="#qjackctl" id="toc-qjackctl" class="nav-link" data-scroll-target="#qjackctl">QJackCtl</a></li>
-  <li><a href="#patchage" id="toc-patchage" class="nav-link" data-scroll-target="#patchage">Patchage</a></li>
-  <li><a href="#patchance" id="toc-patchance" class="nav-link" data-scroll-target="#patchance">Patchance</a></li>
-  <li><a href="#catia" id="toc-catia" class="nav-link" data-scroll-target="#catia">Catia</a></li>
+  <li><a href="#catia-carla" id="toc-catia-carla" class="nav-link" data-scroll-target="#catia-carla">Catia / Carla</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -306,18 +325,20 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="when-to-choose-jackmate">When to choose JackMate</h2>
 <ul>
 <li>You work <strong>on macOS</strong> and want a tool that feels native</li>
+<li>You read the <a href="https://zinc75.github.io/JackMate/">documentation</a> and like the concept and the implementation</li>
+<li>You want to discover the possibilities of JACK on macOS, hassle-free</li>
 <li>You need to <strong>save and restore complete sessions</strong> (studios)</li>
 <li>You want <strong>menu bar access</strong> without keeping a window open</li>
-<li>You use <strong>CLI Jack clients</strong> (<code>jack_metro</code>, <code>a2jmidid</code>…) that you want saved and relaunched automatically</li>
+<li>You use both <strong>GUI JACK clients</strong> (<code>Ardour</code>, <code>Faust</code> apps generated with <code>faust2jaqt</code>, …) and <strong>CLI Jack clients</strong> (<code>jack_metro</code>, <code>a2jmidid</code>…) that you want saved and relaunched automatically</li>
 <li>You want <strong>bulk connections</strong> between clients in one step</li>
+<li>You use <strong>two separate audio interfaces</strong> and need aggregate device guidance (clock sync warning, patchbay preview before start)</li>
+<li>You want <strong>in-app automatic updates</strong> without manual DMG downloads</li>
 </ul>
 </section>
 <section id="when-to-look-elsewhere" class="level2">
 <h2 class="anchored" data-anchor-id="when-to-look-elsewhere">When to look elsewhere</h2>
 <ul>
-<li>You work on <strong>Linux</strong> — Patchance (transport + PipeWire) or QJackCtl (mature, full-featured) are better choices</li>
-<li>You need <strong>ALSA or PipeWire</strong> alongside JACK — Patchage or Patchance handle mixed graphs</li>
-<li>You need <strong>static patchbay presets</strong> (connection snapshots that survive across sessions without reloading a full studio) — QJackCtl’s patchbay preset system is purpose-built for this.</li>
+<li>You work on <strong>Linux</strong> — Patchance (transport + PipeWire) or QJackCtl (mature, full-featured), Catia, Carla, … : the choice is yours, depending on your tastes !</li>
 </ul>
 <hr>
 </section>
@@ -482,6 +503,30 @@ ul.task-list li input[type="checkbox"] {
 <td><span class="led led-red"></span></td>
 </tr>
 <tr class="even">
+<td>Aggregate device detection &amp; warning</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-amber"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+</tr>
+<tr class="odd">
+<td>Hardware info in patchbay system cards</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+</tr>
+<tr class="even">
+<td>In-app automatic updates</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+</tr>
+<tr class="odd">
 <td>Open source</td>
 <td><span class="led led-green"></span></td>
 <td><span class="led led-green"></span></td>
@@ -496,23 +541,15 @@ ul.task-list li input[type="checkbox"] {
 <p><span style="font-size:0.82rem; color:var(--jm-muted);"> <span class="led led-amber" style="display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:middle;"></span> partial &nbsp;·&nbsp; <span class="led led-red" style="display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:middle;"></span> not available &nbsp;·&nbsp; <span class="led led-green" style="display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:middle;"></span> supported </span></p>
 <hr>
 </section>
-<section id="notes-on-alternatives" class="level2">
-<h2 class="anchored" data-anchor-id="notes-on-alternatives">Notes on alternatives</h2>
+<section id="notes-on-alternatives-on-macos" class="level2">
+<h2 class="anchored" data-anchor-id="notes-on-alternatives-on-macos">Notes on alternatives on macOS</h2>
 <section id="qjackctl" class="level3">
-<h3 class="anchored" data-anchor-id="qjackctl">QJackCtl</h3>
-<p>The reference Jack management tool, cross-platform (Linux, macOS, Windows). Mature and feature-rich: server configuration, patchbay with patchbay presets (static routing snapshots), transport controls, logs. Its interface is Qt-based and does not follow macOS design conventions. Nodes can be freely repositioned. No studios, no bulk connection, no CLI client management.</p>
+<h3 class="anchored" data-anchor-id="qjackctl"><a href="https://qjackctl.sourceforge.io">QJackCtl</a></h3>
+<p>The historical, reference Jack management tool, cross-platform (Linux, macOS, Windows). Mature and feature-rich: server configuration, patchbay with patchbay presets (static routing snapshots), transport controls, logs. Its interface is Qt-based and unfortunately does not follow macOS design conventions due to its multi-platform target. Nodes can be freely repositioned. No studios, no bulk connection, no CLI client management.</p>
 </section>
-<section id="patchage" class="level3">
-<h3 class="anchored" data-anchor-id="patchage">Patchage</h3>
-<p>A lightweight visual patchbay focused on clarity. Supports JACK and ALSA (Linux only in practice). Nodes are freely draggable; the graph is clean and readable. No server configuration, no transport controls, no session management. Not actively maintained for macOS.</p>
-</section>
-<section id="patchance" class="level3">
-<h3 class="anchored" data-anchor-id="patchance">Patchance</h3>
-<p>A more recent Python-based patchbay with JACK and PipeWire support (Linux only). Introduces <strong>port grouping</strong> — ports can be connected by group, which acts as a limited Connect All equivalent. Supports transport controls (play/stop/seek). Nodes are freely repositioned with undo/redo. No session save/restore.</p>
-</section>
-<section id="catia" class="level3">
-<h3 class="anchored" data-anchor-id="catia">Catia</h3>
-<p>Part of the <a href="https://kx.studio/Applications:Cadence">Cadence</a> suite (KXStudio). Visual patchbay with integrated Jack Transport controls. Clean and lightweight. Targeted at Linux, also available for macOS. No session management, no server config UI.</p>
+<section id="catia-carla" class="level3">
+<h3 class="anchored" data-anchor-id="catia-carla"><a href="https://kx.studio/Applications:Catia">Catia / Carla</a></h3>
+<p>Part of the <a href="https://kx.studio/Applications:Cadence">Cadence</a> suite (KXStudio), which popularized the concept of studios based on LADISH, but unfortunately not available on macOS and discontinued. Visual patchbays with integrated Jack Transport controls. Catia is a simple Patchbay, Carla is more oriented as a modular audio plugin host. Clean and lightweight, Python and Qt-based. Targeted at Linux, also available for macOS. No session management, no server config UI.</p>
 <div style="display:none;height:0;overflow:hidden;" aria-hidden="true">
 <p><i class="fa-solid fa-check" aria-label="check"></i></p>
 </div>
@@ -524,6 +561,7 @@ ul.task-list li input[type="checkbox"] {
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script>
 (function () {
+  // Open all BMAC links in a new tab
   document.querySelectorAll('a[href*="buymeacoffee.com"]').forEach(function (a) {
     a.target = '_blank';
     a.rel = 'noopener noreferrer';
