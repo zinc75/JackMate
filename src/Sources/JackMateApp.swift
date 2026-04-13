@@ -182,7 +182,7 @@ struct JackMateApp: App {
                 }
         }
         .windowStyle(.hiddenTitleBar)
-        .defaultSize(width: 920, height: 850)
+        .defaultSize(width: 920, height: 720)
         .defaultPosition(.center)
         .commands {
             // ── App menu ────────────────────────────────────────────────

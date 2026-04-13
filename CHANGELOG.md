@@ -6,6 +6,13 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [1.9.9] — 2026-04-13
+
+### Improved
+- Min-height adapted to small screens (e.g. Macbook Neo)
+
+---
+
 ## [1.9.8] — 2026-04-13
 
 ### Improved

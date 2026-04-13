@@ -487,7 +487,7 @@ struct ContentView: View {
             .frame(minWidth: 480)
         }
         .frame(minWidth: selection == .configuration ? 1040 : 1200,
-               minHeight: selection == .configuration ? 800 : 780)
+               minHeight: 720)
         .background(JM.bgBase)
         .sheet(isPresented: $showJackNotInstalled) {
             JackNotInstalledView()
