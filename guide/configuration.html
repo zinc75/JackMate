@@ -732,7 +732,44 @@ Note
     a.target = '_blank';
     a.rel = 'noopener noreferrer';
   });
+
+  // ── Download modal ──────────────────────────────────
+  var modal = document.getElementById('download-modal');
+  function closeModal() { if (modal) modal.classList.remove('is-open'); }
+
+  document.getElementById('modal-close')?.addEventListener('click', closeModal);
+  document.getElementById('modal-close-bottom')?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+
+  // ── Tab switching ───────────────────────────────────
+  document.querySelectorAll('.dm-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.dm-tab').forEach(function (t) {
+        t.classList.remove('is-active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.dm-panel').forEach(function (p) { p.classList.remove('is-active'); });
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected', 'true');
+      document.getElementById(tab.getAttribute('aria-controls'))?.classList.add('is-active');
+    });
+  });
 })();
+
+function openDownloadModal() {
+  var modal = document.getElementById('download-modal');
+  if (modal) modal.classList.add('is-open');
+  // Do NOT preventDefault — the download link fires normally.
+}
+
+function dmCopyCommand(btn) {
+  var cmd = 'xattr -rd com.apple.quarantine /Applications/JackMate.app';
+  navigator.clipboard.writeText(cmd).then(function () {
+    btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+    setTimeout(function () { btn.innerHTML = '<i class="fa-solid fa-copy"></i>'; }, 2000);
+  });
+}
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

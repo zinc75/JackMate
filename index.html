@@ -312,7 +312,7 @@ ul.task-list li input[type="checkbox"] {
       <h1>JackMate</h1>
       <p class="subtitle">Start, configure, and patch your Jack Audio Server in a few clicks. A native macOS interface built for musicians and audio engineers.</p>
       <div class="hero-pills">
-        <a href="https://github.com/zinc75/JackMate/releases/download/v1.9.9/JackMate-1.9.9-Installer.dmg" class="hero-pill hero-pill-primary">
+        <a href="https://github.com/zinc75/JackMate/releases/download/v1.9.9/JackMate-1.9.9-Installer.dmg" class="hero-pill hero-pill-primary" id="download-btn" onclick="openDownloadModal()">
           <i class="fa-solid fa-arrow-down-to-bracket"></i> Download
         </a>
         <a href="guide/configuration.html" class="hero-pill hero-pill-secondary">
@@ -322,6 +322,56 @@ ul.task-list li input[type="checkbox"] {
           <img src="assets/bmc-icon.svg" alt="" class="bmc-pill-icon"> Buy me a coffee
         </a>
       </div>
+    </div>
+  </div>
+</div>
+<div id="download-modal" class="dm-overlay" role="dialog" aria-modal="true" aria-labelledby="dm-title">
+  <div class="dm-dialog">
+    <button class="dm-x-close" id="modal-close" aria-label="Close">✕</button>
+    <div class="dm-header">
+      <div class="dm-header-icon icon-bg-cyan"><i class="fa-solid fa-arrow-down-to-bracket"></i></div>
+      <div>
+        <h2 id="dm-title" class="dm-title anchored">Your download has started</h2>
+        <p class="dm-intro">JackMate is not yet notarized. macOS will block it on first launch. Here's how to open it anyway:</p>
+      </div>
+    </div>
+
+    <div class="dm-prestep">
+      <span class="dm-prestep-icon"><i class="fa-solid fa-circle-arrow-right"></i></span>
+      <span>First, open the .dmg and drag <strong>JackMate</strong> to your <strong>Applications</strong> folder, as shown in the installer window. Then choose one of the methods below:</span>
+    </div>
+
+    <div class="dm-tabs" role="tablist">
+      <button class="dm-tab is-active" role="tab" aria-selected="true" aria-controls="dm-panel-terminal" id="dm-tab-terminal">
+        <i class="fa-solid fa-terminal"></i> Terminal
+        <span class="dm-tab-badge">recommended</span>
+      </button>
+      <button class="dm-tab" role="tab" aria-selected="false" aria-controls="dm-panel-settings" id="dm-tab-settings">
+        <i class="fa-solid fa-gear"></i> System Settings
+      </button>
+    </div>
+
+    <div class="dm-panel is-active" id="dm-panel-terminal" role="tabpanel" aria-labelledby="dm-tab-terminal">
+      <div class="dm-code-wrap">
+        <pre class="dm-pre"><code>xattr -rd com.apple.quarantine /Applications/JackMate.app</code></pre>
+        <button class="dm-copy" id="dm-copy-btn" aria-label="Copy command" onclick="dmCopyCommand(this)">
+          <i class="fa-solid fa-copy"></i>
+        </button>
+      </div>
+      <p class="dm-code-hint">Open Terminal, paste this command, press Enter.</p>
+    </div>
+
+    <div class="dm-panel" id="dm-panel-settings" role="tabpanel" aria-labelledby="dm-tab-settings">
+      <ol class="dm-steps">
+        <li>Try to open JackMate — macOS blocks it; click <strong>OK</strong>.</li>
+        <li>Open <strong>System Settings › Privacy &amp; Security</strong>, scroll down, click <strong>"Open Anyway"</strong>.</li>
+      </ol>
+      <p class="dm-warning"><i class="fa-solid fa-triangle-exclamation"></i> "Right-click → Open" no longer works on macOS Sequoia and later.</p>
+    </div>
+
+    <div class="dm-footer">
+      <p class="dm-bmac-note">JackMate is free and open source. Notarization requires a paid Apple Developer account ($99/year) — <a href="https://www.buymeacoffee.com/zinc75" target="_blank" rel="noopener">buying me a coffee</a> helps make it happen.</p>
+      <button class="dm-close-btn" id="modal-close-bottom">Got it</button>
     </div>
   </div>
 </div>
@@ -641,7 +691,44 @@ Note
     a.target = '_blank';
     a.rel = 'noopener noreferrer';
   });
+
+  // ── Download modal ──────────────────────────────────
+  var modal = document.getElementById('download-modal');
+  function closeModal() { if (modal) modal.classList.remove('is-open'); }
+
+  document.getElementById('modal-close')?.addEventListener('click', closeModal);
+  document.getElementById('modal-close-bottom')?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+
+  // ── Tab switching ───────────────────────────────────
+  document.querySelectorAll('.dm-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.dm-tab').forEach(function (t) {
+        t.classList.remove('is-active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.dm-panel').forEach(function (p) { p.classList.remove('is-active'); });
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected', 'true');
+      document.getElementById(tab.getAttribute('aria-controls'))?.classList.add('is-active');
+    });
+  });
 })();
+
+function openDownloadModal() {
+  var modal = document.getElementById('download-modal');
+  if (modal) modal.classList.add('is-open');
+  // Do NOT preventDefault — the download link fires normally.
+}
+
+function dmCopyCommand(btn) {
+  var cmd = 'xattr -rd com.apple.quarantine /Applications/JackMate.app';
+  navigator.clipboard.writeText(cmd).then(function () {
+    btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+    setTimeout(function () { btn.innerHTML = '<i class="fa-solid fa-copy"></i>'; }, 2000);
+  });
+}
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
