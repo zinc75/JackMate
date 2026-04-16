@@ -1108,6 +1108,22 @@ body { padding-bottom: 3rem !important; }
 }
 .dm-warning i { margin-top: 0.12rem; flex-shrink: 0; }
 
+/* Compact dialog variant (confirm + mobile modals) */
+.dm-dialog-sm { max-width: 400px; }
+
+/* Cancel button */
+.dm-cancel-btn {
+  background: rgba(255,255,255,0.05);
+  color: var(--jm-muted);
+  border: 1px solid var(--jm-border);
+  border-radius: 9px;
+  font-size: 0.875rem; font-weight: 500;
+  padding: 0.55rem 1.1rem;
+  cursor: pointer;
+  transition: background 0.16s, color 0.16s;
+}
+.dm-cancel-btn:hover { background: rgba(255,255,255,0.09); color: var(--jm-text); }
+
 /* Footer */
 .dm-footer {
   display: flex;
@@ -1122,6 +1138,7 @@ body { padding-bottom: 3rem !important; }
 }
 .dm-bmac-note a { color: var(--jm-muted); text-decoration: underline; text-underline-offset: 2px; }
 .dm-bmac-note a:hover { color: var(--jm-text-dim); }
+.dm-footer-end { justify-content: flex-end; }
 .dm-close-btn {
   background: rgba(34,211,238,0.12);
   color: var(--jm-cyan);

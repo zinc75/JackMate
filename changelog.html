@@ -1138,14 +1138,46 @@ ul.task-list li input[type="checkbox"] {
     a.rel = 'noopener noreferrer';
   });
 
-  // ── Download modal ──────────────────────────────────
-  var modal = document.getElementById('download-modal');
-  function closeModal() { if (modal) modal.classList.remove('is-open'); }
+  // ── Platform detection ──────────────────────────────
+  var ua = navigator.userAgent;
+  var isIOS     = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/.test(ua);
+  window._dmPlatform = isIOS || isAndroid ? 'mobile'
+                     : /Macintosh|Mac OS X/.test(ua)  ? 'mac'
+                     : 'other'; // Windows, Linux, etc.
 
-  document.getElementById('modal-close')?.addEventListener('click', closeModal);
-  document.getElementById('modal-close-bottom')?.addEventListener('click', closeModal);
-  modal?.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+  // ── Helper: open / close any overlay ───────────────
+  function openOverlay(id)  { var el = document.getElementById(id); if (el) el.classList.add('is-open'); }
+  function closeOverlay(id) { var el = document.getElementById(id); if (el) el.classList.remove('is-open'); }
+  function closeAll() {
+    ['download-modal', 'dm-confirm-modal', 'dm-mobile-modal'].forEach(closeOverlay);
+  }
+
+  // Close on overlay click or Escape
+  ['download-modal', 'dm-confirm-modal', 'dm-mobile-modal'].forEach(function (id) {
+    var el = document.getElementById(id);
+    el?.addEventListener('click', function (e) { if (e.target === el) closeOverlay(id); });
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(); });
+
+  // ── Gatekeeper modal close buttons ─────────────────
+  document.getElementById('modal-close')?.addEventListener('click', function () { closeOverlay('download-modal'); });
+  document.getElementById('modal-close-bottom')?.addEventListener('click', function () { closeOverlay('download-modal'); });
+
+  // ── Confirm modal (Windows/Linux) ──────────────────
+  document.getElementById('dm-confirm-close')?.addEventListener('click', function () { closeOverlay('dm-confirm-modal'); });
+  document.getElementById('dm-confirm-cancel')?.addEventListener('click', function () { closeOverlay('dm-confirm-modal'); });
+  document.getElementById('dm-confirm-ok')?.addEventListener('click', function () {
+    closeOverlay('dm-confirm-modal');
+    // Trigger download then show Gatekeeper modal
+    var url = document.getElementById('download-btn')?.href;
+    if (url) window.location.href = url;
+    setTimeout(function () { openOverlay('download-modal'); }, 300);
+  });
+
+  // ── Mobile modal ────────────────────────────────────
+  document.getElementById('dm-mobile-close')?.addEventListener('click', function () { closeOverlay('dm-mobile-modal'); });
+  document.getElementById('dm-mobile-ok')?.addEventListener('click', function () { closeOverlay('dm-mobile-modal'); });
 
   // ── Tab switching ───────────────────────────────────
   document.querySelectorAll('.dm-tab').forEach(function (tab) {
@@ -1162,10 +1194,18 @@ ul.task-list li input[type="checkbox"] {
   });
 })();
 
-function openDownloadModal() {
-  var modal = document.getElementById('download-modal');
-  if (modal) modal.classList.add('is-open');
-  // Do NOT preventDefault — the download link fires normally.
+function openDownloadModal(e) {
+  var platform = window._dmPlatform || 'mac';
+  if (platform === 'mobile') {
+    e.preventDefault();
+    document.getElementById('dm-mobile-modal')?.classList.add('is-open');
+  } else if (platform === 'other') {
+    e.preventDefault();
+    document.getElementById('dm-confirm-modal')?.classList.add('is-open');
+  } else {
+    // macOS: download proceeds normally, show Gatekeeper modal
+    document.getElementById('download-modal')?.classList.add('is-open');
+  }
 }
 
 function dmCopyCommand(btn) {

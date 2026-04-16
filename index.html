@@ -312,7 +312,7 @@ ul.task-list li input[type="checkbox"] {
       <h1>JackMate</h1>
       <p class="subtitle">Start, configure, and patch your Jack Audio Server in a few clicks. A native macOS interface built for musicians and audio engineers.</p>
       <div class="hero-pills">
-        <a href="https://github.com/zinc75/JackMate/releases/download/v1.9.9/JackMate-1.9.9-Installer.dmg" class="hero-pill hero-pill-primary" id="download-btn" onclick="openDownloadModal()">
+        <a href="https://github.com/zinc75/JackMate/releases/download/v1.9.9/JackMate-1.9.9-Installer.dmg" class="hero-pill hero-pill-primary" id="download-btn" onclick="openDownloadModal(event)">
           <i class="fa-solid fa-arrow-down-to-bracket"></i> Download
         </a>
         <a href="guide/configuration.html" class="hero-pill hero-pill-secondary">
@@ -325,6 +325,41 @@ ul.task-list li input[type="checkbox"] {
     </div>
   </div>
 </div>
+<!-- Modal: Windows / Linux confirmation -->
+<div id="dm-confirm-modal" class="dm-overlay" role="dialog" aria-modal="true" aria-labelledby="dm-confirm-title">
+  <div class="dm-dialog dm-dialog-sm">
+    <button class="dm-x-close" id="dm-confirm-close" aria-label="Close">✕</button>
+    <div class="dm-header">
+      <div class="dm-header-icon icon-bg-violet"><i class="fa-brands fa-apple"></i></div>
+      <div>
+        <h2 id="dm-confirm-title" class="dm-title anchored">JackMate is a macOS app</h2>
+        <p class="dm-intro">This installer only runs on macOS. Download anyway?</p>
+      </div>
+    </div>
+    <div class="dm-footer">
+      <button class="dm-cancel-btn" id="dm-confirm-cancel">Cancel</button>
+      <button class="dm-close-btn" id="dm-confirm-ok">Download anyway</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: iOS / Android -->
+<div id="dm-mobile-modal" class="dm-overlay" role="dialog" aria-modal="true" aria-labelledby="dm-mobile-title">
+  <div class="dm-dialog dm-dialog-sm">
+    <button class="dm-x-close" id="dm-mobile-close" aria-label="Close">✕</button>
+    <div class="dm-header">
+      <div class="dm-header-icon icon-bg-violet"><i class="fa-brands fa-apple"></i></div>
+      <div>
+        <h2 id="dm-mobile-title" class="dm-title anchored">JackMate is a macOS app</h2>
+        <p class="dm-intro">This app runs on Mac only — it can't be installed on iPhone or iPad. Come back from a Mac to download it!</p>
+      </div>
+    </div>
+    <div class="dm-footer dm-footer-end">
+      <button class="dm-close-btn" id="dm-mobile-ok">Got it</button>
+    </div>
+  </div>
+</div>
+
 <div id="download-modal" class="dm-overlay" role="dialog" aria-modal="true" aria-labelledby="dm-title">
   <div class="dm-dialog">
     <button class="dm-x-close" id="modal-close" aria-label="Close">✕</button>
@@ -692,14 +727,46 @@ Note
     a.rel = 'noopener noreferrer';
   });
 
-  // ── Download modal ──────────────────────────────────
-  var modal = document.getElementById('download-modal');
-  function closeModal() { if (modal) modal.classList.remove('is-open'); }
+  // ── Platform detection ──────────────────────────────
+  var ua = navigator.userAgent;
+  var isIOS     = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/.test(ua);
+  window._dmPlatform = isIOS || isAndroid ? 'mobile'
+                     : /Macintosh|Mac OS X/.test(ua)  ? 'mac'
+                     : 'other'; // Windows, Linux, etc.
 
-  document.getElementById('modal-close')?.addEventListener('click', closeModal);
-  document.getElementById('modal-close-bottom')?.addEventListener('click', closeModal);
-  modal?.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+  // ── Helper: open / close any overlay ───────────────
+  function openOverlay(id)  { var el = document.getElementById(id); if (el) el.classList.add('is-open'); }
+  function closeOverlay(id) { var el = document.getElementById(id); if (el) el.classList.remove('is-open'); }
+  function closeAll() {
+    ['download-modal', 'dm-confirm-modal', 'dm-mobile-modal'].forEach(closeOverlay);
+  }
+
+  // Close on overlay click or Escape
+  ['download-modal', 'dm-confirm-modal', 'dm-mobile-modal'].forEach(function (id) {
+    var el = document.getElementById(id);
+    el?.addEventListener('click', function (e) { if (e.target === el) closeOverlay(id); });
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(); });
+
+  // ── Gatekeeper modal close buttons ─────────────────
+  document.getElementById('modal-close')?.addEventListener('click', function () { closeOverlay('download-modal'); });
+  document.getElementById('modal-close-bottom')?.addEventListener('click', function () { closeOverlay('download-modal'); });
+
+  // ── Confirm modal (Windows/Linux) ──────────────────
+  document.getElementById('dm-confirm-close')?.addEventListener('click', function () { closeOverlay('dm-confirm-modal'); });
+  document.getElementById('dm-confirm-cancel')?.addEventListener('click', function () { closeOverlay('dm-confirm-modal'); });
+  document.getElementById('dm-confirm-ok')?.addEventListener('click', function () {
+    closeOverlay('dm-confirm-modal');
+    // Trigger download then show Gatekeeper modal
+    var url = document.getElementById('download-btn')?.href;
+    if (url) window.location.href = url;
+    setTimeout(function () { openOverlay('download-modal'); }, 300);
+  });
+
+  // ── Mobile modal ────────────────────────────────────
+  document.getElementById('dm-mobile-close')?.addEventListener('click', function () { closeOverlay('dm-mobile-modal'); });
+  document.getElementById('dm-mobile-ok')?.addEventListener('click', function () { closeOverlay('dm-mobile-modal'); });
 
   // ── Tab switching ───────────────────────────────────
   document.querySelectorAll('.dm-tab').forEach(function (tab) {
@@ -716,10 +783,18 @@ Note
   });
 })();
 
-function openDownloadModal() {
-  var modal = document.getElementById('download-modal');
-  if (modal) modal.classList.add('is-open');
-  // Do NOT preventDefault — the download link fires normally.
+function openDownloadModal(e) {
+  var platform = window._dmPlatform || 'mac';
+  if (platform === 'mobile') {
+    e.preventDefault();
+    document.getElementById('dm-mobile-modal')?.classList.add('is-open');
+  } else if (platform === 'other') {
+    e.preventDefault();
+    document.getElementById('dm-confirm-modal')?.classList.add('is-open');
+  } else {
+    // macOS: download proceeds normally, show Gatekeeper modal
+    document.getElementById('download-modal')?.classList.add('is-open');
+  }
 }
 
 function dmCopyCommand(btn) {
