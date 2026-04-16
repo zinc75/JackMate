@@ -911,7 +911,7 @@ body { padding-bottom: 3rem !important; }
    ══════════════════════════════════════════════════════ */
 
 .dm-overlay {
-  display: none;
+  display: none !important;
   position: fixed;
   inset: 0;
   z-index: 2000;
@@ -923,7 +923,7 @@ body { padding-bottom: 3rem !important; }
   padding: 1rem;
 }
 .dm-overlay.is-open {
-  display: flex;
+  display: flex !important;
   animation: dm-fade-in 0.18s ease;
 }
 @keyframes dm-fade-in {
