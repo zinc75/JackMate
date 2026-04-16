@@ -755,12 +755,10 @@ Note
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(); });
 
-  // ── Gatekeeper modal close buttons ─────────────────
-  document.getElementById('modal-close')?.addEventListener('click', function () { closeOverlay('download-modal'); });
+  // ── Gatekeeper modal close button ──────────────────
   document.getElementById('modal-close-bottom')?.addEventListener('click', function () { closeOverlay('download-modal'); });
 
   // ── Confirm modal (Windows/Linux) ──────────────────
-  document.getElementById('dm-confirm-close')?.addEventListener('click', function () { closeOverlay('dm-confirm-modal'); });
   document.getElementById('dm-confirm-cancel')?.addEventListener('click', function () { closeOverlay('dm-confirm-modal'); });
   document.getElementById('dm-confirm-ok')?.addEventListener('click', function () {
     closeOverlay('dm-confirm-modal');
@@ -771,7 +769,6 @@ Note
   });
 
   // ── Mobile modal ────────────────────────────────────
-  document.getElementById('dm-mobile-close')?.addEventListener('click', function () { closeOverlay('dm-mobile-modal'); });
   document.getElementById('dm-mobile-ok')?.addEventListener('click', function () { closeOverlay('dm-mobile-modal'); });
 
   // ── Tab switching ───────────────────────────────────

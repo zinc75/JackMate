@@ -328,7 +328,6 @@ ul.task-list li input[type="checkbox"] {
 <!-- Modal: Windows / Linux confirmation -->
 <div id="dm-confirm-modal" class="dm-overlay" role="dialog" aria-modal="true" aria-labelledby="dm-confirm-title">
   <div class="dm-dialog dm-dialog-sm">
-    <button class="dm-x-close" id="dm-confirm-close" aria-label="Close">✕</button>
     <div class="dm-header">
       <div class="dm-header-icon icon-bg-violet"><i class="fa-brands fa-apple"></i></div>
       <div>
@@ -346,7 +345,6 @@ ul.task-list li input[type="checkbox"] {
 <!-- Modal: iOS / Android -->
 <div id="dm-mobile-modal" class="dm-overlay" role="dialog" aria-modal="true" aria-labelledby="dm-mobile-title">
   <div class="dm-dialog dm-dialog-sm">
-    <button class="dm-x-close" id="dm-mobile-close" aria-label="Close">✕</button>
     <div class="dm-header">
       <div class="dm-header-icon icon-bg-violet"><i class="fa-brands fa-apple"></i></div>
       <div>
@@ -362,7 +360,6 @@ ul.task-list li input[type="checkbox"] {
 
 <div id="download-modal" class="dm-overlay" role="dialog" aria-modal="true" aria-labelledby="dm-title">
   <div class="dm-dialog">
-    <button class="dm-x-close" id="modal-close" aria-label="Close">✕</button>
     <div class="dm-header">
       <div class="dm-header-icon icon-bg-cyan"><i class="fa-solid fa-arrow-down-to-bracket"></i></div>
       <div>
@@ -749,12 +746,10 @@ Note
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(); });
 
-  // ── Gatekeeper modal close buttons ─────────────────
-  document.getElementById('modal-close')?.addEventListener('click', function () { closeOverlay('download-modal'); });
+  // ── Gatekeeper modal close button ──────────────────
   document.getElementById('modal-close-bottom')?.addEventListener('click', function () { closeOverlay('download-modal'); });
 
   // ── Confirm modal (Windows/Linux) ──────────────────
-  document.getElementById('dm-confirm-close')?.addEventListener('click', function () { closeOverlay('dm-confirm-modal'); });
   document.getElementById('dm-confirm-cancel')?.addEventListener('click', function () { closeOverlay('dm-confirm-modal'); });
   document.getElementById('dm-confirm-ok')?.addEventListener('click', function () {
     closeOverlay('dm-confirm-modal');
@@ -765,7 +760,6 @@ Note
   });
 
   // ── Mobile modal ────────────────────────────────────
-  document.getElementById('dm-mobile-close')?.addEventListener('click', function () { closeOverlay('dm-mobile-modal'); });
   document.getElementById('dm-mobile-ok')?.addEventListener('click', function () { closeOverlay('dm-mobile-modal'); });
 
   // ── Tab switching ───────────────────────────────────
