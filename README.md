@@ -85,10 +85,15 @@ Full documentation at **[zinc75.github.io/JackMate](https://zinc75.github.io/Jac
 Head to the [Releases](https://github.com/zinc75/JackMate/releases) page, download the latest `JackMate-x.x.x-Installer.dmg`, and drag JackMate to your Applications folder.
 
 > **Note:** The app is not yet notarized. On first launch, macOS may block it.
-> Right-click → Open → Open anyway, or run:
+>
+> **Option 1 — Terminal (recommended):**
 > ```bash
-> xattr -rd com.apple.quarantine /Applications/JackMate.app
+> xattr -dr com.apple.quarantine /Applications/JackMate.app
 > ```
+>
+> **Option 2 — System Settings** (macOS Ventura and later):
+> Open **System Settings › Privacy & Security**, scroll down, click **"Open Anyway"**.
+> *(Note: "Right-click → Open" no longer works on macOS Sequoia and later.)*
 >
 > Notarization requires a paid Apple Developer account ($99/year). If you find JackMate useful,
 > [buying me a coffee](#support) helps cover that cost — and gets everyone a smoother install experience.
