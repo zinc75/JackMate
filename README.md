@@ -116,7 +116,7 @@ Contributions are welcome:
 
 ## Support
 
-JackMate is free and open source. If it saves you time or fits into your workflow, consider buying me a coffee.
+JackMate is free and open source. If it saves you time or fits into your workflow, please consider buying me a coffee.
 
 Contributions go toward the **Apple Developer account** ($99/year) required to notarize the app — which would remove the Gatekeeper warning on first launch and make installation seamless for everyone.
 
