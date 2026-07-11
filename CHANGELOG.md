@@ -6,6 +6,44 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [2.0.0] — 2026-XX-XX
+
+Major release: **JackMoebius integration**. JackMate now drives the JackMoebius daemon to expose any native macOS application (Safari, Music, FaceTime, QuickTime…) as a JACK client, in both directions — outputs **and** inputs — with no external configuration. (Requires the JackMoebius daemon, installed separately.)
+
+### Added — JackMoebius integration
+- **Expose macOS apps to JACK** — a Configuration option, "Expose native macOS apps to JACK", starts JackMoebius automatically right after Jack (without altering the `jackd` command). A dedicated patchbay-toolbar button opens a slide-in panel, and a JackMoebius status indicator sits next to Jack's in the sidebar.
+- **App selector** — per app, Output / Input exposure switches and an input channel-count picker. A "system monitor" (master) box exposes the global system mix.
+- **Live daemon status** — the panel, toolbar button and indicator reflect JackMoebius's real state in real time (the daemon pushes its state changes; no periodic polling). A stop or crash is detected immediately, and the daemon is automatically restarted if it goes down while Jack is running.
+- **Styled JackMoebius boxes** in the patchbay — the real app icon (per app) and the JackMoebius glyph (master) replace the initials badge; the type is identified in the box info sheet.
+- **Wrong-audio-device alert** — the patchbay flags (⚠ amber) an exposed, wired app that isn't using the right device — plus a discreet cue when it's selected but silent. An alert panel (opened automatically, or by clicking the ⚠) lists the affected apps and what to do — the fix being made in the app or in macOS System Settings, not in JackMate.
+- **App exclusion (blacklist)** — an "eye-off" button removes an app from the selector (with confirmation if it's exposed). An "Advanced JackMoebius configuration" panel (tabs) re-enables excluded apps and frees dormant channel reservations.
+- **Output volume control** — a "Volumes" bar at the top of the patchbay (toggled from the toolbar) sets the volume of Jack's output device and of "JackMoebius Out" without selecting them in macOS — Control-Center-style sliders, synced live with the volume keys (F10/F11/F12) and System Settings ▸ Sound.
+- **Per-app volume** — in the JackMoebius panel, each exposed app can be "detached" from the master volume for an independent setting (padlock); locked by default, it follows the master.
+- **Safety (anti-kill)** — stopping Jack or switching studios no longer quits the real macOS apps exposed by JackMoebius.
+- **Studios ↔ JackMoebius** — a studio saves and restores the JackMoebius state: exposed apps (Output / Input with their channel counts), the system monitor (master), and per-app volumes — along with the output-device volumes (Jack's output **and** "JackMoebius Out"). On load, the daemon is restarted if needed, apps are relaunched and re-exposed, master and volumes restored; the studio is authoritative (loading a configuration without JackMoebius stops the daemon). On stopping a studio, exposures are removed and the daemon stopped — unless the "Expose native apps" option is still on (it then stays available but empty). A studio's "Save" button correctly reflects volume, exposure and master changes.
+- **JackMoebius version shown** — the Configuration header shows the installed JackMoebius version (next to Jack's) and, like Jack, signals when an update is available.
+- Fully localized JackMoebius interface (EN / FR / DE / IT / ES).
+
+### Added — Application
+- **"What's New" panel** — on the first launch of a version (fresh install or update), a panel summarizes the highlights and links to the online changelog. A changelog link is also present in the app's update window.
+
+### Improved
+- Patchbay: when zoomed out, port and app names now scale with the boxes (no more overlap).
+- Patchbay box info sheet: now closes when clicking outside it.
+
+### Fixed
+- Studios: no more needless Jack restart when loading a studio that includes a device.
+- JackMoebius is launched via launchd (the daemon runs under its own system identity) — avoids a context conflict that could bring down the JACK server when exposure started.
+
+### Distribution
+- The app **and** the DMG are now signed with a Developer ID and **notarized by Apple** — no more Gatekeeper "unidentified developer" warning on first launch.
+
+### Documentation
+- Quarto site: a download-help modal on the "Download" click (immediate download + Gatekeeper instructions to open the un-notarized app), with platform-aware behavior (macOS / Windows-Linux / mobile).
+- New JackMoebius guide — app exposure, the app selector, per-app and output volumes, patchbay integration and routing status — plus the Studios, Patchbay, Configuration and Alternatives pages updated for the 2.0 features.
+
+---
+
 ## [1.9.9] — 2026-04-13
 
 ### Improved
