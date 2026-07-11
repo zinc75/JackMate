@@ -12,6 +12,10 @@
   <h1>JackMate</h1>
   <p>Native macOS app for managing the JACK audio server — from your menu bar or as a standard window.</p>
 
+  <p>
+    <img src="https://raw.githubusercontent.com/zinc75/JackMate/gh-pages/assets/notarized-badge.png" width="15" alt="">
+    <strong>Signed &amp; notarized by Apple</strong>
+  </p>
 
   **[Documentation](https://zinc75.github.io/JackMate/)** · **[Download](https://github.com/zinc75/JackMate/releases)**
 
@@ -84,19 +88,7 @@ Full documentation at **[zinc75.github.io/JackMate](https://zinc75.github.io/Jac
 
 Head to the [Releases](https://github.com/zinc75/JackMate/releases) page, download the latest `JackMate-x.x.x-Installer.dmg`, and drag JackMate to your Applications folder.
 
-> **Note:** The app is not yet notarized. On first launch, macOS may block it.
->
-> **Option 1 — Terminal (recommended):**
-> ```bash
-> xattr -dr com.apple.quarantine /Applications/JackMate.app
-> ```
->
-> **Option 2 — System Settings** (macOS Ventura and later):
-> Open **System Settings › Privacy & Security**, scroll down, click **"Open Anyway"**.
-> *(Note: "Right-click → Open" no longer works on macOS Sequoia and later.)*
->
-> Notarization requires a paid Apple Developer account ($99/year). If you find JackMate useful,
-> [buying me a coffee](#support) helps cover that cost — and gets everyone a smoother install experience.
+> 🛡️ **Signed and notarized by Apple.** JackMate is Developer ID signed and notarized, so it opens cleanly — no Gatekeeper warnings, no Terminal workarounds. Just drag it to Applications and launch.
 
 ### Build from source
 
@@ -116,9 +108,9 @@ Contributions are welcome:
 
 ## Support
 
-JackMate is free and open source. If it saves you time or fits into your workflow, please consider buying me a coffee.
+JackMate is free, open source, and **signed & notarized by Apple**. If it saves you time or fits into your workflow, please consider buying me a coffee.
 
-Contributions go toward the **Apple Developer account** ($99/year) required to notarize the app — which would remove the Gatekeeper warning on first launch and make installation seamless for everyone.
+Contributions help cover the recurring **Apple Developer account** ($99/year) that keeps JackMate signed and notarized — a smooth, warning-free install for everyone — and support continued development.
 
 [![Buy me a coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=zinc75&button_colour=FFDD00&font_colour=000000&font_family=Lato&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/zinc75)
 
