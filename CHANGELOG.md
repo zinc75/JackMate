@@ -22,10 +22,12 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 - **Safety (anti-kill)** — stopping Jack or switching studios no longer quits the real macOS apps exposed by JackMoebius.
 - **Studios ↔ JackMoebius** — a studio saves and restores the JackMoebius state: exposed apps (Output / Input with their channel counts), the system monitor (master), and per-app volumes — along with the output-device volumes (Jack's output **and** "JackMoebius Out"). On load, the daemon is restarted if needed, apps are relaunched and re-exposed, master and volumes restored; the studio is authoritative (loading a configuration without JackMoebius stops the daemon). On stopping a studio, exposures are removed and the daemon stopped — unless the "Expose native apps" option is still on (it then stays available but empty). A studio's "Save" button correctly reflects volume, exposure and master changes.
 - **JackMoebius version shown** — the Configuration header shows the installed JackMoebius version (next to Jack's) and, like Jack, signals when an update is available.
+- **JackMoebius license status** — the Configuration header badge and the JackMoebius panel show the license state (free trial with days remaining, trial expired, or licensed). A License sheet activates a license key, shows the details (registered email, masked key hint, Macs in use) and links to purchase; when the trial has expired, enabling JackMoebius steers you to activation or purchase instead of starting the daemon.
 - Fully localized JackMoebius interface (EN / FR / DE / IT / ES).
 
 ### Added — Application
 - **"What's New" panel** — on the first launch of a version (fresh install or update), a panel summarizes the highlights and links to the online changelog. A changelog link is also present in the app's update window.
+- **About panel** — a "License" button links to the MIT license, and the app now carries its copyright (shown in Finder's Get Info).
 
 ### Improved
 - Patchbay: when zoomed out, port and app names now scale with the boxes (no more overlap).
@@ -39,7 +41,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 - The app **and** the DMG are now signed with a Developer ID and **notarized by Apple** — no more Gatekeeper "unidentified developer" warning on first launch.
 
 ### Documentation
-- Quarto site: a download-help modal on the "Download" click (immediate download + Gatekeeper instructions to open the un-notarized app), with platform-aware behavior (macOS / Windows-Linux / mobile).
+- Quarto site: a download-help modal on the "Download" click — immediate download plus clean install steps (the app is notarized, so it opens with no Gatekeeper warnings), with platform-aware behavior (macOS / Windows-Linux / mobile).
 - New JackMoebius guide — app exposure, the app selector, per-app and output volumes, patchbay integration and routing status — plus the Studios, Patchbay, Configuration and Alternatives pages updated for the 2.0 features.
 
 ---
