@@ -35,6 +35,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 - Patchbay: when zoomed out, port and app names now scale with the boxes (no more overlap).
 - Patchbay box info sheet: now closes when clicking outside it.
 - Jack update indicator (header): the current version turns amber next to a **"View releases"** button (instead of a plain link), consistent with the JackMoebius display.
+- JackMoebius license: when the activation limit is reached, the License sheet offers direct **Support** and **"Buy another license"** actions.
 
 ### Fixed
 - Studios: no more needless Jack restart when loading a studio that includes a device.
