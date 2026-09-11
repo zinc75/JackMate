@@ -24,6 +24,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 - **JackMoebius version shown** — the Configuration header shows the installed JackMoebius version (next to Jack's) and, like Jack, signals when an update is available.
 - **JackMoebius license status** — the Configuration header badge and the JackMoebius panel show the license state (free trial with days remaining, trial expired, or licensed). A License sheet activates a license key, shows the details (registered email, masked key hint, Macs in use) and links to purchase; when the trial has expired, enabling JackMoebius steers you to activation or purchase instead of starting the daemon.
 - **One-click license activation (`jackmate://` link)** — after purchase, a `jackmate://activate?key=…` link (a web button or the "how to activate" PDF) opens JackMate and shows the License sheet with the key already filled in — you just press "Activate". The window comes back to the front, even if the app had retreated to the menu bar.
+- **Install JackMoebius from JackMate** — when the JackMoebius bridge isn't installed, the info and License sheets offer to **download it and open its installer** in one click — handy if you enter a license key before JackMoebius is even installed. The info sheet also explains what JackMoebius is and, during the trial, leads straight to purchase/activation.
 - Fully localized JackMoebius interface (EN / FR / DE / IT / ES).
 
 ### Added — Application
