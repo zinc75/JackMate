@@ -34,6 +34,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 ### Improved
 - Patchbay: when zoomed out, port and app names now scale with the boxes (no more overlap).
 - Patchbay box info sheet: now closes when clicking outside it.
+- Much-improved automatic patchbay layout: on Jack start (and on "Tidy"), clients are arranged by role — sources on the left, hardware outputs on the right, mixed in the middle — spread over several columns to fit the available width, with no overlap. Far better when clients aren't (yet) connected to each other.
 - Jack update indicator (header): the current version turns amber next to a **"View releases"** button (instead of a plain link), consistent with the JackMoebius display.
 - JackMoebius license: when the activation limit is reached, the License sheet offers direct **Support** and **"Buy another license"** actions.
 
