@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Changelog – JackMate</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -32,15 +38,14 @@ ul.task-list li input[type="checkbox"] {
 <link href="./assets/icon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-86a676ce5307890add4e0cff6447c4f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-d56e77fc2d6698478ca21fdffbdde3e4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -117,6 +122,10 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./guide/patchbay.html">
  <span class="dropdown-text">Patchbay</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./guide/jackmoebius.html">
+ <span class="dropdown-text">JackMoebius</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./guide/studios.html">
@@ -210,6 +219,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./guide/jackmoebius.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">JackMoebius</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./guide/studios.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Studios</span></a>
   </div>
@@ -278,198 +293,207 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">[1.9.9] — 2026-04-13</a>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">[2.0.0] — 2026-09-24</a>
   <ul class="collapse">
+  <li><a href="#added-jackmoebius-integration" id="toc-added-jackmoebius-integration" class="nav-link" data-scroll-target="#added-jackmoebius-integration">Added — JackMoebius integration</a></li>
+  <li><a href="#added-application" id="toc-added-application" class="nav-link" data-scroll-target="#added-application">Added — Application</a></li>
   <li><a href="#improved" id="toc-improved" class="nav-link" data-scroll-target="#improved">Improved</a></li>
+  <li><a href="#fixed" id="toc-fixed" class="nav-link" data-scroll-target="#fixed">Fixed</a></li>
+  <li><a href="#distribution" id="toc-distribution" class="nav-link" data-scroll-target="#distribution">Distribution</a></li>
+  <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation">Documentation</a></li>
   </ul></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">[1.9.8] — 2026-04-13</a>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">[1.9.9] — 2026-04-13</a>
   <ul class="collapse">
   <li><a href="#improved-1" id="toc-improved-1" class="nav-link" data-scroll-target="#improved-1">Improved</a></li>
-  <li><a href="#fixed" id="toc-fixed" class="nav-link" data-scroll-target="#fixed">Fixed</a></li>
   </ul></li>
-  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">[1.9.7] — 2026-04-13</a>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">[1.9.8] — 2026-04-13</a>
+  <ul class="collapse">
+  <li><a href="#improved-2" id="toc-improved-2" class="nav-link" data-scroll-target="#improved-2">Improved</a></li>
+  <li><a href="#fixed-1" id="toc-fixed-1" class="nav-link" data-scroll-target="#fixed-1">Fixed</a></li>
+  </ul></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">[1.9.7] — 2026-04-13</a>
   <ul class="collapse">
   <li><a href="#added" id="toc-added" class="nav-link" data-scroll-target="#added">Added</a></li>
   </ul></li>
-  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">[1.9.6] — 2026-04-12</a>
-  <ul class="collapse">
-  <li><a href="#improved-2" id="toc-improved-2" class="nav-link" data-scroll-target="#improved-2">Improved</a></li>
-  </ul></li>
-  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">[1.9.5] — 2026-04-12</a>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">[1.9.6] — 2026-04-12</a>
   <ul class="collapse">
   <li><a href="#improved-3" id="toc-improved-3" class="nav-link" data-scroll-target="#improved-3">Improved</a></li>
   </ul></li>
-  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">[1.9.4] — 2026-04-12</a>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">[1.9.5] — 2026-04-12</a>
   <ul class="collapse">
-  <li><a href="#fixed-1" id="toc-fixed-1" class="nav-link" data-scroll-target="#fixed-1">Fixed</a></li>
+  <li><a href="#improved-4" id="toc-improved-4" class="nav-link" data-scroll-target="#improved-4">Improved</a></li>
   </ul></li>
-  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">[1.9.3] — 2026-04-12</a>
-  <ul class="collapse">
-  <li><a href="#added-1" id="toc-added-1" class="nav-link" data-scroll-target="#added-1">Added</a></li>
-  </ul></li>
-  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">[1.9.2] — 2026-04-11</a>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">[1.9.4] — 2026-04-12</a>
   <ul class="collapse">
   <li><a href="#fixed-2" id="toc-fixed-2" class="nav-link" data-scroll-target="#fixed-2">Fixed</a></li>
   </ul></li>
-  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">[1.9.1] — 2026-04-11</a>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">[1.9.3] — 2026-04-12</a>
   <ul class="collapse">
-  <li><a href="#added-2" id="toc-added-2" class="nav-link" data-scroll-target="#added-2">Added</a></li>
+  <li><a href="#added-1" id="toc-added-1" class="nav-link" data-scroll-target="#added-1">Added</a></li>
   </ul></li>
-  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">[1.9.0] — 2026-04-11</a>
-  <ul class="collapse">
-  <li><a href="#added-3" id="toc-added-3" class="nav-link" data-scroll-target="#added-3">Added</a></li>
-  </ul></li>
-  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">[1.8.9] — 2026-04-11</a>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">[1.9.2] — 2026-04-11</a>
   <ul class="collapse">
   <li><a href="#fixed-3" id="toc-fixed-3" class="nav-link" data-scroll-target="#fixed-3">Fixed</a></li>
   </ul></li>
-  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">[1.8.8] — 2026-04-10</a>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">[1.9.1] — 2026-04-11</a>
+  <ul class="collapse">
+  <li><a href="#added-2" id="toc-added-2" class="nav-link" data-scroll-target="#added-2">Added</a></li>
+  </ul></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">[1.9.0] — 2026-04-11</a>
+  <ul class="collapse">
+  <li><a href="#added-3" id="toc-added-3" class="nav-link" data-scroll-target="#added-3">Added</a></li>
+  </ul></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">[1.8.9] — 2026-04-11</a>
   <ul class="collapse">
   <li><a href="#fixed-4" id="toc-fixed-4" class="nav-link" data-scroll-target="#fixed-4">Fixed</a></li>
   </ul></li>
-  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">[1.8.7] — 2026-04-07</a>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">[1.8.8] — 2026-04-10</a>
   <ul class="collapse">
-  <li><a href="#changed" id="toc-changed" class="nav-link" data-scroll-target="#changed">Changed</a></li>
   <li><a href="#fixed-5" id="toc-fixed-5" class="nav-link" data-scroll-target="#fixed-5">Fixed</a></li>
   </ul></li>
-  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">[1.8.6] — 2026-04-07</a>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">[1.8.7] — 2026-04-07</a>
+  <ul class="collapse">
+  <li><a href="#changed" id="toc-changed" class="nav-link" data-scroll-target="#changed">Changed</a></li>
+  <li><a href="#fixed-6" id="toc-fixed-6" class="nav-link" data-scroll-target="#fixed-6">Fixed</a></li>
+  </ul></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">[1.8.6] — 2026-04-07</a>
   <ul class="collapse">
   <li><a href="#changed-1" id="toc-changed-1" class="nav-link" data-scroll-target="#changed-1">Changed</a></li>
   </ul></li>
   <li><a href="#infra-2026-04-07" id="toc-infra-2026-04-07" class="nav-link" data-scroll-target="#infra-2026-04-07">[infra] — 2026-04-07</a>
   <ul class="collapse">
-  <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation">Documentation</a></li>
+  <li><a href="#documentation-1" id="toc-documentation-1" class="nav-link" data-scroll-target="#documentation-1">Documentation</a></li>
   </ul></li>
-  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">[1.8.5] — 2026-04-04</a>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">[1.8.5] — 2026-04-04</a>
   <ul class="collapse">
   <li><a href="#added-4" id="toc-added-4" class="nav-link" data-scroll-target="#added-4">Added</a></li>
   </ul></li>
-  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">[1.8.4] — 2026-04-03</a>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">[1.8.4] — 2026-04-03</a>
   <ul class="collapse">
   <li><a href="#added-5" id="toc-added-5" class="nav-link" data-scroll-target="#added-5">Added</a></li>
   </ul></li>
-  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">[1.8.3] — 2026-04-03</a>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">[1.8.3] — 2026-04-03</a>
   <ul class="collapse">
   <li><a href="#refactored" id="toc-refactored" class="nav-link" data-scroll-target="#refactored">Refactored</a></li>
   </ul></li>
-  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">[1.8.2] — 2026-04-03</a>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">[1.8.2] — 2026-04-03</a>
   <ul class="collapse">
   <li><a href="#added-6" id="toc-added-6" class="nav-link" data-scroll-target="#added-6">Added</a></li>
-  <li><a href="#fixed-6" id="toc-fixed-6" class="nav-link" data-scroll-target="#fixed-6">Fixed</a></li>
+  <li><a href="#fixed-7" id="toc-fixed-7" class="nav-link" data-scroll-target="#fixed-7">Fixed</a></li>
   </ul></li>
-  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">[1.8.1] — 2026-04-03</a>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">[1.8.1] — 2026-04-03</a>
   <ul class="collapse">
   <li><a href="#added-7" id="toc-added-7" class="nav-link" data-scroll-target="#added-7">Added</a></li>
   <li><a href="#changed-2" id="toc-changed-2" class="nav-link" data-scroll-target="#changed-2">Changed</a></li>
   </ul></li>
-  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">[1.8.0] — 2026-04-02</a>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">[1.8.0] — 2026-04-02</a>
   <ul class="collapse">
   <li><a href="#added-8" id="toc-added-8" class="nav-link" data-scroll-target="#added-8">Added</a></li>
   </ul></li>
-  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">[1.7.4] — 2026-03-28</a>
-  <ul class="collapse">
-  <li><a href="#fixed-7" id="toc-fixed-7" class="nav-link" data-scroll-target="#fixed-7">Fixed</a></li>
-  </ul></li>
-  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">[1.7.3] — 2026-03-28</a>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">[1.7.4] — 2026-03-28</a>
   <ul class="collapse">
   <li><a href="#fixed-8" id="toc-fixed-8" class="nav-link" data-scroll-target="#fixed-8">Fixed</a></li>
+  </ul></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">[1.7.3] — 2026-03-28</a>
+  <ul class="collapse">
+  <li><a href="#fixed-9" id="toc-fixed-9" class="nav-link" data-scroll-target="#fixed-9">Fixed</a></li>
   <li><a href="#build" id="toc-build" class="nav-link" data-scroll-target="#build">Build</a></li>
   </ul></li>
-  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">[1.7.2] — 2026-03-27</a>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">[1.7.2] — 2026-03-27</a>
   <ul class="collapse">
-  <li><a href="#documentation-1" id="toc-documentation-1" class="nav-link" data-scroll-target="#documentation-1">Documentation</a></li>
+  <li><a href="#documentation-2" id="toc-documentation-2" class="nav-link" data-scroll-target="#documentation-2">Documentation</a></li>
   </ul></li>
-  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">[1.7.1] — 2026-03-27</a>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">[1.7.1] — 2026-03-27</a>
   <ul class="collapse">
   <li><a href="#added-9" id="toc-added-9" class="nav-link" data-scroll-target="#added-9">Added</a></li>
   </ul></li>
-  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">[1.7.0] — 2026-03-27</a>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">[1.7.0] — 2026-03-27</a>
   <ul class="collapse">
   <li><a href="#added-10" id="toc-added-10" class="nav-link" data-scroll-target="#added-10">Added</a></li>
   </ul></li>
-  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">[1.6.2] — 2026-03-27</a>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">[1.6.2] — 2026-03-27</a>
   <ul class="collapse">
   <li><a href="#added-11" id="toc-added-11" class="nav-link" data-scroll-target="#added-11">Added</a></li>
   </ul></li>
-  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">[1.6.1] — 2026-03-27</a>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">[1.6.1] — 2026-03-27</a>
   <ul class="collapse">
   <li><a href="#added-12" id="toc-added-12" class="nav-link" data-scroll-target="#added-12">Added</a></li>
   </ul></li>
-  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">[1.6.0] — 2026-03-27</a>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">[1.6.0] — 2026-03-27</a>
   <ul class="collapse">
   <li><a href="#added-13" id="toc-added-13" class="nav-link" data-scroll-target="#added-13">Added</a></li>
   </ul></li>
-  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">[1.5.1] — 2026-03-27</a>
-  <ul class="collapse">
-  <li><a href="#fixed-9" id="toc-fixed-9" class="nav-link" data-scroll-target="#fixed-9">Fixed</a></li>
-  </ul></li>
-  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">[1.5.0] — 2026-03-27</a>
-  <ul class="collapse">
-  <li><a href="#added-14" id="toc-added-14" class="nav-link" data-scroll-target="#added-14">Added</a></li>
-  </ul></li>
-  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">[1.4.1] — 2026-03-27</a>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">[1.5.1] — 2026-03-27</a>
   <ul class="collapse">
   <li><a href="#fixed-10" id="toc-fixed-10" class="nav-link" data-scroll-target="#fixed-10">Fixed</a></li>
   </ul></li>
-  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">[1.4.0] — 2026-03-27</a>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">[1.5.0] — 2026-03-27</a>
   <ul class="collapse">
-  <li><a href="#added-15" id="toc-added-15" class="nav-link" data-scroll-target="#added-15">Added</a></li>
+  <li><a href="#added-14" id="toc-added-14" class="nav-link" data-scroll-target="#added-14">Added</a></li>
   </ul></li>
-  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">[1.3.1] — 2026-03-27</a>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">[1.4.1] — 2026-03-27</a>
   <ul class="collapse">
   <li><a href="#fixed-11" id="toc-fixed-11" class="nav-link" data-scroll-target="#fixed-11">Fixed</a></li>
   </ul></li>
-  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">[1.3.0] — 2026-03-27</a>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">[1.4.0] — 2026-03-27</a>
+  <ul class="collapse">
+  <li><a href="#added-15" id="toc-added-15" class="nav-link" data-scroll-target="#added-15">Added</a></li>
+  </ul></li>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">[1.3.1] — 2026-03-27</a>
+  <ul class="collapse">
+  <li><a href="#fixed-12" id="toc-fixed-12" class="nav-link" data-scroll-target="#fixed-12">Fixed</a></li>
+  </ul></li>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">[1.3.0] — 2026-03-27</a>
   <ul class="collapse">
   <li><a href="#added-16" id="toc-added-16" class="nav-link" data-scroll-target="#added-16">Added</a></li>
   <li><a href="#changed-3" id="toc-changed-3" class="nav-link" data-scroll-target="#changed-3">Changed</a></li>
   </ul></li>
-  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">[1.2.0] — 2026-03-26</a>
+  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">[1.2.0] — 2026-03-26</a>
   <ul class="collapse">
   <li><a href="#added-17" id="toc-added-17" class="nav-link" data-scroll-target="#added-17">Added</a></li>
-  <li><a href="#fixed-12" id="toc-fixed-12" class="nav-link" data-scroll-target="#fixed-12">Fixed</a></li>
+  <li><a href="#fixed-13" id="toc-fixed-13" class="nav-link" data-scroll-target="#fixed-13">Fixed</a></li>
   </ul></li>
-  <li><a href="#section-35" id="toc-section-35" class="nav-link" data-scroll-target="#section-35">[1.1.0] — 2026-03-26</a>
+  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">[1.1.0] — 2026-03-26</a>
   <ul class="collapse">
   <li><a href="#added-18" id="toc-added-18" class="nav-link" data-scroll-target="#added-18">Added</a></li>
   </ul></li>
-  <li><a href="#section-36" id="toc-section-36" class="nav-link" data-scroll-target="#section-36">[1.0.0] — 2026-03-26</a>
+  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">[1.0.0] — 2026-03-26</a>
   <ul class="collapse">
   <li><a href="#fixed-stabilized" id="toc-fixed-stabilized" class="nav-link" data-scroll-target="#fixed-stabilized">Fixed / Stabilized</a></li>
   </ul></li>
-  <li><a href="#section-37" id="toc-section-37" class="nav-link" data-scroll-target="#section-37">[0.9.0] — 2026-03-23</a>
+  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">[0.9.0] — 2026-03-23</a>
   <ul class="collapse">
   <li><a href="#added-jack-transport" id="toc-added-jack-transport" class="nav-link" data-scroll-target="#added-jack-transport">Added — JACK Transport</a></li>
   </ul></li>
-  <li><a href="#section-38" id="toc-section-38" class="nav-link" data-scroll-target="#section-38">[0.8.0] — 2026-03-23</a>
+  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">[0.8.0] — 2026-03-23</a>
   <ul class="collapse">
   <li><a href="#added-group-drag-advanced-selection" id="toc-added-group-drag-advanced-selection" class="nav-link" data-scroll-target="#added-group-drag-advanced-selection">Added — Group drag &amp; advanced selection</a></li>
   </ul></li>
-  <li><a href="#section-39" id="toc-section-39" class="nav-link" data-scroll-target="#section-39">[0.7.0] — 2026-03-22</a>
+  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">[0.7.0] — 2026-03-22</a>
   <ul class="collapse">
   <li><a href="#added-toolbar-connect-all-automatic-layout-sugiyama" id="toc-added-toolbar-connect-all-automatic-layout-sugiyama" class="nav-link" data-scroll-target="#added-toolbar-connect-all-automatic-layout-sugiyama">Added — Toolbar, Connect-All, automatic layout (Sugiyama)</a></li>
   </ul></li>
-  <li><a href="#section-40" id="toc-section-40" class="nav-link" data-scroll-target="#section-40">[0.6.0] — 2026-03-22</a>
+  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">[0.6.0] — 2026-03-22</a>
   <ul class="collapse">
   <li><a href="#added-visual-polish-node-collapse" id="toc-added-visual-polish-node-collapse" class="nav-link" data-scroll-target="#added-visual-polish-node-collapse">Added — Visual polish + node collapse</a></li>
   </ul></li>
-  <li><a href="#section-41" id="toc-section-41" class="nav-link" data-scroll-target="#section-41">[0.5.0] — 2026-03-21</a>
+  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">[0.5.0] — 2026-03-21</a>
   <ul class="collapse">
   <li><a href="#added-full-studios" id="toc-added-full-studios" class="nav-link" data-scroll-target="#added-full-studios">Added — Full studios</a></li>
   </ul></li>
-  <li><a href="#section-42" id="toc-section-42" class="nav-link" data-scroll-target="#section-42">[0.4.0] — 2026-03-20</a>
+  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">[0.4.0] — 2026-03-20</a>
   <ul class="collapse">
   <li><a href="#added-improved-patchbay-studiomanager-foundations" id="toc-added-improved-patchbay-studiomanager-foundations" class="nav-link" data-scroll-target="#added-improved-patchbay-studiomanager-foundations">Added — Improved patchbay + StudioManager foundations</a></li>
   </ul></li>
-  <li><a href="#section-43" id="toc-section-43" class="nav-link" data-scroll-target="#section-43">[0.3.0] — 2026-03-19</a>
+  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">[0.3.0] — 2026-03-19</a>
   <ul class="collapse">
   <li><a href="#added-functional-patchbay" id="toc-added-functional-patchbay" class="nav-link" data-scroll-target="#added-functional-patchbay">Added — Functional patchbay</a></li>
   </ul></li>
-  <li><a href="#section-44" id="toc-section-44" class="nav-link" data-scroll-target="#section-44">[0.2.0] — 2026-03-18</a>
+  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">[0.2.0] — 2026-03-18</a>
   <ul class="collapse">
   <li><a href="#added-ui-logs" id="toc-added-ui-logs" class="nav-link" data-scroll-target="#added-ui-logs">Added — UI + logs</a></li>
   </ul></li>
-  <li><a href="#section-45" id="toc-section-45" class="nav-link" data-scroll-target="#section-45">[0.1.0] — 2026-03-18</a>
+  <li><a href="#section-46" id="toc-section-46" class="nav-link" data-scroll-target="#section-46">[0.1.0] — 2026-03-18</a>
   <ul class="collapse">
   <li><a href="#first-working-version" id="toc-first-working-version" class="nav-link" data-scroll-target="#first-working-version">First working version</a></li>
   </ul></li>
@@ -502,19 +526,81 @@ ul.task-list li input[type="checkbox"] {
 <p>Format: <a href="https://semver.org">Semantic Versioning</a>. Versions 0.x cover the initial development phase (before stabilization). Version 1.0 marks the first stable and complete release.</p>
 <hr>
 <section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section">[1.9.9] — 2026-04-13</h2>
+<h2 class="anchored" data-anchor-id="section">[2.0.0] — 2026-09-24</h2>
+<p>Major release: <strong>JackMoebius integration</strong>. JackMate now drives the JackMoebius daemon to expose any native macOS application (Safari, Music, FaceTime, QuickTime…) as a JACK client, in both directions — outputs <strong>and</strong> inputs — with no external configuration. (Requires the JackMoebius daemon, installed separately.)</p>
+<section id="added-jackmoebius-integration" class="level3">
+<h3 class="anchored" data-anchor-id="added-jackmoebius-integration">Added — JackMoebius integration</h3>
+<ul>
+<li><strong>Expose macOS apps to JACK</strong> — a Configuration option, “Expose native macOS apps to JACK”, starts JackMoebius automatically right after Jack (without altering the <code>jackd</code> command). A dedicated patchbay-toolbar button opens a slide-in panel, and a JackMoebius status indicator sits next to Jack’s in the sidebar.</li>
+<li><strong>App selector</strong> — per app, Output / Input exposure switches and an input channel-count picker. A “system monitor” (master) box exposes the global system mix.</li>
+<li><strong>Live daemon status</strong> — the panel, toolbar button and indicator reflect JackMoebius’s real state in real time (the daemon pushes its state changes; no periodic polling). A stop or crash is detected immediately, and the daemon is automatically restarted if it goes down while Jack is running.</li>
+<li><strong>Styled JackMoebius boxes</strong> in the patchbay — the real app icon (per app) and the JackMoebius glyph (master) replace the initials badge; the type is identified in the box info sheet.</li>
+<li><strong>Wrong-audio-device alert</strong> — the patchbay flags (⚠ amber) an exposed, wired app that isn’t using the right device — plus a discreet cue when it’s selected but silent. An alert panel (opened automatically, or by clicking the ⚠) lists the affected apps and what to do — the fix being made in the app or in macOS System Settings, not in JackMate.</li>
+<li><strong>App exclusion (blacklist)</strong> — an “eye-off” button removes an app from the selector (with confirmation if it’s exposed). An “Advanced JackMoebius configuration” panel (tabs) re-enables excluded apps and frees dormant channel reservations.</li>
+<li><strong>Output volume control</strong> — a “Volumes” bar at the top of the patchbay (toggled from the toolbar) sets the volume of Jack’s output device and of “JackMoebius Out” without selecting them in macOS — Control-Center-style sliders, synced live with the volume keys (F10/F11/F12) and System Settings ▸ Sound.</li>
+<li><strong>Per-app volume</strong> — in the JackMoebius panel, each exposed app can be “detached” from the master volume for an independent setting (padlock); locked by default, it follows the master.</li>
+<li><strong>Safety (anti-kill)</strong> — stopping Jack or switching studios no longer quits the real macOS apps exposed by JackMoebius.</li>
+<li><strong>Studios ↔︎ JackMoebius</strong> — a studio saves and restores the JackMoebius state: exposed apps (Output / Input with their channel counts), the system monitor (master), and per-app volumes — along with the output-device volumes (Jack’s output <strong>and</strong> “JackMoebius Out”). On load, the daemon is restarted if needed, apps are relaunched and re-exposed, master and volumes restored; the studio is authoritative (loading a configuration without JackMoebius stops the daemon). On stopping a studio, exposures are removed and the daemon stopped — unless the “Expose native apps” option is still on (it then stays available but empty). A studio’s “Save” button correctly reflects volume, exposure and master changes.</li>
+<li><strong>JackMoebius version shown</strong> — the Configuration header shows the installed JackMoebius version (next to Jack’s) and, like Jack, signals when an update is available — an <strong>“Update”</strong> button then downloads it and opens its installer.</li>
+<li><strong>JackMoebius license status</strong> — the Configuration header badge and the JackMoebius panel show the license state (free trial with days remaining, trial expired, or licensed). A License sheet activates a license key, shows the details (registered email, masked key hint, Macs in use) and links to purchase; when the trial has expired, enabling JackMoebius steers you to activation or purchase instead of starting the daemon.</li>
+<li><strong>One-click license activation (<code>jackmate://</code> link)</strong> — after purchase, a <code>jackmate://activate?key=…</code> link (a web button or the “how to activate” PDF) opens JackMate and shows the License sheet with the key already filled in — you just press “Activate”. The window comes back to the front, even if the app had retreated to the menu bar.</li>
+<li><strong>Install JackMoebius from JackMate</strong> — when the JackMoebius bridge isn’t installed, the info and License sheets offer to <strong>download it and open its installer</strong> in one click — handy if you enter a license key before JackMoebius is even installed. The info sheet also explains what JackMoebius is and, during the trial, leads straight to purchase/activation.</li>
+<li>Fully localized JackMoebius interface (EN / FR / DE / IT / ES).</li>
+</ul>
+</section>
+<section id="added-application" class="level3">
+<h3 class="anchored" data-anchor-id="added-application">Added — Application</h3>
+<ul>
+<li><strong>“What’s New” panel</strong> — on the first launch of a version (fresh install or update), a panel summarizes the highlights and links to the online changelog. A changelog link is also present in the app’s update window.</li>
+<li><strong>About panel</strong> — a “License” button links to the MIT license, and the app now carries its copyright (shown in Finder’s Get Info).</li>
+</ul>
+</section>
 <section id="improved" class="level3">
 <h3 class="anchored" data-anchor-id="improved">Improved</h3>
+<ul>
+<li>Patchbay: when zoomed out, port and app names now scale with the boxes (no more overlap).</li>
+<li>Patchbay box info sheet: now closes when clicking outside it.</li>
+<li>Much-improved automatic patchbay layout: on Jack start (and on “Tidy”), clients are arranged by role — sources on the left, hardware outputs on the right, mixed in the middle — spread over several columns to fit the available width, with no overlap. Far better when clients aren’t (yet) connected to each other. And a newly-appearing client (an app that gets exposed) now drops into the right spot for its role on its own, without disturbing the boxes you’ve already arranged.</li>
+<li>Jack update indicator (header): the current version turns amber next to a <strong>“View releases”</strong> button (instead of a plain link), consistent with the JackMoebius display.</li>
+<li>JackMoebius license: when the activation limit is reached, the License sheet offers direct <strong>Support</strong> and <strong>“Buy another license”</strong> actions.</li>
+</ul>
+</section>
+<section id="fixed" class="level3">
+<h3 class="anchored" data-anchor-id="fixed">Fixed</h3>
+<ul>
+<li>Studios: no more needless Jack restart when loading a studio that includes a device.</li>
+<li>JackMoebius is launched via launchd (the daemon runs under its own system identity) — avoids a context conflict that could bring down the JACK server when exposure started.</li>
+</ul>
+</section>
+<section id="distribution" class="level3">
+<h3 class="anchored" data-anchor-id="distribution">Distribution</h3>
+<ul>
+<li>The app <strong>and</strong> the DMG are now signed with a Developer ID and <strong>notarized by Apple</strong> — no more Gatekeeper “unidentified developer” warning on first launch.</li>
+</ul>
+</section>
+<section id="documentation" class="level3">
+<h3 class="anchored" data-anchor-id="documentation">Documentation</h3>
+<ul>
+<li>Quarto site: a download-help modal on the “Download” click — immediate download plus clean install steps (the app is notarized, so it opens with no Gatekeeper warnings), with platform-aware behavior (macOS / Windows-Linux / mobile).</li>
+<li>New JackMoebius guide — app exposure, the app selector, per-app and output volumes, patchbay integration and routing status — plus the Studios, Patchbay, Configuration and Alternatives pages updated for the 2.0 features.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">[1.9.9] — 2026-04-13</h2>
+<section id="improved-1" class="level3">
+<h3 class="anchored" data-anchor-id="improved-1">Improved</h3>
 <ul>
 <li>Min-height adapted to small screens (e.g.&nbsp;Macbook Neo)</li>
 </ul>
 <hr>
 </section>
 </section>
-<section id="section-1" class="level2">
-<h2 class="anchored" data-anchor-id="section-1">[1.9.8] — 2026-04-13</h2>
-<section id="improved-1" class="level3">
-<h3 class="anchored" data-anchor-id="improved-1">Improved</h3>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">[1.9.8] — 2026-04-13</h2>
+<section id="improved-2" class="level3">
+<h3 class="anchored" data-anchor-id="improved-2">Improved</h3>
 <ul>
 <li>Sidebar: width increased to 245 pt — studio names display without truncation</li>
 <li>Studio list row: reorganised as [icon][name][delete][info][▶] — start button always rightmost</li>
@@ -524,8 +610,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Support panel: non-blocking prompt shown periodically after Jack starts — option to support the project on Buy Me a Coffee, be reminded later, or dismiss permanently</li>
 </ul>
 </section>
-<section id="fixed" class="level3">
-<h3 class="anchored" data-anchor-id="fixed">Fixed</h3>
+<section id="fixed-1" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-1">Fixed</h3>
 <ul>
 <li>Physical device detection: CoreAudio UIDs with stream index suffixes (<code>:2</code>, <code>:3</code>…) are now normalised — prevents false positives when the same physical device exposes multiple streams</li>
 <li>Clock Drift Correction toggle: the info button’s hit area no longer overlaps the toggle</li>
@@ -533,8 +619,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-2" class="level2">
-<h2 class="anchored" data-anchor-id="section-2">[1.9.7] — 2026-04-13</h2>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">[1.9.7] — 2026-04-13</h2>
 <section id="added" class="level3">
 <h3 class="anchored" data-anchor-id="added">Added</h3>
 <ul>
@@ -548,10 +634,10 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-3" class="level2">
-<h2 class="anchored" data-anchor-id="section-3">[1.9.6] — 2026-04-12</h2>
-<section id="improved-2" class="level3">
-<h3 class="anchored" data-anchor-id="improved-2">Improved</h3>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">[1.9.6] — 2026-04-12</h2>
+<section id="improved-3" class="level3">
+<h3 class="anchored" data-anchor-id="improved-3">Improved</h3>
 <ul>
 <li>Configuration — Clock drift correction: pulsing amber border + glow when the option is disabled with two distinct physical devices selected (animation stops as soon as Jack is running)</li>
 <li>Configuration — Clock drift correction: <code>ⓘ</code> button to the left of the toggle — opens an explanatory sheet with a link to Audio MIDI Setup; pulses in amber in sync with the border</li>
@@ -559,20 +645,20 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-4" class="level2">
-<h2 class="anchored" data-anchor-id="section-4">[1.9.5] — 2026-04-12</h2>
-<section id="improved-3" class="level3">
-<h3 class="anchored" data-anchor-id="improved-3">Improved</h3>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">[1.9.5] — 2026-04-12</h2>
+<section id="improved-4" class="level3">
+<h3 class="anchored" data-anchor-id="improved-4">Improved</h3>
 <ul>
 <li>Patchbay — client card badge: hover effect (scale ×1.15 + coloured glow) and pointer cursor, making it visually clear that the badge is clickable</li>
 </ul>
 <hr>
 </section>
 </section>
-<section id="section-5" class="level2">
-<h2 class="anchored" data-anchor-id="section-5">[1.9.4] — 2026-04-12</h2>
-<section id="fixed-1" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-1">Fixed</h3>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">[1.9.4] — 2026-04-12</h2>
+<section id="fixed-2" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-2">Fixed</h3>
 <ul>
 <li>Patchbay port labels: vertical alignment corrected — the optical centre of lowercase letters (“a”, “o”, “e”) now aligns with the gem centre, instead of the text baseline (<code>midY - ascender + xHeight/2</code>)</li>
 <li>Patchbay <code>system</code> card device names (free zone, single-line): same optical centering fix; multi-line block centering unchanged</li>
@@ -580,8 +666,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-6" class="level2">
-<h2 class="anchored" data-anchor-id="section-6">[1.9.3] — 2026-04-12</h2>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">[1.9.3] — 2026-04-12</h2>
 <section id="added-1" class="level3">
 <h3 class="anchored" data-anchor-id="added-1">Added</h3>
 <ul>
@@ -592,18 +678,18 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-7" class="level2">
-<h2 class="anchored" data-anchor-id="section-7">[1.9.2] — 2026-04-11</h2>
-<section id="fixed-2" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-2">Fixed</h3>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">[1.9.2] — 2026-04-11</h2>
+<section id="fixed-3" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-3">Fixed</h3>
 <ul>
 <li>Patchbay <code>system</code> cards: device name labels and vertical bars overflowed the card boundary when the channel picker was limiting the number of ports exposed by Jack. Each segment is now clamped to the actually rendered port count.</li>
 </ul>
 <hr>
 </section>
 </section>
-<section id="section-8" class="level2">
-<h2 class="anchored" data-anchor-id="section-8">[1.9.1] — 2026-04-11</h2>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">[1.9.1] — 2026-04-11</h2>
 <section id="added-2" class="level3">
 <h3 class="anchored" data-anchor-id="added-2">Added</h3>
 <ul>
@@ -615,8 +701,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-9" class="level2">
-<h2 class="anchored" data-anchor-id="section-9">[1.9.0] — 2026-04-11</h2>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">[1.9.0] — 2026-04-11</h2>
 <section id="added-3" class="level3">
 <h3 class="anchored" data-anchor-id="added-3">Added</h3>
 <ul>
@@ -627,10 +713,10 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-10" class="level2">
-<h2 class="anchored" data-anchor-id="section-10">[1.8.9] — 2026-04-11</h2>
-<section id="fixed-3" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-3">Fixed</h3>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">[1.8.9] — 2026-04-11</h2>
+<section id="fixed-4" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-4">Fixed</h3>
 <ul>
 <li>Devices with non-ASCII characters in their UID (e.g.&nbsp;RØDE AI-Micro) were silently falling back to the default device: Jack 1.9.22 stores CoreAudio UIDs using MacRoman encoding instead of UTF-8, causing a mismatch when the correct UTF-8 UID is passed. Workaround: JackMate runs <code>jackd -d coreaudio -l</code> at startup and on device change, extracts the raw internal UIDs, and injects them via <code>$(printf '\xNN...')</code> in the shell command. Self-healing: automatically disabled once Jack fixes the bug upstream (<a href="https://github.com/jackaudio/jack2/issues/1017">jackaudio/jack2#1017</a>).</li>
 <li>Jack UID table is now refreshed on CoreAudio device plug/unplug</li>
@@ -639,10 +725,10 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-11" class="level2">
-<h2 class="anchored" data-anchor-id="section-11">[1.8.8] — 2026-04-10</h2>
-<section id="fixed-4" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-4">Fixed</h3>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">[1.8.8] — 2026-04-10</h2>
+<section id="fixed-5" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-5">Fixed</h3>
 <ul>
 <li>Configuration panel: <code>JMPopUpButton</code> coordinator was stale after device plug/unplug, causing wrong device UID to be written to preferences</li>
 <li><code>buildCommand</code>: removed literal quote characters from UID tokens — <code>Process.arguments</code> passes strings directly to the executable without shell interpretation; literal quotes corrupted UIDs containing spaces or non-ASCII characters (e.g.&nbsp;RØDE AI-Micro)</li>
@@ -651,24 +737,24 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-12" class="level2">
-<h2 class="anchored" data-anchor-id="section-12">[1.8.7] — 2026-04-07</h2>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">[1.8.7] — 2026-04-07</h2>
 <section id="changed" class="level3">
 <h3 class="anchored" data-anchor-id="changed">Changed</h3>
 <ul>
 <li>Minimum macOS version: 15.0 (all Sequoia versions, Intel and Apple Silicon)</li>
 </ul>
 </section>
-<section id="fixed-5" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-5">Fixed</h3>
+<section id="fixed-6" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-6">Fixed</h3>
 <ul>
 <li>Help menu: removed default “JackMate Help” item (was pointing to a non-existent help book)</li>
 </ul>
 <hr>
 </section>
 </section>
-<section id="section-13" class="level2">
-<h2 class="anchored" data-anchor-id="section-13">[1.8.6] — 2026-04-07</h2>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">[1.8.6] — 2026-04-07</h2>
 <section id="changed-1" class="level3">
 <h3 class="anchored" data-anchor-id="changed-1">Changed</h3>
 <ul>
@@ -679,8 +765,8 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="infra-2026-04-07" class="level2">
 <h2 class="anchored" data-anchor-id="infra-2026-04-07">[infra] — 2026-04-07</h2>
-<section id="documentation" class="level3">
-<h3 class="anchored" data-anchor-id="documentation">Documentation</h3>
+<section id="documentation-1" class="level3">
+<h3 class="anchored" data-anchor-id="documentation-1">Documentation</h3>
 <ul>
 <li>Full Quarto documentation site: home page + 6 guide pages (Configuration, Patchbay, Studios, Transport, Menu Bar, Alternatives)</li>
 <li>Published via <code>gh-pages</code> branch — available at <a href="https://zinc75.github.io/JackMate/">zinc75.github.io/JackMate</a> once GitHub Pages is activated</li>
@@ -688,8 +774,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-14" class="level2">
-<h2 class="anchored" data-anchor-id="section-14">[1.8.5] — 2026-04-04</h2>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">[1.8.5] — 2026-04-04</h2>
 <section id="added-4" class="level3">
 <h3 class="anchored" data-anchor-id="added-4">Added</h3>
 <ul>
@@ -699,8 +785,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-15" class="level2">
-<h2 class="anchored" data-anchor-id="section-15">[1.8.4] — 2026-04-03</h2>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">[1.8.4] — 2026-04-03</h2>
 <section id="added-5" class="level3">
 <h3 class="anchored" data-anchor-id="added-5">Added</h3>
 <ul>
@@ -711,8 +797,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-16" class="level2">
-<h2 class="anchored" data-anchor-id="section-16">[1.8.3] — 2026-04-03</h2>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">[1.8.3] — 2026-04-03</h2>
 <section id="refactored" class="level3">
 <h3 class="anchored" data-anchor-id="refactored">Refactored</h3>
 <ul>
@@ -723,8 +809,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-17" class="level2">
-<h2 class="anchored" data-anchor-id="section-17">[1.8.2] — 2026-04-03</h2>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">[1.8.2] — 2026-04-03</h2>
 <section id="added-6" class="level3">
 <h3 class="anchored" data-anchor-id="added-6">Added</h3>
 <ul>
@@ -733,8 +819,8 @@ ul.task-list li input[type="checkbox"] {
 <li><code>de.lproj/InfoPlist.strings</code>: <code>NSMicrophoneUsageDescription</code> already present in DE</li>
 </ul>
 </section>
-<section id="fixed-6" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-6">Fixed</h3>
+<section id="fixed-7" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-7">Fixed</h3>
 <ul>
 <li><code>JackBridge.c</code>: last 3 French error messages translated to English (<code>"Missing symbol"</code>, <code>"libjack.dylib not found"</code>, <code>"Null client"</code>)</li>
 <li><code>Hog mode</code> and <code>Clock drift correction</code> labels kept in English for DE (standard audio terminology)</li>
@@ -742,8 +828,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-18" class="level2">
-<h2 class="anchored" data-anchor-id="section-18">[1.8.1] — 2026-04-03</h2>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">[1.8.1] — 2026-04-03</h2>
 <section id="added-7" class="level3">
 <h3 class="anchored" data-anchor-id="added-7">Added</h3>
 <ul>
@@ -762,8 +848,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-19" class="level2">
-<h2 class="anchored" data-anchor-id="section-19">[1.8.0] — 2026-04-02</h2>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">[1.8.0] — 2026-04-02</h2>
 <section id="added-8" class="level3">
 <h3 class="anchored" data-anchor-id="added-8">Added</h3>
 <ul>
@@ -775,20 +861,20 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-20" class="level2">
-<h2 class="anchored" data-anchor-id="section-20">[1.7.4] — 2026-03-28</h2>
-<section id="fixed-7" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-7">Fixed</h3>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">[1.7.4] — 2026-03-28</h2>
+<section id="fixed-8" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-8">Fixed</h3>
 <ul>
 <li>Patchbay client info sheet (click on the 2-letter badge): CLI clients (jack_metro, a2jmidid, etc.) are not visible to <code>NSWorkspace</code> — added fallback via <code>ProcessHelper.findPID(forJackClient:)</code> to display their executable path, full command line, and PID</li>
 </ul>
 <hr>
 </section>
 </section>
-<section id="section-21" class="level2">
-<h2 class="anchored" data-anchor-id="section-21">[1.7.3] — 2026-03-28</h2>
-<section id="fixed-8" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-8">Fixed</h3>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">[1.7.3] — 2026-03-28</h2>
+<section id="fixed-9" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-9">Fixed</h3>
 <ul>
 <li>Patchbay client names empty in Release build: <code>String(cString:)</code> moved inside <code>withUnsafeBytes</code> closures in <code>getPorts()</code> and <code>getConnections()</code> — the C pointer is only valid for the duration of the closure; using it after the closure returns is undefined behaviour exploited by the Release optimizer</li>
 <li><code>PatchbayManager</code>: <code>bridge</code> property now captured explicitly on the main actor before dispatching to background queues — prevents a <code>@MainActor</code> property access from a <code>nonisolated</code> context in Release builds</li>
@@ -804,10 +890,10 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-22" class="level2">
-<h2 class="anchored" data-anchor-id="section-22">[1.7.2] — 2026-03-27</h2>
-<section id="documentation-1" class="level3">
-<h3 class="anchored" data-anchor-id="documentation-1">Documentation</h3>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">[1.7.2] — 2026-03-27</h2>
+<section id="documentation-2" class="level3">
+<h3 class="anchored" data-anchor-id="documentation-2">Documentation</h3>
 <ul>
 <li>English <code>///</code> docstrings added to all public and internal types, properties, and methods across the entire codebase</li>
 <li>All <code>//</code> and <code>///</code> code comments translated to English (UI strings unchanged)</li>
@@ -816,8 +902,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-23" class="level2">
-<h2 class="anchored" data-anchor-id="section-23">[1.7.1] — 2026-03-27</h2>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">[1.7.1] — 2026-03-27</h2>
 <section id="added-9" class="level3">
 <h3 class="anchored" data-anchor-id="added-9">Added</h3>
 <ul>
@@ -829,8 +915,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-24" class="level2">
-<h2 class="anchored" data-anchor-id="section-24">[1.7.0] — 2026-03-27</h2>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">[1.7.0] — 2026-03-27</h2>
 <section id="added-10" class="level3">
 <h3 class="anchored" data-anchor-id="added-10">Added</h3>
 <ul>
@@ -843,8 +929,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-25" class="level2">
-<h2 class="anchored" data-anchor-id="section-25">[1.6.2] — 2026-03-27</h2>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">[1.6.2] — 2026-03-27</h2>
 <section id="added-11" class="level3">
 <h3 class="anchored" data-anchor-id="added-11">Added</h3>
 <ul>
@@ -857,8 +943,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-26" class="level2">
-<h2 class="anchored" data-anchor-id="section-26">[1.6.1] — 2026-03-27</h2>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">[1.6.1] — 2026-03-27</h2>
 <section id="added-12" class="level3">
 <h3 class="anchored" data-anchor-id="added-12">Added</h3>
 <ul>
@@ -869,8 +955,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-27" class="level2">
-<h2 class="anchored" data-anchor-id="section-27">[1.6.0] — 2026-03-27</h2>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">[1.6.0] — 2026-03-27</h2>
 <section id="added-13" class="level3">
 <h3 class="anchored" data-anchor-id="added-13">Added</h3>
 <ul>
@@ -880,18 +966,18 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-28" class="level2">
-<h2 class="anchored" data-anchor-id="section-28">[1.5.1] — 2026-03-27</h2>
-<section id="fixed-9" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-9">Fixed</h3>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">[1.5.1] — 2026-03-27</h2>
+<section id="fixed-10" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-10">Fixed</h3>
 <ul>
 <li>Xrun counter automatically reset to zero on Jack stop and start (voluntary stop, crash, or external cause)</li>
 </ul>
 <hr>
 </section>
 </section>
-<section id="section-29" class="level2">
-<h2 class="anchored" data-anchor-id="section-29">[1.5.0] — 2026-03-27</h2>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">[1.5.0] — 2026-03-27</h2>
 <section id="added-14" class="level3">
 <h3 class="anchored" data-anchor-id="added-14">Added</h3>
 <ul>
@@ -904,18 +990,18 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-30" class="level2">
-<h2 class="anchored" data-anchor-id="section-30">[1.4.1] — 2026-03-27</h2>
-<section id="fixed-10" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-10">Fixed</h3>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">[1.4.1] — 2026-03-27</h2>
+<section id="fixed-11" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-11">Fixed</h3>
 <ul>
 <li>MIDI (coremidi) toggle grayed out and disabled — experimental option causing instabilities</li>
 </ul>
 <hr>
 </section>
 </section>
-<section id="section-31" class="level2">
-<h2 class="anchored" data-anchor-id="section-31">[1.4.0] — 2026-03-27</h2>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">[1.4.0] — 2026-03-27</h2>
 <section id="added-15" class="level3">
 <h3 class="anchored" data-anchor-id="added-15">Added</h3>
 <ul>
@@ -925,10 +1011,10 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-32" class="level2">
-<h2 class="anchored" data-anchor-id="section-32">[1.3.1] — 2026-03-27</h2>
-<section id="fixed-11" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-11">Fixed</h3>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">[1.3.1] — 2026-03-27</h2>
+<section id="fixed-12" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-12">Fixed</h3>
 <ul>
 <li>Appearance forced to dark mode (<code>NSApp.appearance = .darkAqua</code>) — sidebar, log, and menubar popover stable in macOS Light mode</li>
 <li>Log panel: semi-transparent background via SwiftUI opacity (VisualEffectView incompatible with ZStack overlay)</li>
@@ -937,8 +1023,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-33" class="level2">
-<h2 class="anchored" data-anchor-id="section-33">[1.3.0] — 2026-03-27</h2>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">[1.3.0] — 2026-03-27</h2>
 <section id="added-16" class="level3">
 <h3 class="anchored" data-anchor-id="added-16">Added</h3>
 <ul>
@@ -960,8 +1046,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-34" class="level2">
-<h2 class="anchored" data-anchor-id="section-34">[1.2.0] — 2026-03-26</h2>
+<section id="section-35" class="level2">
+<h2 class="anchored" data-anchor-id="section-35">[1.2.0] — 2026-03-26</h2>
 <section id="added-17" class="level3">
 <h3 class="anchored" data-anchor-id="added-17">Added</h3>
 <ul>
@@ -974,8 +1060,8 @@ ul.task-list li input[type="checkbox"] {
 <li><code>JackSnapshot</code> extended: <code>hogMode</code>, <code>clockDrift</code>, <code>midiEnabled</code> with backward-compatible decoding</li>
 </ul>
 </section>
-<section id="fixed-12" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-12">Fixed</h3>
+<section id="fixed-13" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-13">Fixed</h3>
 <ul>
 <li>Studios saved with older JSON versions still readable (<code>decodeIfPresent</code> + default values)</li>
 <li>Race condition: <code>isRunning</code> forced to <code>false</code> before <code>startJack()</code> to prevent guard deadlock</li>
@@ -983,8 +1069,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-35" class="level2">
-<h2 class="anchored" data-anchor-id="section-35">[1.1.0] — 2026-03-26</h2>
+<section id="section-36" class="level2">
+<h2 class="anchored" data-anchor-id="section-36">[1.1.0] — 2026-03-26</h2>
 <section id="added-18" class="level3">
 <h3 class="anchored" data-anchor-id="added-18">Added</h3>
 <ul>
@@ -994,8 +1080,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-36" class="level2">
-<h2 class="anchored" data-anchor-id="section-36">[1.0.0] — 2026-03-26</h2>
+<section id="section-37" class="level2">
+<h2 class="anchored" data-anchor-id="section-37">[1.0.0] — 2026-03-26</h2>
 <section id="fixed-stabilized" class="level3">
 <h3 class="anchored" data-anchor-id="fixed-stabilized">Fixed / Stabilized</h3>
 <ul>
@@ -1006,8 +1092,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-37" class="level2">
-<h2 class="anchored" data-anchor-id="section-37">[0.9.0] — 2026-03-23</h2>
+<section id="section-38" class="level2">
+<h2 class="anchored" data-anchor-id="section-38">[0.9.0] — 2026-03-23</h2>
 <section id="added-jack-transport" class="level3">
 <h3 class="anchored" data-anchor-id="added-jack-transport">Added — JACK Transport</h3>
 <ul>
@@ -1019,8 +1105,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-38" class="level2">
-<h2 class="anchored" data-anchor-id="section-38">[0.8.0] — 2026-03-23</h2>
+<section id="section-39" class="level2">
+<h2 class="anchored" data-anchor-id="section-39">[0.8.0] — 2026-03-23</h2>
 <section id="added-group-drag-advanced-selection" class="level3">
 <h3 class="anchored" data-anchor-id="added-group-drag-advanced-selection">Added — Group drag &amp; advanced selection</h3>
 <ul>
@@ -1034,8 +1120,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-39" class="level2">
-<h2 class="anchored" data-anchor-id="section-39">[0.7.0] — 2026-03-22</h2>
+<section id="section-40" class="level2">
+<h2 class="anchored" data-anchor-id="section-40">[0.7.0] — 2026-03-22</h2>
 <section id="added-toolbar-connect-all-automatic-layout-sugiyama" class="level3">
 <h3 class="anchored" data-anchor-id="added-toolbar-connect-all-automatic-layout-sugiyama">Added — Toolbar, Connect-All, automatic layout (Sugiyama)</h3>
 <ul>
@@ -1049,8 +1135,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-40" class="level2">
-<h2 class="anchored" data-anchor-id="section-40">[0.6.0] — 2026-03-22</h2>
+<section id="section-41" class="level2">
+<h2 class="anchored" data-anchor-id="section-41">[0.6.0] — 2026-03-22</h2>
 <section id="added-visual-polish-node-collapse" class="level3">
 <h3 class="anchored" data-anchor-id="added-visual-polish-node-collapse">Added — Visual polish + node collapse</h3>
 <ul>
@@ -1064,8 +1150,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-41" class="level2">
-<h2 class="anchored" data-anchor-id="section-41">[0.5.0] — 2026-03-21</h2>
+<section id="section-42" class="level2">
+<h2 class="anchored" data-anchor-id="section-42">[0.5.0] — 2026-03-21</h2>
 <section id="added-full-studios" class="level3">
 <h3 class="anchored" data-anchor-id="added-full-studios">Added — Full studios</h3>
 <ul>
@@ -1079,8 +1165,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-42" class="level2">
-<h2 class="anchored" data-anchor-id="section-42">[0.4.0] — 2026-03-20</h2>
+<section id="section-43" class="level2">
+<h2 class="anchored" data-anchor-id="section-43">[0.4.0] — 2026-03-20</h2>
 <section id="added-improved-patchbay-studiomanager-foundations" class="level3">
 <h3 class="anchored" data-anchor-id="added-improved-patchbay-studiomanager-foundations">Added — Improved patchbay + StudioManager foundations</h3>
 <ul>
@@ -1092,8 +1178,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-43" class="level2">
-<h2 class="anchored" data-anchor-id="section-43">[0.3.0] — 2026-03-19</h2>
+<section id="section-44" class="level2">
+<h2 class="anchored" data-anchor-id="section-44">[0.3.0] — 2026-03-19</h2>
 <section id="added-functional-patchbay" class="level3">
 <h3 class="anchored" data-anchor-id="added-functional-patchbay">Added — Functional patchbay</h3>
 <ul>
@@ -1104,8 +1190,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-44" class="level2">
-<h2 class="anchored" data-anchor-id="section-44">[0.2.0] — 2026-03-18</h2>
+<section id="section-45" class="level2">
+<h2 class="anchored" data-anchor-id="section-45">[0.2.0] — 2026-03-18</h2>
 <section id="added-ui-logs" class="level3">
 <h3 class="anchored" data-anchor-id="added-ui-logs">Added — UI + logs</h3>
 <ul>
@@ -1116,8 +1202,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-45" class="level2">
-<h2 class="anchored" data-anchor-id="section-45">[0.1.0] — 2026-03-18</h2>
+<section id="section-46" class="level2">
+<h2 class="anchored" data-anchor-id="section-46">[0.1.0] — 2026-03-18</h2>
 <section id="first-working-version" class="level3">
 <h3 class="anchored" data-anchor-id="first-working-version">First working version</h3>
 <ul>
@@ -1160,14 +1246,14 @@ ul.task-list li input[type="checkbox"] {
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(); });
 
-  // ── Gatekeeper modal close button ──────────────────
+  // ── Install modal close button ─────────────────────
   document.getElementById('modal-close-bottom')?.addEventListener('click', function () { closeOverlay('download-modal'); });
 
   // ── Confirm modal (Windows/Linux) ──────────────────
   document.getElementById('dm-confirm-cancel')?.addEventListener('click', function () { closeOverlay('dm-confirm-modal'); });
   document.getElementById('dm-confirm-ok')?.addEventListener('click', function () {
     closeOverlay('dm-confirm-modal');
-    // Trigger download then show Gatekeeper modal
+    // Trigger download then show the install modal
     var url = document.getElementById('download-btn')?.href;
     if (url) window.location.href = url;
     setTimeout(function () { openOverlay('download-modal'); }, 300);
@@ -1175,20 +1261,6 @@ ul.task-list li input[type="checkbox"] {
 
   // ── Mobile modal ────────────────────────────────────
   document.getElementById('dm-mobile-ok')?.addEventListener('click', function () { closeOverlay('dm-mobile-modal'); });
-
-  // ── Tab switching ───────────────────────────────────
-  document.querySelectorAll('.dm-tab').forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      document.querySelectorAll('.dm-tab').forEach(function (t) {
-        t.classList.remove('is-active');
-        t.setAttribute('aria-selected', 'false');
-      });
-      document.querySelectorAll('.dm-panel').forEach(function (p) { p.classList.remove('is-active'); });
-      tab.classList.add('is-active');
-      tab.setAttribute('aria-selected', 'true');
-      document.getElementById(tab.getAttribute('aria-controls'))?.classList.add('is-active');
-    });
-  });
 })();
 
 function openDownloadModal(e) {
@@ -1200,17 +1272,9 @@ function openDownloadModal(e) {
     e.preventDefault();
     document.getElementById('dm-confirm-modal')?.classList.add('is-open');
   } else {
-    // macOS: download proceeds normally, show Gatekeeper modal
+    // macOS: download proceeds normally, show the install modal
     document.getElementById('download-modal')?.classList.add('is-open');
   }
-}
-
-function dmCopyCommand(btn) {
-  var cmd = 'xattr -rd com.apple.quarantine /Applications/JackMate.app';
-  navigator.clipboard.writeText(cmd).then(function () {
-    btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-    setTimeout(function () { btn.innerHTML = '<i class="fa-solid fa-copy"></i>'; }, 2000);
-  });
 }
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1620,7 +1684,7 @@ function dmCopyCommand(btn) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>JackMate · © 2026 Éric Bavu · <a href="https://github.com/zinc75/JackMate/blob/main/LICENSE">MIT License</a></p>
+<p>JackMate · © 2026 Éric Bavu · <a href="./license.html">MIT License</a></p>
 </div>
     <div class="nav-footer-right">
       &nbsp;

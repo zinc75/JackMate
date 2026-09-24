@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,10 +10,16 @@
 
 <title>Alternatives – JackMate</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -33,15 +39,14 @@ ul.task-list li input[type="checkbox"] {
 <link href="../assets/icon.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-86a676ce5307890add4e0cff6447c4f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-d56e77fc2d6698478ca21fdffbdde3e4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -120,6 +125,10 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="../guide/patchbay.html">
  <span class="dropdown-text">Patchbay</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guide/jackmoebius.html">
+ <span class="dropdown-text">JackMoebius</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../guide/studios.html">
@@ -209,6 +218,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../guide/patchbay.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Patchbay</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/jackmoebius.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">JackMoebius</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -327,6 +342,7 @@ ul.task-list li input[type="checkbox"] {
 <li>You work <strong>on macOS</strong> and want a tool that feels native</li>
 <li>You read the <a href="https://zinc75.github.io/JackMate/">documentation</a> and like the concept and the implementation</li>
 <li>You want to discover the possibilities of JACK on macOS, hassle-free</li>
+<li>You want to <strong>bring native macOS apps into the Jack graph</strong> — apps with no Jack support (Safari, Music, FaceTime…) — and drive it <em>from the app</em> (expose/unexpose, channel counts, per-app volumes, native icons) rather than the JackMoebius command line, via <a href="../guide/jackmoebius.html">JackMoebius</a></li>
 <li>You need to <strong>save and restore complete sessions</strong> (studios)</li>
 <li>You want <strong>menu bar access</strong> without keeping a window open</li>
 <li>You use both <strong>GUI JACK clients</strong> (<code>Ardour</code>, <code>Faust</code> apps generated with <code>faust2jaqt</code>, …) and <strong>CLI Jack clients</strong> (<code>jack_metro</code>, <code>a2jmidid</code>…) that you want saved and relaunched automatically</li>
@@ -519,6 +535,22 @@ ul.task-list li input[type="checkbox"] {
 <td><span class="led led-red"></span></td>
 </tr>
 <tr class="even">
+<td>Integrated JackMoebius control (expose apps, channels, blacklist, native icons)</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+</tr>
+<tr class="odd">
+<td>In-app output &amp; per-app volume control</td>
+<td><span class="led led-green"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+<td><span class="led led-red"></span></td>
+</tr>
+<tr class="even">
 <td>In-app automatic updates</td>
 <td><span class="led led-green"></span></td>
 <td><span class="led led-red"></span></td>
@@ -539,6 +571,19 @@ ul.task-list li input[type="checkbox"] {
 
 </div>
 <p><span style="font-size:0.82rem; color:var(--jm-muted);"> <span class="led led-amber" style="display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:middle;"></span> partial &nbsp;·&nbsp; <span class="led led-red" style="display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:middle;"></span> not available &nbsp;·&nbsp; <span class="led led-green" style="display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:middle;"></span> supported </span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Once apps are exposed with JackMoebius, they appear as clients in <em>any</em> Jack patchbay. What JackMate adds is driving it <strong>from the app</strong> — exposing/un-exposing, channel counts, per-app volumes, blacklist and native app icons — instead of the JackMoebius command line.</p>
+</div>
+</div>
 <hr>
 </section>
 <section id="notes-on-alternatives-on-macos" class="level2">
@@ -589,14 +634,14 @@ ul.task-list li input[type="checkbox"] {
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(); });
 
-  // ── Gatekeeper modal close button ──────────────────
+  // ── Install modal close button ─────────────────────
   document.getElementById('modal-close-bottom')?.addEventListener('click', function () { closeOverlay('download-modal'); });
 
   // ── Confirm modal (Windows/Linux) ──────────────────
   document.getElementById('dm-confirm-cancel')?.addEventListener('click', function () { closeOverlay('dm-confirm-modal'); });
   document.getElementById('dm-confirm-ok')?.addEventListener('click', function () {
     closeOverlay('dm-confirm-modal');
-    // Trigger download then show Gatekeeper modal
+    // Trigger download then show the install modal
     var url = document.getElementById('download-btn')?.href;
     if (url) window.location.href = url;
     setTimeout(function () { openOverlay('download-modal'); }, 300);
@@ -604,20 +649,6 @@ ul.task-list li input[type="checkbox"] {
 
   // ── Mobile modal ────────────────────────────────────
   document.getElementById('dm-mobile-ok')?.addEventListener('click', function () { closeOverlay('dm-mobile-modal'); });
-
-  // ── Tab switching ───────────────────────────────────
-  document.querySelectorAll('.dm-tab').forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      document.querySelectorAll('.dm-tab').forEach(function (t) {
-        t.classList.remove('is-active');
-        t.setAttribute('aria-selected', 'false');
-      });
-      document.querySelectorAll('.dm-panel').forEach(function (p) { p.classList.remove('is-active'); });
-      tab.classList.add('is-active');
-      tab.setAttribute('aria-selected', 'true');
-      document.getElementById(tab.getAttribute('aria-controls'))?.classList.add('is-active');
-    });
-  });
 })();
 
 function openDownloadModal(e) {
@@ -629,17 +660,9 @@ function openDownloadModal(e) {
     e.preventDefault();
     document.getElementById('dm-confirm-modal')?.classList.add('is-open');
   } else {
-    // macOS: download proceeds normally, show Gatekeeper modal
+    // macOS: download proceeds normally, show the install modal
     document.getElementById('download-modal')?.classList.add('is-open');
   }
-}
-
-function dmCopyCommand(btn) {
-  var cmd = 'xattr -rd com.apple.quarantine /Applications/JackMate.app';
-  navigator.clipboard.writeText(cmd).then(function () {
-    btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-    setTimeout(function () { btn.innerHTML = '<i class="fa-solid fa-copy"></i>'; }, 2000);
-  });
 }
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1049,7 +1072,7 @@ function dmCopyCommand(btn) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>JackMate · © 2026 Éric Bavu · <a href="https://github.com/zinc75/JackMate/blob/main/LICENSE">MIT License</a></p>
+<p>JackMate · © 2026 Éric Bavu · <a href="../license.html">MIT License</a></p>
 </div>
     <div class="nav-footer-right">
       &nbsp;

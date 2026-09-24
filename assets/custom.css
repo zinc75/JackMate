@@ -222,7 +222,7 @@ nav.quarto-secondary-nav { display: none !important; }
   padding-bottom: 1.25rem;
 }
 #title-block-header .quarto-title h1.title {
-  font-size: 1.9rem; font-weight: 700; letter-spacing: -0.035em;
+  font-size: 2.3rem; font-weight: 700; letter-spacing: -0.035em;
   color: #ffffff; margin-bottom: 0.3rem;
 }
 #title-block-header .description,
@@ -303,10 +303,10 @@ div.sidebar.sidebar-navigation.rollup.quarto-sidebar-toggle-contents,
    TYPOGRAPHY
    ═══════════════════════════════════════════════════ */
 
-h1 { font-weight: 700; letter-spacing: -0.035em; font-size: 2.1rem; color: #ffffff; }
+h1 { font-weight: 700; letter-spacing: -0.035em; font-size: 2.4rem; color: #ffffff; }
 
 h2 {
-  font-weight: 600; letter-spacing: -0.025em; font-size: 1.2rem;
+  font-weight: 600; letter-spacing: -0.025em; font-size: 1.8rem;
   margin-top: 2.75rem; margin-bottom: 0.8rem;
   color: var(--jm-text); padding-bottom: 0.55rem;
   border-bottom: 1px solid;
@@ -317,7 +317,7 @@ h2 {
   scroll-margin-top: 5rem;
 }
 h3 {
-  font-weight: 500; font-size: 0.95rem; margin-top: 1.5rem;
+  font-weight: 500; font-size: 1.5rem; margin-top: 1.5rem;
   color: rgba(255,255,255,0.72); letter-spacing: -0.01em;
   scroll-margin-top: 5rem;
 }
@@ -607,6 +607,20 @@ figcaption, .figure-caption {
 }
 .hero-text .hero-pills { display: flex; gap: 0.65rem; flex-wrap: wrap; }
 
+/* Trust badge — "Signed & notarized by Apple" with a golden verified seal + check */
+.hero-trust {
+  margin-top: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--jm-text-dim);
+}
+.hero-seal { font-size: 0.72rem; }                          /* sizes the fa-stack seal */
+.hero-seal .fa-certificate { color: #fbbf24; }              /* vivid golden seal */
+.hero-seal .fa-check { color: #241a02; }                    /* dark check on the gold seal */
+
 .hero-pill {
   display: inline-flex; align-items: center; gap: 0.45rem;
   font-size: 0.85rem; font-weight: 500; padding: 0.5rem 1.15rem;
@@ -787,6 +801,15 @@ figcaption, .figure-caption {
   box-shadow: 0 6px 20px rgba(34,197,94,0.48), inset 0 1px 0 rgba(255,255,255,0.24);
 }
 
+/* "New in 2.0" indicator — orange star + label, matches the hero highlight */
+.badge-new {
+  color: var(--jm-orange);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
 /* Inline accent colours (body text) */
 .icon-red    { color: var(--jm-red);    }
 .icon-cyan   { color: var(--jm-cyan);   }
@@ -797,7 +820,7 @@ figcaption, .figure-caption {
 
 /* ── Page title banner ────────────────────────────── */
 .quarto-title-banner { background: var(--jm-bg) !important; padding-top: 1.5rem !important; padding-bottom: 0.5rem !important; }
-.quarto-title h1.title { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.035em; color: #fff; }
+.quarto-title h1.title { font-size: 2.3rem; font-weight: 700; letter-spacing: -0.035em; color: #fff; }
 .quarto-title .description { color: var(--jm-muted); font-size: 0.92rem; }
 
 /* ── Back to top ──────────────────────────────────── */
@@ -884,6 +907,26 @@ body { padding-bottom: 3rem !important; }
   .hero { padding: 3rem 1.75rem 2.5rem; border-radius: 18px; }
   .feature-grid { grid-template-columns: 1fr; }
   .feature-card:nth-child(n) { grid-column: span 1; }
+  /* Slimmer fixed footer on mobile — glass and fixed position kept. The real
+     height came from Quarto stacking the 3 footer zones vertically: empty
+     left/right lines (flex:100% + margin-bottom:1em) + the center with
+     margin-top:3em / min-height:3em. We neutralise those (JackMate's footer
+     only defines `center`, so hiding left/right is safe). */
+  .nav-footer {
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.3rem !important;
+    font-size: 0.7rem !important;
+    line-height: 1.3 !important;
+    min-height: 0 !important;
+  }
+  .nav-footer-left,
+  .nav-footer-right { display: none !important; }
+  .nav-footer-center {
+    margin: 0 !important;
+    min-height: 0 !important;
+    flex: 1 1 auto !important;
+  }
+  body { padding-bottom: 2.4rem !important; }
 }
 /* ── Navbar — Buy Me A Coffee icon ───────────────────── */
 .navbar-bmc-icon {
@@ -907,7 +950,7 @@ body { padding-bottom: 3rem !important; }
 }
 
 /* ══════════════════════════════════════════════════════
-   DOWNLOAD MODAL — non-notarized app help
+   DOWNLOAD MODAL — clean install help (notarized app)
    ══════════════════════════════════════════════════════ */
 
 .dm-overlay {
