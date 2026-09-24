@@ -172,11 +172,14 @@ enum SidebarNavItem: String, CaseIterable {
 struct ContentView: View {
     @EnvironmentObject var jackManager:  JackManager
     @EnvironmentObject var audioManager: CoreAudioManager
+    @EnvironmentObject var whatsNewManager: WhatsNewManager
     @EnvironmentObject var updateManager: AppUpdateManager
     @ObservedObject private var notifications = NotificationManager.shared
     @State private var selection: SidebarNavItem = .configuration
     @StateObject private var patchbayManager = PatchbayManager()
     @StateObject private var studioManager   = StudioManager()
+    @StateObject private var jackMoebiusManager = JackMoebiusManager()
+    @StateObject private var outputVolumeManager = OutputVolumeManager()
     @State private var patchbayScale:  CGFloat = 1.0
     @State private var patchbayOffset: CGSize  = .zero
     @State private var canvasSize:     CGSize  = CGSize(width: 900, height: 480)
@@ -184,6 +187,8 @@ struct ContentView: View {
     @State private var zoomHideWork: DispatchWorkItem? = nil
     @State private var hoveredSelAction: String? = nil
     @State private var showJackNotInstalled = false
+    /// Debounces the auto-open of the JackMoebius panel on a fresh routing mismatch.
+    @State private var mismatchAutoOpenWork: DispatchWorkItem? = nil
     @State private var showUpdateSheet = false
 
     // MARK: - Off-screen helpers
@@ -270,6 +275,30 @@ struct ContentView: View {
         }
     }
 
+    // MARK: - JackMoebius routing mismatches
+
+    /// Exposed JackMoebius boxes whose device is misconfigured for a *wired* direction
+    /// (`mismatch` + at least one connected port of that direction). Same condition as
+    /// the canvas ⚠ marker, so the banner and the marker always agree.
+    private var wiredMismatches: [JMMismatch] {
+        guard !jackMoebiusManager.boxStatus.isEmpty else { return [] }
+        let connected = Set(patchbayManager.connections.flatMap { [$0.from, $0.to] })
+        var result: [JMMismatch] = []
+        for node in patchbayManager.nodes {
+            guard let key = node.coreAudioBundleID,
+                  let status = jackMoebiusManager.boxStatus[key] else { continue }
+            if status.out == .mismatch, node.outputs.contains(where: { connected.contains($0.id) }) {
+                result.append(JMMismatch(key: key, name: node.id, isInput: false,
+                                         currentDevice: status.outDevice))
+            }
+            if status.input == .mismatch, node.inputs.contains(where: { connected.contains($0.id) }) {
+                result.append(JMMismatch(key: key, name: node.id, isInput: true,
+                                         currentDevice: status.inDevice))
+            }
+        }
+        return result
+    }
+
     var body: some View {
         HStack(spacing: 0) {
             SidebarView(selection: $selection)
@@ -277,6 +306,8 @@ struct ContentView: View {
                 .environmentObject(audioManager)
                 .environmentObject(patchbayManager)
                 .environmentObject(studioManager)
+                .environmentObject(jackMoebiusManager)
+                .environmentObject(outputVolumeManager)
                 .zIndex(10)
 
             Rectangle().fill(JM.border).frame(width: 1)
@@ -289,9 +320,19 @@ struct ContentView: View {
                     .environmentObject(jackManager)
                     .environmentObject(patchbayManager)
                     .environmentObject(studioManager)
+                    .environmentObject(jackMoebiusManager)
+                    .environmentObject(outputVolumeManager)
                     .zIndex(10)
                 Rectangle().fill(JM.borderFaint).frame(height: 1)
                     .zIndex(10)
+
+                // ── Volumes bar (output device volumes — pure CoreAudio, patchbay only)
+                if selection == .patchbay && outputVolumeManager.showVolumesBar
+                    && !outputVolumeManager.targets.isEmpty {
+                    VolumesBarView(manager: outputVolumeManager)
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                    Rectangle().fill(JM.borderFaint).frame(height: 1)
+                }
 
                 // ── Transport bar (slides in when Jack is running and visible) ─
                 if patchbayManager.transportBarVisible {
@@ -308,6 +349,7 @@ struct ContentView: View {
                             ConfigBodyView()
                                 .environmentObject(jackManager)
                                 .environmentObject(audioManager)
+                                .environmentObject(jackMoebiusManager)
                         case .patchbay:
                             PatchbayView(vpScale: $patchbayScale, vpOffset: $patchbayOffset,
                                          canvasSize: $canvasSize)
@@ -315,6 +357,8 @@ struct ContentView: View {
                                 .environmentObject(audioManager)
                                 .environmentObject(patchbayManager)
                                 .environmentObject(studioManager)
+                                .environmentObject(jackMoebiusManager)
+                                .environmentObject(outputVolumeManager)
                         }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -465,9 +509,51 @@ struct ContentView: View {
                             .transition(.move(edge: .trailing))
                             .zIndex(10)
                     }
+
+                    if jackMoebiusManager.showPanel {
+                        JackMoebiusPanelView(mismatches: wiredMismatches)
+                            .environmentObject(jackMoebiusManager)
+                            .environmentObject(outputVolumeManager)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .transition(.move(edge: .leading))
+                            .zIndex(11)
+                    }
                 }
                 .animation(.spring(response: 0.4, dampingFraction: 0.85),
                            value: jackManager.showLogPanel)
+                .animation(.spring(response: 0.4, dampingFraction: 0.85),
+                           value: jackMoebiusManager.showPanel)
+                // A new exposure was refused because the licence lapsed mid-session → the
+                // toggle already reverted; steer the user to activation/purchase.
+                .sheet(isPresented: $jackMoebiusManager.showLicensingRefusal) {
+                    JackMoebiusLicenseSheet()
+                        .environmentObject(jackMoebiusManager)
+                }
+                .onChange(of: wiredMismatches) { old, new in
+                    if new.isEmpty {
+                        // Resolved → cancel any pending auto-open.
+                        mismatchAutoOpenWork?.cancel()
+                        mismatchAutoOpenWork = nil
+                        return
+                    }
+                    // Auto-open when a mismatch appears that wasn't in the previous set —
+                    // including a *new* app while an earlier one is still unresolved. A set
+                    // that only shrank (or is unchanged) does not re-open the panel.
+                    let oldIDs   = Set(old.map(\.id))
+                    let appeared = Set(new.map(\.id).filter { !oldIDs.contains($0) })
+                    guard !appeared.isEmpty else { return }
+                    // Debounce so a transient device blip doesn't pop the panel; only open
+                    // if a newly-appeared mismatch is still present when the timer fires.
+                    mismatchAutoOpenWork?.cancel()
+                    let work = DispatchWorkItem {
+                        if wiredMismatches.contains(where: { appeared.contains($0.id) }) {
+                            jackMoebiusManager.showPanel = true
+                        }
+                        mismatchAutoOpenWork = nil
+                    }
+                    mismatchAutoOpenWork = work
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: work)
+                }
                 .onChange(of: patchbayScale) {
                     zoomHideWork?.cancel()
                     withAnimation(.easeIn(duration: 0.15)) { showZoomOverlay = true }
@@ -483,6 +569,8 @@ struct ContentView: View {
                     .environmentObject(jackManager)
                     .environmentObject(patchbayManager)
                     .environmentObject(studioManager)
+                    .environmentObject(outputVolumeManager)
+                    .environmentObject(jackMoebiusManager)
             }
             .frame(minWidth: 480)
         }
@@ -492,6 +580,17 @@ struct ContentView: View {
         .sheet(isPresented: $showJackNotInstalled) {
             JackNotInstalledView()
                 .environmentObject(jackManager)
+        }
+        .sheet(isPresented: $whatsNewManager.showWhatsNew) {
+            WhatsNewSheet()
+        }
+        // One-click licence activation from a jackmate://activate?key=… deep link (post-purchase
+        // onboarding). The URL is received by AppDelegate.application(_:open:) — reliable for both
+        // cold and warm launches — which calls handleDeepLink; that flips showLicenseSheet and this
+        // sheet presents with the key pre-filled. The user still presses Activate.
+        .sheet(isPresented: $jackMoebiusManager.showLicenseSheet) {
+            JackMoebiusLicenseSheet()
+                .environmentObject(jackMoebiusManager)
         }
         .sheet(isPresented: $showUpdateSheet) {
             AppUpdateSheet()
@@ -508,10 +607,44 @@ struct ContentView: View {
             patchbayManager.configure(with: jackManager)
             patchbayManager.configureStudio(studioManager)
             studioManager.observeJackState(jackManager: jackManager, patchbayManager: patchbayManager)
+            jackMoebiusManager.observeJackState(jackManager: jackManager)
+            outputVolumeManager.configure(jackManager: jackManager)
             if !jackManager.jackInstalled { showJackNotInstalled = true }
+            // Let the AppDelegate route jackmate:// deep links to this manager (and replay any
+            // URL buffered during a cold launch, before the scene was ready).
+            AppDelegate.shared?.jackMoebiusManager = jackMoebiusManager
+        }
+        .onChange(of: patchbayManager.autoTidyRequest) { _, _ in
+            // Fresh Jack start populated its clients → arrange the patchbay like a Tidy so the
+            // graph opens already laid out (the manager suppresses this when a studio was restored).
+            guard canvasSize.width > 1, canvasSize.height > 1 else { return }
+            let vp = patchbayManager.tidy(canvasSize: canvasSize, currentScale: patchbayScale)
+            withAnimation(.spring(response: 0.45, dampingFraction: 0.82)) {
+                patchbayScale  = vp.scale
+                patchbayOffset = vp.offset
+            }
+        }
+        .onChange(of: selection) { _, newValue in
+            // The JackMoebius panel lives in the patchbay only — close it elsewhere.
+            if newValue != .patchbay { jackMoebiusManager.showPanel = false }
         }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
             jackManager.recheckInstallation()
+            jackMoebiusManager.recheckInstallation()
+            // JackMoebius uninstalled or the trial expired → force the "expose" intent off
+            // (a saved ON would otherwise show on a disabled toggle and auto-activate on Start Jack).
+            if (!jackMoebiusManager.installed || jackMoebiusManager.isLicenseExpired) && jackManager.prefs.exposeJackMoebius {
+                jackManager.prefs.exposeJackMoebius = false
+                jackManager.savePreferences()
+            }
+        }
+        .onChange(of: jackMoebiusManager.license) { _, _ in
+            // Trial expired (e.g. mid-session deactivation) → clear the "expose" intent so the
+            // toggle reflects off and a later Start Jack won't auto-activate a daemon that can't run.
+            if jackMoebiusManager.isLicenseExpired && jackManager.prefs.exposeJackMoebius {
+                jackManager.prefs.exposeJackMoebius = false
+                jackManager.savePreferences()
+            }
         }
         .onReceive(NotificationCenter.default.publisher(for: .mainWindowDidOpen)) { _ in
             if !jackManager.jackInstalled { showJackNotInstalled = true }
@@ -550,6 +683,7 @@ struct SidebarView: View {
     @EnvironmentObject var audioManager:    CoreAudioManager
     @EnvironmentObject var patchbayManager: PatchbayManager
     @EnvironmentObject var studioManager:   StudioManager
+    @EnvironmentObject var jackMoebiusManager: JackMoebiusManager
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -565,9 +699,15 @@ struct SidebarView: View {
                         .font(.system(size: 12, weight: .bold))
                         .foregroundStyle(JM.accentRed)
                 }
-                Text("JackMate")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(JM.textPrimary)
+                HStack(alignment: .firstTextBaseline, spacing: 6) {
+                    Text("JackMate")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(JM.textPrimary)
+                    // App version next to the name — at a glance alongside jackd and JackMoebius.
+                    Text(verbatim: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?")
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(JM.textTertiary)
+                }
             }
             // Padding matches ConfigHeaderView (.vertical, 13)
             // + content height ~30 px → total ~56 px on both sides
@@ -632,7 +772,9 @@ struct SidebarView: View {
 
             Rectangle().fill(JM.borderFaint).frame(height: 1)
 
-            // Footer — opaque, tri-colour LED status indicator
+            // Footer — Jack (left) + JackMoebius (right) LED status indicators.
+            // JackMoebius is shown only when installed; the separator is centred in
+            // the gap between the two blocks.
             HStack(spacing: 6) {
                 Circle()
                     .fill(jackFooterColor)
@@ -641,6 +783,23 @@ struct SidebarView: View {
                 Text(jackFooterText)
                     .font(.system(size: 11))
                     .foregroundStyle(JM.textTertiary)
+                    .lineLimit(1).minimumScaleFactor(0.8)
+
+                if jackMoebiusManager.state != .unavailable {
+                    Spacer(minLength: 8)
+                    Rectangle().fill(Color.white.opacity(0.22)).frame(width: 1, height: 12)
+                    Spacer(minLength: 8)
+                    Circle()
+                        .fill(jackMoebiusFooterColor)
+                        .frame(width: 7, height: 7)
+                        .shadow(color: jackMoebiusFooterColor.opacity(0.6), radius: 4)
+                    Text(jackMoebiusFooterText)
+                        .font(.system(size: 11))
+                        .foregroundStyle(JM.textTertiary)
+                        .lineLimit(1).minimumScaleFactor(0.8)
+                } else {
+                    Spacer(minLength: 0)
+                }
             }
             .padding(.horizontal, 14).padding(.vertical, 10)
             .background(JM.bgBase)
@@ -663,6 +822,26 @@ struct SidebarView: View {
         let state = jackManager.jackState
         if state == .starting || state == .stopping { return String(localized: "common.jack_starting") }
         return String(localized: "common.jack_stopped")
+    }
+
+    /// LED colour for JackMoebius: green active, amber activating, grey not installed, red otherwise.
+    var jackMoebiusFooterColor: Color {
+        switch jackMoebiusManager.state {
+        case .active:           return JM.accentGreen
+        case .activating:       return JM.accentAmber
+        case .unavailable:      return JM.textTertiary
+        case .inactive, .failed: return JM.accentRed
+        }
+    }
+
+    /// Short JackMoebius status label displayed next to its footer LED.
+    var jackMoebiusFooterText: String {
+        switch jackMoebiusManager.state {
+        case .active:           return String(localized: "jackmoebius.status.active")
+        case .activating:       return String(localized: "jackmoebius.status.activating")
+        case .unavailable:      return String(localized: "jackmoebius.status.not_installed")
+        case .inactive, .failed: return String(localized: "jackmoebius.status.inactive")
+        }
     }
 }
 
@@ -950,9 +1129,11 @@ struct StudioSidebarRow: View {
     let studio: Studio
     @Binding var hoveredStudio: Studio?
     @Binding var selection: SidebarNavItem
-    @EnvironmentObject var studioManager:   StudioManager
-    @EnvironmentObject var patchbayManager: PatchbayManager
-    @EnvironmentObject var jackManager:     JackManager
+    @EnvironmentObject var studioManager:       StudioManager
+    @EnvironmentObject var patchbayManager:     PatchbayManager
+    @EnvironmentObject var jackManager:         JackManager
+    @EnvironmentObject var outputVolumeManager: OutputVolumeManager
+    @EnvironmentObject var jackMoebiusManager:  JackMoebiusManager
     @State private var isHovered        = false
     @State private var isStopHovered    = false
     @State private var isTrashHovered   = false
@@ -1067,6 +1248,8 @@ struct StudioSidebarRow: View {
             StopStudioSheet(studio: studio)
                 .environmentObject(studioManager)
                 .environmentObject(patchbayManager)
+                .environmentObject(jackManager)
+                .environmentObject(jackMoebiusManager)
         }
         .sheet(isPresented: $showInspectSheet) {
             StudioInspectSheet(studio: studio)
@@ -1088,6 +1271,8 @@ struct StudioSidebarRow: View {
             bridge: patchbayManager.jackBridge,
             jackManager: jackManager,
             patchbayManager: patchbayManager,
+            outputVolumeManager: outputVolumeManager,
+            jackMoebiusManager: jackMoebiusManager,
             onProgress: { msg in
                 loadProgressMessage = msg
             },
@@ -1513,8 +1698,10 @@ struct StudioInspectSheet: View {
 /// all Jack clients, then force-kills any that are still alive after a timeout.
 struct StopStudioSheet: View {
     let studio: Studio
-    @EnvironmentObject var studioManager:   StudioManager
-    @EnvironmentObject var patchbayManager: PatchbayManager
+    @EnvironmentObject var studioManager:      StudioManager
+    @EnvironmentObject var patchbayManager:    PatchbayManager
+    @EnvironmentObject var jackManager:        JackManager
+    @EnvironmentObject var jackMoebiusManager: JackMoebiusManager
     @Environment(\.dismiss) private var dismiss
 
     /// UI phases of the stop workflow.
@@ -1560,7 +1747,7 @@ struct StopStudioSheet: View {
                            startPoint: .leading, endPoint: .trailing)
                 .frame(height: 1).padding(.horizontal, 20)
 
-            // Contenu selon la phase
+            // Content by phase
             Group {
                 switch phase {
                 case .confirm:  confirmBody
@@ -1601,6 +1788,24 @@ struct StopStudioSheet: View {
                     ForEach(extraClients) { item in
                         appRow(name: item.displayName, extra: true, isCLI: item.isCLI)
                     }
+                }
+            }
+
+            if jackMoebiusManager.state == .active {
+                HStack(alignment: .top, spacing: 6) {
+                    Image(systemName: "info.circle")
+                        .font(.system(size: 10))
+                        .foregroundStyle(JM.textTertiary)
+                    Group {
+                        if jackManager.prefs.exposeJackMoebius {
+                            Text("stop_studio.jackmoebius.removed")
+                        } else {
+                            Text("stop_studio.jackmoebius.stopped")
+                        }
+                    }
+                    .font(.system(size: 10))
+                    .foregroundStyle(JM.textTertiary)
+                    .fixedSize(horizontal: false, vertical: true)
                 }
             }
 
@@ -1756,6 +1961,16 @@ struct StopStudioSheet: View {
         }
         try? await Task.sleep(nanoseconds: 400_000_000)
 
+        // Step 0.5: JackMoebius — return to the user's baseline. Un-expose all boxes; also stop
+        // the daemon unless the user wants it running by default (the exposeJackMoebius pref).
+        if jackMoebiusManager.state == .active {
+            statusMessage = String(localized: "stop_studio.phase.jackmoebius")
+            await jackMoebiusManager.removeAllExposures()
+            if !jackManager.prefs.exposeJackMoebius {
+                jackMoebiusManager.deactivate()
+            }
+        }
+
         // Step 1: SIGTERM all Jack clients via PID (GUI + CLI, including external)
         statusMessage = String(localized: "stop_studio.phase.closing")
         let targeted = studioManager.terminateAllJackClients(bridge: bridge)
@@ -1813,9 +2028,11 @@ struct LoadStudioProgressView: View {
 /// Prompts for a name, shows the detected Jack command, and allows entering
 /// CLI launch commands for clients that could not be auto-detected.
 struct CaptureStudioSheet: View {
-    @EnvironmentObject var jackManager:     JackManager
-    @EnvironmentObject var patchbayManager: PatchbayManager
-    @EnvironmentObject var studioManager:   StudioManager
+    @EnvironmentObject var jackManager:         JackManager
+    @EnvironmentObject var patchbayManager:     PatchbayManager
+    @EnvironmentObject var studioManager:       StudioManager
+    @EnvironmentObject var jackMoebiusManager:  JackMoebiusManager
+    @EnvironmentObject var outputVolumeManager: OutputVolumeManager
     @Environment(\.dismiss) private var dismiss
 
     @State private var name:        String         = ""
@@ -1961,13 +2178,13 @@ struct CaptureStudioSheet: View {
                         .fill(JM.accentAmber.opacity(0.75))
                         .overlay(RoundedRectangle(cornerRadius: 6)
                             .stroke(JM.accentAmber.opacity(0.4), lineWidth: 1)))
-                    .disabled(name.isEmpty)
+                    .disabled(name.isEmpty || built == nil)
             }
             .padding(.horizontal, 20).padding(.vertical, 14)
         }
         .frame(width: 380)
         .background(JM.bgBase)
-        .onAppear { build() }
+        .onAppear { Task { await build() } }
     }
 
     private var clientCount: Int {
@@ -1980,13 +2197,15 @@ struct CaptureStudioSheet: View {
 
     /// Builds the studio from the current patchbay state and identifies clients that
     /// need a manual CLI command entry.
-    private func build() {
+    private func build() async {
         name = String(format: String(localized: "capture_studio.default_name"), studioManager.studios.count + 1)
-        let (studio, needed) = studioManager.buildStudio(
+        let (studio, needed) = await studioManager.buildStudio(
             name: name,
             nodes: patchbayManager.nodes,
             connections: patchbayManager.connections,
-            jackManager: jackManager)
+            jackManager: jackManager,
+            jackMoebiusManager: jackMoebiusManager,
+            outputVolumeManager: outputVolumeManager)
         built      = studio
         needsInput = needed
         for client in needed {
@@ -2146,22 +2365,37 @@ struct ConfigHeaderView: View {
     @EnvironmentObject var audioManager:   CoreAudioManager
     @EnvironmentObject var patchbayManager: PatchbayManager
     @EnvironmentObject var studioManager:   StudioManager
+    @EnvironmentObject var jackMoebiusManager: JackMoebiusManager
+    @EnvironmentObject var outputVolumeManager: OutputVolumeManager
 
     let canvasSize: CGSize
 
     @State private var showSaveChoiceSheet    = false
     @State private var hoveredBtn: String?    = nil
     @State private var pendingAggregateLayout: AggregateLayout? = nil
+    @State private var showLicenseSheet       = false
+    @State private var isJMUpdateHovered      = false
+    @State private var isJackReleasesHovered  = false
+
+    /// Measured header width. Below `studioLabelThreshold` the studio button collapses
+    /// to icon-only — a real width gate (unlike `ViewThatFits`, which collapses next to
+    /// a `Spacer` even with plenty of slack). Tune the threshold if the switch is off.
+    @State private var headerWidth: CGFloat = 0
+    // Points (not pixels): a Retina screenshot is 2× the point width, which is what
+    // `onGeometryChange` reports. Tuned by dichotomy (1050 slightly high, 940 never).
+    private static let studioLabelThreshold: CGFloat = 995
 
     /// `true` when the loaded studio differs from the current patchbay state
     /// (clients, connections, or node positions changed by more than 2 pt).
     private var isModified: Bool {
         guard let loaded = studioManager.loadedStudio else { return false }
         // Jack clients (app opened / closed)
-        let currentClients = Set(patchbayManager.nodes.map {
-            $0.id.replacingOccurrences(of: " (capture)", with: "")
-               .replacingOccurrences(of: " (playback)", with: "")
-        })
+        let currentClients = Set(patchbayManager.nodes
+            .filter { $0.coreAudioBundleID == nil && !$0.isJackMoebiusMaster }
+            .map {
+                $0.id.replacingOccurrences(of: " (capture)", with: "")
+                     .replacingOccurrences(of: " (playback)", with: "")
+            })
         let savedClients = Set(loaded.clients.map { $0.jackName })
         if currentClients != savedClients { return true }
         // Connections
@@ -2175,6 +2409,16 @@ struct ConfigHeaderView: View {
                     return true
                 }
             }
+        }
+        // Output device volumes (baseline captured at load; any change re-enables Save)
+        if let baseline = loaded.outputVolumes,
+           baseline.differs(from: outputVolumeManager.snapshotOutputVolumes()) {
+            return true
+        }
+        // JackMoebius state (master, exposures, per-app volumes)
+        if let jm = loaded.jackMoebius,
+           jm.differs(from: jackMoebiusManager.currentStudioSnapshot()) {
+            return true
         }
         return false
     }
@@ -2222,6 +2466,30 @@ struct ConfigHeaderView: View {
         }
     }
 
+    /// The studio button's styled label. `compact` drops the text (icon-only, a 40×40
+    /// square like the other toolbar buttons) for the `ViewThatFits` fallback when the
+    /// toolbar runs out of horizontal room.
+    @ViewBuilder
+    private func studioLabel(compact: Bool) -> some View {
+        HStack(spacing: 4) {
+            Image(systemName: isModified ? "square.and.arrow.down" : "plus")
+                .font(.system(size: 9))
+            if !compact {
+                Text("header.button.save_studio").fixedSize()
+            }
+        }
+        .font(.system(size: 11, weight: .semibold))
+        .padding(.horizontal, compact ? 0 : 10)
+        .frame(width: compact ? 40 : nil, height: 40)
+        .background(RoundedRectangle(cornerRadius: 8)
+            .fill(LinearGradient(colors: [JM.accentAmber.opacity(0.42), JM.accentAmber.opacity(0.22)],
+                                 startPoint: .top, endPoint: .bottom))
+            .overlay(RoundedRectangle(cornerRadius: 8)
+                .stroke(JM.accentAmber.opacity(0.4), lineWidth: 1)))
+        .foregroundStyle(JM.textPrimary)
+        .brightness(hoveredBtn == "studio" ? 0.1 : 0)
+    }
+
     var body: some View {
         HStack(spacing: 8) {
 
@@ -2256,22 +2524,34 @@ struct ConfigHeaderView: View {
                                 .font(.system(size: 9.5))
                                 .foregroundStyle(JM.textTertiary.opacity(0.4))
 
-                            if jackManager.jackUpdateAvailable,
-                               let latest = jackManager.latestJackVersion {
-                                Button {
-                                    NSWorkspace.shared.open(
-                                        URL(string: "https://github.com/jackaudio/jack2-releases/releases")!)
-                                } label: {
-                                    HStack(spacing: 3) {
-                                        Image(systemName: "arrow.up.circle.fill")
-                                            .font(.system(size: 9))
-                                        Text("\(installed) → \(latest) ↗")
-                                            .font(.system(size: 9.5))
+                            if jackManager.jackUpdateAvailable {
+                                HStack(spacing: 6) {
+                                    // Current version in amber — signals a newer Jack exists.
+                                    Text(verbatim: installed)
+                                        .font(.system(size: 9.5, design: .monospaced))
+                                        .foregroundStyle(JM.accentAmber)
+                                    // A newer Jack is third-party (jackdmp) — JackMate can't install it,
+                                    // so this only opens the releases page (amber "view" pill, distinct
+                                    // from the gradient "install" pill used for JackMoebius).
+                                    Button {
+                                        NSWorkspace.shared.open(
+                                            URL(string: "https://github.com/jackaudio/jack2-releases/releases")!)
+                                    } label: {
+                                        HStack(spacing: 4) {
+                                            Text("header.status.jack_releases_button").font(.system(size: 10, weight: .semibold))
+                                            Image(systemName: "arrow.up.right").font(.system(size: 8, weight: .semibold))
+                                        }
+                                        .padding(.horizontal, 9).frame(height: 20)
+                                        .background(RoundedRectangle(cornerRadius: 6)
+                                            .fill(JM.accentAmber.opacity(isJackReleasesHovered ? 0.22 : 0.14))
+                                            .overlay(RoundedRectangle(cornerRadius: 6)
+                                                .stroke(JM.accentAmber.opacity(0.5), lineWidth: 1)))
+                                        .foregroundStyle(JM.accentAmber)
                                     }
-                                    .foregroundStyle(JM.accentAmber)
+                                    .buttonStyle(.plain)
+                                    .onHover { isJackReleasesHovered = $0 }
+                                    .help("header.status.update_available")
                                 }
-                                .buttonStyle(.plain)
-                                .help("header.status.update_available")
                             } else {
                                 HStack(spacing: 3) {
                                     Image(systemName: "checkmark.circle.fill")
@@ -2283,6 +2563,96 @@ struct ConfigHeaderView: View {
                                 }
                             }
                         }
+
+                        // JackMoebius: installed version + license status (in parentheses), alongside jackd's.
+                        if jackMoebiusManager.installed, let jmVersion = jackMoebiusManager.installedVersion {
+                            Text("·")
+                                .font(.system(size: 9.5))
+                                .foregroundStyle(JM.textTertiary.opacity(0.4))
+                            HStack(spacing: 4) {
+                                // Version — amber clickable when an update is available, else a green check.
+                                if jackMoebiusManager.updateAvailable {
+                                    HStack(spacing: 6) {
+                                        // Current version in amber — signals "update available".
+                                        Text(verbatim: "JackMoebius \(jmVersion)")
+                                            .font(.system(size: 9.5, design: .monospaced))
+                                            .foregroundStyle(JM.accentAmber)
+                                        if jackMoebiusManager.isFetchingInstaller {
+                                            ProgressView().controlSize(.small)
+                                        } else {
+                                            // Coloured pill (like the "not installed" CTA) → downloads the latest
+                                            // DMG and opens its installer; falls back to the releases page on error.
+                                            Button {
+                                                jackMoebiusManager.downloadAndOpenInstaller()
+                                            } label: {
+                                                HStack(spacing: 4) {
+                                                    Image(systemName: "arrow.down.circle.fill").font(.system(size: 9))
+                                                    Text("header.status.jm_update_button").font(.system(size: 10, weight: .semibold))
+                                                }
+                                                .fixedSize()
+                                                .padding(.horizontal, 9).frame(height: 20)
+                                                .background(RoundedRectangle(cornerRadius: 6)
+                                                    .fill(LinearGradient(colors: [JM.accentPurple, JM.accentCyan],
+                                                                         startPoint: .leading, endPoint: .trailing))
+                                                    .overlay(RoundedRectangle(cornerRadius: 6)
+                                                        .stroke(Color.white.opacity(0.35), lineWidth: 1)))
+                                                .foregroundStyle(.white)
+                                                .shadow(color: JM.accentCyan.opacity(isJMUpdateHovered ? 0.3 : 0.12),
+                                                        radius: isJMUpdateHovered ? 5 : 3, y: 1)
+                                                .brightness(isJMUpdateHovered ? 0.05 : 0)
+                                            }
+                                            .buttonStyle(.plain)
+                                            .onHover { isJMUpdateHovered = $0 }
+                                            .help("header.status.jm_update")
+                                        }
+                                    }
+                                } else {
+                                    HStack(spacing: 3) {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .font(.system(size: 9))
+                                            .foregroundStyle(JM.accentGreen.opacity(0.6))
+                                        Text(verbatim: "JackMoebius \(jmVersion)")
+                                            .font(.system(size: 9.5, design: .monospaced))
+                                            .foregroundStyle(JM.textTertiary)
+                                    }
+                                }
+                                // License status in parentheses (colour = state). Clicking opens the
+                                // License sheet to view details, activate a key, or buy a license.
+                                if let lic = jackMoebiusManager.license {
+                                    Button { showLicenseSheet = true } label: {
+                                        Group {
+                                            switch lic {
+                                            case .trial(let days):
+                                                Text(String(format: String(localized: "license.badge.trial"), days))
+                                                    .foregroundStyle(JM.accentAmber)
+                                            case .expired:
+                                                Text("license.badge.expired")
+                                                    .foregroundStyle(JM.accentRed)
+                                            case .licensed:
+                                                Text("license.badge.licensed")
+                                                    .foregroundStyle(JM.accentGreen.opacity(0.7))
+                                            }
+                                        }
+                                        .font(.system(size: 9.5))
+                                    }
+                                    .buttonStyle(.plain)
+                                    .help("license.manage.help")
+                                }
+                            }
+                            .sheet(isPresented: $showLicenseSheet) {
+                                JackMoebiusLicenseSheet()
+                                    .environmentObject(jackMoebiusManager)
+                            }
+                        } else if !jackMoebiusManager.installed {
+                            // Not installed → plain status here; the "Try JackMoebius" CTA lives in
+                            // the Configuration row and the panel.
+                            Text("·")
+                                .font(.system(size: 9.5))
+                                .foregroundStyle(JM.textTertiary.opacity(0.4))
+                            Text("jackmoebius.panel.not_installed.title")
+                                .font(.system(size: 9.5))
+                                .foregroundStyle(JM.textTertiary)
+                        }
                     }
                 }
             }
@@ -2290,6 +2660,56 @@ struct ConfigHeaderView: View {
             Spacer()
 
             HStack(spacing: 18) {
+
+            // ── JackMoebius panel toggle — standalone button, left of the patchbay
+            // group. Colour picto when the daemon is active, monochrome (template,
+            // hover-brightened) otherwise. ───────────────────────────────────────────
+            if selection == .patchbay {
+                Button { jackMoebiusManager.showPanel.toggle() } label: {
+                    Group {
+                        if jackMoebiusManager.state == .active {
+                            Image("JackMoebiusPictoColor")
+                                .resizable().scaledToFit()
+                                .opacity(hoveredBtn == "jackmoebius" ? 1.0 : 0.88)
+                        } else {
+                            Image("JackMoebiusGlyph")
+                                .renderingMode(.template)
+                                .resizable().scaledToFit()
+                                .foregroundStyle(hoveredBtn == "jackmoebius" ? JM.textPrimary : JM.textTertiary)
+                        }
+                    }
+                    .frame(width: 20, height: 20)
+                    .frame(width: 40, height: 40)
+                    .background(RoundedRectangle(cornerRadius: 8).fill(JM.bgBase))
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(JM.borderFaint, lineWidth: 1))
+                }
+                .buttonStyle(.plain)
+                .onHover { hoveredBtn = $0 ? "jackmoebius" : nil }
+                .help(String(localized: "jackmoebius.toolbar.help"))
+                // Enabled only when JACK is running (the panel controls a JACK-gated daemon).
+                .disabled(!jackManager.isRunning)
+                .opacity(jackManager.isRunning ? 1.0 : 0.4)
+            }
+
+            // ── Volumes bar toggle (output device volumes) ───────────────────
+            if selection == .patchbay {
+                Button {
+                    withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
+                        outputVolumeManager.showVolumesBar.toggle()
+                    }
+                } label: {
+                    Image(systemName: "speaker.wave.2.fill")
+                        .font(.system(size: 15))
+                        .foregroundStyle(outputVolumeManager.showVolumesBar ? JM.accentCyan
+                                         : (hoveredBtn == "volumes" ? JM.textPrimary : JM.textTertiary))
+                        .frame(width: 40, height: 40)
+                        .background(RoundedRectangle(cornerRadius: 8).fill(JM.bgBase))
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(JM.borderFaint, lineWidth: 1))
+                }
+                .buttonStyle(.plain)
+                .onHover { hoveredBtn = $0 ? "volumes" : nil }
+                .help(String(localized: "volumes.toolbar.help"))
+            }
 
             // ── Patchbay toolbar (patchbay tab only) ─────────────────────────
             if selection == .patchbay {
@@ -2448,22 +2868,13 @@ struct ConfigHeaderView: View {
                             patchbayManager.showSaveStudioDialog = true
                         }
                     } label: {
-                        HStack(spacing: 4) {
-                            Image(systemName: isModified ? "square.and.arrow.down" : "plus")
-                                .font(.system(size: 9))
-                            Text("header.button.save_studio")
-                        }
-                        .font(.system(size: 11, weight: .semibold))
-                        .padding(.horizontal, 10).frame(height: 40)
-                        .background(RoundedRectangle(cornerRadius: 8)
-                            .fill(LinearGradient(colors: [JM.accentAmber.opacity(0.42), JM.accentAmber.opacity(0.22)],
-                                                 startPoint: .top, endPoint: .bottom))
-                            .overlay(RoundedRectangle(cornerRadius: 8)
-                                .stroke(JM.accentAmber.opacity(0.4), lineWidth: 1)))
-                        .foregroundStyle(JM.textPrimary)
-                        .brightness(hoveredBtn == "studio" ? 0.1 : 0)
+                        // Full label while the header is wide enough; icon-only below a
+                        // measured width threshold (a real gate, so it stays full as long
+                        // as there is actually room).
+                        studioLabel(compact: headerWidth > 0 && headerWidth < Self.studioLabelThreshold)
                     }
                     .buttonStyle(.plain)
+                    .help(Text("header.button.save_studio"))
                     .onHover { hoveredBtn = $0 ? "studio" : nil }
                     .disabled(!patchbayManager.isConnected ||
                               (studioManager.loadedStudio != nil && !isModified))
@@ -2474,33 +2885,43 @@ struct ConfigHeaderView: View {
                             SaveChoiceSheet(
                                 studio: loaded,
                                 onOverwrite: {
-                                    let (built, _) = studioManager.buildStudio(
-                                        name: loaded.name,
-                                        nodes: patchbayManager.nodes,
-                                        connections: patchbayManager.connections,
-                                        jackManager: jackManager)
-                                    var updated = loaded
-                                    updated.clients = built.clients.map { builtClient in
-                                        loaded.clients.first(where: { $0.jackName == builtClient.jackName }) ?? builtClient
+                                    Task {
+                                        let (built, _) = await studioManager.buildStudio(
+                                            name: loaded.name,
+                                            nodes: patchbayManager.nodes,
+                                            connections: patchbayManager.connections,
+                                            jackManager: jackManager,
+                                            jackMoebiusManager: jackMoebiusManager,
+                                            outputVolumeManager: outputVolumeManager)
+                                        var updated = loaded
+                                        updated.clients = built.clients.map { builtClient in
+                                            loaded.clients.first(where: { $0.jackName == builtClient.jackName }) ?? builtClient
+                                        }
+                                        updated.connections   = built.connections
+                                        updated.nodePositions = built.nodePositions
+                                        updated.jackSnapshot  = built.jackSnapshot ?? loaded.jackSnapshot
+                                        updated.jackMoebius   = built.jackMoebius
+                                        updated.outputVolumes = built.outputVolumes
+                                        try? studioManager.save(updated)
+                                        studioManager.loadedStudio = updated
                                     }
-                                    updated.connections   = built.connections
-                                    updated.nodePositions = built.nodePositions
-                                    updated.jackSnapshot  = built.jackSnapshot ?? loaded.jackSnapshot
-                                    try? studioManager.save(updated)
-                                    studioManager.loadedStudio = updated
                                 },
                                 onSaveAs: { name in
-                                    let (built, _) = studioManager.buildStudio(
-                                        name: name,
-                                        nodes: patchbayManager.nodes,
-                                        connections: patchbayManager.connections,
-                                        jackManager: jackManager)
-                                    var newStudio = built
-                                    newStudio.clients = built.clients.map { builtClient in
-                                        loaded.clients.first(where: { $0.jackName == builtClient.jackName }) ?? builtClient
+                                    Task {
+                                        let (built, _) = await studioManager.buildStudio(
+                                            name: name,
+                                            nodes: patchbayManager.nodes,
+                                            connections: patchbayManager.connections,
+                                            jackManager: jackManager,
+                                            jackMoebiusManager: jackMoebiusManager,
+                                            outputVolumeManager: outputVolumeManager)
+                                        var newStudio = built
+                                        newStudio.clients = built.clients.map { builtClient in
+                                            loaded.clients.first(where: { $0.jackName == builtClient.jackName }) ?? builtClient
+                                        }
+                                        try? studioManager.save(newStudio)
+                                        studioManager.loadedStudio = newStudio
                                     }
-                                    try? studioManager.save(newStudio)
-                                    studioManager.loadedStudio = newStudio
                                 }
                             )
                         }
@@ -2596,6 +3017,7 @@ struct ConfigHeaderView: View {
         .padding(.horizontal, 14)
         .padding(.vertical, 10)
         .background(JM.bgBase)
+        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { headerWidth = $0 }
         .sheet(item: $pendingAggregateLayout) { layout in
             AggregateWarningSheet(layout: layout) {
                 jackManager.savePreferences()
@@ -2665,6 +3087,7 @@ struct ConfigHeaderView: View {
 struct ConfigBodyView: View {
     @EnvironmentObject var jackManager:  JackManager
     @EnvironmentObject var audioManager: CoreAudioManager
+    @EnvironmentObject var jackMoebiusManager: JackMoebiusManager
 
     @AppStorage("hideAggregateAlert")  var hideAggregateAlert  = false
     @AppStorage("hideClockDriftAlert") var hideClockDriftAlert = false
@@ -2672,6 +3095,10 @@ struct ConfigBodyView: View {
     @State private var clockDriftPulse: Double = 0.15
     @State private var showClockDriftInfo = false
     @State private var isClockDriftInfoHovered = false
+    @State private var showJackMoebiusInfo = false
+    @State private var isJackMoebiusInfoHovered = false
+    @State private var showLicenseSheet = false
+    @State private var isTryHovered = false
 
     let bufferSizes = [16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
 
@@ -2751,7 +3178,7 @@ struct ConfigBodyView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: 6) {
                 
                 // Lock banner shown while Jack is running
                 if jackManager.isRunning {
@@ -2887,6 +3314,104 @@ struct ConfigBodyView: View {
                         iconColor: JM.groupOptions,
                         title: String(localized: "config.group.options")) {
                     VStack(spacing: 0) {
+                        // JackMoebius — expose native macOS apps to JACK. A pre-launch
+                        // intent: it does not alter the jackd command (see buildCommand);
+                        // jackmoebiusd is auto-started right after a successful Jack start.
+                        if jackMoebiusManager.installed {
+                            JMToggleRow(iconBg: JM.tintCyan, iconColor: JM.accentCyan,
+                                        label: String(localized: "config.jackmoebius.label"),
+                                        sub: String(localized: "config.jackmoebius.description"),
+                                        assetIcon: "JackMoebiusGlyph",
+                                        value: Binding(
+                                            get: { jackManager.prefs.exposeJackMoebius },
+                                            set: { newValue in
+                                                // Trial expired → JackMoebius can't launch: open the
+                                                // License sheet instead and leave the toggle off.
+                                                if newValue, case .expired? = jackMoebiusManager.license {
+                                                    showLicenseSheet = true
+                                                    return
+                                                }
+                                                jackManager.prefs.exposeJackMoebius = newValue
+                                            }))
+                                .onChange(of: jackManager.prefs.exposeJackMoebius) { _, _ in jackManager.savePreferences() }
+                                .overlay(alignment: .trailing) {
+                                    HStack(spacing: 0) {
+                                        // Expired → this button opens the License sheet (activate/buy);
+                                        // otherwise the "what is JackMoebius" info sheet.
+                                        Button {
+                                            if jackMoebiusManager.isLicenseExpired { showLicenseSheet = true }
+                                            else { showJackMoebiusInfo = true }
+                                        } label: {
+                                            Image(systemName: jackMoebiusManager.isLicenseExpired ? "key.fill" : "info.circle")
+                                                .font(.system(size: 13, weight: .medium))
+                                                .foregroundStyle(jackMoebiusManager.isLicenseExpired ? JM.accentAmber
+                                                                 : (isJackMoebiusInfoHovered ? JM.textPrimary : JM.textTertiary))
+                                        }
+                                        .buttonStyle(.plain)
+                                        .onHover { isJackMoebiusInfoHovered = $0 }
+                                        .help(jackMoebiusManager.isLicenseExpired ? "license.manage.help" : "")
+                                        Spacer().frame(width: 40)
+                                    }
+                                }
+                        } else {
+                            // Not installed → icon + label + greyed toggle, with the "Try JackMoebius"
+                            // CTA as a centred overlay (perfectly centred H & V in the row).
+                            HStack(spacing: 10) {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 6).fill(JM.tintCyan).frame(width: 26, height: 26)
+                                    Image("JackMoebiusGlyph")
+                                        .renderingMode(.template).resizable().scaledToFit()
+                                        .frame(width: 15, height: 15).foregroundStyle(JM.accentCyan)
+                                }
+                                VStack(alignment: .leading, spacing: 1) {
+                                    Text("config.jackmoebius.label")
+                                        .font(.system(size: 12, weight: .medium)).foregroundStyle(JM.textPrimary.opacity(0.88))
+                                    Text("config.jackmoebius.description")
+                                        .font(.system(size: 10)).foregroundStyle(JM.textTertiary)
+                                }
+                                Spacer()
+                                // Info button — same affordance as the installed row, so a curious
+                                // user can learn what JackMoebius is before installing it (the info
+                                // sheet has a dedicated "not installed" variant).
+                                Button { showJackMoebiusInfo = true } label: {
+                                    Image(systemName: "info.circle")
+                                        .font(.system(size: 13, weight: .medium))
+                                        .foregroundStyle(isJackMoebiusInfoHovered ? JM.textPrimary : JM.textTertiary)
+                                }
+                                .buttonStyle(.plain)
+                                .onHover { isJackMoebiusInfoHovered = $0 }
+                                Toggle("", isOn: .constant(false))
+                                    .labelsHidden().toggleStyle(.switch).controlSize(.mini)
+                                    .disabled(true).opacity(0.4)
+                            }
+                            .padding(.vertical, 8).padding(.horizontal, 2)
+                            .overlay {
+                                Button {
+                                    NSWorkspace.shared.open(JackMoebiusManager.downloadURL)
+                                } label: {
+                                    HStack(spacing: 5) {
+                                        Image(systemName: "arrow.up.right.square").font(.system(size: 9))
+                                        Text("config.jackmoebius.try").font(.system(size: 11, weight: .semibold))
+                                    }
+                                    .fixedSize()
+                                    .padding(.horizontal, 12).frame(height: 26)
+                                    .background(RoundedRectangle(cornerRadius: 8)
+                                        .fill(LinearGradient(colors: [JM.accentPurple, JM.accentCyan],
+                                                             startPoint: .leading, endPoint: .trailing))
+                                        .overlay(RoundedRectangle(cornerRadius: 8)
+                                            .stroke(Color.white.opacity(0.35), lineWidth: 1)))
+                                    .foregroundStyle(.white)
+                                    .shadow(color: JM.accentCyan.opacity(isTryHovered ? 0.3 : 0.12),
+                                            radius: isTryHovered ? 6 : 3, y: 0)
+                                    .brightness(isTryHovered ? 0.05 : 0)
+                                    .animation(.easeOut(duration: 0.15), value: isTryHovered)
+                                }
+                                .buttonStyle(.plain)
+                                .onHover { isTryHovered = $0 }
+                                .offset(y: -4)
+                            }
+                        }
+                        separatorGradient
                         JMToggleRow(icon: "lock.fill",
                                     iconBg: JM.tintRed, iconColor: JM.accentRed,
                                     label: String(localized: "config.hog_mode.label"),
@@ -3049,6 +3574,14 @@ struct ConfigBodyView: View {
         .sheet(isPresented: $showClockDriftInfo) {
             ClockDriftInfoSheet()
         }
+        .sheet(isPresented: $showJackMoebiusInfo) {
+            JackMoebiusInfoSheet(installed: jackMoebiusManager.installed)
+                .environmentObject(jackMoebiusManager)
+        }
+        .sheet(isPresented: $showLicenseSheet) {
+            JackMoebiusLicenseSheet()
+                .environmentObject(jackMoebiusManager)
+        }
     }
 
     /// Shows an informational alert when the user selects a macOS aggregate device,
@@ -3149,6 +3682,314 @@ struct ClockDriftInfoSheet: View {
     }
 }
 
+// MARK: - JackMoebius license sheet
+
+/// Sheet to view and manage the JackMoebius license: current state, license-key entry
+/// and activation, deactivation of this Mac, and a link to purchase a license. Every
+/// state read and action is delegated to `JackMoebiusManager`, which runs the
+/// `jackmoebius` command-line tool — the UI never accesses license storage directly.
+struct JackMoebiusLicenseSheet: View {
+    @EnvironmentObject var jackMoebiusManager: JackMoebiusManager
+    @Environment(\.dismiss) var dismiss
+
+    /// License key typed by the user, activated on demand.
+    @State private var keyField: String = ""
+    /// A network action (activate / deactivate) is in flight.
+    @State private var isWorking = false
+    /// Message surfaced from the command-line tool on failure, shown under the field.
+    @State private var errorMessage: String?
+    /// True when the last activation failed because all seats are used — reveals the support/buy links.
+    @State private var showLimitLinks = false
+
+    /// True when JackMoebius reports an active license — hides the key entry and purchase
+    /// affordances, which are meaningless once licensed.
+    private var isLicensed: Bool {
+        if case .licensed? = jackMoebiusManager.license { return true }
+        return false
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 22) {
+            // Header — colour picto, title, and a one-line state summary.
+            HStack(spacing: 12) {
+                Image("JackMoebiusPictoColor")
+                    .resizable().scaledToFit()
+                    .frame(width: 38, height: 38)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("license.sheet.title")
+                        .font(.headline)
+                        .foregroundStyle(JM.textPrimary)
+                    stateLine
+                }
+            }
+
+            Divider()
+
+            // State-specific details (email + machine count when licensed).
+            stateDetails
+
+            // Not installed → activation can't work (it shells out to the JackMoebius CLI). Steer
+            // the user to installing JackMoebius rather than an activate field that would just fail
+            // — e.g. a licence bought while only JackMate (the free entry point) is installed.
+            if !jackMoebiusManager.installed {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("license.sheet.not_installed")
+                        .font(.subheadline).foregroundStyle(JM.textPrimary)
+                        .fixedSize(horizontal: false, vertical: true)
+                    if jackMoebiusManager.isFetchingInstaller {
+                        HStack(spacing: 8) {
+                            ProgressView().controlSize(.small)
+                            Text("license.sheet.installer_downloading")
+                                .font(.caption).foregroundStyle(JM.textTertiary)
+                        }
+                    } else {
+                        Button("license.sheet.install_button") {
+                            jackMoebiusManager.downloadAndOpenInstaller()
+                        }
+                    }
+                }
+
+                Divider()
+            } else if !isLicensed {
+                // License-key entry + activation — only when installed and not already licensed.
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("license.sheet.activate_label")
+                        .font(.subheadline).foregroundStyle(JM.textPrimary)
+                    HStack(spacing: 8) {
+                        TextField("XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" as String, text: $keyField)
+                            .textFieldStyle(.roundedBorder)
+                            .disabled(isWorking)
+                            .onSubmit { activate() }
+                        Button("license.sheet.activate_button") { activate() }
+                            .disabled(isWorking ||
+                                      keyField.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    }
+                    Text("license.sheet.activate_hint")
+                        .font(.caption).foregroundStyle(JM.textTertiary)
+                    if let errorMessage {
+                        Text(errorMessage)
+                            .font(.caption).foregroundStyle(JM.accentRed)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+
+                Divider()
+            }
+
+            // Actions.
+            HStack(spacing: 10) {
+                if showLimitLinks {
+                    // Seat limit reached → the two ways out, as the primary actions (replaces the
+                    // generic "Buy a license…" to avoid a duplicate purchase affordance).
+                    Button("license.limit.support") {
+                        NSWorkspace.shared.open(JackMoebiusManager.licenseSupportURL)
+                    }
+                    Button("license.limit.buy") {
+                        NSWorkspace.shared.open(JackMoebiusManager.purchaseURL)
+                    }
+                } else if !isLicensed, jackMoebiusManager.installed {
+                    Button("license.sheet.buy") {
+                        NSWorkspace.shared.open(JackMoebiusManager.downloadURL)
+                    }
+                }
+                Spacer()
+                if isWorking { ProgressView().controlSize(.small) }
+                Button("common.close") { dismiss() }
+                    .keyboardShortcut(.defaultAction)
+            }
+        }
+        .padding(28)
+        .frame(width: 460)
+        .onAppear {
+            // A jackmate://activate deep link pre-fills the key; consume it once so a later
+            // manual open starts blank.
+            if let pending = jackMoebiusManager.pendingActivationKey {
+                keyField = pending
+                jackMoebiusManager.pendingActivationKey = nil
+            }
+            // Show the cached state instantly, then (if licensed) re-validate online so the seat
+            // counter is fresh and a revocation made elsewhere shows up promptly — best-effort,
+            // off the main thread; if offline it silently keeps the cached state.
+            jackMoebiusManager.refreshLicense()
+            if isLicensed {
+                Task { try? await jackMoebiusManager.refreshLicenseOnline() }
+            }
+        }
+    }
+
+    // MARK: State display
+
+    /// One-line coloured summary shown under the title.
+    @ViewBuilder private var stateLine: some View {
+        switch jackMoebiusManager.license {
+        case .licensed?:
+            Label("license.state.licensed", systemImage: "checkmark.seal.fill")
+                .font(.caption).foregroundStyle(JM.accentGreen)
+        case .trial(let days)?:
+            Label(String(format: String(localized: "license.state.trial"), days), systemImage: "clock")
+                .font(.caption).foregroundStyle(JM.accentAmber)
+        case .expired?:
+            Label("license.state.expired", systemImage: "exclamationmark.triangle.fill")
+                .font(.caption).foregroundStyle(JM.accentRed)
+        case nil:
+            Text("license.state.unavailable")
+                .font(.caption).foregroundStyle(JM.textTertiary)
+        }
+    }
+
+    /// Fuller description below the header, tailored to the current state.
+    @ViewBuilder private var stateDetails: some View {
+        switch jackMoebiusManager.license {
+        case .licensed(let email, let usage, let limit, let keyHint)?:
+            VStack(alignment: .leading, spacing: 8) {
+                if let email, !email.isEmpty {
+                    Text(String(format: String(localized: "license.detail.email"), email))
+                        .font(.system(size: 12)).foregroundStyle(JM.textPrimary.opacity(0.85))
+                }
+                if let keyHint, !keyHint.isEmpty {
+                    Text(String(format: String(localized: "license.detail.key"), keyHint))
+                        .font(.system(size: 12)).foregroundStyle(JM.textPrimary.opacity(0.6))
+                }
+                switch limit {
+                case 1:
+                    Text("license.detail.single_mac")
+                        .font(.system(size: 12)).foregroundStyle(JM.textPrimary.opacity(0.85))
+                case .some(let seats):
+                    if let usage {
+                        Text(String(format: String(localized: "license.detail.macs"), usage, seats))
+                            .font(.system(size: 12)).foregroundStyle(JM.textPrimary.opacity(0.85))
+                    }
+                case nil:
+                    EmptyView()
+                }
+            }
+        case .trial?:
+            Text("license.sheet.blurb_trial")
+                .font(.system(size: 12)).foregroundStyle(JM.textPrimary.opacity(0.75))
+                .fixedSize(horizontal: false, vertical: true)
+        case .expired?:
+            Text("license.sheet.blurb_expired")
+                .font(.system(size: 12)).foregroundStyle(JM.textPrimary.opacity(0.75))
+                .fixedSize(horizontal: false, vertical: true)
+        case nil:
+            // When JackMoebius isn't installed, the not-installed block below already explains what
+            // to do — skip the generic "unknown" blurb so the message isn't doubled up.
+            if jackMoebiusManager.installed {
+                Text("license.sheet.blurb_unknown")
+                    .font(.system(size: 12)).foregroundStyle(JM.textPrimary.opacity(0.75))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+    }
+
+    // MARK: Actions
+
+    /// Activate the typed key. The manager runs the tool off the main thread; on failure
+    /// its message is shown under the field.
+    private func activate() {
+        let key = keyField.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !key.isEmpty, !isWorking else { return }
+        errorMessage = nil
+        showLimitLinks = false
+        isWorking = true
+        Task {
+            do {
+                try await jackMoebiusManager.activateLicense(key)
+                keyField = ""
+            } catch let e as LicenseCLIError where e.code == "activation_limit_reached" {
+                // Out of seats: offer both ways out — free a Mac (licensing discussions), or buy another.
+                errorMessage = String(localized: "license.error.limit_reached")
+                showLimitLinks = true
+            } catch let e as LicenseCLIError {
+                // The CLI's messages arrive lower-cased; upper-case the first letter for the UI.
+                errorMessage = e.message.prefix(1).uppercased() + String(e.message.dropFirst())
+            } catch {
+                errorMessage = error.localizedDescription
+            }
+            isWorking = false
+        }
+    }
+}
+
+// MARK: - JackMoebius info sheet
+
+/// Informational sheet explaining the JackMoebius integration, with a download link.
+struct JackMoebiusInfoSheet: View {
+    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var jackMoebiusManager: JackMoebiusManager
+
+    /// Whether the `jackmoebius` CLI is installed — drives Download vs Documentation.
+    let installed: Bool
+
+    /// During the free trial, offer a shortcut to buy / activate — opens the License sheet. Only the
+    /// trial: once licensed there's nothing to buy, and when expired the config-row info button is
+    /// already replaced by a key that opens the License sheet directly (this info sheet isn't reached).
+    private var showManageLicense: Bool {
+        if case .trial? = jackMoebiusManager.license { return true }
+        return false
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            // Header — the colour picto (rendered as-is) + title.
+            HStack(spacing: 12) {
+                Image("JackMoebiusPictoColor")
+                    .resizable().scaledToFit()
+                    .frame(width: 38, height: 38)
+                Text(String(localized: "jackmoebius.info.title"))
+                    .font(.headline)
+                    .foregroundStyle(JM.textPrimary)
+            }
+
+            // Body
+            Text(String(localized: "jackmoebius.info.body"))
+                .font(.system(size: 12))
+                .foregroundStyle(JM.textPrimary.opacity(0.80))
+                .fixedSize(horizontal: false, vertical: true)
+                .lineSpacing(3)
+
+            // Buttons
+            HStack {
+                Spacer()
+                if installed {
+                    if showManageLicense {
+                        Button(String(localized: "license.manage.button")) {
+                            dismiss()
+                            // Present the License sheet once this one has dismissed (avoid a two-sheet clash).
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                                jackMoebiusManager.showLicenseSheet = true
+                            }
+                        }
+                    }
+                    Button(String(localized: "jackmoebius.info.docs")) {
+                        NSWorkspace.shared.open(JackMoebiusManager.docsURL)
+                        dismiss()
+                    }
+                } else {
+                    // Learn more → the JackMoebius website (presentation / docs).
+                    Button(String(localized: "jackmoebius.info.learn_more")) {
+                        NSWorkspace.shared.open(JackMoebiusManager.downloadURL)
+                        dismiss()
+                    }
+                    // Real install → download the DMG and open its bundled installer (same flow as
+                    // the licence sheet's "not installed" path).
+                    if jackMoebiusManager.isFetchingInstaller {
+                        ProgressView().controlSize(.small)
+                    } else {
+                        Button(String(localized: "license.sheet.install_button")) {
+                            jackMoebiusManager.downloadAndOpenInstaller()
+                        }
+                    }
+                }
+                Button(String(localized: "common.ok")) { dismiss() }
+                    .keyboardShortcut(.defaultAction)
+            }
+        }
+        .padding(24)
+        .frame(width: (installed && !showManageLicense) ? 380 : 420)
+    }
+}
+
 struct JMGroup<Content: View>: View {
     let icon: String
     let iconColor: Color
@@ -3168,7 +4009,7 @@ struct JMGroup<Content: View>: View {
                     .tracking(0.6)
                 Spacer()
             }
-            .padding(.horizontal, 12).padding(.vertical, 7)
+            .padding(.horizontal, 12).padding(.vertical, 5)
 
             LinearGradient(
                 colors: [Color.clear, Color.white.opacity(0.18), Color.clear],
@@ -3176,7 +4017,7 @@ struct JMGroup<Content: View>: View {
                 .frame(height: 1)
 
             content()
-                .padding(12)
+                .padding(.horizontal, 12).padding(.vertical, 8)
         }
         .background(LinearGradient(
             colors: [Color(red: 0.075, green: 0.075, blue: 0.085),
@@ -3205,17 +4046,27 @@ struct JMParamCard<Content: View>: View {
 
 /// Toggle row with a coloured icon badge, a main label, a subtitle, and a SwiftUI toggle.
 struct JMToggleRow: View {
-    let icon: String; let iconBg: Color; let iconColor: Color
+    var icon: String = ""; let iconBg: Color; let iconColor: Color
     let label: String; let sub: String
+    /// Optional asset image (rendered as a tinted template) used instead of an SF Symbol.
+    var assetIcon: String? = nil
     @Binding var value: Bool
 
     var body: some View {
         HStack(spacing: 10) {
             ZStack {
                 RoundedRectangle(cornerRadius: 6).fill(iconBg).frame(width: 26, height: 26)
-                Image(systemName: icon)
-                    .font(.system(size: 11, weight: .bold))
-                    .foregroundStyle(iconColor)
+                if let assetIcon {
+                    Image(assetIcon)
+                        .renderingMode(.template)
+                        .resizable().scaledToFit()
+                        .frame(width: 15, height: 15)
+                        .foregroundStyle(iconColor)
+                } else {
+                    Image(systemName: icon)
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundStyle(iconColor)
+                }
             }
             VStack(alignment: .leading, spacing: 1) {
                 Text(label).font(.system(size: 12, weight: .medium)).foregroundStyle(JM.textPrimary.opacity(0.88))
@@ -3562,10 +4413,12 @@ private struct LedView: View {
 /// Bottom status bar: device names, sample rate, buffer size, latency, channel counts,
 /// xrun counter (polled from the bridge every second), and active studio name.
 struct StatusBarView: View {
-    @EnvironmentObject var jackManager:     JackManager
-    @EnvironmentObject var audioManager:    CoreAudioManager
-    @EnvironmentObject var patchbayManager: PatchbayManager
-    @EnvironmentObject var studioManager:   StudioManager
+    @EnvironmentObject var jackManager:         JackManager
+    @EnvironmentObject var audioManager:        CoreAudioManager
+    @EnvironmentObject var patchbayManager:     PatchbayManager
+    @EnvironmentObject var studioManager:       StudioManager
+    @EnvironmentObject var outputVolumeManager: OutputVolumeManager
+    @EnvironmentObject var jackMoebiusManager:  JackMoebiusManager
 
     @State private var displayedXrunCount: UInt32 = 0
 
@@ -3646,10 +4499,12 @@ struct StatusBarView: View {
     private var isModified: Bool {
         guard let loaded = studioManager.loadedStudio else { return false }
         // Jack clients (app opened / closed)
-        let currentClients = Set(patchbayManager.nodes.map {
-            $0.id.replacingOccurrences(of: " (capture)", with: "")
-               .replacingOccurrences(of: " (playback)", with: "")
-        })
+        let currentClients = Set(patchbayManager.nodes
+            .filter { $0.coreAudioBundleID == nil && !$0.isJackMoebiusMaster }
+            .map {
+                $0.id.replacingOccurrences(of: " (capture)", with: "")
+                     .replacingOccurrences(of: " (playback)", with: "")
+            })
         let savedClients = Set(loaded.clients.map { $0.jackName })
         if currentClients != savedClients { return true }
         // Connections
@@ -3663,6 +4518,16 @@ struct StatusBarView: View {
                     return true
                 }
             }
+        }
+        // Output device volumes (baseline captured at load; any change re-enables Save)
+        if let baseline = loaded.outputVolumes,
+           baseline.differs(from: outputVolumeManager.snapshotOutputVolumes()) {
+            return true
+        }
+        // JackMoebius state (master, exposures, per-app volumes)
+        if let jm = loaded.jackMoebius,
+           jm.differs(from: jackMoebiusManager.currentStudioSnapshot()) {
+            return true
         }
         return false
     }
@@ -3784,17 +4649,28 @@ struct NodeBadgeSheet: View {
     /// Hardware segments when Jack was launched by JackMate (system nodes only).
     /// Empty for regular client nodes — their display is completely unaffected.
     let segments: [SystemNodeSegment]
-    @Environment(\.dismiss) private var dismiss
+    /// Called to dismiss the card (presented as a light-dismiss overlay, not a sheet).
+    let onClose: () -> Void
     @EnvironmentObject var jackManager: JackManager
 
     private let abbr: String
     private let badgeColor: Color
     private var isSystemNode:  Bool { node.id.hasPrefix("system") }
     private var isCaptureNode: Bool { node.id.hasSuffix("(capture)") }
+    /// JackMoebius CoreAudio box (carries the bundle-ID metadata).
+    private var isCoreAudioBox: Bool { node.coreAudioBundleID != nil }
+    /// Resolved icon: the brand picto for the master box, the real app icon for a
+    /// CoreAudio box (`nil` → falls back to the abbreviation badge).
+    private var appIcon: NSImage? {
+        if node.isJackMoebiusMaster { return NSImage(named: "JackMoebiusPictoColor") }
+        guard let key = node.coreAudioBundleID else { return nil }
+        return JackMoebiusIconCache.icon(forKey: key)
+    }
 
-    init(node: PatchbayNode, segments: [SystemNodeSegment] = []) {
+    init(node: PatchbayNode, segments: [SystemNodeSegment] = [], onClose: @escaping () -> Void) {
         self.node     = node
         self.segments = segments
+        self.onClose  = onClose
         let a = BadgeUtils.abbrev(node.id)
         self.abbr = a
         self.badgeColor = BadgeUtils.color(a, fullName: node.id)
@@ -3827,19 +4703,28 @@ struct NodeBadgeSheet: View {
             // Node badge header
             HStack(spacing: 12) {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 9)
-                        .fill(isSystemNode
-                              ? (isCaptureNode ? JM.accentCyan.opacity(0.18) : JM.accentPurple.opacity(0.18))
-                              : badgeColor.opacity(0.22))
-                        .frame(width: 38, height: 38)
-                    if isSystemNode {
-                        Image(systemName: isCaptureNode ? "mic.fill" : "speaker.wave.2.fill")
-                            .font(.system(size: 15, weight: .semibold))
-                            .foregroundStyle(isCaptureNode ? JM.accentCyan : JM.accentPurple)
+                    if let appIcon {
+                        // JackMoebius box icon (app icon / master picto), inflated to match
+                        // the coloured letter badge (app icons carry a transparent margin).
+                        Image(nsImage: appIcon)
+                            .resizable().scaledToFit()
+                            .frame(width: 38, height: 38)
+                            .scaleEffect(node.isJackMoebiusMaster ? 1.0 : 1.2)
                     } else {
-                        Text(abbr)
-                            .font(.system(size: 16, weight: .bold))
-                            .foregroundStyle(badgeColor)
+                        RoundedRectangle(cornerRadius: 9)
+                            .fill(isSystemNode
+                                  ? (isCaptureNode ? JM.accentCyan.opacity(0.18) : JM.accentPurple.opacity(0.18))
+                                  : badgeColor.opacity(0.22))
+                            .frame(width: 38, height: 38)
+                        if isSystemNode {
+                            Image(systemName: isCaptureNode ? "mic.fill" : "speaker.wave.2.fill")
+                                .font(.system(size: 15, weight: .semibold))
+                                .foregroundStyle(isCaptureNode ? JM.accentCyan : JM.accentPurple)
+                        } else {
+                            Text(abbr)
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundStyle(badgeColor)
+                        }
                     }
                 }
                 VStack(alignment: .leading, spacing: 2) {
@@ -3848,12 +4733,16 @@ struct NodeBadgeSheet: View {
                         .foregroundStyle(JM.textPrimary)
                     Text(verbatim: isSystemNode
                          ? String(localized: "node_badge.type.system")
-                         : String(localized: "node_badge.type.client"))
+                         : node.isJackMoebiusMaster
+                           ? String(localized: "node_badge.type.master")
+                           : isCoreAudioBox
+                             ? String(localized: "node_badge.type.coreaudio")
+                             : String(localized: "node_badge.type.client"))
                         .font(.system(size: 11))
                         .foregroundStyle(JM.textTertiary)
                 }
                 Spacer()
-                Button { dismiss() } label: {
+                Button { onClose() } label: {
                     Image(systemName: "xmark.circle.fill")
                         .font(.system(size: 18))
                         .foregroundStyle(JM.textTertiary)
@@ -3875,9 +4764,9 @@ struct NodeBadgeSheet: View {
             }
             .padding(.horizontal, 20).padding(.vertical, 16)
 
-            Spacer(minLength: 0)
         }
         .frame(width: 360)
+        .fixedSize(horizontal: false, vertical: true)   // size to content (overlay offers full height)
         .background(JM.bgBase)
         .gradientBorder(cornerRadius: 12)
     }

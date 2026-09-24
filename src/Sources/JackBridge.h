@@ -197,6 +197,19 @@ bool jm_is_timebase_master(JMClient *c);
 /// Requires jack_get_client_pid (JACK_OPTIONAL_WEAK_EXPORT in Jack2).
 int32_t jm_get_client_pid(JMClient *c, const char *client_name);
 
+/// Returns 1 if the named client carries the given Jack metadata key
+/// (e.g. "org.jackmoebius.coreaudio" on JackMoebius per-app boxes),
+/// 0 if the property is absent, -1 if metadata is unavailable.
+int32_t jm_client_has_property(JMClient *c, const char *client_name, const char *key);
+
+/// Reads the string value of a client's Jack metadata property into `out`
+/// (NUL-terminated, truncated to `out_len`). For "org.jackmoebius.coreaudio"
+/// the value is the app bundle ID (e.g. "com.apple.Safari").
+/// Returns 1 if the property exists (value copied), 0 if absent, -1 if metadata
+/// is unavailable.
+int32_t jm_get_client_property(JMClient *c, const char *client_name, const char *key,
+                               char *out, int32_t out_len);
+
 #ifdef __cplusplus
 }
 #endif

@@ -80,6 +80,13 @@ struct PatchbayNode: Identifiable {
     var isCollapsed: Bool = false
     var inputs:  [JackPort] = []
     var outputs: [JackPort] = []
+    /// App bundle ID when this client is a JackMoebius CoreAudio box (from its JACK
+    /// metadata), else `nil`. Resolved once when the node first appears; drives the
+    /// real app icon on the badge.
+    var coreAudioBundleID: String? = nil
+    /// `true` when this client is JackMoebius's master / system-mix monitor box
+    /// (`org.jackmoebius.master` metadata). Drives the JackMoebius brand picto.
+    var isJackMoebiusMaster: Bool = false
 
     var inputCount:  Int { inputs.count }
     var outputCount: Int { outputs.count }
@@ -97,6 +104,12 @@ final class PatchbayManager: ObservableObject {
     @Published var errorMessage:         String?          = nil
     @Published var showSaveStudioDialog: Bool             = false
     @Published var showRepositionToast:  Bool             = false
+    /// Bumped once after a fresh Jack start has populated its clients, to ask the view to
+    /// auto-arrange the patchbay (see ContentView). Suppressed when a studio restored a layout.
+    @Published private(set) var autoTidyRequest: Int = 0
+    private var layoutRestored      = false   // a studio applied saved node positions this session
+    private var didScheduleAutoTidy = false   // one-shot per connection
+    private var autoTidyWork: DispatchWorkItem?
     @Published var selectedNodeIds:      Set<String>      = []
 
     // ── Transport ─────────────────────────────────────────────────────────────
@@ -269,6 +282,10 @@ final class PatchbayManager: ObservableObject {
             
             isConnected = true
             isConnecting = false
+            // Fresh connection → allow one auto-tidy of the incoming client set.
+            layoutRestored = false
+            didScheduleAutoTidy = false
+            autoTidyWork?.cancel()
             // Start the transport observer (isolated — only TransportBarView subscribes)
             self.transportObserver.onRollingChanged = { [weak self] rolling in
                 self?.isTransportRolling = rolling
@@ -292,8 +309,8 @@ final class PatchbayManager: ObservableObject {
         }
     }
 
-    /// Planifie une nouvelle tentative de connexion dans 2s si Jack est toujours actif.
-    /// Annule toute tentative précédente pour éviter les doublons.
+    /// Schedules another connection attempt in 2 s if Jack is still running.
+    /// Cancels any previous pending attempt to avoid duplicates.
     private func scheduleRetryConnect() {
         retryConnectTask?.cancel()
         let work = DispatchWorkItem { [weak self] in
@@ -308,7 +325,7 @@ final class PatchbayManager: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: work)
     }
 
-    /// Chargement initial : ports + connexions en une seule passe
+    /// Initial load: ports and connections in a single pass.
     nonisolated private func initialLoadBackground(bridge: JackBridgeWrapper) {
         let ports = bridge.getPorts()
         let conns = bridge.getConnections()
@@ -399,9 +416,9 @@ final class PatchbayManager: ObservableObject {
         }
     }
 
-    /// Relit les connexions actives depuis Jack et écrase connections[].
-    /// À appeler après un load studio (Jack ne fire pas onPortConnect vers le client
-    /// initiateur des connexions — lecture directe nécessaire pour la cohérence visuelle).
+    /// Re-reads the active connections from Jack and overwrites `connections`.
+    /// Call after loading a studio (Jack doesn't fire onPortConnect toward the client
+    /// that initiated the connections — a direct read is needed for visual consistency).
     func syncConnections() {
         guard isConnected else { return }
         let b = bridge  // capture on main actor before dispatching
@@ -486,14 +503,39 @@ final class PatchbayManager: ObservableObject {
                     updatedNodes.append(n)
                 } else {
                     let pos = autoPosition(for: nodeId, inputs: portPair.inputs, outputs: portPair.outputs, existing: allNodesForCollision())
+                    // Resolve JackMoebius metadata once, when the node first appears.
+                    let bundleID = bridge.coreAudioBoxKey(name: nodeId)
+                    // Master box: the metadata (active after the daemon reinstall), OR a
+                    // near-zero-false-positive fallback — the "JackMoebius" client carrying
+                    // its monitor_1/monitor_2 output ports.
+                    let isMaster = bundleID == nil
+                        && (bridge.isJackMoebiusMaster(name: nodeId)
+                            || (nodeId == "JackMoebius"
+                                && portPair.outputs.contains { $0.portName == "monitor_1" }
+                                && portPair.outputs.contains { $0.portName == "monitor_2" }))
                     updatedNodes.append(PatchbayNode(id: nodeId, position: pos,
                                                      inputs:  portPair.inputs,
-                                                     outputs: portPair.outputs))
+                                                     outputs: portPair.outputs,
+                                                     coreAudioBundleID: bundleID,
+                                                     isJackMoebiusMaster: isMaster))
                 }
             }
         }
         nodes = updatedNodes
         flushPendingPositions()
+
+        // Fresh start with clients → ask the view to auto-arrange the patchbay once (debounced so
+        // the whole initial client set has appeared). Skipped when a studio restored a layout.
+        if isConnected, !didScheduleAutoTidy, !layoutRestored, !updatedNodes.isEmpty {
+            didScheduleAutoTidy = true
+            autoTidyWork?.cancel()
+            let work = DispatchWorkItem { [weak self] in
+                guard let self, self.isConnected, !self.layoutRestored else { return }
+                self.autoTidyRequest &+= 1
+            }
+            autoTidyWork = work
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: work)
+        }
 
         // Detect newly appeared clients for automatic studio connection restoration
         let currentClientNames = Set(updatedNodes.map {
@@ -559,14 +601,47 @@ final class PatchbayManager: ObservableObject {
     private let headerH: CGFloat = 46   // was 38 — corrected to match NSView measurement (46)
     private let rowH:    CGFloat = 21
 
+    /// Places a newly-appeared client at a role-appropriate spot **without moving any existing
+    /// node**: a source (no input ports) goes to the left band, a sink (no output ports) to the
+    /// right, a mixed client in the middle. When same-role clients are already placed, it aligns to
+    /// their column and stacks below the lowest one; otherwise it falls back to a sensible position
+    /// relative to the current layout. A final collision pass guarantees it never overlaps.
     private func autoPosition(for clientName: String,
                                inputs: [JackPort], outputs: [JackPort],
                                existing: [PatchbayNode]) -> CGPoint {
-        let col = existing.count % 4
-        let row = existing.count / 4
-        let candidate = CGPoint(
-            x: CGFloat(60 + col * (Int(nodeW) + 20)),
-            y: CGFloat(60 + row * 220))
+        func heightOf(_ n: PatchbayNode) -> CGFloat {
+            let rows = CGFloat(max(n.inputCount, n.outputCount))
+            return n.isCollapsed ? headerH : headerH + rows * rowH + 6
+        }
+        // role: 0 = source (no inputs → left), 1 = mixed (both → middle), 2 = sink (no outputs → right)
+        func role(_ n: PatchbayNode) -> Int { n.inputs.isEmpty ? 0 : (n.outputs.isEmpty ? 2 : 1) }
+        let myRole  = inputs.isEmpty ? 0 : (outputs.isEmpty ? 2 : 1)
+        let sameRole = existing.filter { role($0) == myRole }
+
+        // Target column X: the same-role column when it exists, else a default relative to the
+        // current layout extent (source → far left, sink → right of everything, mixed → centre).
+        let targetX: CGFloat
+        if !sameRole.isEmpty {
+            switch myRole {
+            case 0:  targetX = sameRole.map(\.position.x).min()!
+            case 2:  targetX = sameRole.map(\.position.x).max()!
+            default: targetX = sameRole.map(\.position.x).reduce(0, +) / CGFloat(sameRole.count)
+            }
+        } else {
+            let minX = existing.map(\.position.x).min() ?? 60
+            let maxX = existing.map { $0.position.x + nodeW }.max() ?? (60 + nodeW)
+            switch myRole {
+            case 0:  targetX = 60
+            case 2:  targetX = max(60, maxX + 40)
+            default: targetX = max(60, (minX + maxX) / 2 - nodeW / 2)
+            }
+        }
+
+        // Stack below the lowest node already sitting in that column.
+        let colNodes = existing.filter { abs($0.position.x - targetX) < nodeW / 2 }
+        let startY   = colNodes.map { $0.position.y + heightOf($0) + 20 }.max() ?? 60
+        let candidate = CGPoint(x: targetX, y: startY)
+
         var tempNode = PatchbayNode(id: clientName, position: candidate)
         tempNode.inputs  = inputs
         tempNode.outputs = outputs
@@ -820,8 +895,11 @@ final class PatchbayManager: ObservableObject {
         // colLast   : no output ports at all             → pure sink
         // orphan    : ports on both sides, none connected
         enum TidyCat: Equatable {
-            case source, halfSource, middle, halfSink, sink, orphan
+            case systemSource, source, halfSource, middle, halfSink, sink, systemSink, orphan
         }
+        // Hardware I/O — the "system" client, split into capture/playback nodes — are first-class
+        // anchors: capture is pinned to the far-left column, playback to the far-right column.
+        func isSystemNode(_ id: String) -> Bool { id == "system" || id.hasPrefix("system (") }
         var cat:       [String: TidyCat] = [:]
         var middleIds: [String] = []
         var orphanIds: [String] = []
@@ -831,15 +909,18 @@ final class PatchbayManager: ObservableObject {
             let hasOut = !node.outputs.isEmpty
             let cIn    = hasConnIn(node)
             let cOut   = hasConnOut(node)
+            let sys    = isSystemNode(node.id)
             let c: TidyCat
-            if      !hasIn  &&  cOut     { c = .source     }  // active source → col 0
-            else if !hasOut &&  cIn      { c = .sink       }  // active sink   → col last
-            else if !hasIn  && !cOut     { c = .orphan     }  // no connections → bottom-left
-            else if !hasOut && !cIn      { c = .orphan     }  // no connections → bottom-right
-            else if !cIn    &&  cOut     { c = .halfSource }  // free inputs + connected outputs
-            else if !cOut   &&  cIn      { c = .halfSink   }  // free outputs + connected inputs
-            else if  cIn    &&  cOut     { c = .middle     }
-            else                         { c = .orphan     }
+            // Pure sources / sinks are placed by ROLE (port topology), whether or not they are
+            // currently connected — so an unconnected graph still lays out cleanly left→right.
+            if      sys && !hasIn && hasOut  { c = .systemSource }  // hardware capture → far left
+            else if sys && !hasOut && hasIn  { c = .systemSink   }  // hardware playback → far right
+            else if !hasIn                   { c = .source       }  // pure source → left
+            else if !hasOut                  { c = .sink         }  // pure sink → right
+            else if !cIn    && !cOut         { c = .orphan       }  // both ports, unconnected → middle grid
+            else if !cIn    &&  cOut         { c = .halfSource   }  // free inputs + connected outputs
+            else if !cOut   &&  cIn          { c = .halfSink     }  // free outputs + connected inputs
+            else                             { c = .middle       }
             cat[node.id] = c
             if c == .middle { middleIds.append(node.id) }
             if c == .orphan { orphanIds.append(node.id) }
@@ -849,12 +930,14 @@ final class PatchbayManager: ObservableObject {
         var rank: [String: Int] = [:]
         for node in subset {
             switch cat[node.id]! {
-            case .source:     rank[node.id] = -2
-            case .halfSource: rank[node.id] = -1
-            case .middle:     rank[node.id] =  0   // will be propagated
-            case .halfSink:   rank[node.id] =  9998 // placeholder, overwritten below
-            case .sink:       rank[node.id] =  9999 // placeholder, overwritten below
-            case .orphan:     break
+            case .systemSource: rank[node.id] = -3   // hardware capture → leftmost
+            case .source:       rank[node.id] = -2
+            case .halfSource:   rank[node.id] = -1
+            case .middle:       rank[node.id] =  0   // will be propagated
+            case .halfSink:     rank[node.id] =  9998 // placeholder, overwritten below
+            case .sink:         rank[node.id] =  9999 // placeholder, overwritten below
+            case .systemSink:   rank[node.id] =  9996 // placeholder, overwritten below
+            case .orphan:       break
             }
         }
         // Iterative propagation (longest path, converges in ≤ N passes)
@@ -863,7 +946,7 @@ final class PatchbayManager: ObservableObject {
             for id in middleIds {
                 let predMax = (inEdges[id] ?? [])
                     .compactMap { rank[$0] }
-                    .filter { $0 < 9998 }   // ignorer les sinks placeholder
+                    .filter { $0 < 9996 }   // ignore the placeholder sinks (half/full/system)
                     .max() ?? -1
                 let newRank = predMax + 1
                 if rank[id] != newRank { rank[id] = newRank; changed = true }
@@ -873,11 +956,47 @@ final class PatchbayManager: ObservableObject {
         for id in middleIds { rank[id] = max(0, rank[id] ?? 0) }
 
         let maxMidRank = middleIds.compactMap { rank[$0] }.max() ?? -1
-        let rLast1 = maxMidRank + 1
-        let rLast  = maxMidRank + 2
+        let rLast1   = maxMidRank + 1
+        let rLast    = maxMidRank + 2
+        let rSysSink = maxMidRank + 3
         for node in subset {
-            if cat[node.id] == .halfSink { rank[node.id] = rLast1 }
-            if cat[node.id] == .sink     { rank[node.id] = rLast  }
+            if cat[node.id] == .halfSink   { rank[node.id] = rLast1 }
+            if cat[node.id] == .sink       { rank[node.id] = rLast  }
+            if cat[node.id] == .systemSink { rank[node.id] = rSysSink }
+        }
+
+        // ── 4b. No connections → spread across columns to fill the width ──────
+        // With no inter-client edges, ranks can't come from topology. Instead of collapsing each
+        // role into a single (tall) column, give the clients their own columns in role order
+        // (capture | sources | orphans | sinks | playback), one per column while the viewport has
+        // room, wrapping into fewer columns only when there are more clients than fit.
+        let hasEdges = outEdges.values.contains { !$0.isEmpty }
+        if !hasEdges {
+            let leftAnchor  = subset.filter { cat[$0.id] == .systemSource }.map(\.id)
+            let rightAnchor = subset.filter { cat[$0.id] == .systemSink   }.map(\.id)
+            let sourcesU    = subset.filter { cat[$0.id] == .source }.map(\.id)
+            let sinksU      = subset.filter { cat[$0.id] == .sink   }.map(\.id)
+            let middleSeq   = sourcesU + orphanIds + sinksU   // role order, orphans in the middle
+            let edgeMargin: CGFloat = 40
+            let availW      = max(nodeW, canvasSize.width / max(currentScale, 0.1) - edgeMargin * 2)
+            let baseGap: CGFloat = 60
+            let maxCols     = max(1, Int((availW + baseGap) / (nodeW + baseGap)))
+            let anchorCols  = (leftAnchor.isEmpty ? 0 : 1) + (rightAnchor.isEmpty ? 0 : 1)
+            let midCols     = max(1, min(max(1, middleSeq.count), maxCols - anchorCols))
+            let rowsPer     = middleSeq.isEmpty ? 0 : Int((Double(middleSeq.count) / Double(midCols)).rounded(.up))
+            rank.removeAll()
+            var col = 0
+            for id in leftAnchor { rank[id] = col }
+            if !leftAnchor.isEmpty { col += 1 }
+            var idx = 0
+            for _ in 0..<midCols where idx < middleSeq.count {
+                let end = min(idx + max(1, rowsPer), middleSeq.count)
+                for id in middleSeq[idx..<end] { rank[id] = col }
+                idx = end; col += 1
+            }
+            for id in rightAnchor { rank[id] = col }
+            orphanIds = []   // orphans are now ranked columns, not a separate grid
+            middleIds = []
         }
 
         // ── 5. Groups by rank (orphans excluded) ─────────────────────────────
@@ -968,30 +1087,62 @@ final class PatchbayManager: ObservableObject {
             maxBottomY = max(maxBottomY, y)
         }
 
-        // ── 11. Orphans — below the main layout, grouped left/center/right ───
-        let orphanTopY   = usedRanks.isEmpty ? topPad : maxBottomY + 40
-        let totalLayoutW = nCols > 0
-            ? colX(usedRanks.last!) + nodeW + hPad
-            : hPad + nodeW + hPad
-
-        // Orphans with ports on both sides (by construction) are placed at the centre
-        func placeOrphans(_ ids: [String], startX: CGFloat) {
-            var y = orphanTopY
-            for id in ids {
+        // ── 11. Orphans (both-ported, unconnected) — a grid in the middle band ───────
+        // No edges → can't be ranked, so spread them over several columns to fill the space rather
+        // than a single tall stack. The column count adapts to the available width and the current
+        // zoom, so it never collapses to one column (the old overlap bug).
+        if !orphanIds.isEmpty {
+            let availW = max(nodeW, canvasSize.width / max(currentScale, 0.1) - hPad * 2)
+            // Horizontal band for the grid: between the source and sink columns when a ranked
+            // layout exists, else the whole available width.
+            let bandLeft:  CGFloat = usedRanks.isEmpty ? hPad : colX(usedRanks.first!) + nodeW + hGap
+            let bandRight: CGFloat = usedRanks.isEmpty ? hPad + availW : colX(usedRanks.last!) - hGap
+            let bandW    = max(nodeW, bandRight - bandLeft)
+            let fitCols  = max(1, Int((bandW + hGap) / (nodeW + hGap)))
+            let aspect   = Double(canvasSize.width) / Double(max(1, canvasSize.height))
+            let balanced = max(1, Int((Double(orphanIds.count) * aspect).squareRoot().rounded()))
+            let gridCols = min(fitCols, balanced, orphanIds.count)
+            let gridW    = CGFloat(gridCols) * nodeW + CGFloat(gridCols - 1) * hGap
+            let gridLeft = max(hPad, bandLeft + (bandW - gridW) / 2)
+            let topY     = usedRanks.isEmpty ? topPad : maxBottomY + 60
+            var colY     = Array(repeating: topY, count: gridCols)
+            for (i, id) in orphanIds.enumerated() {
+                let col  = i % gridCols
                 let node = subset.first { $0.id == id }!
-                newPos[id] = CGPoint(x: startX, y: y)
-                y += nodeH(node) + nodeGap
+                newPos[id] = CGPoint(x: gridLeft + CGFloat(col) * (nodeW + hGap), y: colY[col])
+                colY[col] += nodeH(node) + nodeGap
+                maxBottomY = max(maxBottomY, colY[col])
             }
         }
-        let noInOrphans  = orphanIds.filter { id in subset.first { $0.id == id }!.inputs.isEmpty  }
-        let noOutOrphans = orphanIds.filter { id in subset.first { $0.id == id }!.outputs.isEmpty }
-        let bothOrphans  = orphanIds.filter { id in
+
+        // ── 11b. Anti-overlap guarantee ──────────────────────────────────────────────
+        // Distinct column X's already prevent overlap by construction; this belt-and-braces pass
+        // nudges any residual intersection straight down (preserving columns), so two client boxes
+        // can never overlap after a tidy.
+        func placedRect(_ id: String, _ p: CGPoint) -> CGRect {
             let n = subset.first { $0.id == id }!
-            return !n.inputs.isEmpty && !n.outputs.isEmpty
+            return CGRect(x: p.x, y: p.y, width: nodeW, height: nodeH(n)).insetBy(dx: -4, dy: -4)
         }
-        placeOrphans(noInOrphans,  startX: hPad)
-        placeOrphans(bothOrphans,  startX: max(hPad, totalLayoutW / 2 - nodeW / 2))
-        placeOrphans(noOutOrphans, startX: max(hPad, totalLayoutW - hPad - nodeW))
+        let placedOrder = newPos.keys.sorted {
+            (newPos[$0]!.y, newPos[$0]!.x) < (newPos[$1]!.y, newPos[$1]!.x)
+        }
+        for i in placedOrder.indices {
+            let id = placedOrder[i]
+            var p  = newPos[id]!
+            var bumped = true
+            while bumped {
+                bumped = false
+                for j in 0..<i {
+                    let other = placedOrder[j]
+                    if placedRect(other, newPos[other]!).intersects(placedRect(id, p)) {
+                        p.y = newPos[other]!.y + nodeH(subset.first { $0.id == other }!) + nodeGap
+                        bumped = true
+                    }
+                }
+            }
+            newPos[id] = p
+            maxBottomY = max(maxBottomY, p.y + nodeH(subset.first { $0.id == id }!))
+        }
 
         // ── 12. Apply positions with spring animation ────────────────────────
         var updated = nodes
@@ -1024,10 +1175,7 @@ final class PatchbayManager: ObservableObject {
         let minX   = allX.min()!
         let minY   = allY.min()!
         let maxX   = newPos.values.map { $0.x + nodeW }.max()!
-        let maxOrphanY = orphanIds.isEmpty ? 0 :
-            orphanTopY + CGFloat(max(noInOrphans.count, noOutOrphans.count, bothOrphans.count))
-                         * (headerH + nodeGap)
-        let maxY   = max(maxBottomY, maxOrphanY)
+        let maxY   = maxBottomY   // ranked columns, orphan grid and the guarantee pass all extend it
 
         let contentW = max(1, maxX - minX)
         let contentH = max(1, maxY  - minY)
@@ -1378,13 +1526,16 @@ final class PatchbayManager: ObservableObject {
     /// Applies a list of saved node positions, queuing any whose node doesn't exist yet.
     func applyNodePositions(_ positions: [NodePosition]) {
         guard !positions.isEmpty else { return }
+        // A studio restored a saved layout → don't auto-tidy over it.
+        layoutRestored = true
+        autoTidyWork?.cancel()
         pendingPositions = positions
         flushPendingPositions()
     }
 
-    /// Applique les positions en attente pour les nodes qui existent déjà.
-    /// Les positions des nodes pas encore créés restent en attente pour le prochain applyPorts.
-    /// Appelé après chaque mise à jour de nodes (initialLoad, refresh).
+    /// Applies queued positions to nodes that already exist.
+    /// Positions for nodes not yet created stay queued for the next applyPorts.
+    /// Called after every node update (initialLoad, refresh).
     private func flushPendingPositions() {
         guard !pendingPositions.isEmpty, !nodes.isEmpty else { return }
         var updated = nodes

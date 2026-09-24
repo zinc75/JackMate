@@ -104,6 +104,10 @@ struct JackPreferences {
     var selectedInChannels:  [Int] = []   // empty = all channels
     var selectedOutChannels: [Int] = []   // empty = all channels
 
+    /// JackMoebius integration intent: when on, `jackmoebiusd` is auto-started right
+    /// after a successful Jack start. NOT a jackd option — never added to `buildCommand`.
+    var exposeJackMoebius: Bool = false
+
     var theoreticalLatency: Double {
         guard sampleRate > 0 else { return 0 }
         return 1000.0 / sampleRate * Double(bufferSize)
@@ -282,6 +286,7 @@ final class JackManager: ObservableObject {
         prefs.clockDrift      = d.bool(forKey: "clockDrift")
         prefs.midiEnabled     = d.bool(forKey: "midiEnabled")
         prefs.limitChannels        = d.bool(forKey: "limitChannels")
+        prefs.exposeJackMoebius    = d.bool(forKey: "exposeJackMoebius")
         // Channel selection always resets to all channels on launch
         prefs.selectedInChannels  = []
         prefs.selectedOutChannels = []
@@ -299,6 +304,7 @@ final class JackManager: ObservableObject {
         d.set(prefs.clockDrift,        forKey: "clockDrift")
         d.set(prefs.midiEnabled,       forKey: "midiEnabled")
         d.set(prefs.limitChannels,          forKey: "limitChannels")
+        d.set(prefs.exposeJackMoebius,      forKey: "exposeJackMoebius")
         d.set(prefs.selectedInChannels,    forKey: "selectedInChannels")
         d.set(prefs.selectedOutChannels,   forKey: "selectedOutChannels")
         d.set(savedInputDeviceName,   forKey: "inputDeviceName")

@@ -521,6 +521,33 @@ public final class JackBridgeWrapper {
         return pid > 0 ? pid_t(pid) : nil
     }
 
+    /// `true` when the client carries JackMoebius's CoreAudio-app metadata tag.
+    /// Such boxes mirror real CoreAudio apps (same names!) and are owned by
+    /// `jackmoebiusd` — they must never be terminated by name.
+    public func isCoreAudioBox(name: String) -> Bool {
+        guard let client, isOpen, !isClosing else { return false }
+        return jm_client_has_property(client, name, "org.jackmoebius.coreaudio") == 1
+    }
+
+    /// The app bundle ID stored in JackMoebius's CoreAudio metadata for `name`
+    /// (e.g. "com.apple.Safari"), or `nil` when the client isn't a JackMoebius box.
+    /// Used to resolve the real app icon for the patchbay box.
+    public func coreAudioBoxKey(name: String) -> String? {
+        guard let client, isOpen, !isClosing else { return nil }
+        var buffer = [CChar](repeating: 0, count: 256)
+        guard jm_get_client_property(client, name, "org.jackmoebius.coreaudio", &buffer, 256) == 1
+        else { return nil }
+        let value = String(cString: buffer)
+        return value.isEmpty ? nil : value
+    }
+
+    /// `true` when the client is JackMoebius's master / system-mix monitor box,
+    /// tagged with the `org.jackmoebius.master` metadata (published daemon-side).
+    public func isJackMoebiusMaster(name: String) -> Bool {
+        guard let client, isOpen, !isClosing else { return false }
+        return jm_client_has_property(client, name, "org.jackmoebius.master") == 1
+    }
+
     // MARK: - Private helpers
 
     /// Maps a C `JMPortType` value to its Swift `JackPortType` equivalent.

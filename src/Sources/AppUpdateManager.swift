@@ -405,6 +405,12 @@ struct AppUpdateSheet: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .lineSpacing(2)
 
+                Button(String(localized: "update.changelog")) {
+                    NSWorkspace.shared.open(WhatsNewManager.changelogURL)
+                }
+                .buttonStyle(.link)
+                .font(.system(size: 11))
+
                 // Install path info
                 Text(verbatim: Bundle.main.bundlePath)
                     .font(.system(size: 10, design: .monospaced))

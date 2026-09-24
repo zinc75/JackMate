@@ -126,13 +126,18 @@ struct JackSnapshot: Codable {
             if !outList.isEmpty { args += ["--output-list", outList.map(String.init).joined(separator: " ")] }
         }
 
+        // No literal quotes around UIDs: this must match JackManager.buildCommand,
+        // which feeds Process.arguments directly (no shell interpretation). Quoting
+        // here would make commandsAreEquivalent() mismatch the running command and
+        // force a needless Jack restart on every studio load. Display quoting lives
+        // in commandPreview(), not here.
         let inUID  = inputDeviceUID  ?? ""
         let outUID = outputDeviceUID ?? ""
         if !inUID.isEmpty && !outUID.isEmpty && inUID == outUID {
-            args += ["-d", "\"\(inUID)\""]
+            args += ["-d", inUID]
         } else {
-            if !inUID.isEmpty  { args += ["-C", "\"\(inUID)\""]  }
-            if !outUID.isEmpty { args += ["-P", "\"\(outUID)\""] }
+            if !inUID.isEmpty  { args += ["-C", inUID]  }
+            if !outUID.isEmpty { args += ["-P", outUID] }
         }
         return args
     }
@@ -143,6 +148,84 @@ struct StudioConnection: Identifiable, Codable {
     var id:   String = UUID().uuidString
     var from: String   // e.g. "system:capture_1"
     var to:   String   // e.g. "Ardour6:audio/in 1"
+}
+
+/// Per-app JackMoebius exposure + volume state captured in a studio.
+struct StudioJMApp: Codable {
+    var key:         String    // CoreAudio app bundle ID (JackMoebius metadata / relaunch key)
+    var name:        String    // JACK client name of the exposed box
+    var outChannels: Int?      // exposed output channel count; nil = Out not exposed
+    var inChannels:  Int?      // exposed input channel count; nil = In not exposed
+    var locked:      Bool      // per-app volume lock state (locked = follows the master)
+    var gain:        Double?   // per-app LINEAR gain (daemon representation, NOT the slider
+                               // position); nil when locked — a locked app follows the master,
+                               // so its dormant gain is never restored (see StudioDeviceVolume
+                               // for the scalar-vs-gain distinction)
+}
+
+/// JackMoebius state saved alongside a studio: master toggle + per-app exposures.
+struct StudioJackMoebius: Codable {
+    var masterOn: Bool
+    var apps:     [StudioJMApp] = []
+}
+
+extension StudioJackMoebius {
+    /// Whether this saved state differs from `current` (nil = daemon not active). Aggressive:
+    /// any master toggle, exposure change, or per-app volume change counts. Unlocked gains are
+    /// compared in slider-position space (perceptually uniform threshold); a locked app has a
+    /// nil gain on both sides (it follows the master) so it never triggers on its own.
+    func differs(from current: StudioJackMoebius?, positionThreshold: Double = 0.01) -> Bool {
+        guard let current else { return true }
+        if masterOn != current.masterOn { return true }
+        let cur   = Dictionary(current.apps.map { ($0.key, $0) }, uniquingKeysWith: { a, _ in a })
+        let saved = Dictionary(apps.map { ($0.key, $0) },         uniquingKeysWith: { a, _ in a })
+        for key in Set(cur.keys).union(saved.keys) {
+            guard let a = saved[key], let b = cur[key] else { return true }  // exposed on one side only
+            if a.outChannels != b.outChannels || a.inChannels != b.inChannels { return true }
+            if a.locked != b.locked { return true }
+            if !a.locked {   // both unlocked → compare gain in position space
+                let pa = a.gain.map { VolumeTaper.gainToScalar($0) } ?? 0
+                let pb = b.gain.map { VolumeTaper.gainToScalar($0) } ?? 0
+                if abs(pa - pb) > positionThreshold { return true }
+            }
+        }
+        return false
+    }
+}
+
+/// A settable output device volume captured in a studio. `volume` = the CoreAudio scalar
+/// (`kAudioDevicePropertyVolumeScalar`, 0…1) = the **slider position**, NOT a linear gain.
+/// (Per-app JackMoebius volumes store a linear `gain` instead; the two relate through the macOS
+/// taper `gain = 10^((-63.5·(1−√scalar))/20)` — see `VolumeTaper`. Each is stored in its
+/// subsystem's native unit so save/restore need zero conversion.)
+struct StudioDeviceVolume: Codable {
+    var volume: Double
+    var muted:  Bool
+}
+
+/// Output device volumes saved alongside a studio, so loading restores the audio levels.
+/// `physicalOut` (the jackd output device) applies to any studio; `jackMoebiusOut` only
+/// exists while JackMoebius is running.
+struct StudioOutputVolumes: Codable {
+    var physicalOut:    StudioDeviceVolume? = nil
+    var jackMoebiusOut: StudioDeviceVolume? = nil
+}
+
+extension StudioOutputVolumes {
+    /// Whether these volumes differ from `current` beyond a small threshold (absorbs the
+    /// CoreAudio scalar read noise). A device present on only one side counts as a difference.
+    func differs(from current: StudioOutputVolumes?, threshold: Double = 0.01) -> Bool {
+        func deviceDiffers(_ a: StudioDeviceVolume?, _ b: StudioDeviceVolume?) -> Bool {
+            switch (a, b) {
+            case (nil, nil):   return false
+            case let (x?, y?): return abs(x.volume - y.volume) > threshold || x.muted != y.muted
+            default:           return true
+            }
+        }
+        let cur = current ?? StudioOutputVolumes()
+        return deviceDiffers(physicalOut, cur.physicalOut)
+            || deviceDiffers(jackMoebiusOut, cur.jackMoebiusOut)
+    }
 }
 
 /// A complete saved studio: Jack configuration, client list, connections, and node positions.
@@ -156,6 +239,8 @@ struct Studio: Identifiable, Codable {
     var nodePositions: [NodePosition]     = []
     var clients:       [StudioClient]     = []
     var connections:   [StudioConnection] = []
+    var jackMoebius:   StudioJackMoebius?   = nil
+    var outputVolumes: StudioOutputVolumes? = nil
 
     /// Short human-readable summary shown in the studio list.
     var summary: String {
@@ -177,6 +262,8 @@ extension Studio {
         nodePositions  = try c.decodeIfPresent([NodePosition].self,     forKey: .nodePositions) ?? []
         clients        = try c.decodeIfPresent([StudioClient].self,     forKey: .clients)       ?? []
         connections    = try c.decodeIfPresent([StudioConnection].self, forKey: .connections)   ?? []
+        jackMoebius    = try c.decodeIfPresent(StudioJackMoebius.self,  forKey: .jackMoebius)
+        outputVolumes  = try c.decodeIfPresent(StudioOutputVolumes.self, forKey: .outputVolumes)
     }
 }
 
@@ -524,6 +611,9 @@ final class StudioManager: ObservableObject {
             clientNames.insert(port.clientName)
         }
         if let bridgeName = bridge.clientName { clientNames.remove(bridgeName) }
+        // JackMoebius boxes are CoreAudio apps exposed by the daemon, not native clients to
+        // close (they are handled by removeAllExposures/deactivate on stop).
+        clientNames = clientNames.filter { !bridge.isCoreAudioBox(name: $0) }
 
         for jackName in clientNames {
             // Try GUI match first
@@ -609,8 +699,10 @@ final class StudioManager: ObservableObject {
         name: String,
         nodes: [PatchbayNode],
         connections: [JackConnection],
-        jackManager: JackManager
-    ) -> (studio: Studio, needsInput: [StudioClient]) {
+        jackManager: JackManager,
+        jackMoebiusManager: JackMoebiusManager,
+        outputVolumeManager: OutputVolumeManager
+    ) async -> (studio: Studio, needsInput: [StudioClient]) {
 
         var clients:    [StudioClient]      = []
         var needsInput: [StudioClient]      = []
@@ -619,6 +711,11 @@ final class StudioManager: ObservableObject {
         }
 
         for node in nodes {
+            // Skip JackMoebius citizens (per-app CoreAudio boxes + master): they are
+            // restored from the studio's jackMoebius state, not relaunched as generic
+            // JACK clients.
+            if node.coreAudioBundleID != nil || node.isJackMoebiusMaster { continue }
+
             let jackName = node.id
                 .replacingOccurrences(of: " (capture)", with: "")
                 .replacingOccurrences(of: " (playback)", with: "")
@@ -666,6 +763,8 @@ final class StudioManager: ObservableObject {
         var studio = Studio(name: name, clients: clients, connections: studioConns)
         studio.jackSnapshot  = snapshot
         studio.nodePositions = positions
+        studio.jackMoebius   = await jackMoebiusManager.snapshotForStudio()
+        studio.outputVolumes = outputVolumeManager.snapshotOutputVolumes()
 
         return (studio, needsInput)
     }
@@ -691,12 +790,19 @@ final class StudioManager: ObservableObject {
         bridge: JackBridgeWrapper,
         jackManager: JackManager,
         patchbayManager: PatchbayManager,
+        outputVolumeManager: OutputVolumeManager,
+        jackMoebiusManager: JackMoebiusManager,
         onProgress: @escaping (String) -> Void,
         onComplete: @escaping (LoadResult) -> Void
     ) {
         activeStudio = studio.id
 
         Task {
+            // The loaded studio decides whether JackMoebius runs — suppress the auto-launch
+            // that would otherwise fire when Jack restarts (global `exposeJackMoebius` pref).
+            jackMoebiusManager.suppressAutoActivate = true
+            defer { jackMoebiusManager.suppressAutoActivate = false }
+
             var result = LoadResult()
 
             // 0a. Close ALL existing Jack clients (GUI + CLI, including external ones)
@@ -854,6 +960,18 @@ final class StudioManager: ObservableObject {
                 }
             }
 
+            // 1'. JackMoebius — the studio is authoritative. Restore its state (daemon +
+            // exposures + master + volumes) so its boxes exist as Jack clients before we wait
+            // for the studio's ports; or, when the studio has no JackMoebius, stop the daemon if
+            // it is running so the loaded state matches the save exactly.
+            if let jm = studio.jackMoebius {
+                onProgress(String(localized: "studio.progress.restoring_jackmoebius"))
+                await jackMoebiusManager.restoreForStudio(jm)
+            } else if jackMoebiusManager.state == .active {
+                onProgress(String(localized: "studio.progress.restoring_jackmoebius"))
+                jackMoebiusManager.deactivate()
+            }
+
             // 2. Wait for all required ports to appear (max 30 s)
             onProgress(String(localized: "studio.progress.waiting_ports"))
             let neededClients = Set(studio.connections.flatMap {
@@ -902,13 +1020,24 @@ final class StudioManager: ObservableObject {
                 }
             }
 
-            // Update lastLoadedAt and mark this studio as the active one
+            // 5. Rebuild the volume targets for the studio's output device, then restore any
+            // saved device volumes. Runs even with no saved volumes so the modification
+            // baseline captured below reflects the correct, freshly-rebuilt targets.
+            outputVolumeManager.restore(studio.outputVolumes ?? StudioOutputVolumes())
+
+            // Update lastLoadedAt and mark this studio as the active one. The in-memory copy
+            // captures the post-load device volumes as the `isModified` baseline (so any later
+            // volume change re-enables Save); the saved file keeps its original values, written
+            // by save() first.
             if var updated = studios.first(where: { $0.id == studio.id }) {
                 updated.lastLoadedAt = Date()
                 try? save(updated)
+                updated.outputVolumes = outputVolumeManager.snapshotOutputVolumes()
                 loadedStudio = updated
             } else {
-                loadedStudio = studio
+                var inMemory = studio
+                inMemory.outputVolumes = outputVolumeManager.snapshotOutputVolumes()
+                loadedStudio = inMemory
             }
 
             onComplete(result)
@@ -992,8 +1121,13 @@ final class StudioManager: ObservableObject {
         }
 
 
+        // Never touch JackMoebius per-app boxes: they mirror real CoreAudio apps
+        // (same names!) and belong to jackmoebiusd, not to us. Their JACK clients
+        // carry the org.jackmoebius.coreaudio metadata tag.
+        let names = clientNames.filter { !bridge.isCoreAudioBox(name: $0) }
+
         var targeted: [(name: String, pid: pid_t)] = []
-        for name in clientNames {
+        for name in names {
             // Try jack_get_client_pid first, fallback to process table scan
             var pid = bridge.getClientPID(name: name)
             if pid == nil {

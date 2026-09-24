@@ -70,7 +70,7 @@ func showAboutPanel() {
 /// Inspired by the Xcode About layout: app icon on the left,
 /// name / version / description / links on the right.
 private struct AboutView: View {
-    /// Display version string (e.g. `"1.7.2"`).
+    /// Display version string (e.g. `"2.0.0"`).
     let version: String
     /// Build number string.
     let build:   String
@@ -112,6 +112,9 @@ private struct AboutView: View {
                     Button("about.button.source") {
                         NSWorkspace.shared.open(URL(string: "https://github.com/zinc75/JackMate")!)
                     }
+                    Button("about.button.license") {
+                        NSWorkspace.shared.open(URL(string: "https://zinc75.github.io/JackMate/license.html")!)
+                    }
                     Button("about.button.support") {
                         NSWorkspace.shared.open(URL(string: "https://buymeacoffee.com/zinc75")!)
                     }
@@ -135,6 +138,7 @@ struct JackMateApp: App {
 
     @StateObject private var jackManager   = JackManager()
     @StateObject private var audioManager  = CoreAudioManager()
+    @StateObject private var whatsNewManager = WhatsNewManager()
     @StateObject private var updateManager = AppUpdateManager()
     @StateObject private var donationManager = DonationPromptManager()
 
@@ -155,7 +159,7 @@ struct JackMateApp: App {
                 // Bring the app back to the foreground after the user responds
                 DispatchQueue.main.async {
                     NSApp.activate(ignoringOtherApps: true)
-                    NSApp.windows.first?.makeKeyAndOrderFront(nil)
+                    NSApp.windows.first(where: { $0.canBecomeKey })?.makeKeyAndOrderFront(nil)
                 }
             }
         case .denied, .restricted:
@@ -171,11 +175,13 @@ struct JackMateApp: App {
             ContentView()
                 .environmentObject(jackManager)
                 .environmentObject(audioManager)
+                .environmentObject(whatsNewManager)
                 .environmentObject(updateManager)
                 .environmentObject(donationManager)
                 .mainWindowDelegate()
                 .onAppear {
                     AppDelegate.shared?.jackManager = jackManager
+                    whatsNewManager.checkForVersionChange()
                     updateManager.checkForUpdates()
                     // Subscribe to Jack activations via Combine — independent of window visibility.
                     donationManager.startObserving(jackManager: jackManager)
@@ -244,6 +250,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// The `JackManager` instance, injected after the scene finishes launching.
     var jackManager: JackManager?
 
+    /// The `JackMoebiusManager` instance, injected by `ContentView` once its scene appears.
+    /// Setting it replays any deep-link URL that arrived during a cold launch, before the scene
+    /// (and this reference) were ready.
+    var jackMoebiusManager: JackMoebiusManager? {
+        didSet {
+            guard jackMoebiusManager != nil, !pendingDeepLinks.isEmpty else { return }
+            let urls = pendingDeepLinks
+            pendingDeepLinks = []
+            urls.forEach { jackMoebiusManager?.handleDeepLink($0) }
+            presentMainWindow()
+        }
+    }
+
+    /// `jackmate://` URLs received before `jackMoebiusManager` was injected (cold launch); replayed
+    /// once it is set.
+    private var pendingDeepLinks: [URL] = []
+
     override init() {
         super.init()
         AppDelegate.shared = self
@@ -257,7 +280,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             NSApp.setActivationPolicy(.regular)
             NSApp.activate(ignoringOtherApps: true)
-            NSApp.windows.first?.makeKeyAndOrderFront(nil)
+            NSApp.windows.first(where: { $0.canBecomeKey })?.makeKeyAndOrderFront(nil)
         }
     }
 
@@ -267,13 +290,39 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if !flag {
             NSApp.setActivationPolicy(.regular)
             NSApp.activate(ignoringOtherApps: true)
-            NSApp.windows.first?.makeKeyAndOrderFront(nil)
+            NSApp.windows.first(where: { $0.canBecomeKey })?.makeKeyAndOrderFront(nil)
         }
         return true
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return false
+    }
+
+    // MARK: - Deep link (jackmate://)
+
+    /// Receives `jackmate://` deep links for both cold and warm launches.
+    ///
+    /// Handling the URL on the delegate (rather than SwiftUI's `.onOpenURL`) makes the running
+    /// instance the reliable recipient of the Get-URL Apple Event, so a warm `open` routes here
+    /// instead of spawning a second instance. If the scene isn't ready yet (cold launch), the URL
+    /// is buffered and replayed when `jackMoebiusManager` is injected.
+    func application(_ application: NSApplication, open urls: [URL]) {
+        guard let manager = jackMoebiusManager else {
+            pendingDeepLinks.append(contentsOf: urls)
+            return
+        }
+        urls.forEach { manager.handleDeepLink($0) }
+        presentMainWindow()
+    }
+
+    /// Brings the main window forward — re-showing it if the app had retreated to the menu bar —
+    /// so a deep-link licence sheet is visible. Mirrors the menu bar's "Show window" action.
+    private func presentMainWindow() {
+        NSApp.setActivationPolicy(.regular)
+        NSApp.activate(ignoringOtherApps: true)
+        NSApp.windows.first(where: { $0.identifier?.rawValue == "main" })?.makeKeyAndOrderFront(nil)
+        NotificationCenter.default.post(name: .mainWindowDidOpen, object: nil)
     }
 
     // MARK: - Window close interception
@@ -305,7 +354,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Close dialog — Jack running (3 buttons)
     //
     // Visual order left → right:
-    //   [Quitter et éteindre Jack]  [Quitter JackMate]  [Fermer la fenêtre]
+    //   [Quit and stop Jack]  [Quit JackMate]  [Hide window]
     //
     // NSAlert appends buttons right-to-left, so they are added in reverse order:
     //   addButton #1 → rightmost  → .alertFirstButtonReturn
@@ -362,7 +411,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Close dialog — Jack stopped (2 buttons)
     //
     // Visual order left → right:
-    //   [Quitter JackMate]  [Fermer la fenêtre]
+    //   [Quit JackMate]  [Hide window]
 
     private func showCloseDialogJackStopped(window: NSWindow) {
         let alert = NSAlert()

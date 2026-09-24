@@ -86,6 +86,8 @@ struct PatchbayView: View {
     @EnvironmentObject var audioManager: CoreAudioManager
     @EnvironmentObject private var patchbay: PatchbayManager
     @EnvironmentObject private var studioManager: StudioManager
+    @EnvironmentObject private var jackMoebiusManager: JackMoebiusManager
+    @EnvironmentObject private var outputVolumeManager: OutputVolumeManager
 
     // Context menu
     @State private var ctxPort:      JackPort?     = nil
@@ -109,8 +111,21 @@ struct PatchbayView: View {
     var body: some View {
         canvasArea
             .background(JM.bgBase)
-            .sheet(item: $tappedBadgeNode) { node in
-                NodeBadgeSheet(node: node, segments: systemNodeInfo[node.id] ?? [])
+            // Node-inspect card as a light-dismiss overlay (closes on an outside click),
+            // unlike a sheet which blocks the background.
+            .overlay {
+                if let node = tappedBadgeNode {
+                    ZStack {
+                        Color.black.opacity(0.25)
+                            .ignoresSafeArea()
+                            .onTapGesture { tappedBadgeNode = nil }
+                        NodeBadgeSheet(node: node, segments: systemNodeInfo[node.id] ?? []) {
+                            tappedBadgeNode = nil
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture { }   // taps inside the card don't dismiss
+                    }
+                }
             }
             .sheet(item: $connectAllRequest) { req in
                 ConnectAllSheet(request: req) { updatedPlans in
@@ -123,6 +138,8 @@ struct PatchbayView: View {
                     .environmentObject(jackManager)
                     .environmentObject(patchbay)
                     .environmentObject(studioManager)
+                    .environmentObject(jackMoebiusManager)
+                    .environmentObject(outputVolumeManager)
             }
             .overlay(alignment: .topLeading) {
                 if showCtx { contextMenu }
@@ -146,7 +163,9 @@ struct PatchbayView: View {
             ctxCanvasPos:     $ctxCanvasPos,
             tappedBadgeNode:  $tappedBadgeNode,
             patchbay:         patchbay,
-            systemNodeInfo:   systemNodeInfo
+            systemNodeInfo:   systemNodeInfo,
+            boxStatus:        jackMoebiusManager.boxStatus,
+            onMismatchTap:    { jackMoebiusManager.showPanel = true }
         )
     }
 
@@ -409,20 +428,37 @@ struct NodeBadgeView: View {
 
     var body: some View {
         let r = size * 0.28
-        ZStack {
-            RoundedRectangle(cornerRadius: r)
-                .fill(bgColor)
+        if let icon = appIcon {
+            // JackMoebius box icon (its alpha gives the shape); inflated to match the
+            // coloured letter badge (app icons carry a transparent margin).
+            Image(nsImage: icon)
+                .resizable().scaledToFit()
                 .frame(width: size, height: size)
-            if isSystem {
-                Image(systemName: isCapture ? "mic.fill" : "speaker.wave.2.fill")
-                    .font(.system(size: size * 0.42, weight: .semibold))
-                    .foregroundStyle(iconColor)
-            } else {
-                Text(BadgeUtils.abbrev(node.id))
-                    .font(.system(size: size * 0.50, weight: .bold))
-                    .foregroundStyle(.black.opacity(0.55))
+                .scaleEffect(node.isJackMoebiusMaster ? 1.0 : 1.2)
+        } else {
+            ZStack {
+                RoundedRectangle(cornerRadius: r)
+                    .fill(bgColor)
+                    .frame(width: size, height: size)
+                if isSystem {
+                    Image(systemName: isCapture ? "mic.fill" : "speaker.wave.2.fill")
+                        .font(.system(size: size * 0.42, weight: .semibold))
+                        .foregroundStyle(iconColor)
+                } else {
+                    Text(BadgeUtils.abbrev(node.id))
+                        .font(.system(size: size * 0.50, weight: .bold))
+                        .foregroundStyle(.black.opacity(0.55))
+                }
             }
         }
+    }
+
+    /// Resolved icon for a JackMoebius box: the brand picto for the master box, the real
+    /// app icon for a CoreAudio box (`nil` otherwise → falls back to the abbreviation badge).
+    private var appIcon: NSImage? {
+        if node.isJackMoebiusMaster { return NSImage(named: "JackMoebiusPictoColor") }
+        guard let key = node.coreAudioBundleID else { return nil }
+        return JackMoebiusIconCache.icon(forKey: key)
     }
 
     private var bgColor: Color {
@@ -520,6 +556,8 @@ struct PatchbayCanvasView: NSViewRepresentable {
     @Binding var tappedBadgeNode:  PatchbayNode?
     let patchbay:       PatchbayManager
     let systemNodeInfo: [String: [SystemNodeSegment]]
+    let boxStatus:      [String: JMBoxStatus]
+    let onMismatchTap:  () -> Void
 
     func makeCoordinator() -> Coordinator { Coordinator(self) }
 
@@ -533,11 +571,15 @@ struct PatchbayCanvasView: NSViewRepresentable {
         v.vpOffset         = vpOffset
         v.vpScale          = vpScale
         v.systemNodeInfo   = systemNodeInfo
+        v.boxStatus        = boxStatus
+        v.onMismatchTap    = onMismatchTap
         // No timer — redraws only on Jack callbacks or user interaction
         return v
     }
 
     func updateNSView(_ nsView: PatchbayCanvasNSView, context: Context) {
+        // Closure captures the current SwiftUI values → refresh it every update.
+        nsView.onMismatchTap = onMismatchTap
         // Compare before assigning to avoid unnecessary redraws
         let nodesChanged  = nsView.nodes.map(\.id) != nodes.map(\.id) ||
                             nsView.nodes.map(\.position) != nodes.map(\.position) ||
@@ -546,8 +588,9 @@ struct PatchbayCanvasView: NSViewRepresentable {
         let vpChanged     = nsView.vpOffset != vpOffset || nsView.vpScale != vpScale
         let selChanged    = nsView.selectedNodeIds != selectedNodeIds
         let sysInfoChanged = nsView.systemNodeInfo != systemNodeInfo
+        let statusChanged  = nsView.boxStatus != boxStatus
 
-        if nodesChanged || connsChanged || vpChanged || selChanged || sysInfoChanged {
+        if nodesChanged || connsChanged || vpChanged || selChanged || sysInfoChanged || statusChanged {
             nsView.nodes           = nodes
             nsView.connections     = connections
             nsView.selectedNodeIds = selectedNodeIds
@@ -555,6 +598,7 @@ struct PatchbayCanvasView: NSViewRepresentable {
             nsView.vpOffset        = vpOffset
             nsView.vpScale         = vpScale
             nsView.systemNodeInfo  = systemNodeInfo
+            nsView.boxStatus       = boxStatus
             // Deferred by one cycle to avoid recursive layout
             // (updateNSView runs during SwiftUI's layout pass;
             //  a synchronous needsDisplay would trigger a recursive layoutSubtreeIfNeeded)
@@ -583,6 +627,15 @@ class PatchbayCanvasNSView: NSView {
     var vpOffset:    CGSize  = .zero
     var vpScale:     CGFloat = 1.0
     var systemNodeInfo: [String: [SystemNodeSegment]] = [:]
+    /// Live JackMoebius routing status per box (key = bundle ID) → canvas markers.
+    var boxStatus:   [String: JMBoxStatus] = [:]
+    /// Hit rects (+ identity) of the clickable mismatch ⚠ markers, rebuilt each draw.
+    private var mismatchMarkerRects: [(rect: CGRect, id: String)] = []
+    /// Identity ("<bundleID>:in|out") of the mismatch ⚠ marker under the cursor, for
+    /// the hover effect. `nil` when none is hovered.
+    private var hoveredMismatchID: String? = nil
+    /// Invoked when a mismatch ⚠ marker is clicked → opens the panel + its banner.
+    var onMismatchTap: (() -> Void)?
 
     override var acceptsFirstResponder: Bool { true }
 
@@ -653,18 +706,22 @@ class PatchbayCanvasNSView: NSView {
         let colNode   = hitTestCollapseArrow(at: pt)
         let pill      = hitTestPill(at: pt)
         let badgeNode = hitTestBadgeNode(at: pt)?.id
+        let mismatch  = mismatchMarkerRects.first(where: { $0.rect.contains(pt) })?.id
         if port?.id != hoveredPort?.id || colNode != hoveredCollapseNode
-            || pill != hoveredPill || badgeNode != hoveredBadgeNode {
+            || pill != hoveredPill || badgeNode != hoveredBadgeNode
+            || mismatch != hoveredMismatchID {
             hoveredPort         = port
             hoveredCollapseNode = colNode
             hoveredPill         = pill
             hoveredBadgeNode    = badgeNode
+            hoveredMismatchID   = mismatch
             needsDisplay        = true
-            // Push/pop pointing-hand cursor when entering or leaving a badge
-            if badgeNode != nil && !isShowingBadgeCursor {
+            // Push/pop pointing-hand cursor when over a clickable badge or ⚠ marker
+            let wantsHand = badgeNode != nil || mismatch != nil
+            if wantsHand && !isShowingBadgeCursor {
                 NSCursor.pointingHand.push()
                 isShowingBadgeCursor = true
-            } else if badgeNode == nil && isShowingBadgeCursor {
+            } else if !wantsHand && isShowingBadgeCursor {
                 NSCursor.pop()
                 isShowingBadgeCursor = false
             }
@@ -673,11 +730,12 @@ class PatchbayCanvasNSView: NSView {
 
     override func mouseExited(with event: NSEvent) {
         if hoveredPort != nil || hoveredCollapseNode != nil
-            || hoveredPill != nil || hoveredBadgeNode != nil {
+            || hoveredPill != nil || hoveredBadgeNode != nil || hoveredMismatchID != nil {
             hoveredPort         = nil
             hoveredCollapseNode = nil
             hoveredPill         = nil
             hoveredBadgeNode    = nil
+            hoveredMismatchID   = nil
             needsDisplay        = true
         }
         if isShowingBadgeCursor {
@@ -724,7 +782,8 @@ class PatchbayCanvasNSView: NSView {
                       p1IsOutput: srcPort.direction == .output)
         }
 
-        // Nodes
+        // Nodes — drawNode repopulates the clickable mismatch-marker hit rects.
+        mismatchMarkerRects.removeAll(keepingCapacity: true)
         for node in nodes {
             drawNode(ctx: ctx, node: node, connectedPorts: connectedPorts)
         }
@@ -825,7 +884,8 @@ class PatchbayCanvasNSView: NSView {
                     let connOfType  = byType[portType]!.count
                     let totalOfType = allPorts.filter { $0.type == portType }.count
                     let labelStr    = "\(connOfType)/\(totalOfType)"
-                    let fontSize    = max(9, 10 * vpScale)
+                    // Floor ≈ base × 0.5 (min zoom) so port labels shrink with the box on dezoom.
+                    let fontSize    = max(5, 10 * vpScale)
                     let attrs: [NSAttributedString.Key: Any] = [
                         .font:            NSFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .medium),
                         .foregroundColor: typeNS.withAlphaComponent(0.85)
@@ -1084,80 +1144,104 @@ class PatchbayCanvasNSView: NSView {
                 : NSColor(hue: 0.78,  saturation: 0.50, brightness: 0.82, alpha: 1).cgColor)  // violet
             : BadgeUtils.nsColor(abbr, fullName: node.id).cgColor
 
-        // Glow on hover: draw the badge shape as a shadow behind the fill
-        if isBadgeHovered {
+        // JackMoebius box → draw its icon (master picto / real app icon); else the coloured badge.
+        let boxImage: NSImage? = node.isJackMoebiusMaster
+            ? NSImage(named: "JackMoebiusPictoColor")
+            : node.coreAudioBundleID.flatMap { JackMoebiusIconCache.icon(forKey: $0) }
+        let boxIcon = boxImage?.cgImage(forProposedRect: nil, context: nil, hints: nil)
+
+        if let boxIcon {
             ctx.saveGState()
-            ctx.setShadow(offset: .zero, blur: 10, color: baseColor.copy(alpha: 0.65))
-            ctx.setFillColor(baseColor)
-            ctx.addPath(badgePath)
-            ctx.fillPath()
+            if isBadgeHovered {
+                ctx.setShadow(offset: .zero, blur: 9,
+                              color: NSColor.black.withAlphaComponent(0.55).cgColor)
+            }
+            // Context is flipped (y-down); flip it back before drawing the CGImage.
+            // App icons carry a transparent margin — inflate ~1.2× so the artwork matches
+            // the coloured letter badge's visual size.
+            let grow = node.isJackMoebiusMaster ? 0 : badgeSz * 0.1   // master picto fills its bounds
+            ctx.translateBy(x: badgeRect.minX, y: badgeRect.maxY)
+            ctx.scaleBy(x: 1, y: -1)
+            ctx.draw(boxIcon, in: CGRect(x: -grow, y: -grow,
+                                         width: badgeSz + 2 * grow, height: badgeSz + 2 * grow))
             ctx.restoreGState()
-        }
-
-        // Gradient fill for the badge
-        ctx.saveGState()
-        ctx.addPath(badgePath); ctx.clip()
-        if let srgb = CGColorSpace(name: CGColorSpace.sRGB),
-           let c = baseColor.converted(to: srgb, intent: .defaultIntent, options: nil),
-           let comps = c.components, comps.count >= 3 {
-            let r = comps[0], g = comps[1], b = comps[2]
-            let top = CGColor(colorSpace: srgb, components: [min(r+0.18,1), min(g+0.18,1), min(b+0.18,1), 1])!
-            let bot = CGColor(colorSpace: srgb, components: [max(r-0.08,0), max(g-0.08,0), max(b-0.08,0), 1])!
-            if let grad = CGGradient(colorsSpace: srgb, colors: [top, bot] as CFArray, locations: [0, 1]) {
-                ctx.drawLinearGradient(grad,
-                    start: CGPoint(x: badgeX + badgeSz/2, y: badgeY),
-                    end:   CGPoint(x: badgeX + badgeSz/2, y: badgeY + badgeSz),
-                    options: [])
-            }
         } else {
-            ctx.setFillColor(baseColor); ctx.fillPath()
-        }
-        ctx.restoreGState()
+            // Glow on hover: draw the badge shape as a shadow behind the fill
+            if isBadgeHovered {
+                ctx.saveGState()
+                ctx.setShadow(offset: .zero, blur: 10, color: baseColor.copy(alpha: 0.65))
+                ctx.setFillColor(baseColor)
+                ctx.addPath(badgePath)
+                ctx.fillPath()
+                ctx.restoreGState()
+            }
 
-        // Badge content: SF Symbol icon for system nodes, letter abbreviation for app nodes
-        if isSystemNode {
-            let symName  = isCaptureNode ? "mic.fill" : "speaker.wave.2.fill"
-            let symHue: CGFloat = isCaptureNode ? 0.524 : 0.78
-            let symColor = NSColor(hue: symHue, saturation: 0.65, brightness: 0.22, alpha: 1)
-            let symFS    = max(8.0, 11.0 * vpScale)
-            if let img = NSImage(systemSymbolName: symName, accessibilityDescription: nil) {
-                let cfg = NSImage.SymbolConfiguration(pointSize: symFS, weight: .semibold)
-                    .applying(NSImage.SymbolConfiguration(paletteColors: [symColor]))
-                if let tinted = img.withSymbolConfiguration(cfg),
-                   let cgImg  = tinted.cgImage(forProposedRect: nil, context: nil, hints: nil) {
-                    let isz  = tinted.size
-                    let drawRect = CGRect(x: badgeX + (badgeSz - isz.width) / 2,
-                                         y: badgeY + (badgeSz - isz.height) / 2,
-                                         width: isz.width, height: isz.height)
-                    // Context is flipped (y-down); flip it back before drawing the CGImage
-                    ctx.saveGState()
-                    ctx.translateBy(x: drawRect.minX, y: drawRect.maxY)
-                    ctx.scaleBy(x: 1, y: -1)
-                    ctx.draw(cgImg, in: CGRect(origin: .zero, size: drawRect.size))
-                    ctx.restoreGState()
+            // Gradient fill for the badge
+            ctx.saveGState()
+            ctx.addPath(badgePath); ctx.clip()
+            if let srgb = CGColorSpace(name: CGColorSpace.sRGB),
+               let c = baseColor.converted(to: srgb, intent: .defaultIntent, options: nil),
+               let comps = c.components, comps.count >= 3 {
+                let r = comps[0], g = comps[1], b = comps[2]
+                let top = CGColor(colorSpace: srgb, components: [min(r+0.18,1), min(g+0.18,1), min(b+0.18,1), 1])!
+                let bot = CGColor(colorSpace: srgb, components: [max(r-0.08,0), max(g-0.08,0), max(b-0.08,0), 1])!
+                if let grad = CGGradient(colorsSpace: srgb, colors: [top, bot] as CFArray, locations: [0, 1]) {
+                    ctx.drawLinearGradient(grad,
+                        start: CGPoint(x: badgeX + badgeSz/2, y: badgeY),
+                        end:   CGPoint(x: badgeX + badgeSz/2, y: badgeY + badgeSz),
+                        options: [])
                 }
+            } else {
+                ctx.setFillColor(baseColor); ctx.fillPath()
             }
-        } else {
-            let badgeFS   = max(9.5, 13.0 * vpScale)
-            var textColor = NSColor(white: 0.15, alpha: 1)
-            if let ns = NSColor(cgColor: baseColor) {
-                var h: CGFloat = 0, s: CGFloat = 0, bv: CGFloat = 0, a: CGFloat = 0
-                ns.usingColorSpace(.sRGB)?.getHue(&h, saturation: &s, brightness: &bv, alpha: &a)
-                textColor = NSColor(hue: h, saturation: 0.65, brightness: 0.22, alpha: 1)
+            ctx.restoreGState()
+
+            // Badge content: SF Symbol icon for system nodes, letter abbreviation for app nodes
+            if isSystemNode {
+                let symName  = isCaptureNode ? "mic.fill" : "speaker.wave.2.fill"
+                let symHue: CGFloat = isCaptureNode ? 0.524 : 0.78
+                let symColor = NSColor(hue: symHue, saturation: 0.65, brightness: 0.22, alpha: 1)
+                let symFS    = max(8.0, 11.0 * vpScale)
+                if let img = NSImage(systemSymbolName: symName, accessibilityDescription: nil) {
+                    let cfg = NSImage.SymbolConfiguration(pointSize: symFS, weight: .semibold)
+                        .applying(NSImage.SymbolConfiguration(paletteColors: [symColor]))
+                    if let tinted = img.withSymbolConfiguration(cfg),
+                       let cgImg  = tinted.cgImage(forProposedRect: nil, context: nil, hints: nil) {
+                        let isz  = tinted.size
+                        let drawRect = CGRect(x: badgeX + (badgeSz - isz.width) / 2,
+                                             y: badgeY + (badgeSz - isz.height) / 2,
+                                             width: isz.width, height: isz.height)
+                        // Context is flipped (y-down); flip it back before drawing the CGImage
+                        ctx.saveGState()
+                        ctx.translateBy(x: drawRect.minX, y: drawRect.maxY)
+                        ctx.scaleBy(x: 1, y: -1)
+                        ctx.draw(cgImg, in: CGRect(origin: .zero, size: drawRect.size))
+                        ctx.restoreGState()
+                    }
+                }
+            } else {
+                let badgeFS   = max(9.5, 13.0 * vpScale)
+                var textColor = NSColor(white: 0.15, alpha: 1)
+                if let ns = NSColor(cgColor: baseColor) {
+                    var h: CGFloat = 0, s: CGFloat = 0, bv: CGFloat = 0, a: CGFloat = 0
+                    ns.usingColorSpace(.sRGB)?.getHue(&h, saturation: &s, brightness: &bv, alpha: &a)
+                    textColor = NSColor(hue: h, saturation: 0.65, brightness: 0.22, alpha: 1)
+                }
+                let badgeStr = NSAttributedString(string: abbr, attributes: [
+                    .font: NSFont.boldSystemFont(ofSize: badgeFS),
+                    .foregroundColor: textColor
+                ])
+                let bsz = badgeStr.size()
+                badgeStr.draw(at: CGPoint(x: badgeX + (badgeSz - bsz.width) / 2,
+                                          y: badgeY + (badgeSz - bsz.height) / 2))
             }
-            let badgeStr = NSAttributedString(string: abbr, attributes: [
-                .font: NSFont.boldSystemFont(ofSize: badgeFS),
-                .foregroundColor: textColor
-            ])
-            let bsz = badgeStr.size()
-            badgeStr.draw(at: CGPoint(x: badgeX + (badgeSz - bsz.width) / 2,
-                                      y: badgeY + (badgeSz - bsz.height) / 2))
         }
 
         // Client name + in/out subtitle
         let textX      = badgeX + badgeSz + 7 * vpScale
-        let fs         = max(9.0, 10.5 * vpScale)
-        let subFS      = max(7.5, 8.5 * vpScale)
+        // Floors ≈ base × 0.5 (min zoom 50 %) so the name/subtitle shrink with the box on dezoom.
+        let fs         = max(5.0, 10.5 * vpScale)
+        let subFS      = max(4.0, 8.5 * vpScale)
         let totalTextH = fs * 1.25 + 2 * vpScale + subFS * 1.25
         let textStartY = ny + (hh - totalTextH) / 2
 
@@ -1175,6 +1259,42 @@ class PatchbayCanvasNSView: NSView {
         ]
         NSAttributedString(string: subText, attributes: subAttrs)
             .draw(at: CGPoint(x: textX, y: textStartY + fs * 1.25 + 2 * vpScale))
+
+        // ── JackMoebius routing markers ──────────────────────────────────────
+        // Per-direction indicator on wired JackMoebius boxes only: `mismatch` (wrong
+        // device → red triangle) and `idle` (selected but no signal → dim ellipsis).
+        // `ok` and un-wired directions draw nothing (calm canvas). Expanded → inside
+        // the port zone, centred on each direction's ports; collapsed → next to the
+        // in/out count in the header.
+        let jmKey    = node.coreAudioBundleID ?? ""
+        let jmStatus = node.coreAudioBundleID.flatMap { boxStatus[$0] }
+        let jmInMarker: (symbol: String, color: NSColor, clickable: Bool)? = (jmStatus?.input).flatMap { s in
+            node.inputs.contains { connectedPorts.contains($0.id) } ? Self.statusMarker(s) : nil
+        }
+        let jmOutMarker: (symbol: String, color: NSColor, clickable: Bool)? = (jmStatus?.out).flatMap { s in
+            node.outputs.contains { connectedPorts.contains($0.id) } ? Self.statusMarker(s) : nil
+        }
+        let jmMarkerSz = max(9.0, 12.0 * vpScale)
+
+        if node.isCollapsed, jmInMarker != nil || jmOutMarker != nil {
+            let subY = textStartY + fs * 1.25 + 2 * vpScale
+            let subW = NSAttributedString(string: subText, attributes: subAttrs).size().width
+            let cy   = subY + subFS * 0.6
+            var mx   = textX + subW + 6 * vpScale
+            if let (sym, col, click) = jmInMarker {
+                let mid: String? = click ? "\(jmKey):in" : nil
+                drawStatusMarker(ctx: ctx, center: CGPoint(x: mx + jmMarkerSz / 2, y: cy),
+                                 symbol: sym, color: col, size: jmMarkerSz,
+                                 id: mid, hovered: mid != nil && mid == hoveredMismatchID)
+                mx += jmMarkerSz + 4 * vpScale
+            }
+            if let (sym, col, click) = jmOutMarker {
+                let mid: String? = click ? "\(jmKey):out" : nil
+                drawStatusMarker(ctx: ctx, center: CGPoint(x: mx + jmMarkerSz / 2, y: cy),
+                                 symbol: sym, color: col, size: jmMarkerSz,
+                                 id: mid, hovered: mid != nil && mid == hoveredMismatchID)
+            }
+        }
 
         // Collapse arrow — hidden if the node cannot be collapsed
         if canCollapse(node) {
@@ -1202,7 +1322,8 @@ class PatchbayCanvasNSView: NSView {
             ctx.setFillColor(CGColor(red: 1, green: 1, blue: 1, alpha: 0.05))
             ctx.fill(CGRect(x: nx + nw / 2 - 0.5, y: rowY, width: 1, height: rowH * vpScale))
 
-            let labelFS   = max(8.0, 9.0 * vpScale)
+            // Floor ≈ base × 0.5 (min zoom 50 %) so port names shrink with the box on dezoom.
+            let labelFS   = max(4.0, 9.0 * vpScale)
             let labelFont = NSFont.systemFont(ofSize: labelFS)
             let labelAttrs: [NSAttributedString.Key: Any] = [
                 .font: labelFont,
@@ -1237,6 +1358,37 @@ class PatchbayCanvasNSView: NSView {
             }
         }
 
+        // JackMoebius routing markers (expanded). Vertically both markers share the
+        // centre of the port zone (based on the box body height, not each direction's
+        // own port count → they stay aligned when in/out counts differ). Horizontally
+        // each sits midway between its port names and the centre divider.
+        let jmPortTop   = ny + hh + 3 * vpScale
+        let jmRows      = CGFloat(max(node.inputs.count, node.outputs.count))
+        let jmCenterY   = jmPortTop + jmRows * rowH * vpScale / 2
+        let jmDivX      = nx + nw / 2
+        let jmLabelAttrs: [NSAttributedString.Key: Any] =
+            [.font: NSFont.systemFont(ofSize: max(4.0, 9.0 * vpScale))]
+        if let (sym, col, click) = jmInMarker {
+            let w = node.inputs.map {
+                NSAttributedString(string: $0.portName, attributes: jmLabelAttrs).size().width
+            }.max() ?? 0
+            let nameEndX = nx + 15 * vpScale + w
+            let mid: String? = click ? "\(jmKey):in" : nil
+            drawStatusMarker(ctx: ctx, center: CGPoint(x: (nameEndX + jmDivX) / 2, y: jmCenterY),
+                             symbol: sym, color: col, size: jmMarkerSz,
+                             id: mid, hovered: mid != nil && mid == hoveredMismatchID)
+        }
+        if let (sym, col, click) = jmOutMarker {
+            let w = node.outputs.map {
+                NSAttributedString(string: $0.portName, attributes: jmLabelAttrs).size().width
+            }.max() ?? 0
+            let nameStartX = nx + nw - 15 * vpScale - w
+            let mid: String? = click ? "\(jmKey):out" : nil
+            drawStatusMarker(ctx: ctx, center: CGPoint(x: (jmDivX + nameStartX) / 2, y: jmCenterY),
+                             symbol: sym, color: col, size: jmMarkerSz,
+                             id: mid, hovered: mid != nil && mid == hoveredMismatchID)
+        }
+
         // System device labels — drawn in the free zone of system cards
         // Pass the actual rendered port count so labels never overflow the card height
         if isSystemNode, let segments = systemNodeInfo[node.id], !segments.isEmpty {
@@ -1245,6 +1397,54 @@ class PatchbayCanvasNSView: NSView {
                                    segments: segments, isCaptureCard: isCaptureNode,
                                    renderedPorts: renderedPorts)
         }
+    }
+
+    /// Maps a routing status to a (SF Symbol, colour) marker, or `nil` when nothing
+    /// should be drawn. `mismatch` → red warning triangle; `idle` → dim ellipsis;
+    /// `ok` → nothing (the normal case stays uncluttered).
+    private static func statusMarker(_ status: JMRoutingStatus) -> (symbol: String, color: NSColor, clickable: Bool)? {
+        switch status {
+        // Outline (not `.fill`): the filled triangle hides the "!" at small sizes.
+        // Orange (not red): a "fix me" alert, not an error. `clickable` = the mismatch ⚠
+        // opens the panel banner; the idle dot does not.
+        case .mismatch: return ("exclamationmark.triangle", NSColor(JM.accentOrange), true)
+        case .idle:     return ("ellipsis.circle", NSColor.white.withAlphaComponent(0.42), false)
+        case .ok:       return nil
+        }
+    }
+
+    /// Draws an SF Symbol centred on `center`, tinted `color`, at `size` points.
+    /// The Core Graphics context is y-flipped, so the image is flipped back first.
+    /// When `id != nil` the marker is clickable: a padded hit rect (+ id) is recorded so
+    /// a click/hover can target it (see `mouseDown`/`mouseMoved`). `hovered` enlarges the
+    /// glyph and adds a glow for discoverability.
+    private func drawStatusMarker(ctx: CGContext, center: CGPoint,
+                                  symbol: String, color: NSColor, size: CGFloat,
+                                  id: String?, hovered: Bool) {
+        if let id {
+            // Hit rect uses the resting size (padded) so it stays stable on hover.
+            let pad = max(4.0, size * 0.4)
+            mismatchMarkerRects.append((CGRect(x: center.x - size / 2 - pad,
+                                               y: center.y - size / 2 - pad,
+                                               width: size + 2 * pad, height: size + 2 * pad), id))
+        }
+        let drawSize = hovered ? size * 1.25 : size
+        guard let base = NSImage(systemSymbolName: symbol, accessibilityDescription: nil)
+        else { return }
+        let cfg = NSImage.SymbolConfiguration(pointSize: drawSize, weight: hovered ? .bold : .semibold)
+            .applying(NSImage.SymbolConfiguration(paletteColors: [color]))
+        guard let img = base.withSymbolConfiguration(cfg),
+              let cg  = img.cgImage(forProposedRect: nil, context: nil, hints: nil)
+        else { return }
+        let isz  = img.size
+        let rect = CGRect(x: center.x - isz.width / 2, y: center.y - isz.height / 2,
+                          width: isz.width, height: isz.height)
+        ctx.saveGState()
+        if hovered { ctx.setShadow(offset: .zero, blur: 8, color: color.withAlphaComponent(0.75).cgColor) }
+        ctx.translateBy(x: rect.minX, y: rect.maxY)
+        ctx.scaleBy(x: 1, y: -1)
+        ctx.draw(cg, in: CGRect(origin: .zero, size: rect.size))
+        ctx.restoreGState()
     }
 
     /// Draws device name labels (with mic/speaker icon) in the free zone of a `system` card.
@@ -1606,6 +1806,12 @@ class PatchbayCanvasNSView: NSView {
     override func mouseDown(with event: NSEvent) {
         let pt = convert(event.locationInWindow, from: nil)
         coordinator?.parent.showCtx = false
+
+        // Single click on a mismatch ⚠ marker → open the JackMoebius panel + banner
+        if event.clickCount == 1, mismatchMarkerRects.contains(where: { $0.rect.contains(pt) }) {
+            onMismatchTap?()
+            return
+        }
 
         // Single click on the collapse arrow (top-right corner of the header)
         if event.clickCount == 1, let nodeId = hitTestCollapseArrow(at: pt) {

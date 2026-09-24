@@ -107,6 +107,12 @@ typedef int  (*fn_jack_set_process_callback)(jack_client_t*,
 // jack_get_client_pid — JACK_OPTIONAL_WEAK_EXPORT, may not exist on older builds
 typedef int  (*fn_jack_get_client_pid)(const char*);
 
+// Jack metadata API (Jack2) — used to recognize JackMoebius per-app boxes.
+// All optional: these symbols may be absent on older libjack builds.
+typedef char* (*fn_jack_get_uuid_for_client_name)(jack_client_t*, const char*);
+typedef int   (*fn_jack_uuid_parse)(const char*, uint64_t*);
+typedef int   (*fn_jack_get_property)(uint64_t, const char*, char**, char**);
+
 // ── Internal client structure ─────────────────────────────────────────────────
 
 struct JMClient {
@@ -155,6 +161,11 @@ struct JMClient {
 
     // Client introspection (optional)
     fn_jack_get_client_pid         f_get_client_pid;
+
+    // Metadata (optional) — JackMoebius per-app box detection
+    fn_jack_get_uuid_for_client_name f_get_uuid_for_client_name;
+    fn_jack_uuid_parse               f_uuid_parse;
+    fn_jack_get_property             f_get_property;
 
     // Transport cache — written by _jm_process_cb (Jack RT thread),
     // read by the UI from any thread. Lock-free, zero IPC overhead.
@@ -241,6 +252,10 @@ static bool jm_load_symbols(JMClient *c) {
     LOAD_SYM_OPTIONAL(c, "jack_set_process_callback",   f_set_process_cb);
     // Client introspection — optional, weak export in Jack2
     LOAD_SYM_OPTIONAL(c, "jack_get_client_pid",         f_get_client_pid);
+    // Metadata API — optional (Jack2); used to spare JackMoebius per-app boxes
+    LOAD_SYM_OPTIONAL(c, "jack_get_uuid_for_client_name", f_get_uuid_for_client_name);
+    LOAD_SYM_OPTIONAL(c, "jack_uuid_parse",               f_uuid_parse);
+    LOAD_SYM_OPTIONAL(c, "jack_get_property",             f_get_property);
     return true;
 }
 
@@ -855,4 +870,53 @@ void jm_reset_xrun_count(JMClient *c) {
 int32_t jm_get_client_pid(JMClient *c, const char *client_name) {
     if (!c || !client_name || !c->f_get_client_pid) return -1;
     return (int32_t)c->f_get_client_pid(client_name);
+}
+
+int32_t jm_client_has_property(JMClient *c, const char *client_name, const char *key) {
+    if (!c || !client_name || !key) return -1;
+    if (!c->jack_client || !c->f_get_uuid_for_client_name || !c->f_uuid_parse ||
+        !c->f_get_property || !c->f_free) return -1;
+
+    char *uuid_str = c->f_get_uuid_for_client_name(c->jack_client, client_name);
+    if (!uuid_str) return -1;
+    uint64_t uuid = 0;
+    int rc = c->f_uuid_parse(uuid_str, &uuid);
+    c->f_free(uuid_str);
+    if (rc != 0) return -1;
+
+    char *value = NULL;
+    char *type = NULL;
+    rc = c->f_get_property(uuid, key, &value, &type);
+    if (rc != 0) return 0; // property absent
+    if (value) c->f_free(value);
+    if (type)  c->f_free(type);
+    return 1;
+}
+
+int32_t jm_get_client_property(JMClient *c, const char *client_name, const char *key,
+                               char *out, int32_t out_len) {
+    if (!c || !client_name || !key || !out || out_len <= 0) return -1;
+    if (!c->jack_client || !c->f_get_uuid_for_client_name || !c->f_uuid_parse ||
+        !c->f_get_property || !c->f_free) return -1;
+
+    out[0] = '\0';
+
+    char *uuid_str = c->f_get_uuid_for_client_name(c->jack_client, client_name);
+    if (!uuid_str) return -1;
+    uint64_t uuid = 0;
+    int rc = c->f_uuid_parse(uuid_str, &uuid);
+    c->f_free(uuid_str);
+    if (rc != 0) return -1;
+
+    char *value = NULL;
+    char *type = NULL;
+    rc = c->f_get_property(uuid, key, &value, &type);
+    if (rc != 0) return 0; // property absent
+    if (value) {
+        strncpy(out, value, (size_t)out_len - 1);
+        out[out_len - 1] = '\0';
+    }
+    if (value) c->f_free(value);
+    if (type)  c->f_free(type);
+    return 1;
 }
