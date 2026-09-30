@@ -6,7 +6,7 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
-## [2.0.0] — 2026-09-24
+## [2.0.0] — 2026-10-02
 
 Major release: **JackMoebius integration**. JackMate now drives the JackMoebius daemon to expose any native macOS application (Safari, Music, FaceTime, QuickTime…) as a JACK client, in both directions — outputs **and** inputs — with no external configuration. (Requires the JackMoebius daemon, installed separately.)
 
