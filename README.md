@@ -3,7 +3,7 @@
   ![macOS](https://img.shields.io/badge/macOS-15.0%2B-lightgrey?logo=apple)
   ![Swift](https://img.shields.io/badge/Swift-5.0-orange?logo=swift)
   ![License](https://img.shields.io/badge/license-MIT-green)
-  ![Version](https://img.shields.io/badge/version-1.9.9-blue)
+  ![Version](https://img.shields.io/badge/version-2.0.0-blue)
   ![Languages](https://img.shields.io/badge/languages-FR%20EN%20DE%20IT%20ES-blueviolet)
   [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&logoColor=000000)](https://www.buymeacoffee.com/zinc75)
 
@@ -17,7 +17,7 @@
     <strong>Signed &amp; notarized by Apple</strong>
   </p>
 
-  **[Documentation](https://zinc75.github.io/JackMate/)** · **[Download](https://zinc75.github.io/JackMate/#download)**
+  **[Documentation](https://zinc75.github.io/JackMate/)** · **[Download](https://zinc75.github.io/JackMate/#download)** · **[Changelog](https://zinc75.github.io/JackMate/changelog.html)**
 
 
 </div>
@@ -30,6 +30,19 @@
 
 ---
 
+## 🆕 New in 2.0 — JackMoebius integration
+
+Bring **any native macOS app into the JACK graph** — inputs *and* outputs — with no external setup. JackMate now drives **[JackMoebius](https://zinc75.github.io/JackMoebius/)**, a bidirectional CoreAudio ↔ JACK bridge, so apps that have *no built-in JACK support* become first-class JACK clients:
+
+- **Expose CoreAudio apps as JACK clients** — Safari, Music, FaceTime, QuickTime, a DAW's companion apps… anything that plays or captures audio, routed **in and out** of JACK.
+- Per-app **Output / Input** exposure and channel counts, a **system-monitor** master box, and **per-app volumes**.
+- **Studios** save and restore the full JackMoebius state alongside your JACK setup.
+- **Install JackMoebius from JackMate** in one click, with an in-app demo video and live, event-driven daemon status.
+
+> JackMoebius is a separate driver (free 14-day trial, then a one-time purchase). JackMate detects the installed daemon automatically.
+
+---
+
 ## Features
 
 ### JACK Server Control
@@ -38,11 +51,19 @@
 - Automatic detection of the Jack executable name (`jackd` or `jackdmp`)
 - Automatic switch between Configuration and Patchbay views based on Jack state
 
+### JackMoebius — expose native macOS apps *(new in 2.0)*
+- Expose any CoreAudio app (Safari, Music, FaceTime, QuickTime…) as a JACK client — Output and Input, with channel counts
+- "System monitor" master box for the global system mix; per-app volumes (follow the master or set independently)
+- Live, event-driven daemon status; automatic restart if it stops while Jack is running
+- Wrong-audio-device alerts on exposed, wired apps
+- Install / update JackMoebius from within JackMate (with an in-app demo video); license status shown in the header
+
 ### Studios
 - Full session capture: Jack parameters, clients, connections, node positions
 - Smart loading: full command comparison (all parameters, channel selection), restarts Jack only if necessary
 - Graceful shutdown of all clients (GUI and CLI) before switching studios
 - Automatic save and relaunch of CLI clients (full command with arguments)
+- Restores the JackMoebius state too — exposed apps, master and per-app volumes *(new in 2.0)*
 
 ### Patchbay
 - Visual editor for Jack client connections
