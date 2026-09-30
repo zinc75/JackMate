@@ -17,7 +17,7 @@
     <strong>Signed &amp; notarized by Apple</strong>
   </p>
 
-  **[Documentation](https://zinc75.github.io/JackMate/)** · **[Download](https://github.com/zinc75/JackMate/releases)**
+  **[Documentation](https://zinc75.github.io/JackMate/)** · **[Download](https://zinc75.github.io/JackMate/#download)**
 
 
 </div>
@@ -86,7 +86,7 @@ Full documentation at **[zinc75.github.io/JackMate](https://zinc75.github.io/Jac
 
 ### Download a pre-built release (recommended)
 
-Head to the [Releases](https://github.com/zinc75/JackMate/releases) page, download the latest `JackMate-x.x.x-Installer.dmg`, and drag JackMate to your Applications folder.
+**[Download the latest `.dmg`](https://zinc75.github.io/JackMate/#download)** and drag JackMate to your Applications folder.
 
 > 🛡️ **Signed and notarized by Apple.** JackMate is Developer ID signed and notarized, so it opens cleanly — no Gatekeeper warnings, no Terminal workarounds. Just drag it to Applications and launch.
 
