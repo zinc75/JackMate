@@ -801,13 +801,34 @@ figcaption, .figure-caption {
   box-shadow: 0 6px 20px rgba(34,197,94,0.48), inset 0 1px 0 rgba(255,255,255,0.24);
 }
 
-/* "New in 2.0" indicator — orange star + label, matches the hero highlight */
+/* "New in 2.0" indicator — violet→cyan gradient star + label, to make the 2.0
+   highlights stand out (matches the hero "New in 2.0.0" marker). */
 .badge-new {
-  color: var(--jm-orange);
+  background: linear-gradient(120deg, #a78bfa 0%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
   font-weight: 600;
   font-size: 0.8rem;
   letter-spacing: 0.01em;
   white-space: nowrap;
+  display: inline-block;
+  padding: 0.12rem 0.5rem;
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 6px;
+  position: relative;
+  isolation: isolate;
+}
+/* Subtle violet→cyan fill behind the gradient text — the badge's own background
+   is clipped to the text, so the fill lives on a pseudo-element behind it. */
+.badge-new::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: linear-gradient(120deg, rgba(167,139,250,0.14), rgba(34,211,238,0.11));
+  z-index: -1;
 }
 
 /* Inline accent colours (body text) */
@@ -1204,4 +1225,25 @@ body { padding-bottom: 3rem !important; }
   .dm-dialog { padding: 1.5rem 1.2rem 1.2rem; }
   .dm-header { gap: 0.75rem; }
   .dm-pre { font-size: 0.70rem; }
+}
+
+/* Navbar "Star on GitHub" — outlined pill with a gold star that pops on hover */
+.navbar-nav .nav-link:has(.nav-star) {
+  border: 1px solid rgba(255,255,255,0.22) !important;
+  border-radius: 999px !important;
+  padding: 0.24rem 0.85rem !important;
+  margin: 0 0.2rem !important;
+  transition: background .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease !important;
+}
+.nav-star { display: inline-flex; align-items: center; gap: 0.45rem; font-weight: 600; }
+.nav-star .nav-star-ic { color: #fbbf24; transition: transform .2s ease, filter .2s ease; }
+.navbar-nav .nav-link:has(.nav-star):hover {
+  background: rgba(255,255,255,0.08) !important;
+  border-color: rgba(251,191,36,0.65) !important;
+  box-shadow: 0 0 20px rgba(251,191,36,0.28) !important;
+  transform: translateY(-1px) !important;
+}
+.navbar-nav .nav-link:has(.nav-star):hover .nav-star-ic {
+  transform: scale(1.15) rotate(-8deg);
+  filter: drop-shadow(0 0 6px rgba(251,191,36,0.7));
 }

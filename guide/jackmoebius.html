@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Bring native macOS apps into the Jack graph">
+<meta name="description" content="Expose native macOS apps (Safari, Music, FaceTime…) as JACK clients with JackMoebius — route any CoreAudio app in and out of the JACK graph from JackMate.">
 
 <title>JackMoebius – JackMate</title>
 <style>
@@ -80,18 +80,53 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<!-- Font Awesome (global) — needed for raw <i class="fa-…"> icons in the navbar and pages. -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+<!-- Google Search Console verification (HTML-tag method). -->
+<meta name="google-site-verification" content="L_hiVzVS5OiYTUpTAfpyIX8EVmwncIVNKQDAHO2l91I">
+
+<!-- Structured data (schema.org) — tells search engines this is a free macOS app,
+     making it eligible for richer results. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "JackMate",
+  "operatingSystem": "macOS 15.0+",
+  "applicationCategory": "MultimediaApplication",
+  "description": "Native macOS app to start, configure and patch the JACK Audio Connection Kit (jackd) — a visual JACK patchbay and server manager for musicians and audio engineers.",
+  "url": "https://zinc75.github.io/JackMate/",
+  "downloadUrl": "https://github.com/zinc75/JackMate/releases/latest",
+  "license": "https://opensource.org/licenses/MIT",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Éric Bavu"
+  }
+}
+</script>
 
 
 <link rel="stylesheet" href="../assets/custom.css">
 <meta property="og:title" content="JackMoebius – JackMate">
-<meta property="og:description" content="Bring native macOS apps into the Jack graph">
-<meta property="og:image" content="../assets/screenshots/jackmoebius-routing-coreaudio-jack.png">
+<meta property="og:description" content="Expose native macOS apps (Safari, Music, FaceTime…) as JACK clients with JackMoebius — route any CoreAudio app in and out of the JACK graph from JackMate.">
+<meta property="og:image" content="https://zinc75.github.io/JackMate/assets/jackmoebius-icon.png">
 <meta property="og:site_name" content="JackMate">
-<meta property="og:image:alt" content="Native macOS apps exposed as Jack clients in the patchbay.">
+<meta property="og:image:alt" content="JackMoebius">
+<meta property="og:image:height" content="256">
+<meta property="og:image:width" content="256">
 <meta name="twitter:title" content="JackMoebius – JackMate">
-<meta name="twitter:description" content="Bring native macOS apps into the Jack graph">
-<meta name="twitter:image" content="../assets/screenshots/jackmoebius-routing-coreaudio-jack.png">
-<meta name="twitter:image:alt" content="Native macOS apps exposed as Jack clients in the patchbay.">
+<meta name="twitter:description" content="Expose native macOS apps (Safari, Music, FaceTime…) as JACK clients with JackMoebius — route any CoreAudio app in and out of the JACK graph from JackMate.">
+<meta name="twitter:image" content="https://zinc75.github.io/JackMate/assets/jackmoebius-icon.png">
+<meta name="twitter:image:alt" content="JackMoebius">
+<meta name="twitter:image-height" content="256">
+<meta name="twitter:image-width" content="256">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -161,11 +196,15 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Changelog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../support.html"> 
-<span class="menu-text">Support</span></a>
+    <a class="nav-link" href="../sponsor.html"> 
+<span class="menu-text">Sponsor</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/zinc75/JackMate"> 
+<span class="menu-text"><span class="nav-star"><i class="fa-solid fa-star nav-star-ic" aria-hidden="true"></i> Star on GitHub</span></span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/zinc75/JackMate"> <i class="bi bi-github" role="img">
 </i> 
@@ -276,23 +315,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Support</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../support.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Support JackMate</span></a>
+  <a href="../sponsor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sponsor</span></a>
   </div>
 </li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
@@ -330,7 +358,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Bring native macOS apps into the Jack graph
+    Expose native macOS apps (Safari, Music, FaceTime…) as JACK clients with JackMoebius — route any CoreAudio app in and out of the JACK graph from JackMate.
   </div>
 </div>
 
@@ -347,6 +375,27 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<style>
+.jm-pair { display:flex; align-items:center; justify-content:center; gap:2.2rem; margin:1.8rem 0 .6rem; flex-wrap:wrap; }
+.jm-pair-icon { width:132px; height:132px; object-fit:contain; border-radius:30px;
+  box-shadow:0 0 0 1px rgba(255,255,255,.14), 0 12px 40px rgba(34,211,238,.40), 0 4px 12px rgba(0,0,0,.55); }
+.jm-pair-icon.jm-mate { box-shadow:0 0 0 1px rgba(255,255,255,.14), 0 12px 40px rgba(239,68,68,.40), 0 4px 12px rgba(0,0,0,.55); }
+.jm-pair-heart { color:var(--jm-red,#ef4444); font-size:2.6rem; filter:drop-shadow(0 0 12px rgba(239,68,68,.45)); animation:jm-beat 1.7s ease-in-out infinite; }
+@keyframes jm-beat { 0%,100%{transform:scale(1);} 14%{transform:scale(1.22);} 28%{transform:scale(1);} 42%{transform:scale(1.15);} 56%{transform:scale(1);} }
+@media (prefers-reduced-motion: reduce){ .jm-pair-heart{ animation:none; } }
+.jm-pair-cap { text-align:center; color:var(--jm-text-dim,#a1a1aa); font-size:.95rem; margin:0 0 2rem; }
+@media (max-width:520px){
+  .jm-pair { gap:1.1rem; flex-wrap:nowrap; }
+  .jm-pair-icon { width:92px; height:92px; border-radius:21px; }
+  .jm-pair-heart { font-size:2rem; }
+}
+</style>
+<div class="jm-pair">
+  <img class="jm-pair-icon" src="../assets/jackmoebius-icon.png" alt="JackMoebius">
+  <span class="jm-pair-heart" aria-hidden="true"><i class="fa-solid fa-heart"></i></span>
+  <img class="jm-pair-icon jm-mate" src="../assets/icon.png" alt="JackMate">
+</div>
+<p class="jm-pair-cap">JackMoebius and JackMate — made to work together.</p>
 <p><span class="badge-new">★ New in 2.0.0</span></p>
 <p><strong>JackMoebius</strong> lets JackMate expose any native macOS application — Safari, Music, FaceTime, your DAW’s companion apps — as a Jack client. Apps that have <em>no built-in Jack support</em> can then send and receive audio through the Jack graph like any other client, and interact with your native Jack applications.</p>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -396,6 +445,13 @@ Note
 <p>Once installed, the JackMoebius version appears in the Configuration header, next to Jack’s — see <a href="#version-indicator">Version indicator</a>. Keep it up to date: JackMate signals when a newer version is available.</p>
 </div>
 </div>
+<p>Prefer to see it first? A short tour — expose your macOS apps to <strong>JACK</strong>, wire and mix them in JackMate, and save the whole setup as a studio:</p>
+<div style="max-width:900px;margin:1.6rem auto;">
+  <div style="padding:56.25% 0 0 0;position:relative;">
+    <iframe src="https://player.vimeo.com/video/1230395347?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.9);border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.5);" title="JackMate &amp; JackMoebius — see it in action"></iframe>
+  </div>
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
 <hr>
 </section>
 <section id="enabling-exposure" class="level2">
@@ -673,6 +729,26 @@ function openDownloadModal(e) {
   }
 }
 </script>
+
+<script>
+// Deep link: opening a page at /#download (e.g. from the GitHub README download
+// link) replays a real click on the hero download button — so it reuses the same
+// versioned .dmg URL and the same platform-aware modal as a manual click, with
+// no version to keep in sync anywhere else. No-op on pages without the button.
+(function () {
+  function downloadFromHash() {
+    if (location.hash !== '#download') return;
+    var btn = document.getElementById('download-btn');
+    if (!btn) return;
+    btn.click();
+    // Clear the hash so a refresh doesn't re-trigger the download.
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', downloadFromHash);
+  else downloadFromHash();
+  window.addEventListener('hashchange', downloadFromHash);
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -746,7 +822,7 @@ function openDownloadModal(e) {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/zinc75\.github\.io\/JackMate");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

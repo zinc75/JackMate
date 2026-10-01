@@ -74,15 +74,52 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<!-- Font Awesome (global) — needed for raw <i class="fa-…"> icons in the navbar and pages. -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+<!-- Google Search Console verification (HTML-tag method). -->
+<meta name="google-site-verification" content="L_hiVzVS5OiYTUpTAfpyIX8EVmwncIVNKQDAHO2l91I">
+
+<!-- Structured data (schema.org) — tells search engines this is a free macOS app,
+     making it eligible for richer results. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "JackMate",
+  "operatingSystem": "macOS 15.0+",
+  "applicationCategory": "MultimediaApplication",
+  "description": "Native macOS app to start, configure and patch the JACK Audio Connection Kit (jackd) — a visual JACK patchbay and server manager for musicians and audio engineers.",
+  "url": "https://zinc75.github.io/JackMate/",
+  "downloadUrl": "https://github.com/zinc75/JackMate/releases/latest",
+  "license": "https://opensource.org/licenses/MIT",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Éric Bavu"
+  }
+}
+</script>
 
 
 <link rel="stylesheet" href="assets/custom.css">
 <meta property="og:title" content="Changelog – JackMate">
 <meta property="og:description" content="Jack Audio server manager for macOS">
+<meta property="og:image" content="https://zinc75.github.io/JackMate/assets/og-image.png">
 <meta property="og:site_name" content="JackMate">
+<meta property="og:image:height" content="640">
+<meta property="og:image:width" content="1280">
 <meta name="twitter:title" content="Changelog – JackMate">
 <meta name="twitter:description" content="Jack Audio server manager for macOS">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zinc75.github.io/JackMate/assets/og-image.png">
+<meta name="twitter:image-height" content="640">
+<meta name="twitter:image-width" content="1280">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
@@ -151,11 +188,15 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Changelog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./support.html"> 
-<span class="menu-text">Support</span></a>
+    <a class="nav-link" href="./sponsor.html"> 
+<span class="menu-text">Sponsor</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/zinc75/JackMate"> 
+<span class="menu-text"><span class="nav-star"><i class="fa-solid fa-star nav-star-ic" aria-hidden="true"></i> Star on GitHub</span></span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/zinc75/JackMate"> <i class="bi bi-github" role="img">
 </i> 
@@ -266,23 +307,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Support</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./support.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Support JackMate</span></a>
+  <a href="./sponsor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sponsor</span></a>
   </div>
 </li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
@@ -293,7 +323,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">[2.0.0] — 2026-09-24</a>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">[2.0.0] — 2026-10-02</a>
   <ul class="collapse">
   <li><a href="#added-jackmoebius-integration" id="toc-added-jackmoebius-integration" class="nav-link" data-scroll-target="#added-jackmoebius-integration">Added — JackMoebius integration</a></li>
   <li><a href="#added-application" id="toc-added-application" class="nav-link" data-scroll-target="#added-application">Added — Application</a></li>
@@ -526,7 +556,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Format: <a href="https://semver.org">Semantic Versioning</a>. Versions 0.x cover the initial development phase (before stabilization). Version 1.0 marks the first stable and complete release.</p>
 <hr>
 <section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section">[2.0.0] — 2026-09-24</h2>
+<h2 class="anchored" data-anchor-id="section">[2.0.0] — 2026-10-02</h2>
 <p>Major release: <strong>JackMoebius integration</strong>. JackMate now drives the JackMoebius daemon to expose any native macOS application (Safari, Music, FaceTime, QuickTime…) as a JACK client, in both directions — outputs <strong>and</strong> inputs — with no external configuration. (Requires the JackMoebius daemon, installed separately.)</p>
 <section id="added-jackmoebius-integration" class="level3">
 <h3 class="anchored" data-anchor-id="added-jackmoebius-integration">Added — JackMoebius integration</h3>
@@ -545,6 +575,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>JackMoebius license status</strong> — the Configuration header badge and the JackMoebius panel show the license state (free trial with days remaining, trial expired, or licensed). A License sheet activates a license key, shows the details (registered email, masked key hint, Macs in use) and links to purchase; when the trial has expired, enabling JackMoebius steers you to activation or purchase instead of starting the daemon.</li>
 <li><strong>One-click license activation (<code>jackmate://</code> link)</strong> — after purchase, a <code>jackmate://activate?key=…</code> link (a web button or the “how to activate” PDF) opens JackMate and shows the License sheet with the key already filled in — you just press “Activate”. The window comes back to the front, even if the app had retreated to the menu bar.</li>
 <li><strong>Install JackMoebius from JackMate</strong> — when the JackMoebius bridge isn’t installed, the info and License sheets offer to <strong>download it and open its installer</strong> in one click — handy if you enter a license key before JackMoebius is even installed. The info sheet also explains what JackMoebius is and, during the trial, leads straight to purchase/activation.</li>
+<li><strong>Discover JackMoebius</strong> — when the bridge isn’t installed, a <strong>“Try JackMoebius”</strong> button (in the Configuration and Patchbay headers) plays a <strong>demo video</strong> in a native player and offers to <strong>install it</strong> in one click (or learn more). The JackMoebius “not installed” panel embeds the same demo. Offline, a presentation image replaces the video.</li>
 <li>Fully localized JackMoebius interface (EN / FR / DE / IT / ES).</li>
 </ul>
 </section>
@@ -1277,6 +1308,26 @@ function openDownloadModal(e) {
   }
 }
 </script>
+
+<script>
+// Deep link: opening a page at /#download (e.g. from the GitHub README download
+// link) replays a real click on the hero download button — so it reuses the same
+// versioned .dmg URL and the same platform-aware modal as a manual click, with
+// no version to keep in sync anywhere else. No-op on pages without the button.
+(function () {
+  function downloadFromHash() {
+    if (location.hash !== '#download') return;
+    var btn = document.getElementById('download-btn');
+    if (!btn) return;
+    btn.click();
+    // Clear the hash so a refresh doesn't re-trigger the download.
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', downloadFromHash);
+  else downloadFromHash();
+  window.addEventListener('hashchange', downloadFromHash);
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -1350,7 +1401,7 @@ function openDownloadModal(e) {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/zinc75\.github\.io\/JackMate");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

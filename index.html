@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="JackMate is a free, native macOS app to start, configure and patch the JACK Audio Connection Kit (jackd) — a visual JACK patchbay and server manager for musicians and audio engineers, and a modern QjackCtl alternative for macOS.">
 
 <title>JackMate</title>
 <style>
@@ -79,18 +80,53 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<!-- Font Awesome (global) — needed for raw <i class="fa-…"> icons in the navbar and pages. -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+<!-- Google Search Console verification (HTML-tag method). -->
+<meta name="google-site-verification" content="L_hiVzVS5OiYTUpTAfpyIX8EVmwncIVNKQDAHO2l91I">
+
+<!-- Structured data (schema.org) — tells search engines this is a free macOS app,
+     making it eligible for richer results. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "JackMate",
+  "operatingSystem": "macOS 15.0+",
+  "applicationCategory": "MultimediaApplication",
+  "description": "Native macOS app to start, configure and patch the JACK Audio Connection Kit (jackd) — a visual JACK patchbay and server manager for musicians and audio engineers.",
+  "url": "https://zinc75.github.io/JackMate/",
+  "downloadUrl": "https://github.com/zinc75/JackMate/releases/latest",
+  "license": "https://opensource.org/licenses/MIT",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Éric Bavu"
+  }
+}
+</script>
 
 
 <link rel="stylesheet" href="assets/custom.css">
 <meta property="og:title" content="JackMate">
-<meta property="og:description" content="Jack Audio server manager for macOS">
-<meta property="og:image" content="assets/icon.png">
+<meta property="og:description" content="JackMate is a free, native macOS app to start, configure and patch the JACK Audio Connection Kit (jackd) — a visual JACK patchbay and server manager for musicians and audio engineers, and a modern QjackCtl alternative for macOS.">
+<meta property="og:image" content="https://zinc75.github.io/JackMate/assets/icon.png">
 <meta property="og:site_name" content="JackMate">
 <meta property="og:image:alt" content="JackMate">
+<meta property="og:image:height" content="256">
+<meta property="og:image:width" content="256">
 <meta name="twitter:title" content="JackMate">
-<meta name="twitter:description" content="Jack Audio server manager for macOS">
-<meta name="twitter:image" content="assets/icon.png">
+<meta name="twitter:description" content="JackMate is a free, native macOS app to start, configure and patch the JACK Audio Connection Kit (jackd) — a visual JACK patchbay and server manager for musicians and audio engineers, and a modern QjackCtl alternative for macOS.">
+<meta name="twitter:image" content="https://zinc75.github.io/JackMate/assets/icon.png">
 <meta name="twitter:image:alt" content="JackMate">
+<meta name="twitter:image-height" content="256">
+<meta name="twitter:image-width" content="256">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -160,11 +196,15 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Changelog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./support.html"> 
-<span class="menu-text">Support</span></a>
+    <a class="nav-link" href="./sponsor.html"> 
+<span class="menu-text">Sponsor</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/zinc75/JackMate"> 
+<span class="menu-text"><span class="nav-star"><i class="fa-solid fa-star nav-star-ic" aria-hidden="true"></i> Star on GitHub</span></span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/zinc75/JackMate"> <i class="bi bi-github" role="img">
 </i> 
@@ -275,23 +315,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Support</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./support.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Support JackMate</span></a>
+  <a href="./sponsor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sponsor</span></a>
   </div>
 </li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
@@ -306,6 +335,11 @@ ul.task-list li input[type="checkbox"] {
 <h1 class="title">JackMate</h1>
 </div>
 
+<div>
+  <div class="description">
+    JackMate is a free, native macOS app to start, configure and patch the JACK Audio Connection Kit (jackd) — a visual JACK patchbay and server manager for musicians and audio engineers, and a modern QjackCtl alternative for macOS.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta column-page-right">
@@ -320,13 +354,23 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<style>
+/* Accent for the JackMoebius mentions in the hero — echoes the JackMoebius cyan
+   and the violet→cyan "Get JackMoebius" CTA gradient, instead of the red link color. */
+.jm-hero-accent { color: #22d3ee !important; text-decoration-color: rgba(34,211,238,0.40); }
+.jm-hero-accent:hover { color: #67e8f9 !important; text-decoration-color: rgba(103,232,249,0.60); }
+/* "New in 2.0.0" marker — violet→cyan gradient (same as .badge-new on the guide pages). */
+.hero-new { background: linear-gradient(120deg, #a78bfa 0%, #22d3ee 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+/* Enclosing box with a thin white border around the hero marker. */
+.hero-new-box { display: inline-block; padding: 0.05rem 0.5rem; border: 1px solid rgba(255,255,255,0.5); border-radius: 6px; vertical-align: baseline; background: linear-gradient(120deg, rgba(167,139,250,0.14), rgba(34,211,238,0.11)); }
+</style>
 <div class="hero">
   <div class="hero-inner">
     <img src="assets/icon.png" alt="JackMate" class="hero-icon">
     <div class="hero-text">
       <h1>JackMate</h1>
       <p class="subtitle">Start, configure, and patch your Jack Audio Server in a few clicks. A native macOS interface built for musicians and audio engineers.</p>
-      <p style="margin:0.55rem 0 1.4rem;font-size:0.95rem;line-height:1.5;color:var(--jm-text-dim);"><span aria-hidden="true" style="color:var(--jm-orange);">★</span> <strong style="color:var(--jm-orange);font-weight:600;">New in 2.0.0:</strong> bring any native macOS app into the Jack graph thanks to a tight integration with <a href="https://zinc75.github.io/JackMoebius/" target="_blank" rel="noopener">JackMoebius</a>.</p>
+      <p style="margin:0.55rem 0 1.4rem;font-size:0.95rem;line-height:1.5;color:var(--jm-text-dim);"><span class="hero-new-box"><span aria-hidden="true" class="hero-new">★</span> <strong class="hero-new" style="font-weight:600;">New in 2.0.0</strong></span> bring any native macOS app into the Jack graph thanks to a tight integration with <a href="https://zinc75.github.io/JackMoebius/" class="jm-hero-accent" target="_blank" rel="noopener">JackMoebius</a>. <a href="#video" class="jm-hero-accent" onclick="openVideoLightbox(event)" style="white-space:nowrap;font-weight:600;"><i class="fa-solid fa-circle-play"></i> See it in action</a></p>
       <div class="hero-pills">
         <a href="https://github.com/zinc75/JackMate/releases/download/v2.0.0/JackMate-2.0.0-Installer.dmg" class="hero-pill hero-pill-primary" id="download-btn" onclick="openDownloadModal(event)">
           <i class="fa-solid fa-arrow-down-to-bracket"></i> Download
@@ -348,6 +392,66 @@ ul.task-list li input[type="checkbox"] {
     </div>
   </div>
 </div>
+<!-- Video lightbox — opened from the hero "See it in action" link; the Vimeo
+     iframe is injected on open (page stays light) and removed on close (stops
+     playback). Same clip as JackMoebius — it shows JackMate driving it. -->
+<div id="video-lightbox" class="vlb-overlay" role="dialog" aria-modal="true" aria-label="JackMate video">
+  <button class="vlb-close" type="button" aria-label="Close">×</button>
+  <div class="vlb-frame" id="vlb-frame"></div>
+</div>
+<style>
+.vlb-overlay { position:fixed; inset:0; z-index:99999; display:none; align-items:center; justify-content:center; padding:4vh 4vw; background:rgba(0,0,0,.85); backdrop-filter:blur(4px); }
+.vlb-overlay.is-open { display:flex; }
+.vlb-frame { position:relative; width:100%; max-width:1000px; aspect-ratio:16/9; }
+.vlb-frame iframe { position:absolute; inset:0; width:100%; height:100%; box-sizing:border-box; border:1px solid rgba(255,255,255,.9); border-radius:12px; box-shadow:0 24px 80px rgba(0,0,0,.6); }
+.vlb-close { position:absolute; top:1rem; right:1.25rem; z-index:3; display:flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px solid rgba(255,255,255,.55); border-radius:50%; background:rgba(0,0,0,.65); color:#fff; font-size:1.6rem; line-height:1; cursor:pointer; backdrop-filter:blur(2px); }
+.vlb-close:hover { background:rgba(0,0,0,.75); }
+</style>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function () {
+  var VIDEO_ID = 1230395347;
+  var START    = 133.5; // start position in seconds (2m13.5s)
+  var ov = document.getElementById('video-lightbox');
+  var frame = document.getElementById('vlb-frame');
+  if (!ov || !frame) return;
+  document.body.appendChild(ov);          // out of the content stacking context, so it covers the navbar
+  var player = null;
+  window.openVideoLightbox = function (e) {
+    if (e) e.preventDefault();
+    // Let the iframe autoplay NATIVELY (this plays with sound in Safari, unlike
+    // a script-initiated play(), which Safari blocks outside a sync gesture).
+    // A #t= start time in the URL would make Vimeo stay paused, so instead we
+    // attach the SDK to this same iframe and jump to START on the first 'play'
+    // event — the video is already playing with sound, so seeking it doesn't
+    // re-trigger any autoplay restriction.
+    frame.innerHTML = '<iframe src="https://player.vimeo.com/video/' + VIDEO_ID +
+      '?badge=0&autopause=0&autoplay=1" allow="autoplay; fullscreen; picture-in-picture" ' +
+      'allowfullscreen title="JackMate — See it in action"></iframe>';
+    player = new Vimeo.Player(frame.querySelector('iframe'));
+    player.on('play', function seekOnce() {
+      player.off('play', seekOnce);   // seek only on the first play, not on later resumes
+      player.setCurrentTime(START);
+    });
+    ov.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  };
+  function close() {
+    ov.classList.remove('is-open');
+    document.body.style.overflow = '';
+    if (player) { player.destroy().catch(function () {}); player = null; }
+    frame.innerHTML = '';
+    if (location.hash === '#video') history.replaceState(null, '', location.pathname + location.search);
+  }
+  ov.addEventListener('click', function (e) { if (e.target === ov) close(); });
+  ov.querySelector('.vlb-close').addEventListener('click', close);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ov.classList.contains('is-open')) close(); });
+  // Deep link: opening the home at /#video auto-plays (e.g. from a README thumbnail).
+  function openIfHash() { if (location.hash === '#video') window.openVideoLightbox(); }
+  openIfHash();
+  window.addEventListener('hashchange', openIfHash);
+})();
+</script>
 <!-- Modal: Windows / Linux confirmation -->
 <div id="dm-confirm-modal" class="dm-overlay" role="dialog" aria-modal="true" aria-labelledby="dm-confirm-title">
   <div class="dm-dialog dm-dialog-sm">
@@ -408,15 +512,35 @@ ul.task-list li input[type="checkbox"] {
 .jm-companion {
   display: flex; align-items: center; gap: 1.5rem;
   margin: 2.5rem 0 1rem; padding: 1.5rem 1.8rem;
-  border-radius: 18px; border: 1px solid var(--jm-border-med);
-  background: linear-gradient(120deg, rgba(139,92,246,0.07), rgba(6,182,212,0.06)), linear-gradient(160deg, #1c1c24, #17171e);
+  border-radius: 18px;
+  position: relative; isolation: isolate;
+  /* JackMate hero dark base + a very faint JackMoebius cyan wash on top */
+  background:
+    linear-gradient(120deg, rgba(34,211,238,0.05) 0%, rgba(34,211,238,0.015) 60%, transparent 100%),
+    linear-gradient(158deg, #0c0c13 0%, #12101e 45%, #160d1c 100%);
 }
-.jm-companion-glyph { width: 64px; height: 64px; flex-shrink: 0; }
-.jm-companion-body { flex: 1; min-width: 0; }
+/* Gradient border (liseré) — same mask trick as the hero, but in JackMoebius's
+   cyan accent (matches the JackMoebius hero) to signal the companion zone. */
+.jm-companion::before {
+  content: '';
+  position: absolute; inset: 0; border-radius: 18px; padding: 1px;
+  background: linear-gradient(145deg,
+    rgba(34,211,238,0.60) 0%,
+    rgba(255,255,255,0.08) 35%,
+    rgba(255,255,255,0.04) 65%,
+    transparent 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none; z-index: 1;
+}
+.jm-companion-glyph { width: 64px; height: 64px; flex-shrink: 0; position: relative; z-index: 2; }
+.jm-companion-body { flex: 1; min-width: 0; position: relative; z-index: 2; }
 .jm-companion-title { font-size: 1.15rem; font-weight: 650; margin-bottom: 0.3rem; }
 .jm-companion-text { margin: 0; font-size: 0.92rem; line-height: 1.5; color: var(--jm-text-dim); }
 .jm-companion-btn {
   flex-shrink: 0; display: inline-flex; align-items: center; gap: 0.5rem;
+  position: relative; z-index: 2;
   padding: 0.7rem 1.3rem; border-radius: 10px; white-space: nowrap;
   font-weight: 600; font-size: 0.95rem; text-decoration: none; color: #fff;
   background: linear-gradient(120deg, #8b5cf6, #06b6d4); transition: filter 0.15s;
@@ -825,6 +949,26 @@ function openDownloadModal(e) {
   }
 }
 </script>
+
+<script>
+// Deep link: opening a page at /#download (e.g. from the GitHub README download
+// link) replays a real click on the hero download button — so it reuses the same
+// versioned .dmg URL and the same platform-aware modal as a manual click, with
+// no version to keep in sync anywhere else. No-op on pages without the button.
+(function () {
+  function downloadFromHash() {
+    if (location.hash !== '#download') return;
+    var btn = document.getElementById('download-btn');
+    if (!btn) return;
+    btn.click();
+    // Clear the hash so a refresh doesn't re-trigger the download.
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', downloadFromHash);
+  else downloadFromHash();
+  window.addEventListener('hashchange', downloadFromHash);
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -898,7 +1042,7 @@ function openDownloadModal(e) {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/zinc75\.github\.io\/JackMate");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
