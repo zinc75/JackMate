@@ -378,28 +378,43 @@ struct JackMoebiusPanelView: View {
     // MARK: Not installed
 
     private var notInstalled: some View {
-        VStack(spacing: 14) {
-            Image(systemName: "exclamationmark.triangle.fill")
-                .font(.system(size: 28)).foregroundStyle(JM.accentAmber)
-            Text(String(localized: "jackmoebius.panel.not_installed.title"))
-                .font(.system(size: 15, weight: .semibold)).foregroundStyle(.white)
-            // Reuse the info-sheet explanation text.
-            Text(String(localized: "jackmoebius.info.body"))
-                .font(.system(size: 12)).foregroundStyle(.white.opacity(0.8))
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-                .frame(maxWidth: 460)
-            // Enticement: JackMoebius is a paid product with a free trial.
-            Text(String(localized: "jackmoebius.panel.not_installed.trial"))
-                .font(.system(size: 12, weight: .medium)).foregroundStyle(JM.accentAmber)
-                .multilineTextAlignment(.center)
-            Button(String(localized: "jackmoebius.info.download")) {
-                NSWorkspace.shared.open(JackMoebiusManager.downloadURL)
+        VStack(spacing: 16) {
+            // Demo clip — spans the full panel width; promo still as offline fallback.
+            JackMoebiusDemoVideo(autoplay: false)
+
+            // The original not-installed block, vertically centred in the space
+            // left below the video (more balanced than stacking it right under).
+            VStack(spacing: 14) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .font(.system(size: 28)).foregroundStyle(JM.accentAmber)
+                Text(String(localized: "jackmoebius.panel.not_installed.title"))
+                    .font(.system(size: 15, weight: .semibold)).foregroundStyle(.white)
+                // Reuse the info-sheet explanation text.
+                Text(String(localized: "jackmoebius.info.body"))
+                    .font(.system(size: 12)).foregroundStyle(.white.opacity(0.8))
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: 460)
+                // Enticement: JackMoebius is a paid product with a free trial.
+                Text(String(localized: "jackmoebius.panel.not_installed.trial"))
+                    .font(.system(size: 12, weight: .medium)).foregroundStyle(JM.accentAmber)
+                    .multilineTextAlignment(.center)
+                // Primary CTA (real install) + a discreet "Learn more" link below it.
+                VStack(spacing: 10) {
+                    InstallJackMoebiusButton()
+                    Button(String(localized: "jackmoebius.info.learn_more")) {
+                        NSWorkspace.shared.open(JackMoebiusManager.downloadURL)
+                    }
+                    .buttonStyle(.plain)
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundStyle(JM.accentCyan)
+                }
+                .padding(.top, 4)
             }
-            .controlSize(.large)
-            .padding(.top, 4)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(.horizontal, 28)
         }
-        .padding(28)
+        .padding(.vertical, 28)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 

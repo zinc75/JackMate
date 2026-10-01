@@ -5992,40 +5992,6 @@
         }
       }
     },
-    "jackmoebius.info.download" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "JackMoebius herunterladen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Download JackMoebius"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Descargar JackMoebius"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Télécharger JackMoebius"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Scarica JackMoebius"
-          }
-        }
-      }
-    },
     "jackmoebius.info.learn_more" : {
       "localizations" : {
         "de" : {

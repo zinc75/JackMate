@@ -13,6 +13,7 @@
 import SwiftUI
 import AppKit
 import Combine
+import AVKit
 
 // MARK: - VisualEffectView
 
@@ -2376,6 +2377,7 @@ struct ConfigHeaderView: View {
     @State private var showLicenseSheet       = false
     @State private var isJMUpdateHovered      = false
     @State private var isJackReleasesHovered  = false
+    @State private var showTryVideo           = false
 
     /// Measured header width. Below `studioLabelThreshold` the studio button collapses
     /// to icon-only — a real width gate (unlike `ViewThatFits`, which collapses next to
@@ -2665,30 +2667,38 @@ struct ConfigHeaderView: View {
             // group. Colour picto when the daemon is active, monochrome (template,
             // hover-brightened) otherwise. ───────────────────────────────────────────
             if selection == .patchbay {
-                Button { jackMoebiusManager.showPanel.toggle() } label: {
-                    Group {
-                        if jackMoebiusManager.state == .active {
-                            Image("JackMoebiusPictoColor")
-                                .resizable().scaledToFit()
-                                .opacity(hoveredBtn == "jackmoebius" ? 1.0 : 0.88)
-                        } else {
-                            Image("JackMoebiusGlyph")
-                                .renderingMode(.template)
-                                .resizable().scaledToFit()
-                                .foregroundStyle(hoveredBtn == "jackmoebius" ? JM.textPrimary : JM.textTertiary)
+                if jackMoebiusManager.installed {
+                    Button { jackMoebiusManager.showPanel.toggle() } label: {
+                        Group {
+                            if jackMoebiusManager.state == .active {
+                                Image("JackMoebiusPictoColor")
+                                    .resizable().scaledToFit()
+                                    .opacity(hoveredBtn == "jackmoebius" ? 1.0 : 0.88)
+                            } else {
+                                Image("JackMoebiusGlyph")
+                                    .renderingMode(.template)
+                                    .resizable().scaledToFit()
+                                    .foregroundStyle(hoveredBtn == "jackmoebius" ? JM.textPrimary : JM.textTertiary)
+                            }
                         }
+                        .frame(width: 20, height: 20)
+                        .frame(width: 40, height: 40)
+                        .background(RoundedRectangle(cornerRadius: 8).fill(JM.bgBase))
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(JM.borderFaint, lineWidth: 1))
                     }
-                    .frame(width: 20, height: 20)
-                    .frame(width: 40, height: 40)
-                    .background(RoundedRectangle(cornerRadius: 8).fill(JM.bgBase))
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(JM.borderFaint, lineWidth: 1))
+                    .buttonStyle(.plain)
+                    .onHover { hoveredBtn = $0 ? "jackmoebius" : nil }
+                    .help(String(localized: "jackmoebius.toolbar.help"))
+                    // Enabled only when JACK is running (the panel controls a JACK-gated daemon).
+                    .disabled(!jackManager.isRunning)
+                    .opacity(jackManager.isRunning ? 1.0 : 0.4)
+                } else {
+                    // Not installed → same slot, restyled as the Try JackMoebius CTA
+                    // tile; behaviour unchanged (opens the JackMoebius panel).
+                    JackMoebiusTryTile { jackMoebiusManager.showPanel.toggle() }
+                        .disabled(!jackManager.isRunning)
+                        .opacity(jackManager.isRunning ? 1.0 : 0.4)
                 }
-                .buttonStyle(.plain)
-                .onHover { hoveredBtn = $0 ? "jackmoebius" : nil }
-                .help(String(localized: "jackmoebius.toolbar.help"))
-                // Enabled only when JACK is running (the panel controls a JACK-gated daemon).
-                .disabled(!jackManager.isRunning)
-                .opacity(jackManager.isRunning ? 1.0 : 0.4)
             }
 
             // ── Volumes bar toggle (output device volumes) ───────────────────
@@ -2929,6 +2939,13 @@ struct ConfigHeaderView: View {
                 }
             }
 
+            // ── Try JackMoebius CTA — top-bar tile, Configuration view only,
+            // shown when the daemon isn't installed (left of Audio MIDI).
+            // Opens the JackMoebius download page (behaviour unchanged).
+            if selection == .configuration, !jackMoebiusManager.installed {
+                JackMoebiusTryTile { showTryVideo = true }
+            }
+
             // ── Audio MIDI Setup shortcut ───────────────────────────────────
             Button {
                 NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Applications/Utilities/Audio MIDI Setup.app"))
@@ -3018,6 +3035,8 @@ struct ConfigHeaderView: View {
         .padding(.vertical, 10)
         .background(JM.bgBase)
         .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { headerWidth = $0 }
+        // "Try JackMoebius" CTA (Configuration view) → native AVKit demo player, autoplay.
+        .sheet(isPresented: $showTryVideo) { JackMoebiusVideoSheet() }
         .sheet(item: $pendingAggregateLayout) { layout in
             AggregateWarningSheet(layout: layout) {
                 jackManager.savePreferences()
@@ -3098,7 +3117,6 @@ struct ConfigBodyView: View {
     @State private var showJackMoebiusInfo = false
     @State private var isJackMoebiusInfoHovered = false
     @State private var showLicenseSheet = false
-    @State private var isTryHovered = false
 
     let bufferSizes = [16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
 
@@ -3354,8 +3372,9 @@ struct ConfigBodyView: View {
                                     }
                                 }
                         } else {
-                            // Not installed → icon + label + greyed toggle, with the "Try JackMoebius"
-                            // CTA as a centred overlay (perfectly centred H & V in the row).
+                            // Not installed → icon + label + subtitle, ⓘ info button and a greyed
+                            // toggle. The "Try JackMoebius" CTA now lives in the top bar (left of
+                            // Audio MIDI), not in this row.
                             HStack(spacing: 10) {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 6).fill(JM.tintCyan).frame(width: 26, height: 26)
@@ -3385,31 +3404,6 @@ struct ConfigBodyView: View {
                                     .disabled(true).opacity(0.4)
                             }
                             .padding(.vertical, 8).padding(.horizontal, 2)
-                            .overlay {
-                                Button {
-                                    NSWorkspace.shared.open(JackMoebiusManager.downloadURL)
-                                } label: {
-                                    HStack(spacing: 5) {
-                                        Image(systemName: "arrow.up.right.square").font(.system(size: 9))
-                                        Text("config.jackmoebius.try").font(.system(size: 11, weight: .semibold))
-                                    }
-                                    .fixedSize()
-                                    .padding(.horizontal, 12).frame(height: 26)
-                                    .background(RoundedRectangle(cornerRadius: 8)
-                                        .fill(LinearGradient(colors: [JM.accentPurple, JM.accentCyan],
-                                                             startPoint: .leading, endPoint: .trailing))
-                                        .overlay(RoundedRectangle(cornerRadius: 8)
-                                            .stroke(Color.white.opacity(0.35), lineWidth: 1)))
-                                    .foregroundStyle(.white)
-                                    .shadow(color: JM.accentCyan.opacity(isTryHovered ? 0.3 : 0.12),
-                                            radius: isTryHovered ? 6 : 3, y: 0)
-                                    .brightness(isTryHovered ? 0.05 : 0)
-                                    .animation(.easeOut(duration: 0.15), value: isTryHovered)
-                                }
-                                .buttonStyle(.plain)
-                                .onHover { isTryHovered = $0 }
-                                .offset(y: -4)
-                            }
                         }
                         separatorGradient
                         JMToggleRow(icon: "lock.fill",
@@ -3789,7 +3783,7 @@ struct JackMoebiusLicenseSheet: View {
                     }
                 } else if !isLicensed, jackMoebiusManager.installed {
                     Button("license.sheet.buy") {
-                        NSWorkspace.shared.open(JackMoebiusManager.downloadURL)
+                        NSWorkspace.shared.open(JackMoebiusManager.purchaseURL)
                     }
                 }
                 Spacer()
@@ -4041,6 +4035,229 @@ struct JMParamCard<Content: View>: View {
         .background(RoundedRectangle(cornerRadius: 7)
             .fill(Color(red: 0.12, green: 0.12, blue: 0.12)))
         .gradientBorder(cornerRadius: 7)
+    }
+}
+
+/// Native macOS video player (AVKit) with the system's QuickTime-style floating
+/// controls. Plays a direct file/stream URL — used for the JackMoebius demo clip.
+/// Loads a remote clip and tracks whether it becomes playable, so the sheet can
+/// show a fallback image instead of AVPlayerView's "unplayable" badge when the
+/// asset is unreachable (offline, 404, stalled connection…).
+final class VideoLoader: ObservableObject {
+    enum LoadState { case loading, ready, failed }
+    @Published private(set) var state: LoadState = .loading
+    /// True once playback has started at least once — lets a poster play button dismiss itself.
+    @Published private(set) var hasStarted = false
+    let player: AVPlayer
+    private let item: AVPlayerItem
+    private var statusObs: NSKeyValueObservation?
+    private var rateObs: NSKeyValueObservation?
+
+    init(url: URL, autoplay: Bool = true) {
+        item = AVPlayerItem(url: url)
+        player = AVPlayer(playerItem: item)
+        statusObs = item.observe(\.status, options: [.new]) { [weak self] observed, _ in
+            let status = observed.status
+            DispatchQueue.main.async {
+                guard let self, self.state == .loading else { return }
+                switch status {
+                case .readyToPlay:
+                    self.state = .ready
+                    if autoplay { self.player.play() }
+                case .failed:
+                    self.state = .failed
+                default:
+                    break
+                }
+            }
+        }
+        rateObs = player.observe(\.timeControlStatus, options: [.new]) { [weak self] observed, _ in
+            let playing = observed.timeControlStatus == .playing
+            DispatchQueue.main.async {
+                guard let self, playing, !self.hasStarted else { return }
+                self.hasStarted = true
+            }
+        }
+        // Safety net: a stalled connection may never report ready or failed.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 20) { [weak self] in
+            guard let self, self.state == .loading else { return }
+            self.state = .failed
+        }
+    }
+}
+
+/// Native macOS video player (AVKit) with the system's QuickTime-style floating
+/// controls. Fed an already-loading `AVPlayer` (see `VideoLoader`).
+struct NativeVideoPlayer: NSViewRepresentable {
+    let player: AVPlayer
+
+    func makeNSView(context: Context) -> AVPlayerView {
+        let view = AVPlayerView()
+        view.player = player
+        view.controlsStyle = .floating              // QuickTime-style floating HUD
+        view.allowsPictureInPicturePlayback = false
+        view.showsFullScreenToggleButton = false
+        return view
+    }
+
+    func updateNSView(_ nsView: AVPlayerView, context: Context) { }
+}
+
+/// The JackMoebius demo clip with its offline fallback (promo still) — reused by
+/// the "Try JackMoebius" video sheet (autoplay) and the not-installed panel
+/// (click-to-play). The clip streams from a GitHub release asset that must be
+/// attached to the v2.0.0 release; until it is (or when the user is offline) the
+/// item fails to load and the fallback image is shown instead.
+struct JackMoebiusDemoVideo: View {
+    static let demoURL = URL(string: "https://github.com/zinc75/JackMate/releases/download/v2.0.0/jackmoebius-demo.mp4")!
+
+    private let autoplay: Bool
+    @StateObject private var loader: VideoLoader
+    @State private var playHover = false
+
+    init(autoplay: Bool) {
+        self.autoplay = autoplay
+        _loader = StateObject(wrappedValue: VideoLoader(url: JackMoebiusDemoVideo.demoURL, autoplay: autoplay))
+    }
+
+    /// Poster play button — shown when the clip is ready but hasn't started and
+    /// isn't auto-playing (otherwise the still frame gives no hint it's a video).
+    private var showPlayButton: Bool {
+        !autoplay && loader.state == .ready && !loader.hasStarted
+    }
+
+    var body: some View {
+        Group {
+            if loader.state == .failed {
+                Image("JackMoebiusVideoFallback").resizable().scaledToFill()
+            } else {
+                NativeVideoPlayer(player: loader.player)
+            }
+        }
+        .aspectRatio(16.0 / 9.0, contentMode: .fit)
+        .overlay {
+            if showPlayButton {
+                Button { loader.player.play() } label: {
+                    ZStack {
+                        Circle().fill(.black.opacity(0.55))
+                            .overlay(Circle().stroke(.white.opacity(0.85), lineWidth: 1.5))
+                        Image(systemName: "play.fill")
+                            .font(.system(size: 24)).foregroundStyle(.white).offset(x: 2)
+                    }
+                    .frame(width: 62, height: 62)
+                    .shadow(color: .black.opacity(0.4), radius: 8, y: 2)
+                    .scaleEffect(playHover ? 1.08 : 1)
+                    .animation(.easeOut(duration: 0.12), value: playHover)
+                }
+                .buttonStyle(.plain)
+                .onHover { playHover = $0 }
+            }
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(JM.borderFaint, lineWidth: 1))
+    }
+}
+
+/// Sheet presenting the JackMoebius demo clip (native AVKit player), opened from
+/// the "Try JackMoebius" CTA in the Configuration view.
+struct JackMoebiusVideoSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var jackMoebiusManager: JackMoebiusManager
+
+    var body: some View {
+        VStack(spacing: 12) {
+            HStack(spacing: 7) {
+                Image("JackMoebiusGlyph").renderingMode(.template).resizable().scaledToFit()
+                    .frame(width: 15, height: 15).foregroundStyle(JM.accentCyan)
+                Text(verbatim: "JackMoebius").font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(JM.textPrimary)
+                Spacer()
+            }
+            JackMoebiusDemoVideo(autoplay: true)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+            // Action row — Learn more (secondary link) pushed to the left; the
+            // Close / Install decision pair on the right, Install emphasised as
+            // the primary CTA in the Try JackMoebius colours.
+            HStack {
+                // Learn more → the JackMoebius website (presentation / docs).
+                Button(String(localized: "jackmoebius.info.learn_more")) {
+                    NSWorkspace.shared.open(JackMoebiusManager.downloadURL)
+                    dismiss()
+                }
+                Spacer()
+                Button(String(localized: "common.close")) { dismiss() }
+                    .keyboardShortcut(.cancelAction)
+                // Real install → download the DMG and open its bundled .pkg installer.
+                InstallJackMoebiusButton()
+            }
+        }
+        .padding(18)
+        .frame(width: 880, height: 610)
+        .background(JM.bgBase)
+    }
+}
+
+/// Primary "Install JackMoebius" CTA — violet→cyan gradient tile that runs the
+/// real install flow (download DMG → open the bundled .pkg). Shows a spinner
+/// while fetching. Reused by the video sheet and the not-installed panel.
+struct InstallJackMoebiusButton: View {
+    @EnvironmentObject var jackMoebiusManager: JackMoebiusManager
+    @State private var hovered = false
+
+    var body: some View {
+        if jackMoebiusManager.isFetchingInstaller {
+            ProgressView().controlSize(.small)
+        } else {
+            Button {
+                jackMoebiusManager.downloadAndOpenInstaller()
+            } label: {
+                Text(String(localized: "license.sheet.install_button"))
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 14).frame(height: 28)
+                    .background(RoundedRectangle(cornerRadius: 8)
+                        .fill(LinearGradient(colors: [JM.accentPurple, JM.accentCyan],
+                                             startPoint: .leading, endPoint: .trailing))
+                        .overlay(RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.white.opacity(0.5), lineWidth: 1)))
+                    .brightness(hovered ? 0.05 : 0)
+            }
+            .buttonStyle(.plain)
+            .onHover { hovered = $0 }
+        }
+    }
+}
+
+/// Violet→cyan "Try JackMoebius" CTA tile shown in the top bar when the daemon
+/// isn't installed. Sized to line up (height 40) with the Start Jack and Audio
+/// MIDI buttons. The action is caller-supplied — the demo video in the
+/// Configuration view, the panel toggle in the patchbay.
+private struct JackMoebiusTryTile: View {
+    let action: () -> Void
+    @State private var hovered = false
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 5) {
+                Image(systemName: "arrow.up.right.square").font(.system(size: 9))
+                Text("config.jackmoebius.try").font(.system(size: 11, weight: .semibold)).lineLimit(1)
+            }
+            .fixedSize()
+            .padding(.horizontal, 12).frame(height: 40)
+            .background(RoundedRectangle(cornerRadius: 8)
+                .fill(LinearGradient(colors: [JM.accentPurple, JM.accentCyan],
+                                     startPoint: .leading, endPoint: .trailing))
+                .overlay(RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.white.opacity(0.5), lineWidth: 1)))
+            .foregroundStyle(.white)
+            .shadow(color: JM.accentCyan.opacity(hovered ? 0.3 : 0.12),
+                    radius: hovered ? 6 : 3, y: 0)
+            .brightness(hovered ? 0.05 : 0)
+            .animation(.easeOut(duration: 0.15), value: hovered)
+        }
+        .buttonStyle(.plain)
+        .onHover { hovered = $0 }
     }
 }
 

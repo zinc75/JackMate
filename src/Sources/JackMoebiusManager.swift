@@ -238,8 +238,10 @@ final class JackMoebiusManager: ObservableObject {
     /// JackMoebius Discussions "licensing" category — the help channel offered on the "activation
     /// limit reached" hint (asking there to free a seat).
     static let licenseSupportURL = URL(string: "https://github.com/zinc75/JackMoebius/discussions/categories/licensing")!
-    /// Lemon Squeezy checkout — buying an additional licence.
-    static let purchaseURL       = URL(string: "https://jackmoebius.lemonsqueezy.com/checkout")!
+    /// JackMoebius site "buy" deep link → replays the site's Buy button (correct
+    /// Lemon Squeezy product + embed overlay). Routed through the site so the
+    /// checkout URL can change without shipping a new JackMate build.
+    static let purchaseURL       = URL(string: "https://zinc75.github.io/JackMoebius/#buy")!
 
     /// Absolute path to the located `jackmoebius` control CLI, or `nil` if not installed.
     @Published private(set) var executableURL: URL? = nil
