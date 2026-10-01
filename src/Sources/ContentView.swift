@@ -3694,6 +3694,8 @@ struct JackMoebiusLicenseSheet: View {
     @State private var errorMessage: String?
     /// True when the last activation failed because all seats are used — reveals the support/buy links.
     @State private var showLimitLinks = false
+    /// Set when the user starts an install from here, so the sheet auto-closes when it finishes.
+    @State private var installRequested = false
 
     /// True when JackMoebius reports an active license — hides the key entry and purchase
     /// affordances, which are meaningless once licensed.
@@ -3738,6 +3740,7 @@ struct JackMoebiusLicenseSheet: View {
                         }
                     } else {
                         Button("license.sheet.install_button") {
+                            installRequested = true
                             jackMoebiusManager.downloadAndOpenInstaller()
                         }
                     }
@@ -3808,6 +3811,12 @@ struct JackMoebiusLicenseSheet: View {
             if isLicensed {
                 Task { try? await jackMoebiusManager.refreshLicenseOnline() }
             }
+        }
+        // Close once an install launched from here has finished (installer opened, or the
+        // releases-page fallback) — otherwise this modal lingers in front and blocks interacting
+        // with JackMate (e.g. restarting Jack) behind the Installer.
+        .onChange(of: jackMoebiusManager.isFetchingInstaller) { _, fetching in
+            if installRequested && !fetching { dismiss() }
         }
     }
 
@@ -3915,6 +3924,9 @@ struct JackMoebiusInfoSheet: View {
     /// Whether the `jackmoebius` CLI is installed — drives Download vs Documentation.
     let installed: Bool
 
+    /// Set when the user starts an install from here, so the sheet auto-closes when it finishes.
+    @State private var installRequested = false
+
     /// During the free trial, offer a shortcut to buy / activate — opens the License sheet. Only the
     /// trial: once licensed there's nothing to buy, and when expired the config-row info button is
     /// already replaced by a key that opens the License sheet directly (this info sheet isn't reached).
@@ -3971,6 +3983,7 @@ struct JackMoebiusInfoSheet: View {
                         ProgressView().controlSize(.small)
                     } else {
                         Button(String(localized: "license.sheet.install_button")) {
+                            installRequested = true
                             jackMoebiusManager.downloadAndOpenInstaller()
                         }
                     }
@@ -3981,6 +3994,12 @@ struct JackMoebiusInfoSheet: View {
         }
         .padding(24)
         .frame(width: (installed && !showManageLicense) ? 380 : 420)
+        // Close once an install launched from here has finished (installer opened, or the
+        // releases-page fallback) — otherwise this modal lingers in front and blocks interacting
+        // with JackMate (e.g. restarting Jack) behind the Installer.
+        .onChange(of: jackMoebiusManager.isFetchingInstaller) { _, fetching in
+            if installRequested && !fetching { dismiss() }
+        }
     }
 }
 
@@ -4163,6 +4182,8 @@ struct JackMoebiusDemoVideo: View {
 struct JackMoebiusVideoSheet: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var jackMoebiusManager: JackMoebiusManager
+    /// Set when the user starts an install from here, so the sheet auto-closes when it finishes.
+    @State private var installRequested = false
 
     var body: some View {
         VStack(spacing: 12) {
@@ -4189,12 +4210,18 @@ struct JackMoebiusVideoSheet: View {
                 Button(String(localized: "common.close")) { dismiss() }
                     .keyboardShortcut(.cancelAction)
                 // Real install → download the DMG and open its bundled .pkg installer.
-                InstallJackMoebiusButton()
+                InstallJackMoebiusButton { installRequested = true }
             }
         }
         .padding(18)
         .frame(width: 880, height: 610)
         .background(JM.bgBase)
+        // Close once an install launched from here has finished (installer opened, or the
+        // releases-page fallback) — otherwise this modal lingers in front and blocks interacting
+        // with JackMate (e.g. restarting Jack) behind the Installer.
+        .onChange(of: jackMoebiusManager.isFetchingInstaller) { _, fetching in
+            if installRequested && !fetching { dismiss() }
+        }
     }
 }
 
@@ -4203,6 +4230,9 @@ struct JackMoebiusVideoSheet: View {
 /// while fetching. Reused by the video sheet and the not-installed panel.
 struct InstallJackMoebiusButton: View {
     @EnvironmentObject var jackMoebiusManager: JackMoebiusManager
+    /// Fired synchronously when the install is launched, before the async flow starts — lets a
+    /// hosting sheet arm its auto-dismiss so it closes once the installer (or releases fallback) opens.
+    var onInstallTriggered: (() -> Void)? = nil
     @State private var hovered = false
 
     var body: some View {
@@ -4210,6 +4240,7 @@ struct InstallJackMoebiusButton: View {
             ProgressView().controlSize(.small)
         } else {
             Button {
+                onInstallTriggered?()
                 jackMoebiusManager.downloadAndOpenInstaller()
             } label: {
                 Text(String(localized: "license.sheet.install_button"))
