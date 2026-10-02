@@ -10,7 +10,7 @@
 
   <img src="https://raw.githubusercontent.com/zinc75/JackMate/gh-pages/assets/icon.png" width="128" alt="JackMate icon">
   <h1>JackMate</h1>
-  <p>Native macOS app for managing the JACK audio server — from your menu bar or as a standard window.</p>
+  <p>Native macOS app for managing the JACK audio server, from your menu bar or as a standard window.</p>
 
   <p>
     <img src="https://raw.githubusercontent.com/zinc75/JackMate/gh-pages/assets/notarized-badge.png" width="15" alt="">
@@ -30,11 +30,11 @@
 
 ---
 
-## 🆕 New in 2.0 — JackMoebius integration
+## 🆕 New in 2.0: JackMoebius integration
 
-Bring **any native macOS app into the JACK graph** — inputs *and* outputs — with no external setup. JackMate now drives **[JackMoebius](https://zinc75.github.io/JackMoebius/)**, a bidirectional CoreAudio ↔ JACK bridge, so apps that have *no built-in JACK support* become first-class JACK clients:
+Bring **any native macOS app into the JACK graph** (inputs *and* outputs) with no external setup. JackMate now drives **[JackMoebius](https://zinc75.github.io/JackMoebius/)**, a bidirectional CoreAudio ↔ JACK bridge, so apps that have *no built-in JACK support* become first-class JACK clients:
 
-- **Expose CoreAudio apps as JACK clients** — Safari, Music, FaceTime, QuickTime, a DAW's companion apps… anything that plays or captures audio, routed **in and out** of JACK.
+- **Expose CoreAudio apps as JACK clients**: Safari, Music, FaceTime, QuickTime, a DAW's companion apps… anything that plays or captures audio, routed **in and out** of JACK.
 - Per-app **Output / Input** exposure and channel counts, a **system-monitor** master box, and **per-app volumes**.
 - **Studios** save and restore the full JackMoebius state alongside your JACK setup.
 - **Install JackMoebius from JackMate** in one click, with an in-app demo video and live, event-driven daemon status.
@@ -51,8 +51,8 @@ Bring **any native macOS app into the JACK graph** — inputs *and* outputs — 
 - Automatic detection of the Jack executable name (`jackd` or `jackdmp`)
 - Automatic switch between Configuration and Patchbay views based on Jack state
 
-### JackMoebius — expose native macOS apps *(new in 2.0)*
-- Expose any CoreAudio app (Safari, Music, FaceTime, QuickTime…) as a JACK client — Output and Input, with channel counts
+### JackMoebius: expose native macOS apps *(new in 2.0)*
+- Expose any CoreAudio app (Safari, Music, FaceTime, QuickTime…) as a JACK client: Output and Input, with channel counts
 - "System monitor" master box for the global system mix; per-app volumes (follow the master or set independently)
 - Live, event-driven daemon status; automatic restart if it stops while Jack is running
 - Wrong-audio-device alerts on exposed, wired apps
@@ -63,7 +63,7 @@ Bring **any native macOS app into the JACK graph** — inputs *and* outputs — 
 - Smart loading: full command comparison (all parameters, channel selection), restarts Jack only if necessary
 - Graceful shutdown of all clients (GUI and CLI) before switching studios
 - Automatic save and relaunch of CLI clients (full command with arguments)
-- Restores the JackMoebius state too — exposed apps, master and per-app volumes *(new in 2.0)*
+- Restores the JackMoebius state too: exposed apps, master and per-app volumes *(new in 2.0)*
 
 ### Patchbay
 - Visual editor for Jack client connections
@@ -84,9 +84,9 @@ Bring **any native macOS app into the JACK graph** — inputs *and* outputs — 
 - Native macOS menus: View ⌘1/⌘2, Help with documentation link, custom About panel
 - Automatic Jack detection at launch and on every app reactivation
 - Jack version check: green ✓ badge if up to date, clickable amber ↑ badge if update available
-- Aggregate warning sheet: when the device selection will cause Jack to silently create an aggregate, a modal shows a patchbay-accurate preview of the resulting channel layout before Jack starts — with a "don't show again" option per device combination
+- Aggregate warning sheet: when the device selection will cause Jack to silently create an aggregate, a modal shows a patchbay-accurate preview of the resulting channel layout before Jack starts, with a "don't show again" option per device combination
 - Installation helper modal when Jack is absent (Homebrew or .pkg, with copyable command)
-- 🇫🇷 French · 🇬🇧 English · 🇩🇪 German · 🇮🇹 Italian · 🇪🇸 Spanish — want to add yours? See [`i18n/`](i18n/)
+- 🇫🇷 French · 🇬🇧 English · 🇩🇪 German · 🇮🇹 Italian · 🇪🇸 Spanish. Want to add yours? See [`i18n/`](i18n/)
 
 ---
 
@@ -98,7 +98,7 @@ Full documentation at **[zinc75.github.io/JackMate](https://zinc75.github.io/Jac
 
 ## Requirements
 
-- macOS 15.0 (Sequoia) or later — Intel and Apple Silicon
+- macOS 15.0 (Sequoia) or later, Intel and Apple Silicon
 - [JACK2](https://jackaudio.org/downloads/) installed (`/usr/local/lib/libjack.dylib` or `/opt/homebrew/lib/libjack.dylib`)
 
 ---
@@ -109,7 +109,7 @@ Full documentation at **[zinc75.github.io/JackMate](https://zinc75.github.io/Jac
 
 **[Download the latest `.dmg`](https://zinc75.github.io/JackMate/#download)** and drag JackMate to your Applications folder.
 
-> 🛡️ **Signed and notarized by Apple.** JackMate is Developer ID signed and notarized, so it opens cleanly — no Gatekeeper warnings, no Terminal workarounds. Just drag it to Applications and launch.
+> 🛡️ **Signed and notarized by Apple.** JackMate is Developer ID signed and notarized, so it opens cleanly: no Gatekeeper warnings, no Terminal workarounds. Just drag it to Applications and launch.
 
 ### Build from source
 
@@ -121,9 +121,9 @@ See [`src/`](src/) for full build instructions, tech stack, and project structur
 
 Contributions are welcome:
 
-- **Localization** — Copy [`i18n/Localizable_template.strings`](i18n/Localizable_template.strings), translate it, and open a pull request. See [`i18n/`](i18n/) for the full guide.
-- **Bug reports** — open an issue with your macOS version, JACK version, and steps to reproduce.
-- **Pull requests** — please open an issue first to discuss significant changes.
+- **Localization**: Copy [`i18n/Localizable_template.strings`](i18n/Localizable_template.strings), translate it, and open a pull request. See [`i18n/`](i18n/) for the full guide.
+- **Bug reports**: open an issue with your macOS version, JACK version, and steps to reproduce.
+- **Pull requests**: please open an issue first to discuss significant changes.
 
 ---
 
@@ -131,7 +131,7 @@ Contributions are welcome:
 
 JackMate is free, open source, and **signed & notarized by Apple**. If it saves you time or fits into your workflow, please consider buying me a coffee.
 
-Contributions help cover the recurring **Apple Developer account** ($99/year) that keeps JackMate signed and notarized — a smooth, warning-free install for everyone — and support continued development.
+Contributions help cover the recurring **Apple Developer account** ($99/year) that keeps JackMate signed and notarized (a smooth, warning-free install for everyone) and support continued development.
 
 [![Buy me a coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=zinc75&button_colour=FFDD00&font_colour=000000&font_family=Lato&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/zinc75)
 
