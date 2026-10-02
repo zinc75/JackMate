@@ -227,6 +227,10 @@ nav.quarto-secondary-nav { display: none !important; }
 }
 #title-block-header .description,
 #title-block-header .quarto-title .description { font-size: 0.9rem; color: var(--jm-muted); margin: 0; }
+/* Breathing room between a page title and its description. Bootstrap forces the
+   description's margin-top to 0 at a higher specificity (id + .quarto-title-block.default
+   + .description), so we match that specificity here to win the cascade. */
+#title-block-header.quarto-title-block.default .description { margin-top: 0.85rem; }
 
 /* ── Sidebar ──────────────────────────────────────── */
 nav.sidebar.sidebar-navigation:not(.rollup),
@@ -932,14 +936,117 @@ figcaption, .figure-caption {
 .nav-footer a { color: var(--jm-muted) !important; }
 body { padding-bottom: 3rem !important; }
 
-/* ── Search results ───────────────────────────────── */
-.aa-Panel {
-  background: rgba(18, 18, 24, 0.94) !important;
-  backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid var(--jm-border-med) !important;
-  border-radius: 13px !important; box-shadow: 0 14px 44px rgba(0,0,0,0.75) !important;
+/* ── Search — liquid glass (detached overlay) ─────── */
+/* light dark veil over the page, like the download modal */
+.aa-DetachedOverlay {
+  background: rgba(0, 0, 0, 0.64) !important;
+  -webkit-backdrop-filter: blur(5px) !important; backdrop-filter: blur(5px) !important;
 }
-.aa-Item[aria-selected="true"] { background: rgba(239,68,68,0.08) !important; }
+/* kill the solid container blocks so the bar & results read as floating glass */
+.aa-DetachedContainer,
+.aa-DetachedContainer--modal,
+.aa-DetachedFormContainer { background: transparent !important; box-shadow: none !important; border-radius: 0 !important; }
+/* the floating glass search bar (was a plain white box) */
+.aa-Form {
+  background: linear-gradient(145deg, rgba(74,73,72,0.50), rgba(50,49,48,0.40)) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.4) brightness(1.18) !important; backdrop-filter: blur(22px) saturate(1.4) brightness(1.18) !important;
+  border: 1px solid rgba(255,255,255,0.32) !important; border-radius: 16px !important;
+  box-shadow: var(--glass-shadow), 0 2px 10px rgba(0,0,0,0.45), 0 20px 56px rgba(0,0,0,0.65) !important;
+}
+.aa-Input { color: var(--jm-text) !important; }
+.aa-Input::placeholder { color: var(--jm-muted) !important; }
+.aa-SubmitButton svg, .aa-ClearButton svg { color: var(--jm-text-dim) !important; fill: var(--jm-text-dim) !important; }
+.aa-DetachedCancelButton {
+  background: color-mix(in srgb, #cfd6e2 10%, transparent) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.4) !important; backdrop-filter: blur(10px) saturate(1.4) !important;
+  border: 1px solid rgba(255,255,255,0.24) !important; color: var(--jm-text) !important;
+  border-radius: 12px !important; box-shadow: var(--glass-shadow) !important; padding: 0.4rem 0.9rem !important;
+}
+.aa-DetachedCancelButton:hover { color: #fff !important; }
+/* the results box: neutral, see-through liquid glass (was near-opaque) */
+.aa-Panel {
+  background: linear-gradient(145deg, rgba(52,51,50,0.56), rgba(33,32,31,0.46)) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(1.3) brightness(1.14) !important; backdrop-filter: blur(30px) saturate(1.3) brightness(1.14) !important;
+  border: 1px solid rgba(255,255,255,0.26) !important; border-radius: 16px !important;
+  box-shadow: var(--glass-shadow), 0 4px 14px rgba(0,0,0,0.45), 0 26px 70px rgba(0,0,0,0.6) !important;
+}
+/* result rows + their inner containers transparent so the panel glass shows through;
+   Quarto otherwise fills these with an opaque grey on hover (ugly two-tone blocks). */
+.aa-Panel .search-result-header,
+.aa-Panel .search-item,
+.aa-Panel .search-result-doc,
+.aa-Panel .search-result-doc-section,
+.aa-Panel .search-result-more,
+.aa-Panel .search-result-container,
+.aa-Panel .search-result-link,
+.aa-Panel .search-result-title-container,
+.aa-Panel .search-result-text-container,
+.aa-Panel .search-result-section,
+.aa-Panel .search-result-text { background: transparent !important; }
+/* the hover/selected highlight is a soft rounded inset pill, not a full-width hard block */
+.aa-Panel .aa-Item { border-radius: 11px !important; margin: 2px 6px !important; overflow: hidden !important; }
+/* The matched term in the search DROPDOWN (Quarto tags it <mark class="search-match">):
+   a subtle violet pill, the same violet as the "important" info callout. */
+mark.search-match {
+  background: rgba(167,139,250,0.28) !important; color: inherit !important;
+  border-radius: 4px !important; padding: 0 2px !important;
+}
+/* The IN-PAGE highlight after clicking a result: Quarto wraps the term in a bare <mark> (no
+   class) inside the article, so it otherwise inherits Bootstrap's beige `mark`. Override with
+   the brand violet, made clearly legible with a crisp rim + bold light text. */
+main mark {
+  /* No !important here: `main mark` (0,0,2) already beats Bootstrap/theme `mark` (0,0,1), and
+     staying !important-free lets the attention animation below drive background & box-shadow. */
+  background: rgba(167,139,250,0.32);
+  color: #ece7ff;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 0 3px;
+  box-shadow: inset 0 0 0 1px rgba(167,139,250,0.80);
+  /* Quarto scrolls the match to the viewport CENTRE (scrollIntoView block:"center"); on iOS
+     the dynamic toolbar + fixed navbar make it land a touch low. A bottom scroll-margin shifts
+     that centring upward, so the page scrolls a bit further. Tune on-device (bigger = higher). */
+  scroll-margin-bottom: 8rem;
+  /* Draw the eye on arrival: two quick violet pulses (glow + fill), then settle to the pill. */
+  animation: search-hit 0.95s ease-out 4;
+}
+@keyframes search-hit {
+  0%   { background: rgba(167,139,250,0.72); box-shadow: inset 0 0 0 1px rgba(167,139,250,0.95), 0 0 0 0 rgba(167,139,250,0.55); }
+  55%  { background: rgba(167,139,250,0.50); box-shadow: inset 0 0 0 1px rgba(167,139,250,0.90), 0 0 18px 4px rgba(167,139,250,0.55); }
+  100% { background: rgba(167,139,250,0.32); box-shadow: inset 0 0 0 1px rgba(167,139,250,0.80), 0 0 0 0 rgba(167,139,250,0); }
+}
+/* respect reduced-motion: no pulse, just the resting pill */
+@media (prefers-reduced-motion: reduce) { main mark { animation: none; } }
+/* hover/selected row — soft neutral pill over the glass panel */
+.aa-Item[aria-selected="true"] { background: rgba(255,255,255,0.10) !important; }
+/* On phones the detached search overflowed the screen on real iOS: a fixed/absolute
+   overlay there inherits the LAYOUT viewport, which grows past the visible width as soon
+   as anything on the page overflows horizontally. Clamp the page to the screen so layout
+   == visual, pin the overlay to 100vw, and let the bar/panel shrink inside it. */
+@media (max-width: 768px) {
+  html, body { overflow-x: hidden !important; }
+  .aa-DetachedOverlay {
+    width: 100vw !important; max-width: 100vw !important; left: 0 !important; right: auto !important;
+    box-sizing: border-box !important;
+  }
+  .aa-DetachedContainer,
+  .aa-DetachedContainer--modal {
+    left: 0 !important; right: 0 !important; width: auto !important;
+    max-width: 100vw !important; transform: none !important;
+    padding-left: 0.6rem !important; padding-right: 0.6rem !important;
+    box-sizing: border-box !important;
+  }
+  .aa-DetachedFormContainer,
+  .aa-Form,
+  .aa-Panel,
+  .aa-PanelLayout { width: 100% !important; max-width: 100% !important; min-width: 0 !important; box-sizing: border-box !important; }
+  .aa-InputWrapper, .aa-Input { min-width: 0 !important; }
+  /* iOS auto-zooms (and shifts/re-zooms the whole page) when a focused input is < 16px.
+     Force the search field to exactly 16px on phones to stop that zoom. */
+  .aa-DetachedFormContainer .aa-Form .aa-InputWrapper .aa-Input,
+  #quarto-search .aa-Autocomplete input,
+  .aa-Input { font-size: 16px !important; }
+}
 
 /* ── Breadcrumbs ──────────────────────────────────── */
 .quarto-breadcrumbs .breadcrumb-item,
