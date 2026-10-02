@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="How JackMate compares to QjackCtl, Catia, Carla and other JACK tools — a native macOS GUI for the JACK Audio Connection Kit.">
+<meta name="description" content="How JackMate compares to QjackCtl, Catia, Carla and other JACK tools, a native macOS GUI for the JACK Audio Connection Kit.">
 
 <title>Alternatives – JackMate</title>
 <style>
@@ -78,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 <!-- Font Awesome (global) — needed for raw <i class="fa-…"> icons in the navbar and pages. -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 
 <!-- Google Search Console verification (HTML-tag method). -->
 <meta name="google-site-verification" content="L_hiVzVS5OiYTUpTAfpyIX8EVmwncIVNKQDAHO2l91I">
@@ -112,11 +112,11 @@ ul.task-list li input[type="checkbox"] {
 
 <link rel="stylesheet" href="../assets/custom.css">
 <meta property="og:title" content="Alternatives – JackMate">
-<meta property="og:description" content="How JackMate compares to QjackCtl, Catia, Carla and other JACK tools — a native macOS GUI for the JACK Audio Connection Kit.">
+<meta property="og:description" content="How JackMate compares to QjackCtl, Catia, Carla and other JACK tools, a native macOS GUI for the JACK Audio Connection Kit.">
 <meta property="og:image" content="https://zinc75.github.io/JackMate/guide/assets/og-image.png">
 <meta property="og:site_name" content="JackMate">
 <meta name="twitter:title" content="Alternatives – JackMate">
-<meta name="twitter:description" content="How JackMate compares to QjackCtl, Catia, Carla and other JACK tools — a native macOS GUI for the JACK Audio Connection Kit.">
+<meta name="twitter:description" content="How JackMate compares to QjackCtl, Catia, Carla and other JACK tools, a native macOS GUI for the JACK Audio Connection Kit.">
 <meta name="twitter:image" content="https://zinc75.github.io/JackMate/guide/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -343,7 +343,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    How JackMate compares to QjackCtl, Catia, Carla and other JACK tools — a native macOS GUI for the JACK Audio Connection Kit.
+    How JackMate compares to QjackCtl, Catia, Carla and other JACK tools, a native macOS GUI for the JACK Audio Connection Kit.
   </div>
 </div>
 
@@ -368,7 +368,7 @@ ul.task-list li input[type="checkbox"] {
 <li>You work <strong>on macOS</strong> and want a tool that feels native</li>
 <li>You read the <a href="https://zinc75.github.io/JackMate/">documentation</a> and like the concept and the implementation</li>
 <li>You want to discover the possibilities of JACK on macOS, hassle-free</li>
-<li>You want to <strong>bring native macOS apps into the Jack graph</strong> — apps with no Jack support (Safari, Music, FaceTime…) — and drive it <em>from the app</em> (expose/unexpose, channel counts, per-app volumes, native icons) rather than the JackMoebius command line, via <a href="../guide/jackmoebius.html">JackMoebius</a></li>
+<li>You want to <strong>bring native macOS apps into the Jack graph</strong>, apps with no Jack support (Safari, Music, FaceTime…), and drive it <em>from the app</em> (expose/unexpose, channel counts, per-app volumes, native icons) rather than the JackMoebius command line, via <a href="../guide/jackmoebius.html">JackMoebius</a></li>
 <li>You need to <strong>save and restore complete sessions</strong> (studios)</li>
 <li>You want <strong>menu bar access</strong> without keeping a window open</li>
 <li>You use both <strong>GUI JACK clients</strong> (<code>Ardour</code>, <code>Faust</code> apps generated with <code>faust2jaqt</code>, …) and <strong>CLI Jack clients</strong> (<code>jack_metro</code>, <code>a2jmidid</code>…) that you want saved and relaunched automatically</li>
@@ -380,7 +380,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="when-to-look-elsewhere" class="level2">
 <h2 class="anchored" data-anchor-id="when-to-look-elsewhere">When to look elsewhere</h2>
 <ul>
-<li>You work on <strong>Linux</strong> — Patchance (transport + PipeWire) or QJackCtl (mature, full-featured), Catia, Carla, … : the choice is yours, depending on your tastes !</li>
+<li>You work on <strong>Linux</strong>: Patchance (transport + PipeWire) or QJackCtl (mature, full-featured), Catia, Carla, … : the choice is yours, depending on your tastes !</li>
 </ul>
 <hr>
 </section>
@@ -607,7 +607,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Once apps are exposed with JackMoebius, they appear as clients in <em>any</em> Jack patchbay. What JackMate adds is driving it <strong>from the app</strong> — exposing/un-exposing, channel counts, per-app volumes, blacklist and native app icons — instead of the JackMoebius command line.</p>
+<p>Once apps are exposed with JackMoebius, they appear as clients in <em>any</em> Jack patchbay. What JackMate adds is driving it <strong>from the app</strong> (exposing/un-exposing, channel counts, per-app volumes, blacklist and native app icons) instead of the JackMoebius command line.</p>
 </div>
 </div>
 <hr>
@@ -709,6 +709,86 @@ function openDownloadModal(e) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', downloadFromHash);
   else downloadFromHash();
   window.addEventListener('hashchange', downloadFromHash);
+})();
+</script>
+
+<!-- Social share widget — morphing liquid-glass "Share" card, injected below the title
+     block (before content) on every page except changelog / license. -->
+<template id="jm-share-tpl">
+  <div class="jm-share-wrap">
+    <div class="jm-share-pop">
+      <button type="button" class="jm-share-toggle" onclick="jmToggleShare(event)" aria-expanded="false" aria-label="Share JackMate">
+        <i class="fa-solid fa-share-nodes"></i><span>Share</span>
+      </button>
+      <div class="jm-share-card" role="dialog" aria-label="Share JackMate">
+        <button type="button" class="jm-share-card-x" onclick="jmCloseShare()" aria-label="Close">×</button>
+        <div class="dm-header">
+          <div class="dm-header-icon icon-bg-violet"><i class="fa-solid fa-share-nodes"></i></div>
+          <div>
+            <h2 class="dm-title">Share</h2>
+            <p class="dm-intro">Thanks for spreading the word!</p>
+          </div>
+        </div>
+        <div class="jm-share-icons">
+          <a class="jm-pop-ic x" href="https://twitter.com/intent/tweet?text=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS&amp;url=https%3A%2F%2Fzinc75.github.io%2FJackMate%2F" target="_blank" rel="noopener" aria-label="Share on X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a class="jm-pop-ic bsky" href="https://bsky.app/intent/compose?text=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS%20https%3A%2F%2Fzinc75.github.io%2FJackMate%2F" target="_blank" rel="noopener" aria-label="Share on Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+          <a class="jm-pop-ic masto" href="#" onclick="jmShareMastodon(event)" aria-label="Share on Mastodon"><i class="fa-brands fa-mastodon"></i></a>
+          <a class="jm-pop-ic reddit" href="https://www.reddit.com/submit?url=https%3A%2F%2Fzinc75.github.io%2FJackMate%2F&amp;title=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS" target="_blank" rel="noopener" aria-label="Share on Reddit"><i class="fa-brands fa-reddit-alien"></i></a>
+          <a class="jm-pop-ic hn" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fzinc75.github.io%2FJackMate%2F&amp;t=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS" target="_blank" rel="noopener" aria-label="Share on Hacker News"><i class="fa-brands fa-hacker-news"></i></a>
+          <a class="jm-pop-ic mail" href="mailto:?subject=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS&amp;body=Thought%20you%27d%20like%20this%3A%20https%3A%2F%2Fzinc75.github.io%2FJackMate%2F" aria-label="Share by email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+(function () {
+  window.jmShareMastodon = function (e) {
+    e.preventDefault();
+    var inst = prompt("Your Mastodon instance (e.g. mastodon.social):");
+    if (!inst) return;
+    inst = inst.trim().replace(/^https?:\/\//, "").replace(/\/+$/, "");
+    if (!inst) return;
+    var msg = "JackMate — a native JACK manager and patchbay for macOS https://zinc75.github.io/JackMate/";
+    window.open("https://" + inst + "/share?text=" + encodeURIComponent(msg), "_blank", "noopener");
+  };
+  window.jmToggleShare = function (e) {
+    e.preventDefault(); e.stopPropagation();
+    var pop = e.currentTarget.closest('.jm-share-pop');
+    if (!pop) return;
+    var open = pop.classList.toggle('is-open');
+    pop.querySelector('.jm-share-toggle')?.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+  window.jmCloseShare = function () {
+    document.querySelectorAll('.jm-share-pop.is-open').forEach(function (pop) {
+      pop.classList.remove('is-open');
+      pop.querySelector('.jm-share-toggle')?.setAttribute('aria-expanded', 'false');
+    });
+  };
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('.jm-share-pop.is-open').forEach(function (pop) {
+      if (!pop.contains(e.target)) {
+        pop.classList.remove('is-open');
+        pop.querySelector('.jm-share-toggle')?.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') window.jmCloseShare(); });
+
+  function inject() {
+    var EXCLUDE = ['changelog.html', 'license.html'];
+    if (EXCLUDE.some(function (p) { return location.pathname.endsWith(p); })) return;
+    if (document.querySelector('.jm-share-wrap')) return;           // already present
+    var tpl = document.getElementById('jm-share-tpl');
+    var main = document.querySelector('main.content') || document.querySelector('main');
+    if (!tpl || !main) return;
+    var node = tpl.content.firstElementChild.cloneNode(true);
+    var header = document.getElementById('title-block-header');
+    if (header) header.insertAdjacentElement('afterend', node);   // below the title + description
+    else main.insertAdjacentElement('afterbegin', node);          // (home: above the hero)
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', inject);
+  else inject();
 })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">

@@ -78,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 <!-- Font Awesome (global) — needed for raw <i class="fa-…"> icons in the navbar and pages. -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 
 <!-- Google Search Console verification (HTML-tag method). -->
 <meta name="google-site-verification" content="L_hiVzVS5OiYTUpTAfpyIX8EVmwncIVNKQDAHO2l91I">
@@ -359,17 +359,17 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="about-the-project" class="level2">
 <h2 class="anchored" data-anchor-id="about-the-project">About the project</h2>
-<p>I’m a researcher in audio and deep learning, and a professor of acoustics. I code every day — for research, for teaching, and for building things that don’t exist yet.</p>
+<p>I’m a researcher in audio and deep learning, and a professor of acoustics. I code every day: for research, for teaching, and for building things that don’t exist yet.</p>
 <p>JackMate is one of those things.</p>
 <p>In my lab, we run both Linux and macOS machines, and we use real-time interactions between Jack audio clients for complex experimental setups every day.</p>
-<p>There’s a real paradox: on Linux, JACK tooling is rich and mature, but professional hardware support is often a headache. On macOS, it’s the opposite — hardware compatibility is excellent, the user experience is generally what Apple does best, yet no proper native tool exists to manage the Jack Audio Connection Kit at an advanced level.</p>
-<p>JackMate is my contribution to fixing that imbalance. It’s a solo project, built in my spare time, free and open source. No company, no funding. A tool my lab colleagues and I needed — and that you might need too. It can also be a great entry point for discovering JACK on macOS if you’re new to it.</p>
+<p>There’s a real paradox: on Linux, JACK tooling is rich and mature, but professional hardware support is often a headache. On macOS, it’s the opposite: hardware compatibility is excellent, the user experience is generally what Apple does best, yet no proper native tool exists to manage the Jack Audio Connection Kit at an advanced level.</p>
+<p>JackMate is my contribution to fixing that imbalance. It’s a solo project, built in my spare time, free and open source. No company, no funding. A tool my lab colleagues and I needed, and that you might need too. It can also be a great entry point for discovering JACK on macOS if you’re new to it.</p>
 <hr>
 </section>
 <section id="why-your-support-matters" class="level2">
 <h2 class="anchored" data-anchor-id="why-your-support-matters">Why your support matters</h2>
 <p>JackMate is and will remain free. But distributing it properly has a recurring cost.</p>
-<p>JackMate is <strong>signed with a Developer ID and notarized by Apple</strong>, so it installs cleanly, with no Gatekeeper warnings. That relies on a paid Apple <strong>Developer account ($99/year)</strong> — an ongoing cost I cover so the app stays notarized for everyone.</p>
+<p>JackMate is <strong>signed with a Developer ID and notarized by Apple</strong>, so it installs cleanly, with no Gatekeeper warnings. That relies on a paid Apple <strong>Developer account ($99/year)</strong>, an ongoing cost I cover so the app stays notarized for everyone.</p>
 <p>A donation on <strong>Buy Me a Coffee</strong> directly contributes to:</p>
 <ul>
 <li>Keeping the Apple Developer account ($99/year) that keeps JackMate notarized</li>
@@ -385,7 +385,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="other-ways-to-help">Other ways to help</h2>
 <p>Even if you can’t donate, you can contribute to the project in other ways:</p>
 <ul>
-<li><strong>Star the repository</strong> on <a href="https://github.com/zinc75/JackMate">GitHub</a> — it helps with visibility</li>
+<li><strong>Star the repository</strong> on <a href="https://github.com/zinc75/JackMate">GitHub</a>: it helps with visibility</li>
 <li><strong>Report bugs</strong> or suggest features via <a href="https://github.com/zinc75/JackMate/issues">GitHub Issues</a></li>
 <li><strong>Share JackMate</strong> with musicians, audio engineers, or researchers who use JACK on macOS</li>
 </ul>
@@ -477,6 +477,86 @@ function openDownloadModal(e) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', downloadFromHash);
   else downloadFromHash();
   window.addEventListener('hashchange', downloadFromHash);
+})();
+</script>
+
+<!-- Social share widget — morphing liquid-glass "Share" card, injected below the title
+     block (before content) on every page except changelog / license. -->
+<template id="jm-share-tpl">
+  <div class="jm-share-wrap">
+    <div class="jm-share-pop">
+      <button type="button" class="jm-share-toggle" onclick="jmToggleShare(event)" aria-expanded="false" aria-label="Share JackMate">
+        <i class="fa-solid fa-share-nodes"></i><span>Share</span>
+      </button>
+      <div class="jm-share-card" role="dialog" aria-label="Share JackMate">
+        <button type="button" class="jm-share-card-x" onclick="jmCloseShare()" aria-label="Close">×</button>
+        <div class="dm-header">
+          <div class="dm-header-icon icon-bg-violet"><i class="fa-solid fa-share-nodes"></i></div>
+          <div>
+            <h2 class="dm-title">Share</h2>
+            <p class="dm-intro">Thanks for spreading the word!</p>
+          </div>
+        </div>
+        <div class="jm-share-icons">
+          <a class="jm-pop-ic x" href="https://twitter.com/intent/tweet?text=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS&amp;url=https%3A%2F%2Fzinc75.github.io%2FJackMate%2F" target="_blank" rel="noopener" aria-label="Share on X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a class="jm-pop-ic bsky" href="https://bsky.app/intent/compose?text=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS%20https%3A%2F%2Fzinc75.github.io%2FJackMate%2F" target="_blank" rel="noopener" aria-label="Share on Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+          <a class="jm-pop-ic masto" href="#" onclick="jmShareMastodon(event)" aria-label="Share on Mastodon"><i class="fa-brands fa-mastodon"></i></a>
+          <a class="jm-pop-ic reddit" href="https://www.reddit.com/submit?url=https%3A%2F%2Fzinc75.github.io%2FJackMate%2F&amp;title=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS" target="_blank" rel="noopener" aria-label="Share on Reddit"><i class="fa-brands fa-reddit-alien"></i></a>
+          <a class="jm-pop-ic hn" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fzinc75.github.io%2FJackMate%2F&amp;t=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS" target="_blank" rel="noopener" aria-label="Share on Hacker News"><i class="fa-brands fa-hacker-news"></i></a>
+          <a class="jm-pop-ic mail" href="mailto:?subject=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS&amp;body=Thought%20you%27d%20like%20this%3A%20https%3A%2F%2Fzinc75.github.io%2FJackMate%2F" aria-label="Share by email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+(function () {
+  window.jmShareMastodon = function (e) {
+    e.preventDefault();
+    var inst = prompt("Your Mastodon instance (e.g. mastodon.social):");
+    if (!inst) return;
+    inst = inst.trim().replace(/^https?:\/\//, "").replace(/\/+$/, "");
+    if (!inst) return;
+    var msg = "JackMate — a native JACK manager and patchbay for macOS https://zinc75.github.io/JackMate/";
+    window.open("https://" + inst + "/share?text=" + encodeURIComponent(msg), "_blank", "noopener");
+  };
+  window.jmToggleShare = function (e) {
+    e.preventDefault(); e.stopPropagation();
+    var pop = e.currentTarget.closest('.jm-share-pop');
+    if (!pop) return;
+    var open = pop.classList.toggle('is-open');
+    pop.querySelector('.jm-share-toggle')?.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+  window.jmCloseShare = function () {
+    document.querySelectorAll('.jm-share-pop.is-open').forEach(function (pop) {
+      pop.classList.remove('is-open');
+      pop.querySelector('.jm-share-toggle')?.setAttribute('aria-expanded', 'false');
+    });
+  };
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('.jm-share-pop.is-open').forEach(function (pop) {
+      if (!pop.contains(e.target)) {
+        pop.classList.remove('is-open');
+        pop.querySelector('.jm-share-toggle')?.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') window.jmCloseShare(); });
+
+  function inject() {
+    var EXCLUDE = ['changelog.html', 'license.html'];
+    if (EXCLUDE.some(function (p) { return location.pathname.endsWith(p); })) return;
+    if (document.querySelector('.jm-share-wrap')) return;           // already present
+    var tpl = document.getElementById('jm-share-tpl');
+    var main = document.querySelector('main.content') || document.querySelector('main');
+    if (!tpl || !main) return;
+    var node = tpl.content.firstElementChild.cloneNode(true);
+    var header = document.getElementById('title-block-header');
+    if (header) header.insertAdjacentElement('afterend', node);   // below the title + description
+    else main.insertAdjacentElement('afterbegin', node);          // (home: above the hero)
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', inject);
+  else inject();
 })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">

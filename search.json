@@ -11,21 +11,21 @@
     "href": "index.html",
     "title": "JackMate",
     "section": "",
-    "text": "Start, configure, and patch your Jack Audio Server in a few clicks. A native macOS interface built for musicians and audio engineers.\n      ★ New in 2.0.0 bring any native macOS app into the Jack graph thanks to a tight integration with JackMoebius.  See it in action\n      \n        \n           Download\n        \n        \n           Getting started\n        \n        \n           Buy me a coffee\n        \n      \n      \n        \n          \n          \n        \n        Signed & notarized by Apple"
+    "text": "Start, configure, and patch your Jack Audio Server in a few clicks. A native macOS interface built for musicians and audio engineers.\n      ★ New in 2.0.0 Bring any native macOS app into the Jack graph thanks to a tight integration with JackMoebius.  See it in action\n      \n        \n           Download\n        \n        \n           Getting started\n        \n        \n           Buy me a coffee\n        \n      \n      \n        \n          \n          \n        \n        Signed & notarized by Apple"
   },
   {
     "objectID": "index.html#what-jackmate-does",
     "href": "index.html#what-jackmate-does",
     "title": "JackMate",
     "section": "What JackMate does",
-    "text": "What JackMate does\n\n\n\n\n  \n  \n    \n    \n      📷\n      Configuration view\n    \n    \n    \n      \n      Get started\n      Configure Jackin seconds\n      Select audio interfaces, sample rate and buffer size. JackMate computes compatible sample rates in real time and generates the exact jackd command — no terminal required. Hog mode, channel selection, aggregate device support, and a live latency readout.\n      Explore Configuration \n    \n  \n\n  \n  \n    \n    \n      📷\n      Patchbay — active session\n    \n    \n    \n      \n      Connect\n      Patch visually,like a pro\n      See every active Jack client and draw connections with the mouse — just like a hardware patch bay. Multi-select, group drag, Sugiyama auto-layout, and Connect All for bulk wiring in one click. Haptic feedback on ports and canvas edges.\n      Explore Patchbay \n    \n  \n\n  \n  \n    \n    \n      📷\n      JackMoebius — native apps in the graph\n    \n    \n    \n      \n      Bridge\n      Native apps,in your Jack graph\n      Expose any macOS app without native Jack support — Safari, Music, FaceTime, your DAW's helper — as a Jack client, in and out, via the JackMoebius driver. Per-app volumes, real-time routing status, and Studios that restore it all.\n      Explore JackMoebius \n    \n  \n\n  \n  \n    \n    \n      📷\n      Studios — sidebar list\n    \n    \n    \n      \n      Save & restore\n      Your sessions,always ready\n      Save the complete state of your patchbay — connections, node positions, Jack config, and CLI client commands — as a named Studio. Load in one click. JackMate restarts Jack only when the configuration has changed, and relaunches every CLI client automatically.\n      Explore Studios \n    \n  \n\n  \n  \n    \n    \n      📷\n      Transport bar\n    \n    \n    \n      \n      Play & sync\n      Jack Transport,front and centre\n      Play, pause, stop, and seek from the patchbay toolbar. Display position as BBT, timecode or frames — click to cycle. Set BPM and claim the Jack timebase master role to drive every connected DAW in perfect sync.\n      Explore Transport \n    \n  \n\n  \n  \n    \n    \n      📷\n      Menu bar popover\n    \n    \n    \n      \n      Always there\n      Jack in yourmenu bar\n      JackMate lives in your menu bar. Start and stop Jack, load a studio, check the xrun count and current latency — even with the main window closed. A single icon, always within reach.\n      Explore Menu Bar"
+    "text": "What JackMate does\n\n\n\n\n  \n  \n    \n    \n      📷\n      Configuration view\n    \n    \n    \n      \n      Get started\n      Configure Jackin seconds\n      Select audio interfaces, sample rate and buffer size. JackMate computes compatible sample rates in real time and generates the exact jackd command. No terminal required. Hog mode, channel selection, aggregate device support, and a live latency readout.\n      Explore Configuration \n    \n  \n\n  \n  \n    \n    \n      📷\n      Patchbay: active session\n    \n    \n    \n      \n      Connect\n      Patch visually,like a pro\n      See every active Jack client and draw connections with the mouse, just like a hardware patch bay. Multi-select, group drag, Sugiyama auto-layout, and Connect All for bulk wiring in one click. Haptic feedback on ports and canvas edges.\n      Explore Patchbay \n    \n  \n\n  \n  \n    \n    \n      📷\n      JackMoebius: native apps in the graph\n    \n    \n    \n      \n      Bridge\n      Native apps,in your Jack graph\n      Expose any macOS app without native Jack support (Safari, Music, FaceTime, your DAW's helper, QuickTime, OBS…) as a Jack client, in and out, via the JackMoebius driver. Per-app volumes, real-time routing status, and Studios that restore it all.\n      Explore JackMoebius \n    \n  \n\n  \n  \n    \n    \n      📷\n      Studios: sidebar list\n    \n    \n    \n      \n      Save & restore\n      Your sessions,always ready\n      Save the complete state of your patchbay (connections, node positions, Jack config, and CLI client commands) as a named Studio. Load in one click. JackMate restarts Jack only when the configuration has changed, and relaunches every CLI client automatically.\n      Explore Studios \n    \n  \n\n  \n  \n    \n    \n      📷\n      Transport bar\n    \n    \n    \n      \n      Play & sync\n      Jack Transport,front and centre\n      Play, pause, stop, and seek from the patchbay toolbar. Display position as BBT, timecode or frames (click to cycle). Set BPM and claim the Jack timebase master role to drive every connected DAW in perfect sync.\n      Explore Transport \n    \n  \n\n  \n  \n    \n    \n      📷\n      Menu bar popover\n    \n    \n    \n      \n      Always there\n      Jack in yourmenu bar\n      JackMate lives in your menu bar. Start and stop Jack, load a studio, check the xrun count and current latency, even with the main window closed. A single icon, always within reach.\n      Explore Menu Bar"
   },
   {
     "objectID": "index.html#philosophy",
     "href": "index.html#philosophy",
     "title": "JackMate",
     "section": "Philosophy",
-    "text": "Philosophy\nJackMate doesn’t replace Jack — it tames it.\nJack is powerful but austere. Configuring jackd by hand, re-entering connections after every restart, monitoring xruns in a terminal… all of that disappears with JackMate.\nThe interface is intentionally dark, dense and precise — in the spirit of professional audio tools and modern development environments.\n\n\n\nScreencast"
+    "text": "Philosophy\nJackMate doesn’t replace Jack; it tames it.\nJack is powerful but austere. Configuring jackd by hand, re-entering connections after every restart, monitoring xruns in a terminal… all of that disappears with JackMate.\nThe interface is intentionally dark, dense and precise, in the spirit of professional audio tools and modern development environments.\n\n\n\nScreencast"
   },
   {
     "objectID": "index.html#requirements",
@@ -39,7 +39,7 @@
     "href": "guide/menubar.html",
     "title": "Menu Bar",
     "section": "",
-    "text": "JackMate lives in your menu bar. The icon is always present, even with the window closed — you keep control of Jack without ever switching applications.",
+    "text": "JackMate lives in your menu bar. The icon is always present, even with the window closed. You keep control of Jack without ever switching applications.",
     "crumbs": [
       "Home",
       "Guide",
@@ -63,7 +63,7 @@
     "href": "guide/menubar.html#quick-control-panel",
     "title": "Menu Bar",
     "section": "Quick control panel",
-    "text": "Quick control panel\n\nHeader\nThe panel header shows: - The JackMate logo - A LED indicator coloured by Jack’s state (green = running, red = stopped) - A Start Jack or Stop Jack button depending on the current state\nThe button uses the same style as in the main window — same colour, same behaviour.\n\n\n\nQuick control panel — Jack running\n\n\n\n\nSystem information\nWhen Jack is running, the panel shows:\n\n\n\nField\nDescription\n\n\n\n\nInput interface\nName of the active capture interface\n\n\nOutput interface\nName of the active playback interface\n\n\nSample rate\nSampling frequency in Hz\n\n\nLatency\nCalculated theoretical round-trip latency\n\n\n\nThese values are updated in real time from the active Jack configuration.\n\n\nActions\nTwo action buttons are available at the bottom of the panel:\n\n\n\n\n\n\n\nAction\nDescription\n\n\n\n\nOpen JackMate\nBrings the main window to the front (creates it if needed)\n\n\nQuit\nStops Jack (if running) and quits the application",
+    "text": "Quick control panel\n\nHeader\nThe panel header shows: - The JackMate logo - A LED indicator coloured by Jack’s state (green = running, red = stopped) - A Start Jack or Stop Jack button depending on the current state\nThe button uses the same style as in the main window: same colour, same behaviour.\n\n\n\nQuick control panel (Jack stopped)\n\n\n\n\nSystem information\nWhen Jack is running, the panel shows:\n\n\n\nField\nDescription\n\n\n\n\nInput interface\nName of the active capture interface\n\n\nOutput interface\nName of the active playback interface\n\n\nSample rate\nSampling frequency in Hz\n\n\nLatency\nCalculated theoretical round-trip latency\n\n\n\nThese values are updated in real time from the active Jack configuration.\n\n\nActions\nTwo action buttons are available at the bottom of the panel:\n\n\n\n\n\n\n\nAction\nDescription\n\n\n\n\nOpen JackMate\nBrings the main window to the front (creates it if needed)\n\n\nQuit\nStops Jack (if running) and quits the application",
     "crumbs": [
       "Home",
       "Guide",
@@ -75,7 +75,7 @@
     "href": "guide/menubar.html#background-operation",
     "title": "Menu Bar",
     "section": "Background operation",
-    "text": "Background operation\nJackMate is designed to run in the background. Typical workflow:\n\nLaunch JackMate\nConfigure and start Jack from the main window\nClose the window — Jack keeps running\nUse the menu bar icon to monitor state or stop Jack\n\n\n\n\n\n\n\nNote\n\n\n\nClosing the main window does not quit JackMate. To quit completely, use Quit from the menu bar panel, or ⌘Q from the main window.",
+    "text": "Background operation\nJackMate is designed to run in the background. Typical workflow:\n\nLaunch JackMate\nConfigure and start Jack from the main window\nClose the window; Jack keeps running\nUse the menu bar icon to monitor state or stop Jack\n\n\n\n\n\n\n\nNote\n\n\n\nClosing the main window does not quit JackMate. To quit completely, use Quit from the menu bar panel, or ⌘Q from the main window.",
     "crumbs": [
       "Home",
       "Guide",
@@ -87,7 +87,7 @@
     "href": "guide/menubar.html#auto-launch-at-login",
     "title": "Menu Bar",
     "section": "Auto-launch at login",
-    "text": "Auto-launch at login\nJackMate can be set to launch at macOS startup via Login Items in System Settings → General → Login Items.\nOnce configured, JackMate will be available in your menu bar from the moment you log in — ready to start Jack whenever you need it.",
+    "text": "Auto-launch at login\nJackMate can be set to launch at macOS startup via Login Items in System Settings → General → Login Items.\nOnce configured, JackMate will be available in your menu bar from the moment you log in, ready to start Jack whenever you need it.",
     "crumbs": [
       "Home",
       "Guide",
@@ -111,7 +111,7 @@
     "href": "guide/patchbay.html#concepts",
     "title": "Patchbay",
     "section": "Concepts",
-    "text": "Concepts\n\nClients and ports\nIn Jack, each audio application is a client. Each client exposes ports:\n\nOutput ports — on the left side of the node\nInput ports — on the right side of the node\n\nThe two system clients system (capture) and system (playback) represent the physical audio interface. Unlike regular client nodes, they display additional hardware information (new in v1.9.0):\n\nDevice name: the CoreAudio device name is shown in the free zone above the port list\nAggregate bar: when Jack has created an internal aggregate (two separate devices used as input and output), each physical device segment is indicated by a vertical bracket bar, with its name and channel count\n\nClicking the badge opens a detail sheet with the full hardware breakdown.\n\n\n\nSystem cards — device names and aggregate bracket bars (new in v1.9.0)\n\n\n\n\nConnections\nA connection links an output port to an input port. Audio signal flows left to right. A Jack connection is not exclusive — a port can be connected to multiple destinations.",
+    "text": "Concepts\n\nClients and ports\nIn Jack, each audio application is a client. Each client exposes ports:\n\nOutput ports: on the left side of the node\nInput ports: on the right side of the node\n\nThe two system clients system (capture) and system (playback) represent the physical audio interface. Unlike regular client nodes, they display additional hardware information (new in v1.9.0):\n\nDevice name: the CoreAudio device name is shown in the free zone above the port list\nAggregate bar: when Jack has created an internal aggregate (two separate devices used as input and output), each physical device segment is indicated by a vertical bracket bar, with its name and channel count\n\nClicking the badge opens a detail sheet with the full hardware breakdown.\n\n\n\nSystem cards: device names and aggregate bracket bars (new in v1.9.0)\n\n\n\n\nConnections\nA connection links an output port to an input port. Audio signal flows left to right. A Jack connection is not exclusive: a port can be connected to multiple destinations.",
     "crumbs": [
       "Home",
       "Guide",
@@ -123,7 +123,7 @@
     "href": "guide/patchbay.html#canvas-navigation",
     "title": "Patchbay",
     "section": "Canvas navigation",
-    "text": "Canvas navigation\n\nPanning\nClick and drag on the canvas background to move the view.\nWhen moving nodes or panning near the canvas edges, a subtle haptic feedback is triggered on the trackpad — indicating you’ve reached the boundary.\n\n\nZoom\n\nPinch on trackpad — smooth zoom centred on the cursor\nVertical scroll with the mouse wheel — discrete zoom\nA zoom indicator appears temporarily as an overlay while zooming\n\n\n\n\nZoom overlay — shown during trackpad zoom\n\n\n\n\nRe-centring\nClick the ⊕ Re-centre button in the header to fit and centre all visible nodes. Click on the magnifier 1:1 to reset zoom to 100% (only active when already zoomed-in or zoomed-out).",
+    "text": "Canvas navigation\n\nPanning\nClick and drag on the canvas background to move the view.\nWhen moving nodes or panning near the canvas edges, a subtle haptic feedback is triggered on the trackpad, indicating you’ve reached the boundary.\n\n\nZoom\n\nPinch on trackpad: smooth zoom centred on the cursor\nVertical scroll with the mouse wheel: discrete zoom\nA zoom indicator appears temporarily as an overlay while zooming\n\n\n\n\nZoom overlay: shown during trackpad zoom\n\n\n\n\nRe-centring\nClick the ⊕ Re-centre button in the header to fit and centre all visible nodes. Click on the magnifier 1:1 to reset zoom to 100% (only active when already zoomed-in or zoomed-out).",
     "crumbs": [
       "Home",
       "Guide",
@@ -135,7 +135,7 @@
     "href": "guide/patchbay.html#nodes",
     "title": "Patchbay",
     "section": "Nodes",
-    "text": "Nodes\nEach Jack client is represented as a box (node) on the canvas.\n\nBadge\nThe top-left corner of each node shows a badge with the client’s initials (two letters, colour generated deterministically).\nFor system clients: - 🎙 system (capture) — microphone icon, cyan colour - 🔊 system (playback) — speaker icon, violet colour\nFor JackMoebius clients (native macOS apps exposed to Jack), the badge is the real application icon; the master monitor box carries the JackMoebius glyph. See JackMoebius.\nClick the badge to open a detailed info sheet for that client.\nThe sheet displays: - GUI applications: name, bundle path, PID, icon - CLI clients (jack_metro, a2jmidid, etc.): executable path, full command line, PID — detected by scanning the process table\n\n\n\nNode badge and detailed client info sheet\n\n\n\n\nCollapse / expand\nClick the arrow next to the node name to collapse it. A collapsed node hides its ports but remains on the canvas. The toolbar buttons Collapse all / Expand all act on every node at once.\n\n\n\nCollapsed nodes — compact view, wires preserved\n\n\n\n\nMoving a node\nClick and drag the box to reposition it freely.\n\n\nMultiple selection\nSelect several nodes simultaneously:\n\n\n\nAction\nResult\n\n\n\n\nShift + click on a node\nAdd/remove from selection\n\n\n⌘A\nSelect all nodes\n\n\nClick + drag on empty canvas\nMarquee selection rectangle\n\n\n\nA count badge appears on the collapse/expand button when a selection is active. Click the badge or outside any node to deselect.\n\n\n\nMultiple selection\n\n\n\n\nGroup drag\nWith multiple nodes selected, drag any one of them — all selected nodes move together, preserving their relative positions.\n\n\nOut-of-view nodes\nWhen nodes are outside the visible canvas area, directional indicators appear on the window edges. Click an indicator to centre the view on the corresponding node.\n\n\n\nDirectional indicators — nodes outside the visible area",
+    "text": "Nodes\nEach Jack client is represented as a box (node) on the canvas.\n\nBadge\nThe top-left corner of each node shows a badge with the client’s initials (two letters, colour generated deterministically).\nFor system clients: - 🎙 system (capture): microphone icon, cyan colour - 🔊 system (playback): speaker icon, violet colour\nFor JackMoebius clients (native macOS apps exposed to Jack), the badge is the real application icon; the master monitor box carries the JackMoebius glyph. See JackMoebius.\nClick the badge to open a detailed info sheet for that client.\nThe sheet displays: - GUI applications: name, bundle path, PID, icon - CLI clients (jack_metro, a2jmidid, etc.): executable path, full command line, PID (detected by scanning the process table)\n\n\n\nNode badge and detailed client info sheet\n\n\n\n\nCollapse / expand\nClick the arrow next to the node name to collapse it. A collapsed node hides its ports but remains on the canvas. The toolbar buttons Collapse all / Expand all act on every node at once.\n\n\n\nCollapsed nodes: compact view, wires preserved\n\n\n\n\nMoving a node\nClick and drag the box to reposition it freely.\n\n\nMultiple selection\nSelect several nodes simultaneously:\n\n\n\nAction\nResult\n\n\n\n\nShift + click on a node\nAdd/remove from selection\n\n\n⌘A\nSelect all nodes\n\n\nClick + drag on empty canvas\nMarquee selection rectangle\n\n\n\nA count badge appears on the collapse/expand button when a selection is active. Click the badge or outside any node to deselect.\n\n\n\nMultiple selection\n\n\n\n\nGroup drag\nWith multiple nodes selected, drag any one of them: all selected nodes move together, preserving their relative positions.\n\n\nOut-of-view nodes\nWhen nodes are outside the visible canvas area, directional indicators appear on the window edges. Click an indicator to centre the view on the corresponding node.\n\n\n\nDirectional indicators: nodes outside the visible area",
     "crumbs": [
       "Home",
       "Guide",
@@ -147,7 +147,7 @@
     "href": "guide/patchbay.html#connections-1",
     "title": "Patchbay",
     "section": "Connections",
-    "text": "Connections\n\nCreating a connection\nClick an output port (dot on the left of a node) then an input port (dot on the right of another node). The connection is established instantly in Jack.\n\n\nRemoving a connection\nClick an existing wire to remove it.\n\n\nPort hover\nHovering over a port animates a circle around it. Connections linked to that port are highlighted. A light haptic feedback fires on the trackpad when the cursor snaps onto a port.\n\n\n\nPort hover — the connected wire is highlighted",
+    "text": "Connections\n\nCreating a connection\nClick an output port (dot on the left of a node) then an input port (dot on the right of another node). The connection is established instantly in Jack.\n\n\nRemoving a connection\nClick an existing wire to remove it.\n\n\nPort hover\nHovering over a port animates a circle around it. Connections linked to that port are highlighted. A light haptic feedback fires on the trackpad when the cursor snaps onto a port.\n\n\n\nPort hover: the connected wire is highlighted",
     "crumbs": [
       "Home",
       "Guide",
@@ -159,7 +159,7 @@
     "href": "guide/patchbay.html#connect-all",
     "title": "Patchbay",
     "section": "Connect All",
-    "text": "Connect All\nConnect All establishes connections in bulk between two clients — useful for quickly linking a DAW to system (playback) or wiring an effect chain.\n\nClick the Connect All button in the toolbar (or right-click a node → Connect All)\nA sheet opens with a canvas preview of both clients\nSelect the source client and the destination client\nChoose the connection mode: modulo (cycles channels if counts differ) or 1-to-1\nClick Connect — all matching ports are wired at once\n\n\n\n\nConnect All — bulk connection between two clients",
+    "text": "Connect All\nConnect All establishes connections in bulk between two clients, useful for quickly linking a DAW to system (playback) or wiring an effect chain.\n\nClick the Connect All button in the toolbar (or right-click a node → Connect All)\nA sheet opens with a canvas preview of both clients\nSelect the source client and the destination client\nChoose the connection mode: modulo (cycles channels if counts differ) or 1-to-1\nClick Connect: all matching ports are wired at once\n\n\n\n\nConnect All: bulk connection between two clients",
     "crumbs": [
       "Home",
       "Guide",
@@ -171,7 +171,7 @@
     "href": "guide/patchbay.html#output-volumes",
     "title": "Patchbay",
     "section": "Output volumes",
-    "text": "Output volumes\n★ New in 2.0.0\nThe Volumes bar — toggled from the toolbar — appears at the top of the patchbay and controls the output-device volumes directly, without selecting the device in macOS:\n\nJack’s output device — the interface Jack plays through\n“JackMoebius Out” — the JackMoebius virtual output (shown when JackMoebius is running)\n\nEach has a Control-Center-style slider, synced live with the macOS volume keys (F10/F11/F12) and System Settings ▸ Sound. There is no separate mute — drag a slider to zero. The sliders are pure CoreAudio, so they work even when Jack or JackMoebius is down; a device with no settable volume (e.g. HDMI) shows greyed out.\n\n\n\nOutput volume bar — Jack’s output device and “JackMoebius Out”\n\n\n\n\n\n\n\n\nTip\n\n\n\nFor per-app volumes — each exposed JackMoebius app individually — see Per-app volumes.",
+    "text": "Output volumes\n★ New in 2.0.0\nThe Volumes bar (toggled from the toolbar) appears at the top of the patchbay and controls the output-device volumes directly, without selecting the device in macOS:\n\nJack’s output device: the interface Jack plays through\n“JackMoebius Out”: the JackMoebius virtual output (shown when JackMoebius is running)\n\nEach has a Control-Center-style slider, synced live with the macOS volume keys (F10/F11/F12) and System Settings ▸ Sound. There is no separate mute: drag a slider to zero. The sliders are pure CoreAudio, so they work even when Jack or JackMoebius is down; a device with no settable volume (e.g. HDMI) shows greyed out.\n\n\n\nOutput volume bar: Jack’s output device and “JackMoebius Out”\n\n\n\n\n\n\n\n\nTip\n\n\n\nFor per-app volumes (each exposed JackMoebius app individually), see Per-app volumes.",
     "crumbs": [
       "Home",
       "Guide",
@@ -183,7 +183,7 @@
     "href": "guide/patchbay.html#toolbar",
     "title": "Patchbay",
     "section": "Toolbar",
-    "text": "Toolbar\n\n\n\nButton\nAction\n\n\n\n\nTidy\nAutomatically reorganises nodes on the canvas (Sugiyama layout)\n\n\nCollapse/expand\nCollapse or expand clients (either all or selected nodes)\n\n\n⊕ Re-centre\nFit and centre all nodes; double-click to reset zoom to 100%\n\n\n↻ Refresh\nForce-resync ports and connections from Jack\n\n\nTransport\nOpen the transport panel\n\n\nJackMoebius\nOpen the JackMoebius panel — expose native macOS apps to Jack (see JackMoebius)\n\n\nVolumes\nShow/hide the output volume bar (see Output volumes)\n\n\nSave as Studio\nSave the current state as a named studio\n\n\nOpen Audio Midi Setup\nQuick access to macOS configuration panel\n\n\nLogs\nOpen/close the Jack log panel (filtered outputs)\n\n\n\n\nTidy layout\nThe Tidy button automatically arranges nodes using a hierarchical layout algorithm (Sugiyama). It minimises wire crossings and groups clients by signal flow (sources left, sinks right).\nYou can also Tidy a selection only: Shift-click nodes to select them, then click Tidy — only the selected nodes are rearranged.",
+    "text": "Toolbar\n\n\n\nButton\nAction\n\n\n\n\nTidy\nAutomatically reorganises nodes on the canvas (Sugiyama layout)\n\n\nCollapse/expand\nCollapse or expand clients (either all or selected nodes)\n\n\n⊕ Re-centre\nFit and centre all nodes; double-click to reset zoom to 100%\n\n\n↻ Refresh\nForce-resync ports and connections from Jack\n\n\nTransport\nOpen the transport panel\n\n\nJackMoebius\nOpen the JackMoebius panel: expose native macOS apps to Jack (see JackMoebius)\n\n\nVolumes\nShow/hide the output volume bar (see Output volumes)\n\n\nSave as Studio\nSave the current state as a named studio\n\n\nOpen Audio Midi Setup\nQuick access to macOS configuration panel\n\n\nLogs\nOpen/close the Jack log panel (filtered outputs)\n\n\n\n\nTidy layout\nThe Tidy button automatically arranges nodes using a hierarchical layout algorithm (Sugiyama). It minimises wire crossings and groups clients by signal flow (sources left, sinks right).\nYou can also Tidy a selection only: Shift-click nodes to select them, then click Tidy: only the selected nodes are rearranged.",
     "crumbs": [
       "Home",
       "Guide",
@@ -207,7 +207,7 @@
     "href": "guide/patchbay.html#footer",
     "title": "Patchbay",
     "section": "Footer",
-    "text": "Footer\nThe bar at the bottom of the interface permanently shows, each field in its own colour.\n\n\n\nFooter — live session info, xrun count and loaded studio\n\n\n\n\n\n\n\n\n\n\nField\nColour\nDescription\n\n\n\n\nInput interface\ncyan\nActive capture interface\n\n\nOutput interface\nviolet\nActive playback interface\n\n\nSample rate\norange\nSampling frequency\n\n\nBuffer size\ngrey\nFrames per processing cycle\n\n\nTheoretical latency\namber\nRound-trip latency\n\n\nXrun counter\norange\nShown only when xruns &gt; 0\n\n\nLoaded studio\norange (cyan if modified)\nStudio name; turns cyan when the patchbay has diverged from the saved state\n\n\n\nTwo additional chips appear in context:\n\n\n\n\n\n\n\nChip\nWhen shown\n\n\n\n\nAggregated by Jack\nJack has created an internal aggregate from two separate devices\n\n\nJack started externally\nJack is running but was not started by JackMate — device names are unavailable via the Jack API and are replaced by this indicator",
+    "text": "Footer\nThe bar at the bottom of the interface permanently shows, each field in its own colour.\n\n\n\nFooter: live session info, xrun count and loaded studio\n\n\n\n\n\n\n\n\n\n\nField\nColour\nDescription\n\n\n\n\nInput interface\ncyan\nActive capture interface\n\n\nOutput interface\nviolet\nActive playback interface\n\n\nSample rate\norange\nSampling frequency\n\n\nBuffer size\ngrey\nFrames per processing cycle\n\n\nTheoretical latency\namber\nRound-trip latency\n\n\nXrun counter\norange\nShown only when xruns &gt; 0\n\n\nLoaded studio\norange (cyan if modified)\nStudio name; turns cyan when the patchbay has diverged from the saved state\n\n\n\nTwo additional chips appear in context:\n\n\n\n\n\n\n\nChip\nWhen shown\n\n\n\n\nAggregated by Jack\nJack has created an internal aggregate from two separate devices\n\n\nJack started externally\nJack is running but was not started by JackMate: device names are unavailable via the Jack API and are replaced by this indicator",
     "crumbs": [
       "Home",
       "Guide",
@@ -219,7 +219,7 @@
     "href": "guide/studios.html",
     "title": "Studios",
     "section": "",
-    "text": "A studio is a complete snapshot of your Jack session: parameter configuration, node positions on the canvas, active connections, CLI client commands, and — when in use — the full JackMoebius state and output volumes. Reload in one click to restore your exact setup.",
+    "text": "A studio is a complete snapshot of your Jack session: parameter configuration, node positions on the canvas, active connections, CLI client commands, and (when in use) the full JackMoebius state and output volumes. Reload in one click to restore your exact setup.",
     "crumbs": [
       "Home",
       "Guide",
@@ -231,7 +231,7 @@
     "href": "guide/studios.html#concept",
     "title": "Studios",
     "section": "Concept",
-    "text": "Concept\nEvery time you build a patchbay — connecting your DAW to your interface, routing effects, organising clients — you can save it as a named studio. JackMate will faithfully restore all connections at your next session.\n\n\n\n\n\n\nNote\n\n\n\nStudios do not save the internal state of Jack applications (loaded plugins, VST parameters…). They restore only the connections between ports and re-launch CLI clients.",
+    "text": "Concept\nEvery time you build a patchbay (connecting your DAW to your interface, routing effects, organising clients), you can save it as a named studio. JackMate will faithfully restore all connections at your next session.\n\n\n\n\n\n\nNote\n\n\n\nStudios do not save the internal state of Jack applications (loaded plugins, VST parameters…). They restore only the connections between ports and re-launch CLI clients.",
     "crumbs": [
       "Home",
       "Guide",
@@ -255,7 +255,7 @@
     "href": "guide/studios.html#loading-a-studio",
     "title": "Studios",
     "section": "Loading a studio",
-    "text": "Loading a studio\n\nFrom the sidebar\nClick the ▶ button to the right of the studio name. JackMate:\n\nCompares the studio’s Jack command with the currently running Jack configuration\nIf different (or if Jack was started externally): restarts Jack with the saved parameters\nRe-launches any saved CLI clients\nRestores the JackMoebius state, if the studio has one — relaunches and re-exposes the apps, master monitor and per-app volumes\nRestores available connections\nRestores node positions and output-device volumes\nShows a result summary\n\nA progress modal is displayed during loading and closes automatically when the operation completes.\n\n\n\n\n\n\nNote\n\n\n\n★ New in 2.0.0 For JackMoebius, the studio is authoritative: loading a studio saved without JackMoebius stops the daemon, while one saved with it restores the exact exposure state. See JackMoebius in studios.\n\n\n\n\nSmart Jack restart\nJackMate performs a full comparison of the Jack command (all parameters, options, devices) before deciding to restart:\n\n\n\n\n\n\n\nSituation\nBehaviour\n\n\n\n\nSame Jack config already running\nNo restart — connections restored immediately\n\n\nDifferent config or external Jack\nJack stopped, restarted with saved config\n\n\nJack stopped\nJack started with saved config\n\n\n\nA 1.5 s delay between stop and start ensures system resources are properly released.\n\n\nLoad result\n\n\n\n\n\n\n\nCase\nBehaviour\n\n\n\n\nAll clients present\nAll connections restored\n\n\nSome clients absent\nAvailable connections restored, missing ones skipped\n\n\nJack stopped\n▶ button disabled\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nIf a client is absent at load time (application not running), launch the application then reload the studio — JackMate does not require a restart.",
+    "text": "Loading a studio\n\nFrom the sidebar\nClick the ▶ button to the right of the studio name. JackMate:\n\nCompares the studio’s Jack command with the currently running Jack configuration\nIf different (or if Jack was started externally): restarts Jack with the saved parameters\nRe-launches any saved CLI clients\nRestores the JackMoebius state, if the studio has one: relaunches and re-exposes the apps, master monitor and per-app volumes\nRestores available connections\nRestores node positions and output-device volumes\nShows a result summary\n\nA progress modal is displayed during loading and closes automatically when the operation completes.\n\n\n\n\n\n\nNote\n\n\n\n★ New in 2.0.0 For JackMoebius, the studio is authoritative: loading a studio saved without JackMoebius stops the daemon, while one saved with it restores the exact exposure state. See JackMoebius in studios.\n\n\n\n\nSmart Jack restart\nJackMate performs a full comparison of the Jack command (all parameters, options, devices) before deciding to restart:\n\n\n\n\n\n\n\nSituation\nBehaviour\n\n\n\n\nSame Jack config already running\nNo restart, connections restored immediately\n\n\nDifferent config or external Jack\nJack stopped, restarted with saved config\n\n\nJack stopped\nJack started with saved config\n\n\n\nA 1.5 s delay between stop and start ensures system resources are properly released.\n\n\nLoad result\n\n\n\n\n\n\n\nCase\nBehaviour\n\n\n\n\nAll clients present\nAll connections restored\n\n\nSome clients absent\nAvailable connections restored, missing ones skipped\n\n\nJack stopped\n▶ button disabled\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nIf a client is absent at load time (application not running), launch the application then reload the studio. JackMate does not require a restart.",
     "crumbs": [
       "Home",
       "Guide",
@@ -267,7 +267,7 @@
     "href": "guide/studios.html#modification-indicator",
     "title": "Studios",
     "section": "Modification indicator",
-    "text": "Modification indicator\nOnce a studio is loaded, the footer shows its name with a modification indicator (orange dot) if the current patchbay diverges from the loaded studio — connection added, removed, or node moved.",
+    "text": "Modification indicator\nOnce a studio is loaded, the footer shows its name with a modification indicator (orange dot) if the current patchbay diverges from the loaded studio: connection added, removed, or node moved.",
     "crumbs": [
       "Home",
       "Guide",
@@ -303,7 +303,7 @@
     "href": "guide/jackmoebius.html",
     "title": "JackMoebius",
     "section": "",
-    "text": "JackMoebius and JackMate — made to work together.\n★ New in 2.0.0\nJackMoebius lets JackMate expose any native macOS application — Safari, Music, FaceTime, your DAW’s companion apps — as a Jack client. Apps that have no built-in Jack support can then send and receive audio through the Jack graph like any other client, and interact with your native Jack applications.",
+    "text": "JackMoebius and JackMate, made to work together.\n★ New in 2.0.0\nJackMoebius lets JackMate expose any native macOS application (Safari, Music, FaceTime, your DAW’s companion apps) as a Jack client. Apps that have no built-in Jack support can then send and receive audio through the Jack graph like any other client, and interact with your native Jack applications.",
     "crumbs": [
       "Home",
       "Guide",
@@ -315,7 +315,7 @@
     "href": "guide/jackmoebius.html#what-is-jackmoebius",
     "title": "JackMoebius",
     "section": "What is JackMoebius",
-    "text": "What is JackMoebius\nJackMoebius is a bidirectional CoreAudio ↔︎ Jack bridge — the next-generation, functional successor to JackRouter (abandoned since 2020).\nMost macOS apps speak only CoreAudio; they know nothing about Jack. JackMoebius creates, on demand, a Jack client for each app you choose to expose, in both directions:\n\nOutput — the app’s sound is injected into the Jack graph (route Safari into Ardour, record a FaceTime call, capture a game…).\nInput — a capture-capable app receives audio from the Jack graph (feed a processed signal back into it).\n\nEverything is driven from JackMate — you never edit a config file or touch the daemon directly.",
+    "text": "What is JackMoebius\nJackMoebius is a bidirectional CoreAudio ↔︎ Jack bridge: the next-generation, functional successor to JackRouter (abandoned since 2020).\nMost macOS apps speak only CoreAudio; they know nothing about Jack. JackMoebius creates, on demand, a Jack client for each app you choose to expose, in both directions:\n\nOutput: the app’s sound is injected into the Jack graph (route Safari into Ardour, record a FaceTime call, capture a game…).\nInput: a capture-capable app receives audio from the Jack graph (feed a processed signal back into it).\n\nEverything is driven from JackMate: you never edit a config file or touch the daemon directly.",
     "crumbs": [
       "Home",
       "Guide",
@@ -327,7 +327,7 @@
     "href": "guide/jackmoebius.html#installing-jackmoebius",
     "title": "JackMoebius",
     "section": "Installing JackMoebius",
-    "text": "Installing JackMoebius\nJackMoebius is a separate application — a paid app with a 14-day free trial. Get it from its page and install it on your Mac; JackMate detects the installed daemon automatically, with no path to configure.\n\n\n\n\n\n\nNote\n\n\n\nOnce installed, the JackMoebius version appears in the Configuration header, next to Jack’s — see Version indicator. Keep it up to date: JackMate signals when a newer version is available.\n\n\nPrefer to see it first? A short tour — expose your macOS apps to JACK, wire and mix them in JackMate, and save the whole setup as a studio:",
+    "text": "Installing JackMoebius\nJackMoebius is a separate application: a paid app with a 14-day free trial. Get it from its page and install it on your Mac; JackMate detects the installed daemon automatically, with no path to configure.\n\n\n\n\n\n\nNote\n\n\n\nOnce installed, the JackMoebius version appears in the Configuration header, next to Jack’s (see Version indicator). Keep it up to date: JackMate signals when a newer version is available.\n\n\nPrefer to see it first? A short tour where you expose your macOS apps to JACK, wire and mix them in JackMate, and save the whole setup as a studio:",
     "crumbs": [
       "Home",
       "Guide",
@@ -339,7 +339,7 @@
     "href": "guide/jackmoebius.html#enabling-exposure",
     "title": "JackMoebius",
     "section": "Enabling exposure",
-    "text": "Enabling exposure\nTurn JackMoebius on from the Configuration view, with the “Expose native macOS apps to JACK” option.\n\nWhen enabled, JackMoebius starts automatically right after Jack — it does not change the jackd command in any way.\nA dedicated button in the patchbay toolbar opens the JackMoebius panel (below).\nA JackMoebius status indicator sits next to Jack’s in the sidebar, so you always see whether the daemon is up.\n\n\n\n\nEnabling JackMoebius from Configuration\n\n\n\n\n\nOpening the JackMoebius panel from the patchbay toolbar\n\n\n\n\n\n\n\n\nTip\n\n\n\nThe daemon’s live status is event-driven — JackMate reflects a start, stop or crash immediately, and automatically restarts JackMoebius if it goes down while Jack is running.",
+    "text": "Enabling exposure\nTurn JackMoebius on from the Configuration view, with the “Expose native macOS apps to JACK” option.\n\nWhen enabled, JackMoebius starts automatically right after Jack. It does not change the jackd command in any way.\nA dedicated button in the patchbay toolbar opens the JackMoebius panel (below).\nA JackMoebius status indicator sits next to Jack’s in the sidebar, so you always see whether the daemon is up.\n\n\n\n\nEnabling JackMoebius from Configuration\n\n\n\n\n\nOpening the JackMoebius panel from the patchbay toolbar\n\n\n\n\n\n\n\n\nTip\n\n\n\nThe daemon’s live status is event-driven: JackMate reflects a start, stop or crash immediately, and automatically restarts JackMoebius if it goes down while Jack is running.",
     "crumbs": [
       "Home",
       "Guide",
@@ -351,7 +351,7 @@
     "href": "guide/jackmoebius.html#the-jackmoebius-panel",
     "title": "JackMoebius",
     "section": "The JackMoebius panel",
-    "text": "The JackMoebius panel\nThe slide-in panel lists every running CoreAudio app and lets you expose it to the graph. Each row shows the app’s real icon and name, with:\n\n\n\n\n\n\n\nControl\nAction\n\n\n\n\nOutput switch\nExpose the app’s sound to the graph\n\n\nInput switch\nGive the app an input from the graph (greyed out for apps that can’t capture)\n\n\nChannels stepper\nNumber of input channels (appears when Input is on)\n\n\n\nExposing an app makes its box appear in the patchbay instantly; turning it off removes the box.\nA “system monitor” (master) box exposes the global system mix — everything macOS is playing — as a single Jack client, independent of the per-app selection.\n\n\n\nThe JackMoebius panel — per-app Output / Input exposure\n\n\n\n\n\n\n\n\nNote\n\n\n\nThe daemon only sees an app once it enters the audio context (produces or captures sound). An app that is running but silent may take a moment to appear in the list.\n\n\n\nAdvanced configuration\nAn “eye-off” button removes an app from the selector (with a confirmation if it’s currently exposed) — useful for apps you never want to route. The Advanced JackMoebius configuration panel (tabbed) lets you:\n\nre-enable apps you previously excluded (blacklist);\nfree dormant channel reservations left by apps that have since quit.\n\n\n\n\nAdvanced configuration — blacklist and channel reservations",
+    "text": "The JackMoebius panel\nThe slide-in panel lists every running CoreAudio app and lets you expose it to the graph. Each row shows the app’s real icon and name, with:\n\n\n\n\n\n\n\nControl\nAction\n\n\n\n\nOutput switch\nExpose the app’s sound to the graph\n\n\nInput switch\nGive the app an input from the graph (greyed out for apps that can’t capture)\n\n\nChannels stepper\nNumber of input channels (appears when Input is on)\n\n\n\nExposing an app makes its box appear in the patchbay instantly; turning it off removes the box.\nA “system monitor” (master) box exposes the global system mix (everything macOS is playing) as a single Jack client, independent of the per-app selection.\n\n\n\nThe JackMoebius panel: per-app Output / Input exposure\n\n\n\n\n\n\n\n\nNote\n\n\n\nThe daemon only sees an app once it enters the audio context (produces or captures sound). An app that is running but silent may take a moment to appear in the list.\n\n\n\nAdvanced configuration\nAn “eye-off” button removes an app from the selector (with a confirmation if it’s currently exposed), useful for apps you never want to route. The Advanced JackMoebius configuration panel (tabbed) lets you:\n\nre-enable apps you previously excluded (blacklist);\nfree dormant channel reservations left by apps that have since quit.\n\n\n\n\nAdvanced configuration: blacklist and channel reservations",
     "crumbs": [
       "Home",
       "Guide",
@@ -363,7 +363,7 @@
     "href": "guide/jackmoebius.html#in-the-patchbay",
     "title": "JackMoebius",
     "section": "In the patchbay",
-    "text": "In the patchbay\nAn exposed app appears as a regular node on the canvas, with two differences from ordinary Jack clients:\n\nits badge is the real application icon (instead of the two-letter initials badge);\nthe master box carries the JackMoebius glyph.\n\nClicking the badge opens the usual info sheet, which identifies the box as a JackMoebius client.\n\nRouting status\nBecause a native app routes audio through a specific CoreAudio device, JackMate watches that an exposed, wired app is actually using the right device:\n\n\n\n\n\n\n\nMarker\nMeaning\n\n\n\n\n⚠ amber on a box\nThe app is exposed and wired, but isn’t using the correct audio device — audio won’t flow\n\n\nDiscreet cue\nThe app is selected but currently silent\n\n\n\n\n\n\nWired CoreAudio apps and their device markers\n\n\nAn alert panel — opened automatically, or by clicking the ⚠ — lists the affected apps and what to do. The fix is made in the app itself, or in macOS System Settings ▸ Sound, not in JackMate (JackMate can’t force another app’s device).\n\n\n\nWrong-audio-device alert on an exposed, wired app",
+    "text": "In the patchbay\nAn exposed app appears as a regular node on the canvas, with two differences from ordinary Jack clients:\n\nits badge is the real application icon (instead of the two-letter initials badge);\nthe master box carries the JackMoebius glyph.\n\nClicking the badge opens the usual info sheet, which identifies the box as a JackMoebius client.\n\nRouting status\nBecause a native app routes audio through a specific CoreAudio device, JackMate watches that an exposed, wired app is actually using the right device:\n\n\n\n\n\n\n\nMarker\nMeaning\n\n\n\n\n⚠ amber on a box\nThe app is exposed and wired, but isn’t using the correct audio device, so audio won’t flow\n\n\nDiscreet cue\nThe app is selected but currently silent\n\n\n\n\n\n\nWired CoreAudio apps and their device markers\n\n\nAn alert panel (opened automatically, or by clicking the ⚠) lists the affected apps and what to do. The fix is made in the app itself, or in macOS System Settings ▸ Sound, not in JackMate (JackMate can’t force another app’s device).\n\n\n\nWrong-audio-device alert on an exposed, wired app",
     "crumbs": [
       "Home",
       "Guide",
@@ -375,7 +375,7 @@
     "href": "guide/jackmoebius.html#per-app-volumes",
     "title": "JackMoebius",
     "section": "Per-app volumes",
-    "text": "Per-app volumes\nIn the JackMoebius panel, every exposed app has a volume control. By default it is locked (padlock closed): the app follows the “JackMoebius Out” master level. Click the padlock to unlock it (padlock open, cyan) and set an independent volume for that app with the slider.\n\n\n\nPadlock\nBehaviour\n\n\n\n\n🔒 locked\nThe app follows the master volume (default)\n\n\n🔓 unlocked\nThe app has its own independent volume\n\n\n\n\n\n\nPer-app volume — locked (follows master) vs. unlocked (independent)\n\n\n\n\n\n\n\n\nTip\n\n\n\nThe master output volumes — Jack’s output device and “JackMoebius Out” — are set from the Volumes bar at the top of the patchbay. See Output volumes.",
+    "text": "Per-app volumes\nIn the JackMoebius panel, every exposed app has a volume control. By default it is locked (padlock closed): the app follows the “JackMoebius Out” master level. Click the padlock to unlock it (padlock open, cyan) and set an independent volume for that app with the slider.\n\n\n\nPadlock\nBehaviour\n\n\n\n\n🔒 locked\nThe app follows the master volume (default)\n\n\n🔓 unlocked\nThe app has its own independent volume\n\n\n\n\n\n\nPer-app volume: locked (follows master) vs. unlocked (independent)\n\n\n\n\n\n\n\n\nTip\n\n\n\nThe master output volumes (Jack’s output device and “JackMoebius Out”) are set from the Volumes bar at the top of the patchbay. See Output volumes.",
     "crumbs": [
       "Home",
       "Guide",
@@ -399,7 +399,7 @@
     "href": "guide/jackmoebius.html#in-studios",
     "title": "JackMoebius",
     "section": "In studios",
-    "text": "In studios\nA studio saves and restores your complete JackMoebius state — which apps are exposed (Output / Input and their channel counts), the master monitor, and per-app volumes — along with the output-device volumes. Load a studio and JackMate restarts the daemon if needed, relaunches and re-exposes the apps, and restores every volume. See Studios for the details.",
+    "text": "In studios\nA studio saves and restores your complete JackMoebius state: which apps are exposed (Output / Input and their channel counts), the master monitor, and per-app volumes, along with the output-device volumes. Load a studio and JackMate restarts the daemon if needed, relaunches and re-exposes the apps, and restores every volume. See Studios for the details.",
     "crumbs": [
       "Home",
       "Guide",
@@ -423,7 +423,7 @@
     "href": "guide/configuration.html#toolbar",
     "title": "Configuration",
     "section": "Toolbar",
-    "text": "Toolbar\nThe toolbar at the top of the Configuration view contains:\n\n\n\n\n\n\n\nButton\nAction\n\n\n\n\nAudio MIDI Setup\nOpens macOS Audio MIDI Setup utility (piano keys icon)\n\n\nTerminal\nOpens/closes the Jack log panel\n\n\n\nThe Audio MIDI Setup button lets you create aggregate devices, configure clock sync between two interfaces, or inspect available hardware — without leaving JackMate.",
+    "text": "Toolbar\nThe toolbar at the top of the Configuration view contains:\n\n\n\n\n\n\n\nButton\nAction\n\n\n\n\nAudio MIDI Setup\nOpens macOS Audio MIDI Setup utility (piano keys icon)\n\n\nTerminal\nOpens/closes the Jack log panel\n\n\n\nThe Audio MIDI Setup button lets you create aggregate devices, configure clock sync between two interfaces, or inspect available hardware, without leaving JackMate.",
     "crumbs": [
       "Home",
       "Guide",
@@ -435,7 +435,7 @@
     "href": "guide/configuration.html#audio-devices",
     "title": "Configuration",
     "section": "Audio Devices",
-    "text": "Audio Devices\n\nInput\nSelect the audio interface that will provide inputs to Jack. All available CoreAudio interfaces are listed with their channel count.\nChoose “No Input” if you don’t need recording (pure playback music production, for example).\n\n\nOutput\nSelect the audio interface used for playback. Input and output can be different interfaces — Jack handles clock sync between them.\n\n\n\n\n\n\nTip\n\n\n\nCompatible sample rates. JackMate automatically computes sample rates supported by both interfaces simultaneously. Only compatible frequencies are shown in the selector.\n\n\n\n\n\nAudio device and output selection, sample rate picker\n\n\n\n\nAggregate devices\nIf you select an aggregate device (created in Audio MIDI Setup) as input or output, JackMate automatically forces the other side to the same device. Aggregate devices manage their own clock — using two separate sides makes no sense here.\n\n\n\n\n\n\nWarning\n\n\n\nClock synchronisation. When an aggregate device is selected, JackMate shows an alert recommending that you configure clock sync in Audio MIDI Setup before starting Jack. Skip this only if your aggregate is already correctly set up.\n\n\n\n\nChannel selection\nBy default, Jack exposes all channels of the selected interface. You can restrict active channels using the LED picker:\n\nEnable the Channels toggle in the Devices section\nA sheet appears with a row of numbered LEDs (one per channel)\nClick a LED to toggle it — active channels glow green\nAt least one channel must remain active (automatic constraint)\nThe footer permanently shows the active selection (N/Nmax ch)\n\n\n\n\nLED picker — granular input/output channel selection\n\n\n\n\n\n\n\n\nNote\n\n\n\nAggregate configuration. Channel selection is automatically disabled and reset when the combination of input and output devices will cause Jack to create an internal aggregate. In that case, the LED picker is hidden and the toggle is greyed out — Jack handles channel routing internally for aggregate setups.",
+    "text": "Audio Devices\n\nInput\nSelect the audio interface that will provide inputs to Jack. All available CoreAudio interfaces are listed with their channel count.\nChoose “No Input” if you don’t need recording (pure playback music production, for example).\n\n\nOutput\nSelect the audio interface used for playback. Input and output can be different interfaces. Jack handles clock sync between them.\n\n\n\n\n\n\nTip\n\n\n\nCompatible sample rates. JackMate automatically computes sample rates supported by both interfaces simultaneously. Only compatible frequencies are shown in the selector.\n\n\n\n\n\nAudio device and output selection, sample rate picker\n\n\n\n\nAggregate devices\nIf you select an aggregate device (created in Audio MIDI Setup) as input or output, JackMate automatically forces the other side to the same device. Aggregate devices manage their own clock. Using two separate sides makes no sense here.\n\n\n\n\n\n\nWarning\n\n\n\nClock synchronisation. When an aggregate device is selected, JackMate shows an alert recommending that you configure clock sync in Audio MIDI Setup before starting Jack. Skip this only if your aggregate is already correctly set up.\n\n\n\n\nChannel selection\nBy default, Jack exposes all channels of the selected interface. You can restrict active channels using the LED picker:\n\nEnable the Channels toggle in the Devices section\nA sheet appears with a row of numbered LEDs (one per channel)\nClick a LED to toggle it. Active channels glow green\nAt least one channel must remain active (automatic constraint)\nThe footer permanently shows the active selection (N/Nmax ch)\n\n\n\n\nLED picker: granular input/output channel selection\n\n\n\n\n\n\n\n\nNote\n\n\n\nAggregate configuration. Channel selection is automatically disabled and reset when the combination of input and output devices will cause Jack to create an internal aggregate. In that case, the LED picker is hidden and the toggle is greyed out. Jack handles channel routing internally for aggregate setups.",
     "crumbs": [
       "Home",
       "Guide",
@@ -459,7 +459,7 @@
     "href": "guide/configuration.html#options",
     "title": "Configuration",
     "section": "Options",
-    "text": "Options\n\nHog Mode\nWhen enabled, Jack monopolises the audio interface — no other application can use it simultaneously. Guarantees maximum stability and performance.\n\n\n\n\n\n\nWarning\n\n\n\nIn hog mode, macOS system output (notifications, other apps) is cut off. Use in dedicated production contexts only.\n\n\n\n\nClock Drift Correction\nCorrects clock drift between two audio interfaces used simultaneously. Enable if you are using different devices for input and output.\n\n\n\n\n\n\nNote\n\n\n\nClock drift correction is automatically disabled (and forced off) when input and output are the same physical hardware (same UID, or both built-in devices). In that case the toggle is greyed out.\n\n\nWhen two distinct physical devices are selected and Clock Drift Correction is off, the toggle row displays a pulsing amber border and a ⓘ button. This draws attention to the fact that clock sync may be needed. The animation stops as soon as Jack is running.\n\n\n\nClock Drift Correction — amber glow and ⓘ button when two distinct devices are selected\n\n\nClicking ⓘ opens an explanatory sheet describing the options (software correction vs. macOS aggregate device) and provides a direct link to Audio MIDI Setup.\nJackMate also shows informational alerts in two situations when you interact with this toggle:\nWhen activating Clock Drift Correction with non-aggregate devices — JackMate suggests using a macOS aggregate device instead, which handles clocking at the OS level and is generally more reliable than Jack’s software correction.\nWhen selecting an aggregate device — JackMate reminds you to configure clock synchronisation in Audio MIDI Setup before starting Jack. Using an aggregate device without proper clock sync configured can cause xruns or instability.\nBoth alerts include a “Don’t show again” checkbox so they only appear once.\n\n\n\nClock drift and aggregate device alerts — shown once, dismissable\n\n\n\n\nMIDI (coremidi)\nEnables MIDI via CoreMIDI support. Jack then exposes the MIDI ports of connected interfaces as Jack clients, making them routable in the patchbay.\n\n\n\n\n\n\nWarning\n\n\n\nExperimental option. The MIDI toggle is currently disabled due to observed instabilities. It will be re-enabled in a future version.\n\n\n\n\nExpose native macOS apps to JACK\n★ New in 2.0.0\nTurns on JackMoebius, which exposes macOS apps without native Jack support (Safari, Music, FaceTime…) to the graph. When enabled, JackMoebius starts automatically right after Jack — it does not change the jackd command. Requires the JackMoebius daemon, a separate app. See JackMoebius for the full guide.",
+    "text": "Options\n\nHog Mode\nWhen enabled, Jack monopolises the audio interface: no other application can use it simultaneously. Guarantees maximum stability and performance.\n\n\n\n\n\n\nWarning\n\n\n\nIn hog mode, macOS system output (notifications, other apps) is cut off. Use in dedicated production contexts only.\n\n\n\n\nClock Drift Correction\nCorrects clock drift between two audio interfaces used simultaneously. Enable if you are using different devices for input and output.\n\n\n\n\n\n\nNote\n\n\n\nClock drift correction is automatically disabled (and forced off) when input and output are the same physical hardware (same UID, or both built-in devices). In that case the toggle is greyed out.\n\n\nWhen two distinct physical devices are selected and Clock Drift Correction is off, the toggle row displays a pulsing amber border and a ⓘ button. This draws attention to the fact that clock sync may be needed. The animation stops as soon as Jack is running.\n\n\n\nClock Drift Correction: amber glow and ⓘ button when two distinct devices are selected\n\n\nClicking ⓘ opens an explanatory sheet describing the options (software correction vs. macOS aggregate device) and provides a direct link to Audio MIDI Setup.\nJackMate also shows informational alerts in two situations when you interact with this toggle:\nWhen activating Clock Drift Correction with non-aggregate devices: JackMate suggests using a macOS aggregate device instead, which handles clocking at the OS level and is generally more reliable than Jack’s software correction.\nWhen selecting an aggregate device: JackMate reminds you to configure clock synchronisation in Audio MIDI Setup before starting Jack. Using an aggregate device without proper clock sync configured can cause xruns or instability.\nBoth alerts include a “Don’t show again” checkbox so they only appear once.\n\n\n\nClock drift and aggregate device alerts: shown once, dismissable\n\n\n\n\nMIDI (coremidi)\nEnables MIDI via CoreMIDI support. Jack then exposes the MIDI ports of connected interfaces as Jack clients, making them routable in the patchbay.\n\n\n\n\n\n\nWarning\n\n\n\nExperimental option. The MIDI toggle is currently disabled due to observed instabilities. It will be re-enabled in a future version.\n\n\n\n\nExpose native macOS apps to JACK\n★ New in 2.0.0\nTurns on JackMoebius, which exposes macOS apps without native Jack support (Safari, Music, FaceTime…) to the graph. When enabled, JackMoebius starts automatically right after Jack. It does not change the jackd command. Requires the JackMoebius daemon, a separate app. See JackMoebius for the full guide.",
     "crumbs": [
       "Home",
       "Guide",
@@ -471,7 +471,7 @@
     "href": "guide/configuration.html#jack-version",
     "title": "Configuration",
     "section": "Jack Version",
-    "text": "Jack Version\nThe Configuration header displays a version badge indicating the state of your Jack installation:\n\n\n\nBadge\nMeaning\n\n\n\n\n✓ 1.9.22 (green)\nUp to date\n\n\n↑ 1.9.22 (amber, clickable)\nUpdate available on GitHub\n\n\n(absent)\nJack not installed or version not detectable\n\n\n\nJackMate compares the installed version (jackd --version) against the latest release on jackaudio/jack2. The comparison is cached for 24 hours — no network call on repeated JackMate launches the same day. If no network is available, the badge is hidden.",
+    "text": "Jack Version\nThe Configuration header displays a version badge indicating the state of your Jack installation:\n\n\n\nBadge\nMeaning\n\n\n\n\n✓ 1.9.22 (green)\nUp to date\n\n\n↑ 1.9.22 (amber, clickable)\nUpdate available on GitHub\n\n\n(absent)\nJack not installed or version not detectable\n\n\n\nJackMate compares the installed version (jackd --version) against the latest release on jackaudio/jack2. The comparison is cached for 24 hours: no network call on repeated JackMate launches the same day. If no network is available, the badge is hidden.",
     "crumbs": [
       "Home",
       "Guide",
@@ -483,7 +483,7 @@
     "href": "guide/configuration.html#jackmoebius-version",
     "title": "Configuration",
     "section": "JackMoebius Version",
-    "text": "JackMoebius Version\n★ New in 2.0.0\nWhen JackMoebius is installed, the header also shows its version, next to Jack’s, with the same update signal — a green badge when current, an amber clickable badge when a newer version is available. The badge is hidden when JackMoebius isn’t installed. See JackMoebius.",
+    "text": "JackMoebius Version\n★ New in 2.0.0\nWhen JackMoebius is installed, the header also shows its version, next to Jack’s, with the same update signal: a green badge when current, an amber clickable badge when a newer version is available. The badge is hidden when JackMoebius isn’t installed. See JackMoebius.",
     "crumbs": [
       "Home",
       "Guide",
@@ -495,7 +495,7 @@
     "href": "guide/configuration.html#automatic-updates",
     "title": "Configuration",
     "section": "Automatic Updates",
-    "text": "Automatic Updates\nJackMate checks for new releases at launch (against GitHub releases, 24h cache — silent if no network). If a newer version is available:\n\nAn “Update available: vX.Y.Z” row appears in the menu bar (greyed out while Jack is running)\nA notification can be triggered from the Configuration header\n\nClicking either opens the update sheet, which shows the installed and available versions, the current install path, and an admin password notice (required to replace the app bundle).\nJackMate then downloads the DMG, mounts it, and replaces the app bundle atomically at its current location. The app relaunches automatically after installation — no manual download or drag-and-drop required.\n\n\n\n\n\n\nNote\n\n\n\nThe update button in the menu bar is disabled while Jack is running. Stop Jack first if you want to install an update.\n\n\n\n\n\nAutomatic update sheet — download and install in one click",
+    "text": "Automatic Updates\nJackMate checks for new releases at launch (against GitHub releases, 24h cache, silent if no network). If a newer version is available:\n\nAn “Update available: vX.Y.Z” row appears in the menu bar (greyed out while Jack is running)\nA notification can be triggered from the Configuration header\n\nClicking either opens the update sheet, which shows the installed and available versions, the current install path, and an admin password notice (required to replace the app bundle).\nJackMate then downloads the DMG, mounts it, and replaces the app bundle atomically at its current location. The app relaunches automatically after installation. No manual download or drag-and-drop required.\n\n\n\n\n\n\nNote\n\n\n\nThe update button in the menu bar is disabled while Jack is running. Stop Jack first if you want to install an update.\n\n\n\n\n\nAutomatic update sheet: download and install in one click",
     "crumbs": [
       "Home",
       "Guide",
@@ -519,7 +519,7 @@
     "href": "guide/configuration.html#starting-jack",
     "title": "Configuration",
     "section": "Starting Jack",
-    "text": "Starting Jack\nClick Start Jack in the header. JackMate:\n\nSaves the configuration\nLaunches jackd with the defined parameters\nAutomatically switches to the Patchbay view\nDisplays the status in the sidebar and the menu bar\n\nTo stop Jack, click Stop Jack. Active connections are terminated.\n\nAggregate warning sheet\nWhen the selected device combination will cause Jack to silently create an internal aggregate, JackMate shows a warning sheet before starting Jack. The sheet displays a patchbay-accurate preview of the resulting system (capture) and system (playback) cards — including per-device bracket bars and channel counts — so you can verify the layout matches your expectations before committing.\nJack only starts after you confirm. A “Don’t show again for this combination” option suppresses the warning for that specific device pair.\n\n\n\nAggregate warning sheet — patchbay preview before Jack starts\n\n\n\n\nJack not installed\nIf Jack is not found at launch, JackMate shows an installation guide modal with the appropriate command (Homebrew or .pkg download), coloured glow highlighting the command block. The Start Jack button is disabled until Jack is installed.\n\n\n\nJack installation guide — shown at launch when Jack is not found",
+    "text": "Starting Jack\nClick Start Jack in the header. JackMate:\n\nSaves the configuration\nLaunches jackd with the defined parameters\nAutomatically switches to the Patchbay view\nDisplays the status in the sidebar and the menu bar\n\nTo stop Jack, click Stop Jack. Active connections are terminated.\n\nAggregate warning sheet\nWhen the selected device combination will cause Jack to silently create an internal aggregate, JackMate shows a warning sheet before starting Jack. The sheet displays a patchbay-accurate preview of the resulting system (capture) and system (playback) cards (including per-device bracket bars and channel counts) so you can verify the layout matches your expectations before committing.\nJack only starts after you confirm. A “Don’t show again for this combination” option suppresses the warning for that specific device pair.\n\n\n\nAggregate warning sheet: patchbay preview before Jack starts\n\n\n\n\nJack not installed\nIf Jack is not found at launch, JackMate shows an installation guide modal with the appropriate command (Homebrew or .pkg download), coloured glow highlighting the command block. The Start Jack button is disabled until Jack is installed.\n\n\n\nJack installation guide: shown at launch when Jack is not found",
     "crumbs": [
       "Home",
       "Guide",
@@ -543,7 +543,7 @@
     "href": "guide/alternatives.html#when-to-choose-jackmate",
     "title": "Alternatives",
     "section": "When to choose JackMate",
-    "text": "When to choose JackMate\n\nYou work on macOS and want a tool that feels native\nYou read the documentation and like the concept and the implementation\nYou want to discover the possibilities of JACK on macOS, hassle-free\nYou want to bring native macOS apps into the Jack graph — apps with no Jack support (Safari, Music, FaceTime…) — and drive it from the app (expose/unexpose, channel counts, per-app volumes, native icons) rather than the JackMoebius command line, via JackMoebius\nYou need to save and restore complete sessions (studios)\nYou want menu bar access without keeping a window open\nYou use both GUI JACK clients (Ardour, Faust apps generated with faust2jaqt, …) and CLI Jack clients (jack_metro, a2jmidid…) that you want saved and relaunched automatically\nYou want bulk connections between clients in one step\nYou use two separate audio interfaces and need aggregate device guidance (clock sync warning, patchbay preview before start)\nYou want in-app automatic updates without manual DMG downloads",
+    "text": "When to choose JackMate\n\nYou work on macOS and want a tool that feels native\nYou read the documentation and like the concept and the implementation\nYou want to discover the possibilities of JACK on macOS, hassle-free\nYou want to bring native macOS apps into the Jack graph, apps with no Jack support (Safari, Music, FaceTime…), and drive it from the app (expose/unexpose, channel counts, per-app volumes, native icons) rather than the JackMoebius command line, via JackMoebius\nYou need to save and restore complete sessions (studios)\nYou want menu bar access without keeping a window open\nYou use both GUI JACK clients (Ardour, Faust apps generated with faust2jaqt, …) and CLI Jack clients (jack_metro, a2jmidid…) that you want saved and relaunched automatically\nYou want bulk connections between clients in one step\nYou use two separate audio interfaces and need aggregate device guidance (clock sync warning, patchbay preview before start)\nYou want in-app automatic updates without manual DMG downloads",
     "crumbs": [
       "Home",
       "Reference",
@@ -555,7 +555,7 @@
     "href": "guide/alternatives.html#when-to-look-elsewhere",
     "title": "Alternatives",
     "section": "When to look elsewhere",
-    "text": "When to look elsewhere\n\nYou work on Linux — Patchance (transport + PipeWire) or QJackCtl (mature, full-featured), Catia, Carla, … : the choice is yours, depending on your tastes !",
+    "text": "When to look elsewhere\n\nYou work on Linux: Patchance (transport + PipeWire) or QJackCtl (mature, full-featured), Catia, Carla, … : the choice is yours, depending on your tastes !",
     "crumbs": [
       "Home",
       "Reference",
@@ -567,7 +567,7 @@
     "href": "guide/alternatives.html#comparison",
     "title": "Alternatives",
     "section": "Comparison",
-    "text": "Comparison\n\n\n\n\n\n\n\nFeature\nJackMate\nQJackCtl\nPatchage\nPatchance\nCatia\n\n\n\n\nmacOS native UI\n\n\n\n\n\n\n\nmacOS support\n \n \n\n \n \n\n\nMenu bar mode\n\n\n\n\n\n\n\nVisual patchbay canvas\n\n\n\n\n\n\n\nFree node repositioning\n\n\n\n\n\n\n\nAuto-layout (Sugiyama)\n\n\n\n\n\n\n\nGroup node drag\n\n\n\n\n\n\n\nStudios (save / restore sessions)\n\n\n\n\n\n\n\nCLI client save & relaunch\n\n\n\n\n\n\n\nBulk connect (Connect All)\n\n\n\n\n\n\n\nJack Transport controls\n\n\n\n\n\n\n\nJack server config UI\n\n\n\n\n\n\n\ni18n\n\n\n\n\n\n\n\nAggregate device detection & warning\n\n\n\n\n\n\n\nHardware info in patchbay system cards\n\n\n\n\n\n\n\nIntegrated JackMoebius control (expose apps, channels, blacklist, native icons)\n\n\n\n\n\n\n\nIn-app output & per-app volume control\n\n\n\n\n\n\n\nIn-app automatic updates\n\n\n\n\n\n\n\nOpen source\n\n\n\n\n\n\n\n\n\n\n  partial  ·   not available  ·   supported \n\n\n\n\n\n\nNote\n\n\n\nOnce apps are exposed with JackMoebius, they appear as clients in any Jack patchbay. What JackMate adds is driving it from the app — exposing/un-exposing, channel counts, per-app volumes, blacklist and native app icons — instead of the JackMoebius command line.",
+    "text": "Comparison\n\n\n\n\n\n\n\nFeature\nJackMate\nQJackCtl\nPatchage\nPatchance\nCatia\n\n\n\n\nmacOS native UI\n\n\n\n\n\n\n\nmacOS support\n \n \n\n \n \n\n\nMenu bar mode\n\n\n\n\n\n\n\nVisual patchbay canvas\n\n\n\n\n\n\n\nFree node repositioning\n\n\n\n\n\n\n\nAuto-layout (Sugiyama)\n\n\n\n\n\n\n\nGroup node drag\n\n\n\n\n\n\n\nStudios (save / restore sessions)\n\n\n\n\n\n\n\nCLI client save & relaunch\n\n\n\n\n\n\n\nBulk connect (Connect All)\n\n\n\n\n\n\n\nJack Transport controls\n\n\n\n\n\n\n\nJack server config UI\n\n\n\n\n\n\n\ni18n\n\n\n\n\n\n\n\nAggregate device detection & warning\n\n\n\n\n\n\n\nHardware info in patchbay system cards\n\n\n\n\n\n\n\nIntegrated JackMoebius control (expose apps, channels, blacklist, native icons)\n\n\n\n\n\n\n\nIn-app output & per-app volume control\n\n\n\n\n\n\n\nIn-app automatic updates\n\n\n\n\n\n\n\nOpen source\n\n\n\n\n\n\n\n\n\n\n  partial  ·   not available  ·   supported \n\n\n\n\n\n\nNote\n\n\n\nOnce apps are exposed with JackMoebius, they appear as clients in any Jack patchbay. What JackMate adds is driving it from the app (exposing/un-exposing, channel counts, per-app volumes, blacklist and native app icons) instead of the JackMoebius command line.",
     "crumbs": [
       "Home",
       "Reference",
@@ -591,7 +591,7 @@
     "href": "guide/transport.html",
     "title": "Transport",
     "section": "",
-    "text": "The Transport bar appears at the bottom of the Patchbay view when Jack is running. It lets you control Jack Transport — the shared timeline that synchronises all Jack-aware applications.",
+    "text": "The Transport bar appears at the bottom of the Patchbay view when Jack is running. It lets you control Jack Transport, the shared timeline that synchronises all Jack-aware applications.",
     "crumbs": [
       "Home",
       "Guide",
@@ -615,7 +615,7 @@
     "href": "guide/transport.html#position-display-modes",
     "title": "Transport",
     "section": "Position display modes",
-    "text": "Position display modes\nClick the position display to cycle through three display modes:\n\n\n\nMode\nFormat\nDescription\n\n\n\n\nBBT\n001:01:000\nBars, Beats, Ticks — musical time\n\n\nHMS\n0:00:00.000\nHours, Minutes, Seconds, milliseconds\n\n\nFrames\n000000 fr\nRaw sample frame count\n\n\n\nBBT is the most common mode for music production. HMS is useful for video synchronisation or when working with a fixed timeline. Frames is used for precise sample-accurate work.\n\n\n\nPosition display modes — BBT, HMS, Frames",
+    "text": "Position display modes\nClick the position display to cycle through three display modes:\n\n\n\nMode\nFormat\nDescription\n\n\n\n\nBBT\n001:01:000\nBars, Beats, Ticks (musical time)\n\n\nHMS\n0:00:00.000\nHours, Minutes, Seconds, milliseconds\n\n\nFrames\n000000 fr\nRaw sample frame count\n\n\n\nBBT is the most common mode for music production. HMS is useful for video synchronisation or when working with a fixed timeline. Frames is used for precise sample-accurate work.\n\n\n\nPosition display modes: BBT, HMS, Frames",
     "crumbs": [
       "Home",
       "Guide",
@@ -651,7 +651,7 @@
     "href": "sponsor.html",
     "title": "Sponsor",
     "section": "",
-    "text": "I’m a researcher in audio and deep learning, and a professor of acoustics. I code every day — for research, for teaching, and for building things that don’t exist yet.\nJackMate is one of those things.\nIn my lab, we run both Linux and macOS machines, and we use real-time interactions between Jack audio clients for complex experimental setups every day.\nThere’s a real paradox: on Linux, JACK tooling is rich and mature, but professional hardware support is often a headache. On macOS, it’s the opposite — hardware compatibility is excellent, the user experience is generally what Apple does best, yet no proper native tool exists to manage the Jack Audio Connection Kit at an advanced level.\nJackMate is my contribution to fixing that imbalance. It’s a solo project, built in my spare time, free and open source. No company, no funding. A tool my lab colleagues and I needed — and that you might need too. It can also be a great entry point for discovering JACK on macOS if you’re new to it.",
+    "text": "I’m a researcher in audio and deep learning, and a professor of acoustics. I code every day: for research, for teaching, and for building things that don’t exist yet.\nJackMate is one of those things.\nIn my lab, we run both Linux and macOS machines, and we use real-time interactions between Jack audio clients for complex experimental setups every day.\nThere’s a real paradox: on Linux, JACK tooling is rich and mature, but professional hardware support is often a headache. On macOS, it’s the opposite: hardware compatibility is excellent, the user experience is generally what Apple does best, yet no proper native tool exists to manage the Jack Audio Connection Kit at an advanced level.\nJackMate is my contribution to fixing that imbalance. It’s a solo project, built in my spare time, free and open source. No company, no funding. A tool my lab colleagues and I needed, and that you might need too. It can also be a great entry point for discovering JACK on macOS if you’re new to it.",
     "crumbs": [
       "Home",
       "Sponsor"
@@ -662,7 +662,7 @@
     "href": "sponsor.html#about-the-project",
     "title": "Sponsor",
     "section": "",
-    "text": "I’m a researcher in audio and deep learning, and a professor of acoustics. I code every day — for research, for teaching, and for building things that don’t exist yet.\nJackMate is one of those things.\nIn my lab, we run both Linux and macOS machines, and we use real-time interactions between Jack audio clients for complex experimental setups every day.\nThere’s a real paradox: on Linux, JACK tooling is rich and mature, but professional hardware support is often a headache. On macOS, it’s the opposite — hardware compatibility is excellent, the user experience is generally what Apple does best, yet no proper native tool exists to manage the Jack Audio Connection Kit at an advanced level.\nJackMate is my contribution to fixing that imbalance. It’s a solo project, built in my spare time, free and open source. No company, no funding. A tool my lab colleagues and I needed — and that you might need too. It can also be a great entry point for discovering JACK on macOS if you’re new to it.",
+    "text": "I’m a researcher in audio and deep learning, and a professor of acoustics. I code every day: for research, for teaching, and for building things that don’t exist yet.\nJackMate is one of those things.\nIn my lab, we run both Linux and macOS machines, and we use real-time interactions between Jack audio clients for complex experimental setups every day.\nThere’s a real paradox: on Linux, JACK tooling is rich and mature, but professional hardware support is often a headache. On macOS, it’s the opposite: hardware compatibility is excellent, the user experience is generally what Apple does best, yet no proper native tool exists to manage the Jack Audio Connection Kit at an advanced level.\nJackMate is my contribution to fixing that imbalance. It’s a solo project, built in my spare time, free and open source. No company, no funding. A tool my lab colleagues and I needed, and that you might need too. It can also be a great entry point for discovering JACK on macOS if you’re new to it.",
     "crumbs": [
       "Home",
       "Sponsor"
@@ -673,7 +673,7 @@
     "href": "sponsor.html#why-your-support-matters",
     "title": "Sponsor",
     "section": "Why your support matters",
-    "text": "Why your support matters\nJackMate is and will remain free. But distributing it properly has a recurring cost.\nJackMate is signed with a Developer ID and notarized by Apple, so it installs cleanly, with no Gatekeeper warnings. That relies on a paid Apple Developer account ($99/year) — an ongoing cost I cover so the app stays notarized for everyone.\nA donation on Buy Me a Coffee directly contributes to:\n\nKeeping the Apple Developer account ($99/year) that keeps JackMate notarized\nEncouraging continued development of new features\n\nNo subscription, no paywall. If JackMate is useful to you, even a small contribution makes a difference.\n\n  Buy me a coffee",
+    "text": "Why your support matters\nJackMate is and will remain free. But distributing it properly has a recurring cost.\nJackMate is signed with a Developer ID and notarized by Apple, so it installs cleanly, with no Gatekeeper warnings. That relies on a paid Apple Developer account ($99/year), an ongoing cost I cover so the app stays notarized for everyone.\nA donation on Buy Me a Coffee directly contributes to:\n\nKeeping the Apple Developer account ($99/year) that keeps JackMate notarized\nEncouraging continued development of new features\n\nNo subscription, no paywall. If JackMate is useful to you, even a small contribution makes a difference.\n\n  Buy me a coffee",
     "crumbs": [
       "Home",
       "Sponsor"
@@ -684,7 +684,7 @@
     "href": "sponsor.html#other-ways-to-help",
     "title": "Sponsor",
     "section": "Other ways to help",
-    "text": "Other ways to help\nEven if you can’t donate, you can contribute to the project in other ways:\n\nStar the repository on GitHub — it helps with visibility\nReport bugs or suggest features via GitHub Issues\nShare JackMate with musicians, audio engineers, or researchers who use JACK on macOS\n\nThank you for your support!",
+    "text": "Other ways to help\nEven if you can’t donate, you can contribute to the project in other ways:\n\nStar the repository on GitHub: it helps with visibility\nReport bugs or suggest features via GitHub Issues\nShare JackMate with musicians, audio engineers, or researchers who use JACK on macOS\n\nThank you for your support!",
     "crumbs": [
       "Home",
       "Sponsor"
@@ -706,8 +706,8 @@
     "objectID": "changelog.html#section",
     "href": "changelog.html#section",
     "title": "Changelog",
-    "section": "[2.0.0] — 2026-10-02",
-    "text": "[2.0.0] — 2026-10-02\nMajor release: JackMoebius integration. JackMate now drives the JackMoebius daemon to expose any native macOS application (Safari, Music, FaceTime, QuickTime…) as a JACK client, in both directions — outputs and inputs — with no external configuration. (Requires the JackMoebius daemon, installed separately.)\n\nAdded — JackMoebius integration\n\nExpose macOS apps to JACK — a Configuration option, “Expose native macOS apps to JACK”, starts JackMoebius automatically right after Jack (without altering the jackd command). A dedicated patchbay-toolbar button opens a slide-in panel, and a JackMoebius status indicator sits next to Jack’s in the sidebar.\nApp selector — per app, Output / Input exposure switches and an input channel-count picker. A “system monitor” (master) box exposes the global system mix.\nLive daemon status — the panel, toolbar button and indicator reflect JackMoebius’s real state in real time (the daemon pushes its state changes; no periodic polling). A stop or crash is detected immediately, and the daemon is automatically restarted if it goes down while Jack is running.\nStyled JackMoebius boxes in the patchbay — the real app icon (per app) and the JackMoebius glyph (master) replace the initials badge; the type is identified in the box info sheet.\nWrong-audio-device alert — the patchbay flags (⚠ amber) an exposed, wired app that isn’t using the right device — plus a discreet cue when it’s selected but silent. An alert panel (opened automatically, or by clicking the ⚠) lists the affected apps and what to do — the fix being made in the app or in macOS System Settings, not in JackMate.\nApp exclusion (blacklist) — an “eye-off” button removes an app from the selector (with confirmation if it’s exposed). An “Advanced JackMoebius configuration” panel (tabs) re-enables excluded apps and frees dormant channel reservations.\nOutput volume control — a “Volumes” bar at the top of the patchbay (toggled from the toolbar) sets the volume of Jack’s output device and of “JackMoebius Out” without selecting them in macOS — Control-Center-style sliders, synced live with the volume keys (F10/F11/F12) and System Settings ▸ Sound.\nPer-app volume — in the JackMoebius panel, each exposed app can be “detached” from the master volume for an independent setting (padlock); locked by default, it follows the master.\nSafety (anti-kill) — stopping Jack or switching studios no longer quits the real macOS apps exposed by JackMoebius.\nStudios ↔︎ JackMoebius — a studio saves and restores the JackMoebius state: exposed apps (Output / Input with their channel counts), the system monitor (master), and per-app volumes — along with the output-device volumes (Jack’s output and “JackMoebius Out”). On load, the daemon is restarted if needed, apps are relaunched and re-exposed, master and volumes restored; the studio is authoritative (loading a configuration without JackMoebius stops the daemon). On stopping a studio, exposures are removed and the daemon stopped — unless the “Expose native apps” option is still on (it then stays available but empty). A studio’s “Save” button correctly reflects volume, exposure and master changes.\nJackMoebius version shown — the Configuration header shows the installed JackMoebius version (next to Jack’s) and, like Jack, signals when an update is available — an “Update” button then downloads it and opens its installer.\nJackMoebius license status — the Configuration header badge and the JackMoebius panel show the license state (free trial with days remaining, trial expired, or licensed). A License sheet activates a license key, shows the details (registered email, masked key hint, Macs in use) and links to purchase; when the trial has expired, enabling JackMoebius steers you to activation or purchase instead of starting the daemon.\nOne-click license activation (jackmate:// link) — after purchase, a jackmate://activate?key=… link (a web button or the “how to activate” PDF) opens JackMate and shows the License sheet with the key already filled in — you just press “Activate”. The window comes back to the front, even if the app had retreated to the menu bar.\nInstall JackMoebius from JackMate — when the JackMoebius bridge isn’t installed, the info and License sheets offer to download it and open its installer in one click — handy if you enter a license key before JackMoebius is even installed. The info sheet also explains what JackMoebius is and, during the trial, leads straight to purchase/activation.\nDiscover JackMoebius — when the bridge isn’t installed, a “Try JackMoebius” button (in the Configuration and Patchbay headers) plays a demo video in a native player and offers to install it in one click (or learn more). The JackMoebius “not installed” panel embeds the same demo. Offline, a presentation image replaces the video.\nFully localized JackMoebius interface (EN / FR / DE / IT / ES).\n\n\n\nAdded — Application\n\n“What’s New” panel — on the first launch of a version (fresh install or update), a panel summarizes the highlights and links to the online changelog. A changelog link is also present in the app’s update window.\nAbout panel — a “License” button links to the MIT license, and the app now carries its copyright (shown in Finder’s Get Info).\n\n\n\nImproved\n\nPatchbay: when zoomed out, port and app names now scale with the boxes (no more overlap).\nPatchbay box info sheet: now closes when clicking outside it.\nMuch-improved automatic patchbay layout: on Jack start (and on “Tidy”), clients are arranged by role — sources on the left, hardware outputs on the right, mixed in the middle — spread over several columns to fit the available width, with no overlap. Far better when clients aren’t (yet) connected to each other. And a newly-appearing client (an app that gets exposed) now drops into the right spot for its role on its own, without disturbing the boxes you’ve already arranged.\nJack update indicator (header): the current version turns amber next to a “View releases” button (instead of a plain link), consistent with the JackMoebius display.\nJackMoebius license: when the activation limit is reached, the License sheet offers direct Support and “Buy another license” actions.\n\n\n\nFixed\n\nStudios: no more needless Jack restart when loading a studio that includes a device.\nJackMoebius is launched via launchd (the daemon runs under its own system identity) — avoids a context conflict that could bring down the JACK server when exposure started.\n\n\n\nDistribution\n\nThe app and the DMG are now signed with a Developer ID and notarized by Apple — no more Gatekeeper “unidentified developer” warning on first launch.\n\n\n\nDocumentation\n\nQuarto site: a download-help modal on the “Download” click — immediate download plus clean install steps (the app is notarized, so it opens with no Gatekeeper warnings), with platform-aware behavior (macOS / Windows-Linux / mobile).\nNew JackMoebius guide — app exposure, the app selector, per-app and output volumes, patchbay integration and routing status — plus the Studios, Patchbay, Configuration and Alternatives pages updated for the 2.0 features.",
+    "section": "[2.0.0] · 2026-10-02",
+    "text": "[2.0.0] · 2026-10-02\nMajor release: JackMoebius integration. JackMate now drives the JackMoebius daemon to expose any native macOS application (Safari, Music, FaceTime, QuickTime…) as a JACK client, in both directions (outputs and inputs) with no external configuration. (Requires the JackMoebius daemon, installed separately.)\n\nAdded: JackMoebius integration\n\nExpose macOS apps to JACK: a Configuration option, “Expose native macOS apps to JACK”, starts JackMoebius automatically right after Jack (without altering the jackd command). A dedicated patchbay-toolbar button opens a slide-in panel, and a JackMoebius status indicator sits next to Jack’s in the sidebar.\nApp selector: per app, Output / Input exposure switches and an input channel-count picker. A “system monitor” (master) box exposes the global system mix.\nLive daemon status: the panel, toolbar button and indicator reflect JackMoebius’s real state in real time (the daemon pushes its state changes; no periodic polling). A stop or crash is detected immediately, and the daemon is automatically restarted if it goes down while Jack is running.\nStyled JackMoebius boxes in the patchbay: the real app icon (per app) and the JackMoebius glyph (master) replace the initials badge; the type is identified in the box info sheet.\nWrong-audio-device alert: the patchbay flags (⚠ amber) an exposed, wired app that isn’t using the right device, plus a discreet cue when it’s selected but silent. An alert panel (opened automatically, or by clicking the ⚠) lists the affected apps and what to do; the fix is made in the app or in macOS System Settings, not in JackMate.\nApp exclusion (blacklist): an “eye-off” button removes an app from the selector (with confirmation if it’s exposed). An “Advanced JackMoebius configuration” panel (tabs) re-enables excluded apps and frees dormant channel reservations.\nOutput volume control: a “Volumes” bar at the top of the patchbay (toggled from the toolbar) sets the volume of Jack’s output device and of “JackMoebius Out” without selecting them in macOS. Control-Center-style sliders, synced live with the volume keys (F10/F11/F12) and System Settings ▸ Sound.\nPer-app volume: in the JackMoebius panel, each exposed app can be “detached” from the master volume for an independent setting (padlock); locked by default, it follows the master.\nSafety (anti-kill): stopping Jack or switching studios no longer quits the real macOS apps exposed by JackMoebius.\nStudios ↔︎ JackMoebius: a studio saves and restores the JackMoebius state: exposed apps (Output / Input with their channel counts), the system monitor (master), and per-app volumes, along with the output-device volumes (Jack’s output and “JackMoebius Out”). On load, the daemon is restarted if needed, apps are relaunched and re-exposed, master and volumes restored; the studio is authoritative (loading a configuration without JackMoebius stops the daemon). On stopping a studio, exposures are removed and the daemon stopped, unless the “Expose native apps” option is still on (it then stays available but empty). A studio’s “Save” button correctly reflects volume, exposure and master changes.\nJackMoebius version shown: the Configuration header shows the installed JackMoebius version (next to Jack’s) and, like Jack, signals when an update is available; an “Update” button then downloads it and opens its installer.\nJackMoebius license status: the Configuration header badge and the JackMoebius panel show the license state (free trial with days remaining, trial expired, or licensed). A License sheet activates a license key, shows the details (registered email, masked key hint, Macs in use) and links to purchase; when the trial has expired, enabling JackMoebius steers you to activation or purchase instead of starting the daemon.\nOne-click license activation (jackmate:// link): after purchase, a jackmate://activate?key=… link (a web button or the “how to activate” PDF) opens JackMate and shows the License sheet with the key already filled in. You just press “Activate”. The window comes back to the front, even if the app had retreated to the menu bar.\nInstall JackMoebius from JackMate: when the JackMoebius bridge isn’t installed, the info and License sheets offer to download it and open its installer in one click, handy if you enter a license key before JackMoebius is even installed. The info sheet also explains what JackMoebius is and, during the trial, leads straight to purchase/activation.\nDiscover JackMoebius: when the bridge isn’t installed, a “Try JackMoebius” button (in the Configuration and Patchbay headers) plays a demo video in a native player and offers to install it in one click (or learn more). The JackMoebius “not installed” panel embeds the same demo. Offline, a presentation image replaces the video.\nFully localized JackMoebius interface (EN / FR / DE / IT / ES).\n\n\n\nAdded: Application\n\n“What’s New” panel: on the first launch of a version (fresh install or update), a panel summarizes the highlights and links to the online changelog. A changelog link is also present in the app’s update window.\nAbout panel: a “License” button links to the MIT license, and the app now carries its copyright (shown in Finder’s Get Info).\n\n\n\nImproved\n\nPatchbay: when zoomed out, port and app names now scale with the boxes (no more overlap).\nPatchbay box info sheet: now closes when clicking outside it.\nMuch-improved automatic patchbay layout: on Jack start (and on “Tidy”), clients are arranged by role (sources on the left, hardware outputs on the right, mixed in the middle), spread over several columns to fit the available width, with no overlap. Far better when clients aren’t (yet) connected to each other. And a newly-appearing client (an app that gets exposed) now drops into the right spot for its role on its own, without disturbing the boxes you’ve already arranged.\nJack update indicator (header): the current version turns amber next to a “View releases” button (instead of a plain link), consistent with the JackMoebius display.\nJackMoebius license: when the activation limit is reached, the License sheet offers direct Support and “Buy another license” actions.\n\n\n\nFixed\n\nStudios: no more needless Jack restart when loading a studio that includes a device.\nJackMoebius is launched via launchd (the daemon runs under its own system identity), which avoids a context conflict that could bring down the JACK server when exposure started.\n\n\n\nDistribution\n\nThe app and the DMG are now signed with a Developer ID and notarized by Apple: no more Gatekeeper “unidentified developer” warning on first launch.\n\n\n\nDocumentation\n\nQuarto site: a download-help modal on the “Download” click: immediate download plus clean install steps (the app is notarized, so it opens with no Gatekeeper warnings), with platform-aware behavior (macOS / Windows-Linux / mobile).\nNew JackMoebius guide (app exposure, the app selector, per-app and output volumes, patchbay integration and routing status), plus the Studios, Patchbay, Configuration and Alternatives pages updated for the 2.0 features.",
     "crumbs": [
       "Home",
       "Reference",
@@ -718,8 +718,8 @@
     "objectID": "changelog.html#section-1",
     "href": "changelog.html#section-1",
     "title": "Changelog",
-    "section": "[1.9.9] — 2026-04-13",
-    "text": "[1.9.9] — 2026-04-13\n\nImproved\n\nMin-height adapted to small screens (e.g. Macbook Neo)",
+    "section": "[1.9.9] · 2026-04-13",
+    "text": "[1.9.9] · 2026-04-13\n\nImproved\n\nMin-height adapted to small screens (e.g. Macbook Neo)",
     "crumbs": [
       "Home",
       "Reference",
@@ -730,8 +730,8 @@
     "objectID": "changelog.html#section-2",
     "href": "changelog.html#section-2",
     "title": "Changelog",
-    "section": "[1.9.8] — 2026-04-13",
-    "text": "[1.9.8] — 2026-04-13\n\nImproved\n\nSidebar: width increased to 245 pt — studio names display without truncation\nStudio list row: reorganised as [icon][name][delete][info][▶] — start button always rightmost\nMain window: minimum widths adjusted (Configuration: 1040 pt, Patchbay: 1200 pt)\nDevice name labels (MarqueeText): fade gradient repositioned for more visible text; scroll distance now computed after layout stabilises\nSecondary “Cancel” buttons in all confirmation sheets now use the standard bordered style for better affordance\nSupport panel: non-blocking prompt shown periodically after Jack starts — option to support the project on Buy Me a Coffee, be reminded later, or dismiss permanently\n\n\n\nFixed\n\nPhysical device detection: CoreAudio UIDs with stream index suffixes (:2, :3…) are now normalised — prevents false positives when the same physical device exposes multiple streams\nClock Drift Correction toggle: the info button’s hit area no longer overlaps the toggle",
+    "section": "[1.9.8] · 2026-04-13",
+    "text": "[1.9.8] · 2026-04-13\n\nImproved\n\nSidebar: width increased to 245 pt; studio names display without truncation\nStudio list row: reorganised as [icon][name][delete][info][▶] (start button always rightmost)\nMain window: minimum widths adjusted (Configuration: 1040 pt, Patchbay: 1200 pt)\nDevice name labels (MarqueeText): fade gradient repositioned for more visible text; scroll distance now computed after layout stabilises\nSecondary “Cancel” buttons in all confirmation sheets now use the standard bordered style for better affordance\nSupport panel: non-blocking prompt shown periodically after Jack starts; option to support the project on Buy Me a Coffee, be reminded later, or dismiss permanently\n\n\n\nFixed\n\nPhysical device detection: CoreAudio UIDs with stream index suffixes (:2, :3…) are now normalised, which prevents false positives when the same physical device exposes multiple streams\nClock Drift Correction toggle: the info button’s hit area no longer overlaps the toggle",
     "crumbs": [
       "Home",
       "Reference",
@@ -742,8 +742,8 @@
     "objectID": "changelog.html#section-3",
     "href": "changelog.html#section-3",
     "title": "Changelog",
-    "section": "[1.9.7] — 2026-04-13",
-    "text": "[1.9.7] — 2026-04-13\n\nAdded\n\nAutomatic update check at launch (GitHub releases, 24h cache, silent on network failure)\nIn-place installation: DMG download, mount, atomic bundle replacement at current location, automatic relaunch via bash script\n“Update available” indicator in the menu bar (disabled while Jack is running)\nUpdate sheet: install path, admin password notice, Install / Later / Skip this version buttons\nLocalised TCC descriptions (FR/EN/DE/IT/ES) for Desktop / Documents / Downloads folder access\nDisabled in App Store builds (#if !APPSTORE)",
+    "section": "[1.9.7] · 2026-04-13",
+    "text": "[1.9.7] · 2026-04-13\n\nAdded\n\nAutomatic update check at launch (GitHub releases, 24h cache, silent on network failure)\nIn-place installation: DMG download, mount, atomic bundle replacement at current location, automatic relaunch via bash script\n“Update available” indicator in the menu bar (disabled while Jack is running)\nUpdate sheet: install path, admin password notice, Install / Later / Skip this version buttons\nLocalised TCC descriptions (FR/EN/DE/IT/ES) for Desktop / Documents / Downloads folder access\nDisabled in App Store builds (#if !APPSTORE)",
     "crumbs": [
       "Home",
       "Reference",
@@ -754,8 +754,8 @@
     "objectID": "changelog.html#section-4",
     "href": "changelog.html#section-4",
     "title": "Changelog",
-    "section": "[1.9.6] — 2026-04-12",
-    "text": "[1.9.6] — 2026-04-12\n\nImproved\n\nConfiguration — Clock drift correction: pulsing amber border + glow when the option is disabled with two distinct physical devices selected (animation stops as soon as Jack is running)\nConfiguration — Clock drift correction: ⓘ button to the left of the toggle — opens an explanatory sheet with a link to Audio MIDI Setup; pulses in amber in sync with the border",
+    "section": "[1.9.6] · 2026-04-12",
+    "text": "[1.9.6] · 2026-04-12\n\nImproved\n\nConfiguration (Clock drift correction): pulsing amber border + glow when the option is disabled with two distinct physical devices selected (animation stops as soon as Jack is running)\nConfiguration (Clock drift correction): ⓘ button to the left of the toggle, which opens an explanatory sheet with a link to Audio MIDI Setup; pulses in amber in sync with the border",
     "crumbs": [
       "Home",
       "Reference",
@@ -766,8 +766,8 @@
     "objectID": "changelog.html#section-5",
     "href": "changelog.html#section-5",
     "title": "Changelog",
-    "section": "[1.9.5] — 2026-04-12",
-    "text": "[1.9.5] — 2026-04-12\n\nImproved\n\nPatchbay — client card badge: hover effect (scale ×1.15 + coloured glow) and pointer cursor, making it visually clear that the badge is clickable",
+    "section": "[1.9.5] · 2026-04-12",
+    "text": "[1.9.5] · 2026-04-12\n\nImproved\n\nPatchbay (client card badge): hover effect (scale ×1.15 + coloured glow) and pointer cursor, making it visually clear that the badge is clickable",
     "crumbs": [
       "Home",
       "Reference",
@@ -778,8 +778,8 @@
     "objectID": "changelog.html#section-6",
     "href": "changelog.html#section-6",
     "title": "Changelog",
-    "section": "[1.9.4] — 2026-04-12",
-    "text": "[1.9.4] — 2026-04-12\n\nFixed\n\nPatchbay port labels: vertical alignment corrected — the optical centre of lowercase letters (“a”, “o”, “e”) now aligns with the gem centre, instead of the text baseline (midY - ascender + xHeight/2)\nPatchbay system card device names (free zone, single-line): same optical centering fix; multi-line block centering unchanged",
+    "section": "[1.9.4] · 2026-04-12",
+    "text": "[1.9.4] · 2026-04-12\n\nFixed\n\nPatchbay port labels: vertical alignment corrected, so the optical centre of lowercase letters (“a”, “o”, “e”) now aligns with the gem centre, instead of the text baseline (midY - ascender + xHeight/2)\nPatchbay system card device names (free zone, single-line): same optical centering fix; multi-line block centering unchanged",
     "crumbs": [
       "Home",
       "Reference",
@@ -790,8 +790,8 @@
     "objectID": "changelog.html#section-7",
     "href": "changelog.html#section-7",
     "title": "Changelog",
-    "section": "[1.9.3] — 2026-04-12",
-    "text": "[1.9.3] — 2026-04-12\n\nAdded\n\nAggregate warning sheet shown before Jack starts when the device selection will silently create a Jack aggregate: displays a patchbay-accurate preview of the resulting system (capture) / system (playback) cards, with per-device bracket bars and a “Don’t show again for this combination” option\nTriggered from the Start Jack button in both the main window and the menu bar — Jack only starts after user confirmation\nFrom the menu bar: shown in a floating NSPanel independent of the main window (works even when the main window is closed)",
+    "section": "[1.9.3] · 2026-04-12",
+    "text": "[1.9.3] · 2026-04-12\n\nAdded\n\nAggregate warning sheet shown before Jack starts when the device selection will silently create a Jack aggregate: displays a patchbay-accurate preview of the resulting system (capture) / system (playback) cards, with per-device bracket bars and a “Don’t show again for this combination” option\nTriggered from the Start Jack button in both the main window and the menu bar; Jack only starts after user confirmation\nFrom the menu bar: shown in a floating NSPanel independent of the main window (works even when the main window is closed)",
     "crumbs": [
       "Home",
       "Reference",
@@ -802,8 +802,8 @@
     "objectID": "changelog.html#section-8",
     "href": "changelog.html#section-8",
     "title": "Changelog",
-    "section": "[1.9.2] — 2026-04-11",
-    "text": "[1.9.2] — 2026-04-11\n\nFixed\n\nPatchbay system cards: device name labels and vertical bars overflowed the card boundary when the channel picker was limiting the number of ports exposed by Jack. Each segment is now clamped to the actually rendered port count.",
+    "section": "[1.9.2] · 2026-04-11",
+    "text": "[1.9.2] · 2026-04-11\n\nFixed\n\nPatchbay system cards: device name labels and vertical bars overflowed the card boundary when the channel picker was limiting the number of ports exposed by Jack. Each segment is now clamped to the actually rendered port count.",
     "crumbs": [
       "Home",
       "Reference",
@@ -814,8 +814,8 @@
     "objectID": "changelog.html#section-9",
     "href": "changelog.html#section-9",
     "title": "Changelog",
-    "section": "[1.9.1] — 2026-04-11",
-    "text": "[1.9.1] — 2026-04-11\n\nAdded\n\nStatus bar: “Aggregated by Jack” chip displayed between device names and sample rate when the device selection will cause Jack to silently create an aggregate device\nStatus bar: “Jack started externally” chip replaces device names when Jack is running but was not launched by JackMate (device info not accessible via Jack API)\nStatus bar: input/output channel counts now correctly sum both devices when Jack creates an aggregate (e.g. 4/4 ch out instead of 2/2 ch out)\nConfiguration: channel picker automatically disabled and reset when device selection triggers a Jack aggregate",
+    "section": "[1.9.1] · 2026-04-11",
+    "text": "[1.9.1] · 2026-04-11\n\nAdded\n\nStatus bar: “Aggregated by Jack” chip displayed between device names and sample rate when the device selection will cause Jack to silently create an aggregate device\nStatus bar: “Jack started externally” chip replaces device names when Jack is running but was not launched by JackMate (device info not accessible via Jack API)\nStatus bar: input/output channel counts now correctly sum both devices when Jack creates an aggregate (e.g. 4/4 ch out instead of 2/2 ch out)\nConfiguration: channel picker automatically disabled and reset when device selection triggers a Jack aggregate",
     "crumbs": [
       "Home",
       "Reference",
@@ -826,8 +826,8 @@
     "objectID": "changelog.html#section-10",
     "href": "changelog.html#section-10",
     "title": "Changelog",
-    "section": "[1.9.0] — 2026-04-11",
-    "text": "[1.9.0] — 2026-04-11\n\nAdded\n\nPatchbay system cards: hardware device names displayed in the free zone of each card (right-aligned for capture, left-aligned for playback); multi-line wrap when a segment has ≥ 2 ports\nPatchbay system cards: thin vertical bar on the centre divider marks the boundary between two hardware segments when Jack has created an aggregate device\nNode detail sheet (click on the coloured badge): shows one row per hardware device with its channel count when Jack was launched by JackMate; “Aggregated by Jack” badge when aggregate; falls back to previous behaviour otherwise",
+    "section": "[1.9.0] · 2026-04-11",
+    "text": "[1.9.0] · 2026-04-11\n\nAdded\n\nPatchbay system cards: hardware device names displayed in the free zone of each card (right-aligned for capture, left-aligned for playback); multi-line wrap when a segment has ≥ 2 ports\nPatchbay system cards: thin vertical bar on the centre divider marks the boundary between two hardware segments when Jack has created an aggregate device\nNode detail sheet (click on the coloured badge): shows one row per hardware device with its channel count when Jack was launched by JackMate; “Aggregated by Jack” badge when aggregate; falls back to previous behaviour otherwise",
     "crumbs": [
       "Home",
       "Reference",
@@ -838,8 +838,8 @@
     "objectID": "changelog.html#section-11",
     "href": "changelog.html#section-11",
     "title": "Changelog",
-    "section": "[1.8.9] — 2026-04-11",
-    "text": "[1.8.9] — 2026-04-11\n\nFixed\n\nDevices with non-ASCII characters in their UID (e.g. RØDE AI-Micro) were silently falling back to the default device: Jack 1.9.22 stores CoreAudio UIDs using MacRoman encoding instead of UTF-8, causing a mismatch when the correct UTF-8 UID is passed. Workaround: JackMate runs jackd -d coreaudio -l at startup and on device change, extracts the raw internal UIDs, and injects them via $(printf '\\xNN...') in the shell command. Self-healing: automatically disabled once Jack fixes the bug upstream (jackaudio/jack2#1017).\nJack UID table is now refreshed on CoreAudio device plug/unplug\nFixed false “Jack is running” detection while jackd -l enumeration was in progress",
+    "section": "[1.8.9] · 2026-04-11",
+    "text": "[1.8.9] · 2026-04-11\n\nFixed\n\nDevices with non-ASCII characters in their UID (e.g. RØDE AI-Micro) were silently falling back to the default device: Jack 1.9.22 stores CoreAudio UIDs using MacRoman encoding instead of UTF-8, causing a mismatch when the correct UTF-8 UID is passed. Workaround: JackMate runs jackd -d coreaudio -l at startup and on device change, extracts the raw internal UIDs, and injects them via $(printf '\\xNN...') in the shell command. Self-healing: automatically disabled once Jack fixes the bug upstream (jackaudio/jack2#1017).\nJack UID table is now refreshed on CoreAudio device plug/unplug\nFixed false “Jack is running” detection while jackd -l enumeration was in progress",
     "crumbs": [
       "Home",
       "Reference",
@@ -850,8 +850,8 @@
     "objectID": "changelog.html#section-12",
     "href": "changelog.html#section-12",
     "title": "Changelog",
-    "section": "[1.8.8] — 2026-04-10",
-    "text": "[1.8.8] — 2026-04-10\n\nFixed\n\nConfiguration panel: JMPopUpButton coordinator was stale after device plug/unplug, causing wrong device UID to be written to preferences\nbuildCommand: removed literal quote characters from UID tokens — Process.arguments passes strings directly to the executable without shell interpretation; literal quotes corrupted UIDs containing spaces or non-ASCII characters (e.g. RØDE AI-Micro)\ncommandPreview: UIDs containing spaces are now correctly wrapped in double quotes for display only",
+    "section": "[1.8.8] · 2026-04-10",
+    "text": "[1.8.8] · 2026-04-10\n\nFixed\n\nConfiguration panel: JMPopUpButton coordinator was stale after device plug/unplug, causing wrong device UID to be written to preferences\nbuildCommand: removed literal quote characters from UID tokens: Process.arguments passes strings directly to the executable without shell interpretation; literal quotes corrupted UIDs containing spaces or non-ASCII characters (e.g. RØDE AI-Micro)\ncommandPreview: UIDs containing spaces are now correctly wrapped in double quotes for display only",
     "crumbs": [
       "Home",
       "Reference",
@@ -862,8 +862,8 @@
     "objectID": "changelog.html#section-13",
     "href": "changelog.html#section-13",
     "title": "Changelog",
-    "section": "[1.8.7] — 2026-04-07",
-    "text": "[1.8.7] — 2026-04-07\n\nChanged\n\nMinimum macOS version: 15.0 (all Sequoia versions, Intel and Apple Silicon)\n\n\n\nFixed\n\nHelp menu: removed default “JackMate Help” item (was pointing to a non-existent help book)",
+    "section": "[1.8.7] · 2026-04-07",
+    "text": "[1.8.7] · 2026-04-07\n\nChanged\n\nMinimum macOS version: 15.0 (all Sequoia versions, Intel and Apple Silicon)\n\n\n\nFixed\n\nHelp menu: removed default “JackMate Help” item (was pointing to a non-existent help book)",
     "crumbs": [
       "Home",
       "Reference",
@@ -874,8 +874,8 @@
     "objectID": "changelog.html#section-14",
     "href": "changelog.html#section-14",
     "title": "Changelog",
-    "section": "[1.8.6] — 2026-04-07",
-    "text": "[1.8.6] — 2026-04-07\n\nChanged\n\nHelp menu Documentation link now points to https://zinc75.github.io/JackMate/",
+    "section": "[1.8.6] · 2026-04-07",
+    "text": "[1.8.6] · 2026-04-07\n\nChanged\n\nHelp menu Documentation link now points to https://zinc75.github.io/JackMate/",
     "crumbs": [
       "Home",
       "Reference",
@@ -886,8 +886,8 @@
     "objectID": "changelog.html#infra-2026-04-07",
     "href": "changelog.html#infra-2026-04-07",
     "title": "Changelog",
-    "section": "[infra] — 2026-04-07",
-    "text": "[infra] — 2026-04-07\n\nDocumentation\n\nFull Quarto documentation site: home page + 6 guide pages (Configuration, Patchbay, Studios, Transport, Menu Bar, Alternatives)\nPublished via gh-pages branch — available at zinc75.github.io/JackMate once GitHub Pages is activated",
+    "section": "[infra] · 2026-04-07",
+    "text": "[infra] · 2026-04-07\n\nDocumentation\n\nFull Quarto documentation site: home page + 6 guide pages (Configuration, Patchbay, Studios, Transport, Menu Bar, Alternatives)\nPublished via gh-pages branch, available at zinc75.github.io/JackMate once GitHub Pages is activated",
     "crumbs": [
       "Home",
       "Reference",
@@ -898,8 +898,8 @@
     "objectID": "changelog.html#section-15",
     "href": "changelog.html#section-15",
     "title": "Changelog",
-    "section": "[1.8.5] — 2026-04-04",
-    "text": "[1.8.5] — 2026-04-04\n\nAdded\n\nFull Spanish (ES) translation: 251/261 keys in Localizable.xcstrings (10 remaining are empty technical literal keys with no translatable content)\nes.lproj/InfoPlist.strings: NSMicrophoneUsageDescription localised in ES",
+    "section": "[1.8.5] · 2026-04-04",
+    "text": "[1.8.5] · 2026-04-04\n\nAdded\n\nFull Spanish (ES) translation: 251/261 keys in Localizable.xcstrings (10 remaining are empty technical literal keys with no translatable content)\nes.lproj/InfoPlist.strings: NSMicrophoneUsageDescription localised in ES",
     "crumbs": [
       "Home",
       "Reference",
@@ -910,8 +910,8 @@
     "objectID": "changelog.html#section-16",
     "href": "changelog.html#section-16",
     "title": "Changelog",
-    "section": "[1.8.4] — 2026-04-03",
-    "text": "[1.8.4] — 2026-04-03\n\nAdded\n\nFull Italian (IT) translation: 248/261 keys in Localizable.xcstrings (13 remaining are empty technical literal keys with no translatable content)\nit.lproj/InfoPlist.strings: NSMicrophoneUsageDescription localised in IT\nStructural fix: added fr source value to organiser, %lld hors vue, auto-launch keys (missing value caused them to be skipped in future language exports)",
+    "section": "[1.8.4] · 2026-04-03",
+    "text": "[1.8.4] · 2026-04-03\n\nAdded\n\nFull Italian (IT) translation: 248/261 keys in Localizable.xcstrings (13 remaining are empty technical literal keys with no translatable content)\nit.lproj/InfoPlist.strings: NSMicrophoneUsageDescription localised in IT\nStructural fix: added fr source value to organiser, %lld hors vue, auto-launch keys (missing value caused them to be skipped in future language exports)",
     "crumbs": [
       "Home",
       "Reference",
@@ -922,8 +922,8 @@
     "objectID": "changelog.html#section-17",
     "href": "changelog.html#section-17",
     "title": "Changelog",
-    "section": "[1.8.3] — 2026-04-03",
-    "text": "[1.8.3] — 2026-04-03\n\nRefactored\n\nJackState enum introduced (ready, starting, running, external, startFailed, stopping, stopped, stoppedExternal, alreadyRunning, executableNotFound)\nTransitional state detection in MenuBarView and ContentView moved from statusMessage.contains(\"💈\") to jackState == .starting || .stopping\nEmoji prefixes 💈 / 💨 removed from jack.status.* strings in Localizable.xcstrings (FR, EN, DE)",
+    "section": "[1.8.3] · 2026-04-03",
+    "text": "[1.8.3] · 2026-04-03\n\nRefactored\n\nJackState enum introduced (ready, starting, running, external, startFailed, stopping, stopped, stoppedExternal, alreadyRunning, executableNotFound)\nTransitional state detection in MenuBarView and ContentView moved from statusMessage.contains(\"💈\") to jackState == .starting || .stopping\nEmoji prefixes 💈 / 💨 removed from jack.status.* strings in Localizable.xcstrings (FR, EN, DE)",
     "crumbs": [
       "Home",
       "Reference",
@@ -934,8 +934,8 @@
     "objectID": "changelog.html#section-18",
     "href": "changelog.html#section-18",
     "title": "Changelog",
-    "section": "[1.8.2] — 2026-04-03",
-    "text": "[1.8.2] — 2026-04-03\n\nAdded\n\nFull German (DE) translation: 249/262 keys in Localizable.xcstrings (13 remaining are empty technical literal keys with no translatable content)\n%lld hors vue: EN (%lld out of view) and DE (%lld außerhalb des Sichtbereichs) translations added\nde.lproj/InfoPlist.strings: NSMicrophoneUsageDescription already present in DE\n\n\n\nFixed\n\nJackBridge.c: last 3 French error messages translated to English (\"Missing symbol\", \"libjack.dylib not found\", \"Null client\")\nHog mode and Clock drift correction labels kept in English for DE (standard audio terminology)",
+    "section": "[1.8.2] · 2026-04-03",
+    "text": "[1.8.2] · 2026-04-03\n\nAdded\n\nFull German (DE) translation: 249/262 keys in Localizable.xcstrings (13 remaining are empty technical literal keys with no translatable content)\n%lld hors vue: EN (%lld out of view) and DE (%lld außerhalb des Sichtbereichs) translations added\nde.lproj/InfoPlist.strings: NSMicrophoneUsageDescription already present in DE\n\n\n\nFixed\n\nJackBridge.c: last 3 French error messages translated to English (\"Missing symbol\", \"libjack.dylib not found\", \"Null client\")\nHog mode and Clock drift correction labels kept in English for DE (standard audio terminology)",
     "crumbs": [
       "Home",
       "Reference",
@@ -946,8 +946,8 @@
     "objectID": "changelog.html#section-19",
     "href": "changelog.html#section-19",
     "title": "Changelog",
-    "section": "[1.8.1] — 2026-04-03",
-    "text": "[1.8.1] — 2026-04-03\n\nAdded\n\nFull English translation: 100% of UI strings translated (262 keys in Localizable.xcstrings)\nInfoPlist.xcstrings: localized NSMicrophoneUsageDescription (EN + FR)\nProper plural forms for selection count (canvas.selection.count): “1 client selected” / “N clients selected”\n\n\n\nChanged\n\nconfig.hog_mode.description EN: “Takes exclusive access of the audio device” (aligned with Jack man page)\nError message in Jack bridge translated to English\nstatusMessage default value and StudioManager.summary now properly localized",
+    "section": "[1.8.1] · 2026-04-03",
+    "text": "[1.8.1] · 2026-04-03\n\nAdded\n\nFull English translation: 100% of UI strings translated (262 keys in Localizable.xcstrings)\nInfoPlist.xcstrings: localized NSMicrophoneUsageDescription (EN + FR)\nProper plural forms for selection count (canvas.selection.count): “1 client selected” / “N clients selected”\n\n\n\nChanged\n\nconfig.hog_mode.description EN: “Takes exclusive access of the audio device” (aligned with Jack man page)\nError message in Jack bridge translated to English\nstatusMessage default value and StudioManager.summary now properly localized",
     "crumbs": [
       "Home",
       "Reference",
@@ -958,8 +958,8 @@
     "objectID": "changelog.html#section-20",
     "href": "changelog.html#section-20",
     "title": "Changelog",
-    "section": "[1.8.0] — 2026-04-02",
-    "text": "[1.8.0] — 2026-04-02\n\nAdded\n\nFull i18n infrastructure: all UI strings externalized into Localizable.xcstrings (~272 keys), source language French\nString(localized:) / Text(\"key\") applied across the entire codebase (JackMateApp, NotificationManager, MenuBarView, TransportBarView, JackNotInstalledView, ConnectAllSheet, JackManager, JackBridgeWrapper, PatchbayView, PatchbayManager, StudioManager, ContentView)\nKey naming convention: vue.composant.etat snake_case, shared keys under common.*\nDistribution build pipeline updated: sync_to_distribution.sh copies Localizable.xcstrings; build.sh compiles it to per-language Localizable.strings at build time (step [4/6])",
+    "section": "[1.8.0] · 2026-04-02",
+    "text": "[1.8.0] · 2026-04-02\n\nAdded\n\nFull i18n infrastructure: all UI strings externalized into Localizable.xcstrings (~272 keys), source language French\nString(localized:) / Text(\"key\") applied across the entire codebase (JackMateApp, NotificationManager, MenuBarView, TransportBarView, JackNotInstalledView, ConnectAllSheet, JackManager, JackBridgeWrapper, PatchbayView, PatchbayManager, StudioManager, ContentView)\nKey naming convention: vue.composant.etat snake_case, shared keys under common.*\nDistribution build pipeline updated: sync_to_distribution.sh copies Localizable.xcstrings; build.sh compiles it to per-language Localizable.strings at build time (step [4/6])",
     "crumbs": [
       "Home",
       "Reference",
@@ -970,8 +970,8 @@
     "objectID": "changelog.html#section-21",
     "href": "changelog.html#section-21",
     "title": "Changelog",
-    "section": "[1.7.4] — 2026-03-28",
-    "text": "[1.7.4] — 2026-03-28\n\nFixed\n\nPatchbay client info sheet (click on the 2-letter badge): CLI clients (jack_metro, a2jmidid, etc.) are not visible to NSWorkspace — added fallback via ProcessHelper.findPID(forJackClient:) to display their executable path, full command line, and PID",
+    "section": "[1.7.4] · 2026-03-28",
+    "text": "[1.7.4] · 2026-03-28\n\nFixed\n\nPatchbay client info sheet (click on the 2-letter badge): CLI clients (jack_metro, a2jmidid, etc.) are not visible to NSWorkspace; added a fallback via ProcessHelper.findPID(forJackClient:) to display their executable path, full command line, and PID",
     "crumbs": [
       "Home",
       "Reference",
@@ -982,8 +982,8 @@
     "objectID": "changelog.html#section-22",
     "href": "changelog.html#section-22",
     "title": "Changelog",
-    "section": "[1.7.3] — 2026-03-28",
-    "text": "[1.7.3] — 2026-03-28\n\nFixed\n\nPatchbay client names empty in Release build: String(cString:) moved inside withUnsafeBytes closures in getPorts() and getConnections() — the C pointer is only valid for the duration of the closure; using it after the closure returns is undefined behaviour exploited by the Release optimizer\nPatchbayManager: bridge property now captured explicitly on the main actor before dispatching to background queues — prevents a @MainActor property access from a nonisolated context in Release builds\nwindowShouldClose annotated @MainActor for compatibility with command-line builds\n\n\n\nBuild\n\nbuild.sh: animated progress spinner (braille) on each compilation step, ✓ checkmark on completion\nbuild.sh: actool output cleaned up — system-level dyld noise suppressed, XML summary hidden, real warnings still surfaced",
+    "section": "[1.7.3] · 2026-03-28",
+    "text": "[1.7.3] · 2026-03-28\n\nFixed\n\nPatchbay client names empty in Release build: String(cString:) moved inside withUnsafeBytes closures in getPorts() and getConnections(): the C pointer is only valid for the duration of the closure; using it after the closure returns is undefined behaviour exploited by the Release optimizer\nPatchbayManager: bridge property now captured explicitly on the main actor before dispatching to background queues, which prevents a @MainActor property access from a nonisolated context in Release builds\nwindowShouldClose annotated @MainActor for compatibility with command-line builds\n\n\n\nBuild\n\nbuild.sh: animated progress spinner (braille) on each compilation step, ✓ checkmark on completion\nbuild.sh: actool output cleaned up: system-level dyld noise suppressed, XML summary hidden, real warnings still surfaced",
     "crumbs": [
       "Home",
       "Reference",
@@ -994,8 +994,8 @@
     "objectID": "changelog.html#section-23",
     "href": "changelog.html#section-23",
     "title": "Changelog",
-    "section": "[1.7.2] — 2026-03-27",
-    "text": "[1.7.2] — 2026-03-27\n\nDocumentation\n\nEnglish /// docstrings added to all public and internal types, properties, and methods across the entire codebase\nAll // and /// code comments translated to English (UI strings unchanged)\nFiles covered: ContentView.swift, Patchbayview.swift, Patchbaymanager.swift, JackBridgeWrapper.swift, JackBridge.c/h, Studiomanager.swift, JackManager.swift, ConnectAllSheet.swift, CoreAudioManager.swift, MenuBarView.swift, TransportBarView.swift, TransportObserver.swift, NotificationManager.swift, JackMateApp.swift, WindowDelegate.swift, Theme.swift, JackNotInstalledView.swift, ProcessHelper.swift",
+    "section": "[1.7.2] · 2026-03-27",
+    "text": "[1.7.2] · 2026-03-27\n\nDocumentation\n\nEnglish /// docstrings added to all public and internal types, properties, and methods across the entire codebase\nAll // and /// code comments translated to English (UI strings unchanged)\nFiles covered: ContentView.swift, Patchbayview.swift, Patchbaymanager.swift, JackBridgeWrapper.swift, JackBridge.c/h, Studiomanager.swift, JackManager.swift, ConnectAllSheet.swift, CoreAudioManager.swift, MenuBarView.swift, TransportBarView.swift, TransportObserver.swift, NotificationManager.swift, JackMateApp.swift, WindowDelegate.swift, Theme.swift, JackNotInstalledView.swift, ProcessHelper.swift",
     "crumbs": [
       "Home",
       "Reference",
@@ -1006,8 +1006,8 @@
     "objectID": "changelog.html#section-24",
     "href": "changelog.html#section-24",
     "title": "Changelog",
-    "section": "[1.7.1] — 2026-03-27",
-    "text": "[1.7.1] — 2026-03-27\n\nAdded\n\nParsing of the installed Jack version via jackd --version\nGitHub API call (jackaudio/jack2-releases) with 24h UserDefaults cache\nVersion badge in the Configuration header: green ✓ if up to date, clickable amber ↑ if an update is available\nSemantic version comparison (major.minor.patch), silent if no network or Jack is absent",
+    "section": "[1.7.1] · 2026-03-27",
+    "text": "[1.7.1] · 2026-03-27\n\nAdded\n\nParsing of the installed Jack version via jackd --version\nGitHub API call (jackaudio/jack2-releases) with 24h UserDefaults cache\nVersion badge in the Configuration header: green ✓ if up to date, clickable amber ↑ if an update is available\nSemantic version comparison (major.minor.patch), silent if no network or Jack is absent",
     "crumbs": [
       "Home",
       "Reference",
@@ -1018,8 +1018,8 @@
     "objectID": "changelog.html#section-25",
     "href": "changelog.html#section-25",
     "title": "Changelog",
-    "section": "[1.7.0] — 2026-03-27",
-    "text": "[1.7.0] — 2026-03-27\n\nAdded\n\nJack detection at launch and on every app reactivation: jackInstalled, recheckInstallation()\nJackNotInstalledView modal: installation helper with Homebrew or .pkg choice, copyable command, and colored glow on the command block\nGenerated command block adapts its title and content to installation state and chosen method\nStart Jack button and studio loading grayed out / disabled when Jack is absent\nAutomatic re-display of the modal when opening the window from the menu bar (custom mainWindowDidOpen notification)",
+    "section": "[1.7.0] · 2026-03-27",
+    "text": "[1.7.0] · 2026-03-27\n\nAdded\n\nJack detection at launch and on every app reactivation: jackInstalled, recheckInstallation()\nJackNotInstalledView modal: installation helper with Homebrew or .pkg choice, copyable command, and colored glow on the command block\nGenerated command block adapts its title and content to installation state and chosen method\nStart Jack button and studio loading grayed out / disabled when Jack is absent\nAutomatic re-display of the modal when opening the window from the menu bar (custom mainWindowDidOpen notification)",
     "crumbs": [
       "Home",
       "Reference",
@@ -1030,8 +1030,8 @@
     "objectID": "changelog.html#section-26",
     "href": "changelog.html#section-26",
     "title": "Changelog",
-    "section": "[1.6.2] — 2026-03-27",
-    "text": "[1.6.2] — 2026-03-27\n\nAdded\n\nCustom About panel (SwiftUI NSPanel): app icon, version/build, copyright, MIT licence, GitHub and Buy Me a Coffee links\nServices menu removed\nView menu: ⌘1 Configuration / ⌘2 Patchbay navigation\nHelp menu: link to JackMate documentation\nMinimum Configuration window height raised to 880×800",
+    "section": "[1.6.2] · 2026-03-27",
+    "text": "[1.6.2] · 2026-03-27\n\nAdded\n\nCustom About panel (SwiftUI NSPanel): app icon, version/build, copyright, MIT licence, GitHub and Buy Me a Coffee links\nServices menu removed\nView menu: ⌘1 Configuration / ⌘2 Patchbay navigation\nHelp menu: link to JackMate documentation\nMinimum Configuration window height raised to 880×800",
     "crumbs": [
       "Home",
       "Reference",
@@ -1042,8 +1042,8 @@
     "objectID": "changelog.html#section-27",
     "href": "changelog.html#section-27",
     "title": "Changelog",
-    "section": "[1.6.1] — 2026-03-27",
-    "text": "[1.6.1] — 2026-03-27\n\nAdded\n\nNSAlert (with “Don’t show again” checkbox) when selecting an aggregate device — suggests configuring clock sync in Audio MIDI Setup, with a direct Open button\nNSAlert (with “Don’t show again” checkbox) when enabling Clock drift correction — suggests the macOS aggregate device as an alternative\nClock drift correction toggle grayed out and forced to false when input and output are the same physical hardware (same UID, or two built-in devices)",
+    "section": "[1.6.1] · 2026-03-27",
+    "text": "[1.6.1] · 2026-03-27\n\nAdded\n\nNSAlert (with “Don’t show again” checkbox) when selecting an aggregate device: suggests configuring clock sync in Audio MIDI Setup, with a direct Open button\nNSAlert (with “Don’t show again” checkbox) when enabling Clock drift correction: suggests the macOS aggregate device as an alternative\nClock drift correction toggle grayed out and forced to false when input and output are the same physical hardware (same UID, or two built-in devices)",
     "crumbs": [
       "Home",
       "Reference",
@@ -1054,8 +1054,8 @@
     "objectID": "changelog.html#section-28",
     "href": "changelog.html#section-28",
     "title": "Changelog",
-    "section": "[1.6.0] — 2026-03-27",
-    "text": "[1.6.0] — 2026-03-27\n\nAdded\n\nAggregate device constraint: if an aggregate device is selected on input or output, the other side is automatically forced to the same device\nisBuiltIn: Bool added to AudioDeviceInfo (built-in transport detection)",
+    "section": "[1.6.0] · 2026-03-27",
+    "text": "[1.6.0] · 2026-03-27\n\nAdded\n\nAggregate device constraint: if an aggregate device is selected on input or output, the other side is automatically forced to the same device\nisBuiltIn: Bool added to AudioDeviceInfo (built-in transport detection)",
     "crumbs": [
       "Home",
       "Reference",
@@ -1066,8 +1066,8 @@
     "objectID": "changelog.html#section-29",
     "href": "changelog.html#section-29",
     "title": "Changelog",
-    "section": "[1.5.1] — 2026-03-27",
-    "text": "[1.5.1] — 2026-03-27\n\nFixed\n\nXrun counter automatically reset to zero on Jack stop and start (voluntary stop, crash, or external cause)",
+    "section": "[1.5.1] · 2026-03-27",
+    "text": "[1.5.1] · 2026-03-27\n\nFixed\n\nXrun counter automatically reset to zero on Jack stop and start (voluntary stop, crash, or external cause)",
     "crumbs": [
       "Home",
       "Reference",
@@ -1078,8 +1078,8 @@
     "objectID": "changelog.html#section-30",
     "href": "changelog.html#section-30",
     "title": "Changelog",
-    "section": "[1.5.0] — 2026-03-27",
-    "text": "[1.5.0] — 2026-03-27\n\nAdded\n\nExplicit input/output channel selection via LED picker (--input-list / --output-list)\nSheet modal with numbered clickable LED rows, green glow on active channels\nMinimum 1 active channel guaranteed, reset to all channels on each toggle activation\nFooter: permanent channel chips (N/Nmax ch with selected range details)\nJackSnapshot extended: limitChannels, selectedInChannels, selectedOutChannels — backward-compatible JSON",
+    "section": "[1.5.0] · 2026-03-27",
+    "text": "[1.5.0] · 2026-03-27\n\nAdded\n\nExplicit input/output channel selection via LED picker (--input-list / --output-list)\nSheet modal with numbered clickable LED rows, green glow on active channels\nMinimum 1 active channel guaranteed, reset to all channels on each toggle activation\nFooter: permanent channel chips (N/Nmax ch with selected range details)\nJackSnapshot extended: limitChannels, selectedInChannels, selectedOutChannels (backward-compatible JSON)",
     "crumbs": [
       "Home",
       "Reference",
@@ -1090,8 +1090,8 @@
     "objectID": "changelog.html#section-31",
     "href": "changelog.html#section-31",
     "title": "Changelog",
-    "section": "[1.4.1] — 2026-03-27",
-    "text": "[1.4.1] — 2026-03-27\n\nFixed\n\nMIDI (coremidi) toggle grayed out and disabled — experimental option causing instabilities",
+    "section": "[1.4.1] · 2026-03-27",
+    "text": "[1.4.1] · 2026-03-27\n\nFixed\n\nMIDI (coremidi) toggle grayed out and disabled (experimental option causing instabilities)",
     "crumbs": [
       "Home",
       "Reference",
@@ -1102,8 +1102,8 @@
     "objectID": "changelog.html#section-32",
     "href": "changelog.html#section-32",
     "title": "Changelog",
-    "section": "[1.4.0] — 2026-03-27",
-    "text": "[1.4.0] — 2026-03-27\n\nAdded\n\n“Audio MIDI Setup” button in the Configuration toolbar (left of the terminal icon) — opens the native macOS Audio MIDI Setup app, pianokeys icon, tooltip on hover\nMinimum Patchbay view width raised to 1100px",
+    "section": "[1.4.0] · 2026-03-27",
+    "text": "[1.4.0] · 2026-03-27\n\nAdded\n\n“Audio MIDI Setup” button in the Configuration toolbar (left of the terminal icon): opens the native macOS Audio MIDI Setup app, pianokeys icon, tooltip on hover\nMinimum Patchbay view width raised to 1100px",
     "crumbs": [
       "Home",
       "Reference",
@@ -1114,8 +1114,8 @@
     "objectID": "changelog.html#section-33",
     "href": "changelog.html#section-33",
     "title": "Changelog",
-    "section": "[1.3.1] — 2026-03-27",
-    "text": "[1.3.1] — 2026-03-27\n\nFixed\n\nAppearance forced to dark mode (NSApp.appearance = .darkAqua) — sidebar, log, and menubar popover stable in macOS Light mode\nLog panel: semi-transparent background via SwiftUI opacity (VisualEffectView incompatible with ZStack overlay)\nMenu bar info icons switched to monochrome",
+    "section": "[1.3.1] · 2026-03-27",
+    "text": "[1.3.1] · 2026-03-27\n\nFixed\n\nAppearance forced to dark mode (NSApp.appearance = .darkAqua): sidebar, log, and menubar popover stable in macOS Light mode\nLog panel: semi-transparent background via SwiftUI opacity (VisualEffectView incompatible with ZStack overlay)\nMenu bar info icons switched to monochrome",
     "crumbs": [
       "Home",
       "Reference",
@@ -1126,8 +1126,8 @@
     "objectID": "changelog.html#section-34",
     "href": "changelog.html#section-34",
     "title": "Changelog",
-    "section": "[1.3.0] — 2026-03-27",
-    "text": "[1.3.0] — 2026-03-27\n\nAdded\n\nDetection of CLI Jack clients by scanning the process table (proc_listallpids + proc_pidpath + sysctl KERN_PROCARGS2)\nProcessHelper: new file — findPID(forJackClient:), commandLine(for:), executablePath(for:), terminate(pid:)\nAutomatic save of CLI client launch commands in the studio JSON at buildStudio()\nAutomatic relaunch of CLI clients when loading a studio\nterminateAllJackClients(): closes all Jack clients (GUI via NSWorkspace + CLI via PID scan)\nstopJackGracefully(): SIGTERM → 3s delay → SIGKILL → stopJack (correct order)\nsuppressJackStopCleanup flag to avoid double-kill during a studio load with Jack restart\n\n\n\nChanged\n\n“Stop Jack” button (interface, menu bar, JackMateApp) now uses stopJackGracefully() everywhere\nStop Studio now also closes CLI clients",
+    "section": "[1.3.0] · 2026-03-27",
+    "text": "[1.3.0] · 2026-03-27\n\nAdded\n\nDetection of CLI Jack clients by scanning the process table (proc_listallpids + proc_pidpath + sysctl KERN_PROCARGS2)\nProcessHelper: new file with findPID(forJackClient:), commandLine(for:), executablePath(for:), terminate(pid:)\nAutomatic save of CLI client launch commands in the studio JSON at buildStudio()\nAutomatic relaunch of CLI clients when loading a studio\nterminateAllJackClients(): closes all Jack clients (GUI via NSWorkspace + CLI via PID scan)\nstopJackGracefully(): SIGTERM → 3s delay → SIGKILL → stopJack (correct order)\nsuppressJackStopCleanup flag to avoid double-kill during a studio load with Jack restart\n\n\n\nChanged\n\n“Stop Jack” button (interface, menu bar, JackMateApp) now uses stopJackGracefully() everywhere\nStop Studio now also closes CLI clients",
     "crumbs": [
       "Home",
       "Reference",
@@ -1138,8 +1138,8 @@
     "objectID": "changelog.html#section-35",
     "href": "changelog.html#section-35",
     "title": "Changelog",
-    "section": "[1.2.0] — 2026-03-26",
-    "text": "[1.2.0] — 2026-03-26\n\nAdded\n\nFull Jack command comparison on studio load (all parameters, options, devices) — order-independent token comparison\nClosure of ALL clients (GUI + CLI from the studio) before loading a new studio\nJack restart only if configuration differs or Jack was started outside JackMate\n1.5s delay between stop and start Jack to allow system resource release\nStudio loading progress modal with auto-close\nStudioManager.cliProcesses: tracking of processes launched by launchCLI()\nJackSnapshot extended: hogMode, clockDrift, midiEnabled with backward-compatible decoding\n\n\n\nFixed\n\nStudios saved with older JSON versions still readable (decodeIfPresent + default values)\nRace condition: isRunning forced to false before startJack() to prevent guard deadlock",
+    "section": "[1.2.0] · 2026-03-26",
+    "text": "[1.2.0] · 2026-03-26\n\nAdded\n\nFull Jack command comparison on studio load (all parameters, options, devices), order-independent token comparison\nClosure of ALL clients (GUI + CLI from the studio) before loading a new studio\nJack restart only if configuration differs or Jack was started outside JackMate\n1.5s delay between stop and start Jack to allow system resource release\nStudio loading progress modal with auto-close\nStudioManager.cliProcesses: tracking of processes launched by launchCLI()\nJackSnapshot extended: hogMode, clockDrift, midiEnabled with backward-compatible decoding\n\n\n\nFixed\n\nStudios saved with older JSON versions still readable (decodeIfPresent + default values)\nRace condition: isRunning forced to false before startJack() to prevent guard deadlock",
     "crumbs": [
       "Home",
       "Reference",
@@ -1150,8 +1150,8 @@
     "objectID": "changelog.html#section-36",
     "href": "changelog.html#section-36",
     "title": "Changelog",
-    "section": "[1.1.0] — 2026-03-26",
-    "text": "[1.1.0] — 2026-03-26\n\nAdded\n\nReal executable name displayed in the generated command (jackd or jackdmp depending on installation)\nSubtle copy button with animated checkmark feedback",
+    "section": "[1.1.0] · 2026-03-26",
+    "text": "[1.1.0] · 2026-03-26\n\nAdded\n\nReal executable name displayed in the generated command (jackd or jackdmp depending on installation)\nSubtle copy button with animated checkmark feedback",
     "crumbs": [
       "Home",
       "Reference",
@@ -1162,8 +1162,8 @@
     "objectID": "changelog.html#section-37",
     "href": "changelog.html#section-37",
     "title": "Changelog",
-    "section": "[1.0.0] — 2026-03-26",
-    "text": "[1.0.0] — 2026-03-26\n\nFixed / Stabilized\n\nFixed patchbay reconnection bug after Stop/Start Jack (root cause: Jack 1.9.11 → updated to 1.9.22)\nDefensive Combine/retry improvements retained as a safety net\n.removeDuplicates() on $isRunning, retryConnectTask, handleJackStopped() unified",
+    "section": "[1.0.0] · 2026-03-26",
+    "text": "[1.0.0] · 2026-03-26\n\nFixed / Stabilized\n\nFixed patchbay reconnection bug after Stop/Start Jack (root cause: Jack 1.9.11 → updated to 1.9.22)\nDefensive Combine/retry improvements retained as a safety net\n.removeDuplicates() on $isRunning, retryConnectTask, handleJackStopped() unified",
     "crumbs": [
       "Home",
       "Reference",
@@ -1174,8 +1174,8 @@
     "objectID": "changelog.html#section-38",
     "href": "changelog.html#section-38",
     "title": "Changelog",
-    "section": "[0.9.0] — 2026-03-23",
-    "text": "[0.9.0] — 2026-03-23\n\nAdded — JACK Transport\n\nTransport bar: Play / Pause / Stop / Seek\nBBT, HMS, Frames display\nTimebase master, BPM\nC bridge + Swift wrapper + transport state polling",
+    "section": "[0.9.0] · 2026-03-23",
+    "text": "[0.9.0] · 2026-03-23\n\nAdded: JACK Transport\n\nTransport bar: Play / Pause / Stop / Seek\nBBT, HMS, Frames display\nTimebase master, BPM\nC bridge + Swift wrapper + transport state polling",
     "crumbs": [
       "Home",
       "Reference",
@@ -1186,8 +1186,8 @@
     "objectID": "changelog.html#section-39",
     "href": "changelog.html#section-39",
     "title": "Changelog",
-    "section": "[0.8.0] — 2026-03-23",
-    "text": "[0.8.0] — 2026-03-23\n\nAdded — Group drag & advanced selection\n\nGroup drag: selected clients move together\nMulti-selection: Shift+click, ⌘A\nSelection badge on collapse/expand button\nActionable selection overlay\nOut-of-view node indicators with direction arrows\n100% zoom reset (toolbar button + double-tap)",
+    "section": "[0.8.0] · 2026-03-23",
+    "text": "[0.8.0] · 2026-03-23\n\nAdded: Group drag & advanced selection\n\nGroup drag: selected clients move together\nMulti-selection: Shift+click, ⌘A\nSelection badge on collapse/expand button\nActionable selection overlay\nOut-of-view node indicators with direction arrows\n100% zoom reset (toolbar button + double-tap)",
     "crumbs": [
       "Home",
       "Reference",
@@ -1198,8 +1198,8 @@
     "objectID": "changelog.html#section-40",
     "href": "changelog.html#section-40",
     "title": "Changelog",
-    "section": "[0.7.0] — 2026-03-22",
-    "text": "[0.7.0] — 2026-03-22\n\nAdded — Toolbar, Connect-All, automatic layout (Sugiyama)\n\nAutomatic patchbay node layout (Sugiyama algorithm)\nPartial tidy selection (Shift+click)\nConnect-All: bulk connection between two clients\nPatchbay-accurate canvas preview in ConnectAllSheet\nUnified 40px toolbar, mass collapse/expand\nRepositioning toast, homogenized overlays",
+    "section": "[0.7.0] · 2026-03-22",
+    "text": "[0.7.0] · 2026-03-22\n\nAdded: Toolbar, Connect-All, automatic layout (Sugiyama)\n\nAutomatic patchbay node layout (Sugiyama algorithm)\nPartial tidy selection (Shift+click)\nConnect-All: bulk connection between two clients\nPatchbay-accurate canvas preview in ConnectAllSheet\nUnified 40px toolbar, mass collapse/expand\nRepositioning toast, homogenized overlays",
     "crumbs": [
       "Home",
       "Reference",
@@ -1210,8 +1210,8 @@
     "objectID": "changelog.html#section-41",
     "href": "changelog.html#section-41",
     "title": "Changelog",
-    "section": "[0.6.0] — 2026-03-22",
-    "text": "[0.6.0] — 2026-03-22\n\nAdded — Visual polish + node collapse\n\nNode collapse/expand, meta-cables\nPort pills on hover, pill for unconnected nodes, click-to-connect\nDiagonal gradient border on cards and nodes\nMenuBarView visual overhaul\nDynamic minimum size based on active view\nAutomatic Configuration ↔︎ Patchbay switch",
+    "section": "[0.6.0] · 2026-03-22",
+    "text": "[0.6.0] · 2026-03-22\n\nAdded: Visual polish + node collapse\n\nNode collapse/expand, meta-cables\nPort pills on hover, pill for unconnected nodes, click-to-connect\nDiagonal gradient border on cards and nodes\nMenuBarView visual overhaul\nDynamic minimum size based on active view\nAutomatic Configuration ↔︎ Patchbay switch",
     "crumbs": [
       "Home",
       "Reference",
@@ -1222,8 +1222,8 @@
     "objectID": "changelog.html#section-42",
     "href": "changelog.html#section-42",
     "title": "Changelog",
-    "section": "[0.5.0] — 2026-03-21",
-    "text": "[0.5.0] — 2026-03-21\n\nAdded — Full studios\n\nFull studio capture (Jack parameters + clients + connections + node positions)\nRobust load/save, stabilized patchbay\nStop Studio: quit apps + disconnect cables\nStudio inspection modal\nMarquee on long studio names\nAuto-switch to Patchbay on studio load",
+    "section": "[0.5.0] · 2026-03-21",
+    "text": "[0.5.0] · 2026-03-21\n\nAdded: Full studios\n\nFull studio capture (Jack parameters + clients + connections + node positions)\nRobust load/save, stabilized patchbay\nStop Studio: quit apps + disconnect cables\nStudio inspection modal\nMarquee on long studio names\nAuto-switch to Patchbay on studio load",
     "crumbs": [
       "Home",
       "Reference",
@@ -1234,8 +1234,8 @@
     "objectID": "changelog.html#section-43",
     "href": "changelog.html#section-43",
     "title": "Changelog",
-    "section": "[0.4.0] — 2026-03-20",
-    "text": "[0.4.0] — 2026-03-20\n\nAdded — Improved patchbay + StudioManager foundations\n\nPatchbay spatial consistency (centering, drag constraints)\nCollision management\nStudioManager beginnings\nStability overhaul: xrun counts, improved Jack handling",
+    "section": "[0.4.0] · 2026-03-20",
+    "text": "[0.4.0] · 2026-03-20\n\nAdded: Improved patchbay + StudioManager foundations\n\nPatchbay spatial consistency (centering, drag constraints)\nCollision management\nStudioManager beginnings\nStability overhaul: xrun counts, improved Jack handling",
     "crumbs": [
       "Home",
       "Reference",
@@ -1246,8 +1246,8 @@
     "objectID": "changelog.html#section-44",
     "href": "changelog.html#section-44",
     "title": "Changelog",
-    "section": "[0.3.0] — 2026-03-19",
-    "text": "[0.3.0] — 2026-03-19\n\nAdded — Functional patchbay\n\nCables, animations, real-time updates\nJackBridge for patchbay\nPhysical input source selector",
+    "section": "[0.3.0] · 2026-03-19",
+    "text": "[0.3.0] · 2026-03-19\n\nAdded: Functional patchbay\n\nCables, animations, real-time updates\nJackBridge for patchbay\nPhysical input source selector",
     "crumbs": [
       "Home",
       "Reference",
@@ -1258,8 +1258,8 @@
     "objectID": "changelog.html#section-45",
     "href": "changelog.html#section-45",
     "title": "Changelog",
-    "section": "[0.2.0] — 2026-03-18",
-    "text": "[0.2.0] — 2026-03-18\n\nAdded — UI + logs\n\nSystem notifications\nSemi-transparent log window\nInitial look and feel",
+    "section": "[0.2.0] · 2026-03-18",
+    "text": "[0.2.0] · 2026-03-18\n\nAdded: UI + logs\n\nSystem notifications\nSemi-transparent log window\nInitial look and feel",
     "crumbs": [
       "Home",
       "Reference",
@@ -1270,8 +1270,8 @@
     "objectID": "changelog.html#section-46",
     "href": "changelog.html#section-46",
     "title": "Changelog",
-    "section": "[0.1.0] — 2026-03-18",
-    "text": "[0.1.0] — 2026-03-18\n\nFirst working version\n\nStart / stop Jack from the menu bar\nBasic configuration",
+    "section": "[0.1.0] · 2026-03-18",
+    "text": "[0.1.0] · 2026-03-18\n\nFirst working version\n\nStart / stop Jack from the menu bar\nBasic configuration",
     "crumbs": [
       "Home",
       "Reference",

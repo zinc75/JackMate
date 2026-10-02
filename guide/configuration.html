@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Configure and start the JACK audio server (jackd) on macOS with JackMate — audio device, sample rate, buffer size, hog mode and clock drift, without the command line.">
+<meta name="description" content="Configure and start the JACK audio server (jackd) on macOS with JackMate: audio device, sample rate, buffer size, hog mode and clock drift, without the command line.">
 
 <title>Configuration – JackMate</title>
 <style>
@@ -81,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 <!-- Font Awesome (global) — needed for raw <i class="fa-…"> icons in the navbar and pages. -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 
 <!-- Google Search Console verification (HTML-tag method). -->
 <meta name="google-site-verification" content="L_hiVzVS5OiYTUpTAfpyIX8EVmwncIVNKQDAHO2l91I">
@@ -115,14 +115,14 @@ ul.task-list li input[type="checkbox"] {
 
 <link rel="stylesheet" href="../assets/custom.css">
 <meta property="og:title" content="Configuration – JackMate">
-<meta property="og:description" content="Configure and start the JACK audio server (jackd) on macOS with JackMate — audio device, sample rate, buffer size, hog mode and clock drift, without the command line.">
+<meta property="og:description" content="Configure and start the JACK audio server (jackd) on macOS with JackMate: audio device, sample rate, buffer size, hog mode and clock drift, without the command line.">
 <meta property="og:image" content="https://zinc75.github.io/JackMate/assets/screenshots/configuration.png">
 <meta property="og:site_name" content="JackMate">
 <meta property="og:image:alt" content="JackMate window in Configuration view">
 <meta property="og:image:height" content="1992">
 <meta property="og:image:width" content="2862">
 <meta name="twitter:title" content="Configuration – JackMate">
-<meta name="twitter:description" content="Configure and start the JACK audio server (jackd) on macOS with JackMate — audio device, sample rate, buffer size, hog mode and clock drift, without the command line.">
+<meta name="twitter:description" content="Configure and start the JACK audio server (jackd) on macOS with JackMate: audio device, sample rate, buffer size, hog mode and clock drift, without the command line.">
 <meta name="twitter:image" content="https://zinc75.github.io/JackMate/assets/screenshots/configuration.png">
 <meta name="twitter:image:alt" content="JackMate window in Configuration view">
 <meta name="twitter:image-height" content="1992">
@@ -374,7 +374,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Configure and start the JACK audio server (jackd) on macOS with JackMate — audio device, sample rate, buffer size, hog mode and clock drift, without the command line.
+    Configure and start the JACK audio server (jackd) on macOS with JackMate: audio device, sample rate, buffer size, hog mode and clock drift, without the command line.
   </div>
 </div>
 
@@ -407,8 +407,8 @@ Important
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/configuration.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Configuration view — Jack stopped, all parameters editable"><img src="../assets/screenshots/configuration.png" class="img-fluid figure-img" alt="JackMate window in Configuration view"></a></p>
-<figcaption>Configuration view — Jack stopped, all parameters editable</figcaption>
+<p><a href="../assets/screenshots/configuration.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Configuration view: Jack stopped, all parameters editable"><img src="../assets/screenshots/configuration.png" class="img-fluid figure-img" alt="JackMate window in Configuration view"></a></p>
+<figcaption>Configuration view: Jack stopped, all parameters editable</figcaption>
 </figure>
 </div>
 <hr>
@@ -437,7 +437,7 @@ Important
 </tr>
 </tbody>
 </table>
-<p>The <strong>Audio MIDI Setup</strong> button lets you create aggregate devices, configure clock sync between two interfaces, or inspect available hardware — without leaving JackMate.</p>
+<p>The <strong>Audio MIDI Setup</strong> button lets you create aggregate devices, configure clock sync between two interfaces, or inspect available hardware, without leaving JackMate.</p>
 <hr>
 </section>
 <section id="audio-devices" class="level2">
@@ -449,7 +449,7 @@ Important
 </section>
 <section id="output" class="level3">
 <h3 class="anchored" data-anchor-id="output">Output</h3>
-<p>Select the audio interface used for <strong>playback</strong>. Input and output can be different interfaces — Jack handles clock sync between them.</p>
+<p>Select the audio interface used for <strong>playback</strong>. Input and output can be different interfaces. Jack handles clock sync between them.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -472,7 +472,7 @@ Tip
 </section>
 <section id="aggregate-devices" class="level3">
 <h3 class="anchored" data-anchor-id="aggregate-devices">Aggregate devices</h3>
-<p>If you select an <strong>aggregate device</strong> (created in Audio MIDI Setup) as input or output, JackMate automatically forces the other side to the same device. Aggregate devices manage their own clock — using two separate sides makes no sense here.</p>
+<p>If you select an <strong>aggregate device</strong> (created in Audio MIDI Setup) as input or output, JackMate automatically forces the other side to the same device. Aggregate devices manage their own clock. Using two separate sides makes no sense here.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -493,14 +493,14 @@ Warning
 <ol type="1">
 <li>Enable the <strong>Channels</strong> toggle in the Devices section</li>
 <li>A sheet appears with a row of numbered LEDs (one per channel)</li>
-<li>Click a LED to toggle it — active channels glow green</li>
+<li>Click a LED to toggle it. Active channels glow green</li>
 <li>At least one channel must remain active (automatic constraint)</li>
 <li>The footer permanently shows the active selection (<code>N/Nmax ch</code>)</li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/configuration-channel-picker.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="LED picker — granular input/output channel selection"><img src="../assets/screenshots/configuration-channel-picker.png" class="img-fluid figure-img" alt="LED picker sheet open. Row of numbered LEDs, some glowing green (active), others off. Open by enabling the Channels toggle in the Devices section (Jack stopped)."></a></p>
-<figcaption>LED picker — granular input/output channel selection</figcaption>
+<p><a href="../assets/screenshots/configuration-channel-picker.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="LED picker: granular input/output channel selection"><img src="../assets/screenshots/configuration-channel-picker.png" class="img-fluid figure-img" alt="LED picker sheet open. Row of numbered LEDs, some glowing green (active), others off. Open by enabling the Channels toggle in the Devices section (Jack stopped)."></a></p>
+<figcaption>LED picker: granular input/output channel selection</figcaption>
 </figure>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -513,7 +513,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Aggregate configuration.</strong> Channel selection is automatically disabled and reset when the combination of input and output devices will cause Jack to create an internal aggregate. In that case, the LED picker is hidden and the toggle is greyed out — Jack handles channel routing internally for aggregate setups.</p>
+<p><strong>Aggregate configuration.</strong> Channel selection is automatically disabled and reset when the combination of input and output devices will cause Jack to create an internal aggregate. In that case, the LED picker is hidden and the toggle is greyed out. Jack handles channel routing internally for aggregate setups.</p>
 </div>
 </div>
 <hr>
@@ -592,7 +592,7 @@ Note
 <h2 class="anchored" data-anchor-id="options">Options</h2>
 <section id="hog-mode" class="level3">
 <h3 class="anchored" data-anchor-id="hog-mode">Hog Mode</h3>
-<p>When enabled, Jack <strong>monopolises</strong> the audio interface — no other application can use it simultaneously. Guarantees maximum stability and performance.</p>
+<p>When enabled, Jack <strong>monopolises</strong> the audio interface: no other application can use it simultaneously. Guarantees maximum stability and performance.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -626,19 +626,19 @@ Note
 <p>When two distinct physical devices are selected and Clock Drift Correction is <strong>off</strong>, the toggle row displays a <strong>pulsing amber border</strong> and a <strong>ⓘ button</strong>. This draws attention to the fact that clock sync may be needed. The animation stops as soon as Jack is running.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/configuration-clock-drift-glow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Clock Drift Correction — amber glow and ⓘ button when two distinct devices are selected"><img src="../assets/screenshots/configuration-clock-drift-glow.png" class="img-fluid figure-img" alt="Clock Drift Correction row showing a pulsing amber border and an info button (ⓘ) to the left of the toggle, when two distinct physical devices are selected and the option is off."></a></p>
-<figcaption>Clock Drift Correction — amber glow and ⓘ button when two distinct devices are selected</figcaption>
+<p><a href="../assets/screenshots/configuration-clock-drift-glow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Clock Drift Correction: amber glow and ⓘ button when two distinct devices are selected"><img src="../assets/screenshots/configuration-clock-drift-glow.png" class="img-fluid figure-img" alt="Clock Drift Correction row showing a pulsing amber border and an info button (ⓘ) to the left of the toggle, when two distinct physical devices are selected and the option is off."></a></p>
+<figcaption>Clock Drift Correction: amber glow and ⓘ button when two distinct devices are selected</figcaption>
 </figure>
 </div>
 <p>Clicking <strong>ⓘ</strong> opens an explanatory sheet describing the options (software correction vs.&nbsp;macOS aggregate device) and provides a direct link to <strong>Audio MIDI Setup</strong>.</p>
 <p>JackMate also shows informational alerts in two situations when you interact with this toggle:</p>
-<p><strong>When activating Clock Drift Correction with non-aggregate devices</strong> — JackMate suggests using a macOS aggregate device instead, which handles clocking at the OS level and is generally more reliable than Jack’s software correction.</p>
-<p><strong>When selecting an aggregate device</strong> — JackMate reminds you to configure clock synchronisation in Audio MIDI Setup before starting Jack. Using an aggregate device without proper clock sync configured can cause xruns or instability.</p>
+<p><strong>When activating Clock Drift Correction with non-aggregate devices</strong>: JackMate suggests using a macOS aggregate device instead, which handles clocking at the OS level and is generally more reliable than Jack’s software correction.</p>
+<p><strong>When selecting an aggregate device</strong>: JackMate reminds you to configure clock synchronisation in Audio MIDI Setup before starting Jack. Using an aggregate device without proper clock sync configured can cause xruns or instability.</p>
 <p>Both alerts include a “Don’t show again” checkbox so they only appear once.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/configuration-clock-drift.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Clock drift and aggregate device alerts — shown once, dismissable"><img src="../assets/screenshots/configuration-clock-drift.png" class="img-fluid figure-img" alt="(1) Alert shown when enabling Clock Drift Correction with non-aggregate devices ; (2) Alert shown when selecting an aggregate device"></a></p>
-<figcaption>Clock drift and aggregate device alerts — shown once, dismissable</figcaption>
+<p><a href="../assets/screenshots/configuration-clock-drift.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Clock drift and aggregate device alerts: shown once, dismissable"><img src="../assets/screenshots/configuration-clock-drift.png" class="img-fluid figure-img" alt="(1) Alert shown when enabling Clock Drift Correction with non-aggregate devices ; (2) Alert shown when selecting an aggregate device"></a></p>
+<figcaption>Clock drift and aggregate device alerts: shown once, dismissable</figcaption>
 </figure>
 </div>
 </section>
@@ -661,8 +661,8 @@ Warning
 </section>
 <section id="expose-native-macos-apps-to-jack" class="level3">
 <h3 class="anchored" data-anchor-id="expose-native-macos-apps-to-jack">Expose native macOS apps to JACK</h3>
-<p><span class="badge-new">★ New in 2.0.0</span></p>
-<p>Turns on <strong>JackMoebius</strong>, which exposes macOS apps without native Jack support (Safari, Music, FaceTime…) to the graph. When enabled, JackMoebius starts automatically right after Jack — it does not change the <code>jackd</code> command. Requires the JackMoebius daemon, a separate app. See <a href="../guide/jackmoebius.html">JackMoebius</a> for the full guide.</p>
+<p><span class="badge-new"><span class="badge-star">★</span> New in 2.0.0</span></p>
+<p>Turns on <strong>JackMoebius</strong>, which exposes macOS apps without native Jack support (Safari, Music, FaceTime…) to the graph. When enabled, JackMoebius starts automatically right after Jack. It does not change the <code>jackd</code> command. Requires the JackMoebius daemon, a separate app. See <a href="../guide/jackmoebius.html">JackMoebius</a> for the full guide.</p>
 <hr>
 </section>
 </section>
@@ -691,24 +691,24 @@ Warning
 </tr>
 </tbody>
 </table>
-<p>JackMate compares the installed version (<code>jackd --version</code>) against the latest release on <a href="https://github.com/jackaudio/jack2/releases">jackaudio/jack2</a>. The comparison is cached for 24 hours — no network call on repeated JackMate launches the same day. If no network is available, the badge is hidden.</p>
+<p>JackMate compares the installed version (<code>jackd --version</code>) against the latest release on <a href="https://github.com/jackaudio/jack2/releases">jackaudio/jack2</a>. The comparison is cached for 24 hours: no network call on repeated JackMate launches the same day. If no network is available, the badge is hidden.</p>
 <hr>
 </section>
 <section id="jackmoebius-version" class="level2">
 <h2 class="anchored" data-anchor-id="jackmoebius-version">JackMoebius Version</h2>
-<p><span class="badge-new">★ New in 2.0.0</span></p>
-<p>When JackMoebius is installed, the header also shows its version, next to Jack’s, with the same update signal — a green badge when current, an amber clickable badge when a newer version is available. The badge is hidden when JackMoebius isn’t installed. See <a href="../guide/jackmoebius.html#version-indicator">JackMoebius</a>.</p>
+<p><span class="badge-new"><span class="badge-star">★</span> New in 2.0.0</span></p>
+<p>When JackMoebius is installed, the header also shows its version, next to Jack’s, with the same update signal: a green badge when current, an amber clickable badge when a newer version is available. The badge is hidden when JackMoebius isn’t installed. See <a href="../guide/jackmoebius.html#version-indicator">JackMoebius</a>.</p>
 <hr>
 </section>
 <section id="automatic-updates" class="level2">
 <h2 class="anchored" data-anchor-id="automatic-updates">Automatic Updates</h2>
-<p>JackMate checks for new releases at launch (against <a href="https://github.com/zinc75/JackMate/releases">GitHub releases</a>, 24h cache — silent if no network). If a newer version is available:</p>
+<p>JackMate checks for new releases at launch (against <a href="https://github.com/zinc75/JackMate/releases">GitHub releases</a>, 24h cache, silent if no network). If a newer version is available:</p>
 <ul>
 <li>An <strong>“Update available: vX.Y.Z”</strong> row appears in the menu bar (greyed out while Jack is running)</li>
 <li>A notification can be triggered from the Configuration header</li>
 </ul>
 <p>Clicking either opens the <strong>update sheet</strong>, which shows the installed and available versions, the current install path, and an admin password notice (required to replace the app bundle).</p>
-<p>JackMate then downloads the DMG, mounts it, and replaces the app bundle atomically at its current location. The app relaunches automatically after installation — no manual download or drag-and-drop required.</p>
+<p>JackMate then downloads the DMG, mounts it, and replaces the app bundle atomically at its current location. The app relaunches automatically after installation. No manual download or drag-and-drop required.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -724,8 +724,8 @@ Note
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/configuration-update-sheet.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Automatic update sheet — download and install in one click"><img src="../assets/screenshots/configuration-update-sheet.png" class="img-fluid figure-img" alt="Update sheet showing installed version, available version, install path, admin password notice, and Install / Later / Skip buttons."></a></p>
-<figcaption>Automatic update sheet — download and install in one click</figcaption>
+<p><a href="../assets/screenshots/configuration-update-sheet.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Automatic update sheet: download and install in one click"><img src="../assets/screenshots/configuration-update-sheet.png" class="img-fluid figure-img" alt="Update sheet showing installed version, available version, install path, admin password notice, and Install / Later / Skip buttons."></a></p>
+<figcaption>Automatic update sheet: download and install in one click</figcaption>
 </figure>
 </div>
 <hr>
@@ -754,12 +754,12 @@ Note
 <p>To stop Jack, click <strong>Stop Jack</strong>. Active connections are terminated.</p>
 <section id="aggregate-warning-sheet" class="level3">
 <h3 class="anchored" data-anchor-id="aggregate-warning-sheet">Aggregate warning sheet</h3>
-<p>When the selected device combination will cause Jack to silently create an internal aggregate, JackMate shows a <strong>warning sheet before starting Jack</strong>. The sheet displays a patchbay-accurate preview of the resulting <code>system (capture)</code> and <code>system (playback)</code> cards — including per-device bracket bars and channel counts — so you can verify the layout matches your expectations before committing.</p>
+<p>When the selected device combination will cause Jack to silently create an internal aggregate, JackMate shows a <strong>warning sheet before starting Jack</strong>. The sheet displays a patchbay-accurate preview of the resulting <code>system (capture)</code> and <code>system (playback)</code> cards (including per-device bracket bars and channel counts) so you can verify the layout matches your expectations before committing.</p>
 <p>Jack only starts after you confirm. A <strong>“Don’t show again for this combination”</strong> option suppresses the warning for that specific device pair.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/configuration-aggregate-warning.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Aggregate warning sheet — patchbay preview before Jack starts"><img src="../assets/screenshots/configuration-aggregate-warning.png" class="img-fluid figure-img" alt="Aggregate warning sheet showing a patchbay-accurate preview of system (capture) and system (playback) cards with per-device bracket bars, before Jack starts."></a></p>
-<figcaption>Aggregate warning sheet — patchbay preview before Jack starts</figcaption>
+<p><a href="../assets/screenshots/configuration-aggregate-warning.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Aggregate warning sheet: patchbay preview before Jack starts"><img src="../assets/screenshots/configuration-aggregate-warning.png" class="img-fluid figure-img" alt="Aggregate warning sheet showing a patchbay-accurate preview of system (capture) and system (playback) cards with per-device bracket bars, before Jack starts."></a></p>
+<figcaption>Aggregate warning sheet: patchbay preview before Jack starts</figcaption>
 </figure>
 </div>
 </section>
@@ -768,8 +768,8 @@ Note
 <p>If Jack is not found at launch, JackMate shows an installation guide modal with the appropriate command (Homebrew or <code>.pkg</code> download), coloured glow highlighting the command block. The <strong>Start Jack</strong> button is disabled until Jack is installed.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/configuration-jack-not-found.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Jack installation guide — shown at launch when Jack is not found"><img src="../assets/screenshots/configuration-jack-not-found.png" class="img-fluid figure-img" alt="GThe modal shows installation instructions with a command block glowing amber. Two options visible: Homebrew and .pkg download."></a></p>
-<figcaption>Jack installation guide — shown at launch when Jack is not found</figcaption>
+<p><a href="../assets/screenshots/configuration-jack-not-found.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Jack installation guide: shown at launch when Jack is not found"><img src="../assets/screenshots/configuration-jack-not-found.png" class="img-fluid figure-img" alt="GThe modal shows installation instructions with a command block glowing amber. Two options visible: Homebrew and .pkg download."></a></p>
+<figcaption>Jack installation guide: shown at launch when Jack is not found</figcaption>
 </figure>
 </div>
 <div style="display:none;height:0;overflow:hidden;" aria-hidden="true">
@@ -860,6 +860,86 @@ function openDownloadModal(e) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', downloadFromHash);
   else downloadFromHash();
   window.addEventListener('hashchange', downloadFromHash);
+})();
+</script>
+
+<!-- Social share widget — morphing liquid-glass "Share" card, injected below the title
+     block (before content) on every page except changelog / license. -->
+<template id="jm-share-tpl">
+  <div class="jm-share-wrap">
+    <div class="jm-share-pop">
+      <button type="button" class="jm-share-toggle" onclick="jmToggleShare(event)" aria-expanded="false" aria-label="Share JackMate">
+        <i class="fa-solid fa-share-nodes"></i><span>Share</span>
+      </button>
+      <div class="jm-share-card" role="dialog" aria-label="Share JackMate">
+        <button type="button" class="jm-share-card-x" onclick="jmCloseShare()" aria-label="Close">×</button>
+        <div class="dm-header">
+          <div class="dm-header-icon icon-bg-violet"><i class="fa-solid fa-share-nodes"></i></div>
+          <div>
+            <h2 class="dm-title">Share</h2>
+            <p class="dm-intro">Thanks for spreading the word!</p>
+          </div>
+        </div>
+        <div class="jm-share-icons">
+          <a class="jm-pop-ic x" href="https://twitter.com/intent/tweet?text=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS&amp;url=https%3A%2F%2Fzinc75.github.io%2FJackMate%2F" target="_blank" rel="noopener" aria-label="Share on X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a class="jm-pop-ic bsky" href="https://bsky.app/intent/compose?text=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS%20https%3A%2F%2Fzinc75.github.io%2FJackMate%2F" target="_blank" rel="noopener" aria-label="Share on Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+          <a class="jm-pop-ic masto" href="#" onclick="jmShareMastodon(event)" aria-label="Share on Mastodon"><i class="fa-brands fa-mastodon"></i></a>
+          <a class="jm-pop-ic reddit" href="https://www.reddit.com/submit?url=https%3A%2F%2Fzinc75.github.io%2FJackMate%2F&amp;title=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS" target="_blank" rel="noopener" aria-label="Share on Reddit"><i class="fa-brands fa-reddit-alien"></i></a>
+          <a class="jm-pop-ic hn" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fzinc75.github.io%2FJackMate%2F&amp;t=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS" target="_blank" rel="noopener" aria-label="Share on Hacker News"><i class="fa-brands fa-hacker-news"></i></a>
+          <a class="jm-pop-ic mail" href="mailto:?subject=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS&amp;body=Thought%20you%27d%20like%20this%3A%20https%3A%2F%2Fzinc75.github.io%2FJackMate%2F" aria-label="Share by email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+(function () {
+  window.jmShareMastodon = function (e) {
+    e.preventDefault();
+    var inst = prompt("Your Mastodon instance (e.g. mastodon.social):");
+    if (!inst) return;
+    inst = inst.trim().replace(/^https?:\/\//, "").replace(/\/+$/, "");
+    if (!inst) return;
+    var msg = "JackMate — a native JACK manager and patchbay for macOS https://zinc75.github.io/JackMate/";
+    window.open("https://" + inst + "/share?text=" + encodeURIComponent(msg), "_blank", "noopener");
+  };
+  window.jmToggleShare = function (e) {
+    e.preventDefault(); e.stopPropagation();
+    var pop = e.currentTarget.closest('.jm-share-pop');
+    if (!pop) return;
+    var open = pop.classList.toggle('is-open');
+    pop.querySelector('.jm-share-toggle')?.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+  window.jmCloseShare = function () {
+    document.querySelectorAll('.jm-share-pop.is-open').forEach(function (pop) {
+      pop.classList.remove('is-open');
+      pop.querySelector('.jm-share-toggle')?.setAttribute('aria-expanded', 'false');
+    });
+  };
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('.jm-share-pop.is-open').forEach(function (pop) {
+      if (!pop.contains(e.target)) {
+        pop.classList.remove('is-open');
+        pop.querySelector('.jm-share-toggle')?.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') window.jmCloseShare(); });
+
+  function inject() {
+    var EXCLUDE = ['changelog.html', 'license.html'];
+    if (EXCLUDE.some(function (p) { return location.pathname.endsWith(p); })) return;
+    if (document.querySelector('.jm-share-wrap')) return;           // already present
+    var tpl = document.getElementById('jm-share-tpl');
+    var main = document.querySelector('main.content') || document.querySelector('main');
+    if (!tpl || !main) return;
+    var node = tpl.content.firstElementChild.cloneNode(true);
+    var header = document.getElementById('title-block-header');
+    if (header) header.insertAdjacentElement('afterend', node);   // below the title + description
+    else main.insertAdjacentElement('afterbegin', node);          // (home: above the hero)
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', inject);
+  else inject();
 })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">

@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Save and restore complete JACK setups on macOS — clients, connections, patchbay layout, JackMoebius exposures and volumes — in one click with JackMate studios.">
+<meta name="description" content="Save and restore complete JACK setups on macOS (clients, connections, patchbay layout, JackMoebius exposures and volumes) in one click with JackMate studios.">
 
 <title>Studios – JackMate</title>
 <style>
@@ -81,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 <!-- Font Awesome (global) — needed for raw <i class="fa-…"> icons in the navbar and pages. -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 
 <!-- Google Search Console verification (HTML-tag method). -->
 <meta name="google-site-verification" content="L_hiVzVS5OiYTUpTAfpyIX8EVmwncIVNKQDAHO2l91I">
@@ -115,14 +115,14 @@ ul.task-list li input[type="checkbox"] {
 
 <link rel="stylesheet" href="../assets/custom.css">
 <meta property="og:title" content="Studios – JackMate">
-<meta property="og:description" content="Save and restore complete JACK setups on macOS — clients, connections, patchbay layout, JackMoebius exposures and volumes — in one click with JackMate studios.">
+<meta property="og:description" content="Save and restore complete JACK setups on macOS (clients, connections, patchbay layout, JackMoebius exposures and volumes) in one click with JackMate studios.">
 <meta property="og:image" content="https://zinc75.github.io/JackMate/assets/screenshots/studios-close-up.png">
 <meta property="og:site_name" content="JackMate">
 <meta property="og:image:alt" content="Close-up on the STUDIOS section at the bottom of the sidebar">
 <meta property="og:image:height" content="678">
 <meta property="og:image:width" content="629">
 <meta name="twitter:title" content="Studios – JackMate">
-<meta name="twitter:description" content="Save and restore complete JACK setups on macOS — clients, connections, patchbay layout, JackMoebius exposures and volumes — in one click with JackMate studios.">
+<meta name="twitter:description" content="Save and restore complete JACK setups on macOS (clients, connections, patchbay layout, JackMoebius exposures and volumes) in one click with JackMate studios.">
 <meta name="twitter:image" content="https://zinc75.github.io/JackMate/assets/screenshots/studios-close-up.png">
 <meta name="twitter:image:alt" content="Close-up on the STUDIOS section at the bottom of the sidebar">
 <meta name="twitter:image-height" content="678">
@@ -361,7 +361,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Save and restore complete JACK setups on macOS — clients, connections, patchbay layout, JackMoebius exposures and volumes — in one click with JackMate studios.
+    Save and restore complete JACK setups on macOS (clients, connections, patchbay layout, JackMoebius exposures and volumes) in one click with JackMate studios.
   </div>
 </div>
 
@@ -378,7 +378,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>A <strong>studio</strong> is a complete snapshot of your Jack session: parameter configuration, node positions on the canvas, active connections, CLI client commands, and — when in use — the full JackMoebius state and output volumes. Reload in one click to restore your exact setup.</p>
+<p>A <strong>studio</strong> is a complete snapshot of your Jack session: parameter configuration, node positions on the canvas, active connections, CLI client commands, and (when in use) the full JackMoebius state and output volumes. Reload in one click to restore your exact setup.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="../assets/screenshots/studios-close-up.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Studios section in the sidebar"><img src="../assets/screenshots/studios-close-up.png" class="img-fluid figure-img" alt="Close-up on the STUDIOS section at the bottom of the sidebar"></a></p>
@@ -388,7 +388,7 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 <section id="concept" class="level2">
 <h2 class="anchored" data-anchor-id="concept">Concept</h2>
-<p>Every time you build a patchbay — connecting your DAW to your interface, routing effects, organising clients — you can save it as a named studio. JackMate will faithfully restore all connections at your next session.</p>
+<p>Every time you build a patchbay (connecting your DAW to your interface, routing effects, organising clients), you can save it as a named studio. JackMate will faithfully restore all connections at your next session.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -503,7 +503,7 @@ Important
 <li>Compares the studio’s Jack command with the currently running Jack configuration</li>
 <li>If different (or if Jack was started externally): restarts Jack with the saved parameters</li>
 <li>Re-launches any saved CLI clients</li>
-<li>Restores the JackMoebius state, if the studio has one — relaunches and re-exposes the apps, master monitor and per-app volumes</li>
+<li>Restores the JackMoebius state, if the studio has one: relaunches and re-exposes the apps, master monitor and per-app volumes</li>
 <li>Restores available connections</li>
 <li>Restores node positions and output-device volumes</li>
 <li>Shows a result summary</li>
@@ -519,7 +519,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><span class="badge-new">★ New in 2.0.0</span> For JackMoebius, the studio is <strong>authoritative</strong>: loading a studio saved <em>without</em> JackMoebius stops the daemon, while one saved <em>with</em> it restores the exact exposure state. See <a href="../guide/jackmoebius.html#in-studios">JackMoebius in studios</a>.</p>
+<p><span class="badge-new"><span class="badge-star">★</span> New in 2.0.0</span> For JackMoebius, the studio is <strong>authoritative</strong>: loading a studio saved <em>without</em> JackMoebius stops the daemon, while one saved <em>with</em> it restores the exact exposure state. See <a href="../guide/jackmoebius.html#in-studios">JackMoebius in studios</a>.</p>
 </div>
 </div>
 </section>
@@ -540,7 +540,7 @@ Note
 <tbody>
 <tr class="odd">
 <td>Same Jack config already running</td>
-<td>No restart — connections restored immediately</td>
+<td>No restart, connections restored immediately</td>
 </tr>
 <tr class="even">
 <td>Different config or external Jack</td>
@@ -592,7 +592,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If a client is absent at load time (application not running), launch the application then reload the studio — JackMate does not require a restart.</p>
+<p>If a client is absent at load time (application not running), launch the application then reload the studio. JackMate does not require a restart.</p>
 </div>
 </div>
 <hr>
@@ -600,7 +600,7 @@ Tip
 </section>
 <section id="modification-indicator" class="level2">
 <h2 class="anchored" data-anchor-id="modification-indicator">Modification indicator</h2>
-<p>Once a studio is loaded, the <strong>footer</strong> shows its name with a <strong>modification indicator</strong> (orange dot) if the current patchbay diverges from the loaded studio — connection added, removed, or node moved.</p>
+<p>Once a studio is loaded, the <strong>footer</strong> shows its name with a <strong>modification indicator</strong> (orange dot) if the current patchbay diverges from the loaded studio: connection added, removed, or node moved.</p>
 <hr>
 </section>
 <section id="deleting-a-studio" class="level2">
@@ -702,6 +702,86 @@ function openDownloadModal(e) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', downloadFromHash);
   else downloadFromHash();
   window.addEventListener('hashchange', downloadFromHash);
+})();
+</script>
+
+<!-- Social share widget — morphing liquid-glass "Share" card, injected below the title
+     block (before content) on every page except changelog / license. -->
+<template id="jm-share-tpl">
+  <div class="jm-share-wrap">
+    <div class="jm-share-pop">
+      <button type="button" class="jm-share-toggle" onclick="jmToggleShare(event)" aria-expanded="false" aria-label="Share JackMate">
+        <i class="fa-solid fa-share-nodes"></i><span>Share</span>
+      </button>
+      <div class="jm-share-card" role="dialog" aria-label="Share JackMate">
+        <button type="button" class="jm-share-card-x" onclick="jmCloseShare()" aria-label="Close">×</button>
+        <div class="dm-header">
+          <div class="dm-header-icon icon-bg-violet"><i class="fa-solid fa-share-nodes"></i></div>
+          <div>
+            <h2 class="dm-title">Share</h2>
+            <p class="dm-intro">Thanks for spreading the word!</p>
+          </div>
+        </div>
+        <div class="jm-share-icons">
+          <a class="jm-pop-ic x" href="https://twitter.com/intent/tweet?text=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS&amp;url=https%3A%2F%2Fzinc75.github.io%2FJackMate%2F" target="_blank" rel="noopener" aria-label="Share on X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a class="jm-pop-ic bsky" href="https://bsky.app/intent/compose?text=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS%20https%3A%2F%2Fzinc75.github.io%2FJackMate%2F" target="_blank" rel="noopener" aria-label="Share on Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+          <a class="jm-pop-ic masto" href="#" onclick="jmShareMastodon(event)" aria-label="Share on Mastodon"><i class="fa-brands fa-mastodon"></i></a>
+          <a class="jm-pop-ic reddit" href="https://www.reddit.com/submit?url=https%3A%2F%2Fzinc75.github.io%2FJackMate%2F&amp;title=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS" target="_blank" rel="noopener" aria-label="Share on Reddit"><i class="fa-brands fa-reddit-alien"></i></a>
+          <a class="jm-pop-ic hn" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fzinc75.github.io%2FJackMate%2F&amp;t=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS" target="_blank" rel="noopener" aria-label="Share on Hacker News"><i class="fa-brands fa-hacker-news"></i></a>
+          <a class="jm-pop-ic mail" href="mailto:?subject=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS&amp;body=Thought%20you%27d%20like%20this%3A%20https%3A%2F%2Fzinc75.github.io%2FJackMate%2F" aria-label="Share by email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+(function () {
+  window.jmShareMastodon = function (e) {
+    e.preventDefault();
+    var inst = prompt("Your Mastodon instance (e.g. mastodon.social):");
+    if (!inst) return;
+    inst = inst.trim().replace(/^https?:\/\//, "").replace(/\/+$/, "");
+    if (!inst) return;
+    var msg = "JackMate — a native JACK manager and patchbay for macOS https://zinc75.github.io/JackMate/";
+    window.open("https://" + inst + "/share?text=" + encodeURIComponent(msg), "_blank", "noopener");
+  };
+  window.jmToggleShare = function (e) {
+    e.preventDefault(); e.stopPropagation();
+    var pop = e.currentTarget.closest('.jm-share-pop');
+    if (!pop) return;
+    var open = pop.classList.toggle('is-open');
+    pop.querySelector('.jm-share-toggle')?.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+  window.jmCloseShare = function () {
+    document.querySelectorAll('.jm-share-pop.is-open').forEach(function (pop) {
+      pop.classList.remove('is-open');
+      pop.querySelector('.jm-share-toggle')?.setAttribute('aria-expanded', 'false');
+    });
+  };
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('.jm-share-pop.is-open').forEach(function (pop) {
+      if (!pop.contains(e.target)) {
+        pop.classList.remove('is-open');
+        pop.querySelector('.jm-share-toggle')?.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') window.jmCloseShare(); });
+
+  function inject() {
+    var EXCLUDE = ['changelog.html', 'license.html'];
+    if (EXCLUDE.some(function (p) { return location.pathname.endsWith(p); })) return;
+    if (document.querySelector('.jm-share-wrap')) return;           // already present
+    var tpl = document.getElementById('jm-share-tpl');
+    var main = document.querySelector('main.content') || document.querySelector('main');
+    if (!tpl || !main) return;
+    var node = tpl.content.firstElementChild.cloneNode(true);
+    var header = document.getElementById('title-block-header');
+    if (header) header.insertAdjacentElement('afterend', node);   // below the title + description
+    else main.insertAdjacentElement('afterbegin', node);          // (home: above the hero)
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', inject);
+  else inject();
 })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">

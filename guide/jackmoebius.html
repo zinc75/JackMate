@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Expose native macOS apps (Safari, Music, FaceTime…) as JACK clients with JackMoebius — route any CoreAudio app in and out of the JACK graph from JackMate.">
+<meta name="description" content="Expose native macOS apps (Safari, Music, FaceTime…) as JACK clients with JackMoebius: route any CoreAudio app in and out of the JACK graph from JackMate.">
 
 <title>JackMoebius – JackMate</title>
 <style>
@@ -81,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 <!-- Font Awesome (global) — needed for raw <i class="fa-…"> icons in the navbar and pages. -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 
 <!-- Google Search Console verification (HTML-tag method). -->
 <meta name="google-site-verification" content="L_hiVzVS5OiYTUpTAfpyIX8EVmwncIVNKQDAHO2l91I">
@@ -115,14 +115,14 @@ ul.task-list li input[type="checkbox"] {
 
 <link rel="stylesheet" href="../assets/custom.css">
 <meta property="og:title" content="JackMoebius – JackMate">
-<meta property="og:description" content="Expose native macOS apps (Safari, Music, FaceTime…) as JACK clients with JackMoebius — route any CoreAudio app in and out of the JACK graph from JackMate.">
+<meta property="og:description" content="Expose native macOS apps (Safari, Music, FaceTime…) as JACK clients with JackMoebius: route any CoreAudio app in and out of the JACK graph from JackMate.">
 <meta property="og:image" content="https://zinc75.github.io/JackMate/assets/jackmoebius-icon.png">
 <meta property="og:site_name" content="JackMate">
 <meta property="og:image:alt" content="JackMoebius">
 <meta property="og:image:height" content="256">
 <meta property="og:image:width" content="256">
 <meta name="twitter:title" content="JackMoebius – JackMate">
-<meta name="twitter:description" content="Expose native macOS apps (Safari, Music, FaceTime…) as JACK clients with JackMoebius — route any CoreAudio app in and out of the JACK graph from JackMate.">
+<meta name="twitter:description" content="Expose native macOS apps (Safari, Music, FaceTime…) as JACK clients with JackMoebius: route any CoreAudio app in and out of the JACK graph from JackMate.">
 <meta name="twitter:image" content="https://zinc75.github.io/JackMate/assets/jackmoebius-icon.png">
 <meta name="twitter:image:alt" content="JackMoebius">
 <meta name="twitter:image-height" content="256">
@@ -358,7 +358,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Expose native macOS apps (Safari, Music, FaceTime…) as JACK clients with JackMoebius — route any CoreAudio app in and out of the JACK graph from JackMate.
+    Expose native macOS apps (Safari, Music, FaceTime…) as JACK clients with JackMoebius: route any CoreAudio app in and out of the JACK graph from JackMate.
   </div>
 </div>
 
@@ -395,9 +395,9 @@ ul.task-list li input[type="checkbox"] {
   <span class="jm-pair-heart" aria-hidden="true"><i class="fa-solid fa-heart"></i></span>
   <img class="jm-pair-icon jm-mate" src="../assets/icon.png" alt="JackMate">
 </div>
-<p class="jm-pair-cap">JackMoebius and JackMate — made to work together.</p>
-<p><span class="badge-new">★ New in 2.0.0</span></p>
-<p><strong>JackMoebius</strong> lets JackMate expose any native macOS application — Safari, Music, FaceTime, your DAW’s companion apps — as a Jack client. Apps that have <em>no built-in Jack support</em> can then send and receive audio through the Jack graph like any other client, and interact with your native Jack applications.</p>
+<p class="jm-pair-cap">JackMoebius and JackMate, made to work together.</p>
+<p><span class="badge-new"><span class="badge-star">★</span> New in 2.0.0</span></p>
+<p><strong>JackMoebius</strong> lets JackMate expose any native macOS application (Safari, Music, FaceTime, your DAW’s companion apps) as a Jack client. Apps that have <em>no built-in Jack support</em> can then send and receive audio through the Jack graph like any other client, and interact with your native Jack applications.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -408,7 +408,7 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>JackMoebius is a <strong>separate virtual audio driver</strong>. JackMate drives it, but the daemon must be installed on your Mac for any of this to work — see <a href="#installing-jackmoebius">Installing JackMoebius</a>.</p>
+<p>JackMoebius is a <strong>separate virtual audio driver</strong>. JackMate drives it, but the daemon must be installed on your Mac for any of this to work (see <a href="#installing-jackmoebius">Installing JackMoebius</a>).</p>
 </div>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -420,18 +420,18 @@ Important
 <hr>
 <section id="what-is-jackmoebius" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-jackmoebius">What is JackMoebius</h2>
-<p>JackMoebius is a bidirectional <strong>CoreAudio ↔︎ Jack bridge</strong> — the next-generation, functional successor to <em>JackRouter</em> (abandoned since 2020).</p>
+<p>JackMoebius is a bidirectional <strong>CoreAudio ↔︎ Jack bridge</strong>: the next-generation, functional successor to <em>JackRouter</em> (abandoned since 2020).</p>
 <p>Most macOS apps speak only CoreAudio; they know nothing about Jack. JackMoebius creates, on demand, a Jack client for each app you choose to expose, in both directions:</p>
 <ul>
-<li><strong>Output</strong> — the app’s sound is injected into the Jack graph (route Safari into Ardour, record a FaceTime call, capture a game…).</li>
-<li><strong>Input</strong> — a capture-capable app receives audio <em>from</em> the Jack graph (feed a processed signal back into it).</li>
+<li><strong>Output</strong>: the app’s sound is injected into the Jack graph (route Safari into Ardour, record a FaceTime call, capture a game…).</li>
+<li><strong>Input</strong>: a capture-capable app receives audio <em>from</em> the Jack graph (feed a processed signal back into it).</li>
 </ul>
-<p>Everything is driven from JackMate — you never edit a config file or touch the daemon directly.</p>
+<p>Everything is driven from JackMate: you never edit a config file or touch the daemon directly.</p>
 <hr>
 </section>
 <section id="installing-jackmoebius" class="level2">
 <h2 class="anchored" data-anchor-id="installing-jackmoebius">Installing JackMoebius</h2>
-<p>JackMoebius is a <strong>separate application</strong> — a paid app with a <strong>14-day free trial</strong>. Get it from <a href="https://zinc75.github.io/JackMoebius/">its page</a> and install it on your Mac; JackMate detects the installed daemon automatically, with no path to configure.</p>
+<p>JackMoebius is a <strong>separate application</strong>: a paid app with a <strong>14-day free trial</strong>. Get it from <a href="https://zinc75.github.io/JackMoebius/">its page</a> and install it on your Mac; JackMate detects the installed daemon automatically, with no path to configure.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -442,13 +442,13 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Once installed, the JackMoebius version appears in the Configuration header, next to Jack’s — see <a href="#version-indicator">Version indicator</a>. Keep it up to date: JackMate signals when a newer version is available.</p>
+<p>Once installed, the JackMoebius version appears in the Configuration header, next to Jack’s (see <a href="#version-indicator">Version indicator</a>). Keep it up to date: JackMate signals when a newer version is available.</p>
 </div>
 </div>
-<p>Prefer to see it first? A short tour — expose your macOS apps to <strong>JACK</strong>, wire and mix them in JackMate, and save the whole setup as a studio:</p>
+<p>Prefer to see it first? A short tour where you expose your macOS apps to <strong>JACK</strong>, wire and mix them in JackMate, and save the whole setup as a studio:</p>
 <div style="max-width:900px;margin:1.6rem auto;">
   <div style="padding:56.25% 0 0 0;position:relative;">
-    <iframe src="https://player.vimeo.com/video/1230395347?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.9);border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.5);" title="JackMate &amp; JackMoebius — see it in action"></iframe>
+    <iframe src="https://player.vimeo.com/video/1230395347?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.9);border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.5);" title="JackMate &amp; JackMoebius: see it in action"></iframe>
   </div>
 </div>
 <script src="https://player.vimeo.com/api/player.js"></script>
@@ -458,7 +458,7 @@ Note
 <h2 class="anchored" data-anchor-id="enabling-exposure">Enabling exposure</h2>
 <p>Turn JackMoebius on from the <strong>Configuration</strong> view, with the <strong>“Expose native macOS apps to JACK”</strong> option.</p>
 <ul>
-<li>When enabled, JackMoebius <strong>starts automatically right after Jack</strong> — it does not change the <code>jackd</code> command in any way.</li>
+<li>When enabled, JackMoebius <strong>starts automatically right after Jack</strong>. It does not change the <code>jackd</code> command in any way.</li>
 <li>A dedicated <strong>button in the patchbay toolbar</strong> opens the JackMoebius panel (below).</li>
 <li>A <strong>JackMoebius status indicator</strong> sits next to Jack’s in the sidebar, so you always see whether the daemon is up.</li>
 </ul>
@@ -484,7 +484,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The daemon’s live status is <strong>event-driven</strong> — JackMate reflects a start, stop or crash immediately, and automatically restarts JackMoebius if it goes down while Jack is running.</p>
+<p>The daemon’s live status is <strong>event-driven</strong>: JackMate reflects a start, stop or crash immediately, and automatically restarts JackMoebius if it goes down while Jack is running.</p>
 </div>
 </div>
 <hr>
@@ -519,11 +519,11 @@ Tip
 </tbody>
 </table>
 <p>Exposing an app makes its box appear in the patchbay instantly; turning it off removes the box.</p>
-<p>A <strong>“system monitor” (master) box</strong> exposes the global system mix — everything macOS is playing — as a single Jack client, independent of the per-app selection.</p>
+<p>A <strong>“system monitor” (master) box</strong> exposes the global system mix (everything macOS is playing) as a single Jack client, independent of the per-app selection.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/jackmoebius-panel.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="The JackMoebius panel — per-app Output / Input exposure"><img src="../assets/screenshots/jackmoebius-panel.png" class="img-fluid figure-img" alt="The JackMoebius panel — per-app Output / Input exposure."></a></p>
-<figcaption>The JackMoebius panel — per-app Output / Input exposure</figcaption>
+<p><a href="../assets/screenshots/jackmoebius-panel.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="The JackMoebius panel: per-app Output / Input exposure"><img src="../assets/screenshots/jackmoebius-panel.png" class="img-fluid figure-img" alt="The JackMoebius panel: per-app Output / Input exposure."></a></p>
+<figcaption>The JackMoebius panel: per-app Output / Input exposure</figcaption>
 </figure>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -541,15 +541,15 @@ Note
 </div>
 <section id="advanced-configuration" class="level3">
 <h3 class="anchored" data-anchor-id="advanced-configuration">Advanced configuration</h3>
-<p>An <strong>“eye-off” button</strong> removes an app from the selector (with a confirmation if it’s currently exposed) — useful for apps you never want to route. The <strong>Advanced JackMoebius configuration</strong> panel (tabbed) lets you:</p>
+<p>An <strong>“eye-off” button</strong> removes an app from the selector (with a confirmation if it’s currently exposed), useful for apps you never want to route. The <strong>Advanced JackMoebius configuration</strong> panel (tabbed) lets you:</p>
 <ul>
 <li><strong>re-enable</strong> apps you previously excluded (blacklist);</li>
 <li><strong>free dormant channel reservations</strong> left by apps that have since quit.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/jackmoebius-advanced.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Advanced configuration — blacklist and channel reservations"><img src="../assets/screenshots/jackmoebius-advanced.png" class="img-fluid figure-img" alt="Advanced configuration — blacklist and channel reservations."></a></p>
-<figcaption>Advanced configuration — blacklist and channel reservations</figcaption>
+<p><a href="../assets/screenshots/jackmoebius-advanced.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Advanced configuration: blacklist and channel reservations"><img src="../assets/screenshots/jackmoebius-advanced.png" class="img-fluid figure-img" alt="Advanced configuration: blacklist and channel reservations."></a></p>
+<figcaption>Advanced configuration: blacklist and channel reservations</figcaption>
 </figure>
 </div>
 <hr>
@@ -580,7 +580,7 @@ Note
 <tbody>
 <tr class="odd">
 <td><strong>⚠ amber</strong> on a box</td>
-<td>The app is exposed and wired, but isn’t using the correct audio device — audio won’t flow</td>
+<td>The app is exposed and wired, but isn’t using the correct audio device, so audio won’t flow</td>
 </tr>
 <tr class="even">
 <td>Discreet cue</td>
@@ -594,7 +594,7 @@ Note
 <figcaption>Wired CoreAudio apps and their device markers</figcaption>
 </figure>
 </div>
-<p>An <strong>alert panel</strong> — opened automatically, or by clicking the ⚠ — lists the affected apps and what to do. The fix is made <strong>in the app itself, or in macOS System Settings ▸ Sound</strong>, not in JackMate (JackMate can’t force another app’s device).</p>
+<p>An <strong>alert panel</strong> (opened automatically, or by clicking the ⚠) lists the affected apps and what to do. The fix is made <strong>in the app itself, or in macOS System Settings ▸ Sound</strong>, not in JackMate (JackMate can’t force another app’s device).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="../assets/screenshots/jackmoebius-routing-warning.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Wrong-audio-device alert on an exposed, wired app"><img src="../assets/screenshots/jackmoebius-routing-warning.png" class="img-fluid figure-img" alt="Wrong-audio-device alert on an exposed, wired app."></a></p>
@@ -627,8 +627,8 @@ Note
 </table>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/jackmoebius-per-app-volume.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Per-app volume — locked (follows master) vs.&nbsp;unlocked (independent)"><img src="../assets/screenshots/jackmoebius-per-app-volume.png" class="img-fluid figure-img" alt="Per-app volume — locked (follows master) vs. unlocked (independent)."></a></p>
-<figcaption>Per-app volume — locked (follows master) vs.&nbsp;unlocked (independent)</figcaption>
+<p><a href="../assets/screenshots/jackmoebius-per-app-volume.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Per-app volume: locked (follows master) vs.&nbsp;unlocked (independent)"><img src="../assets/screenshots/jackmoebius-per-app-volume.png" class="img-fluid figure-img" alt="Per-app volume: locked (follows master) vs. unlocked (independent)."></a></p>
+<figcaption>Per-app volume: locked (follows master) vs.&nbsp;unlocked (independent)</figcaption>
 </figure>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -641,7 +641,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The <strong>master output volumes</strong> — Jack’s output device and “JackMoebius Out” — are set from the <strong>Volumes bar</strong> at the top of the patchbay. See <a href="../guide/patchbay.html#output-volumes">Output volumes</a>.</p>
+<p>The <strong>master output volumes</strong> (Jack’s output device and “JackMoebius Out”) are set from the <strong>Volumes bar</strong> at the top of the patchbay. See <a href="../guide/patchbay.html#output-volumes">Output volumes</a>.</p>
 </div>
 </div>
 <hr>
@@ -659,7 +659,7 @@ Tip
 </section>
 <section id="in-studios" class="level2">
 <h2 class="anchored" data-anchor-id="in-studios">In studios</h2>
-<p>A <a href="../guide/studios.html">studio</a> saves and restores your <strong>complete</strong> JackMoebius state — which apps are exposed (Output / Input and their channel counts), the master monitor, and per-app volumes — along with the output-device volumes. Load a studio and JackMate restarts the daemon if needed, relaunches and re-exposes the apps, and restores every volume. See <a href="../guide/studios.html">Studios</a> for the details.</p>
+<p>A <a href="../guide/studios.html">studio</a> saves and restores your <strong>complete</strong> JackMoebius state: which apps are exposed (Output / Input and their channel counts), the master monitor, and per-app volumes, along with the output-device volumes. Load a studio and JackMate restarts the daemon if needed, relaunches and re-exposes the apps, and restores every volume. See <a href="../guide/studios.html">Studios</a> for the details.</p>
 <div style="display:none;height:0;overflow:hidden;" aria-hidden="true">
 <p><i class="fa-solid fa-check" aria-label="check"></i></p>
 </div>
@@ -747,6 +747,86 @@ function openDownloadModal(e) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', downloadFromHash);
   else downloadFromHash();
   window.addEventListener('hashchange', downloadFromHash);
+})();
+</script>
+
+<!-- Social share widget — morphing liquid-glass "Share" card, injected below the title
+     block (before content) on every page except changelog / license. -->
+<template id="jm-share-tpl">
+  <div class="jm-share-wrap">
+    <div class="jm-share-pop">
+      <button type="button" class="jm-share-toggle" onclick="jmToggleShare(event)" aria-expanded="false" aria-label="Share JackMate">
+        <i class="fa-solid fa-share-nodes"></i><span>Share</span>
+      </button>
+      <div class="jm-share-card" role="dialog" aria-label="Share JackMate">
+        <button type="button" class="jm-share-card-x" onclick="jmCloseShare()" aria-label="Close">×</button>
+        <div class="dm-header">
+          <div class="dm-header-icon icon-bg-violet"><i class="fa-solid fa-share-nodes"></i></div>
+          <div>
+            <h2 class="dm-title">Share</h2>
+            <p class="dm-intro">Thanks for spreading the word!</p>
+          </div>
+        </div>
+        <div class="jm-share-icons">
+          <a class="jm-pop-ic x" href="https://twitter.com/intent/tweet?text=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS&amp;url=https%3A%2F%2Fzinc75.github.io%2FJackMate%2F" target="_blank" rel="noopener" aria-label="Share on X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a class="jm-pop-ic bsky" href="https://bsky.app/intent/compose?text=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS%20https%3A%2F%2Fzinc75.github.io%2FJackMate%2F" target="_blank" rel="noopener" aria-label="Share on Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+          <a class="jm-pop-ic masto" href="#" onclick="jmShareMastodon(event)" aria-label="Share on Mastodon"><i class="fa-brands fa-mastodon"></i></a>
+          <a class="jm-pop-ic reddit" href="https://www.reddit.com/submit?url=https%3A%2F%2Fzinc75.github.io%2FJackMate%2F&amp;title=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS" target="_blank" rel="noopener" aria-label="Share on Reddit"><i class="fa-brands fa-reddit-alien"></i></a>
+          <a class="jm-pop-ic hn" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fzinc75.github.io%2FJackMate%2F&amp;t=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS" target="_blank" rel="noopener" aria-label="Share on Hacker News"><i class="fa-brands fa-hacker-news"></i></a>
+          <a class="jm-pop-ic mail" href="mailto:?subject=JackMate%20%E2%80%94%20a%20native%20JACK%20manager%20and%20patchbay%20for%20macOS&amp;body=Thought%20you%27d%20like%20this%3A%20https%3A%2F%2Fzinc75.github.io%2FJackMate%2F" aria-label="Share by email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+(function () {
+  window.jmShareMastodon = function (e) {
+    e.preventDefault();
+    var inst = prompt("Your Mastodon instance (e.g. mastodon.social):");
+    if (!inst) return;
+    inst = inst.trim().replace(/^https?:\/\//, "").replace(/\/+$/, "");
+    if (!inst) return;
+    var msg = "JackMate — a native JACK manager and patchbay for macOS https://zinc75.github.io/JackMate/";
+    window.open("https://" + inst + "/share?text=" + encodeURIComponent(msg), "_blank", "noopener");
+  };
+  window.jmToggleShare = function (e) {
+    e.preventDefault(); e.stopPropagation();
+    var pop = e.currentTarget.closest('.jm-share-pop');
+    if (!pop) return;
+    var open = pop.classList.toggle('is-open');
+    pop.querySelector('.jm-share-toggle')?.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+  window.jmCloseShare = function () {
+    document.querySelectorAll('.jm-share-pop.is-open').forEach(function (pop) {
+      pop.classList.remove('is-open');
+      pop.querySelector('.jm-share-toggle')?.setAttribute('aria-expanded', 'false');
+    });
+  };
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('.jm-share-pop.is-open').forEach(function (pop) {
+      if (!pop.contains(e.target)) {
+        pop.classList.remove('is-open');
+        pop.querySelector('.jm-share-toggle')?.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') window.jmCloseShare(); });
+
+  function inject() {
+    var EXCLUDE = ['changelog.html', 'license.html'];
+    if (EXCLUDE.some(function (p) { return location.pathname.endsWith(p); })) return;
+    if (document.querySelector('.jm-share-wrap')) return;           // already present
+    var tpl = document.getElementById('jm-share-tpl');
+    var main = document.querySelector('main.content') || document.querySelector('main');
+    if (!tpl || !main) return;
+    var node = tpl.content.firstElementChild.cloneNode(true);
+    var header = document.getElementById('title-block-header');
+    if (header) header.insertAdjacentElement('afterend', node);   // below the title + description
+    else main.insertAdjacentElement('afterbegin', node);          // (home: above the hero)
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', inject);
+  else inject();
 })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">

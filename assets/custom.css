@@ -583,7 +583,10 @@ figcaption, .figure-caption {
 
 .hero-icon {
   flex-shrink: 0;
-  width: 106px; height: 106px; border-radius: 26px;
+  /* Percentage radius (not a fixed 26px) so the CSS rounding + hairline always match the
+     PNG tile's own rounded corners at any size — a fixed px matched only ~106px and produced
+     a visible "double frame" once the icon was enlarged on mobile. */
+  width: 106px; height: 106px; border-radius: 24%;
   box-shadow:
     0 0 0 1px rgba(255,255,255,0.14),
     0 10px 36px rgba(239,68,68,0.38),
@@ -638,6 +641,9 @@ figcaption, .figure-caption {
   color: #fff !important;
   box-shadow: 0 3px 14px rgba(239,68,68,0.40);
 }
+/* The Apple brand glyph is optically smaller than the other icons — bump it so it reads clearly as "macOS". */
+.hero-pill-primary i.fa-apple { font-size: 1.3em; }
+.hero-pill-primary { gap: 0.55rem; }
 .hero-pill-primary:hover {
   background: #f87171; box-shadow: 0 6px 28px rgba(239,68,68,0.60);
   transform: translateY(-2px) scale(1.03); color: #fff !important; text-decoration: none;
@@ -809,7 +815,7 @@ figcaption, .figure-caption {
 /* "New in 2.0" indicator — violet→cyan gradient star + label, to make the 2.0
    highlights stand out (matches the hero "New in 2.0.0" marker). */
 .badge-new {
-  background: linear-gradient(120deg, #a78bfa 0%, #22d3ee 100%);
+  background: linear-gradient(120deg, #ddd6fe 0%, #a5f3fc 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -818,22 +824,48 @@ figcaption, .figure-caption {
   font-size: 0.8rem;
   letter-spacing: 0.01em;
   white-space: nowrap;
-  display: inline-block;
-  padding: 0.12rem 0.5rem;
-  border: 1px solid rgba(255,255,255,0.5);
-  border-radius: 6px;
+  /* On guide pages the badge sits on its own line with vertical breathing room,
+     so it reads as a standalone "what's new" chip rather than inline with the text. */
+  display: block;
+  width: fit-content;
+  margin: 1.2rem 0 0.95rem;
+  padding: 0.18rem 0.62rem;
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 10px;   /* rounded-rect echoing the hero, scaled to the badge */
   position: relative;
   isolation: isolate;
+  -webkit-backdrop-filter: blur(9px) saturate(1.6);
+  backdrop-filter: blur(9px) saturate(1.6);
+  box-shadow: var(--glass-shadow);   /* liquid-glass bevel, no glow — matches the hero chip */
+  transform-origin: center; will-change: transform;
+  animation: jm-chip-float 3.4s ease-in-out infinite;
 }
+.badge-new:hover { animation-play-state: paused; }
+/* Inside a callout the badge keeps its normal top margin too — same vertical air above the
+   floating chip as on the rest of the page. */
+/* The star sits in its own span inside the badge — force it pure white (it would otherwise
+   inherit the badge's transparent text-fill and show the clipped gradient). Mirrors the hero star. */
+.badge-star { -webkit-text-fill-color: #fff; color: #fff; background: none; }
 /* Subtle violet→cyan fill behind the gradient text — the badge's own background
-   is clipped to the text, so the fill lives on a pseudo-element behind it. */
+   is clipped to the text, so the fill lives on a pseudo-element behind it (translucent,
+   so the frosted backdrop shows through it). */
 .badge-new::before {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 6px;
-  background: linear-gradient(120deg, rgba(167,139,250,0.14), rgba(34,211,238,0.11));
+  border-radius: 10px;
+  background: linear-gradient(120deg, rgba(167,139,250,0.24), rgba(34,211,238,0.17));
   z-index: -1;
+}
+
+/* Shared gentle "wobbly float" for the New-in-2.0 chips (hero marker + guide badges). */
+@keyframes jm-chip-float {
+  0%   { transform: translateY(0)    rotate(-0.9deg); }
+  50%  { transform: translateY(-3px) rotate(0.9deg);  }
+  100% { transform: translateY(0)    rotate(-0.9deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .badge-new, .hero-new-box { animation: none; }
 }
 
 /* Inline accent colours (body text) */
@@ -928,7 +960,9 @@ body { padding-bottom: 3rem !important; }
 }
 @media (max-width: 768px) {
   .hero-inner  { flex-direction: column; gap: 1.5rem; }
-  .hero-icon   { width: 82px; height: 82px; }
+  /* Icon stacks above the text on phones → show it big, like the JackMoebius hero
+     (responsive, capped so it never crowds narrow screens). */
+  .hero-icon   { width: min(224px, 56vw); height: min(224px, 56vw); }
   .hero-text h1 { font-size: 2.5rem; }
   .hero { padding: 3rem 1.75rem 2.5rem; border-radius: 18px; }
   .feature-grid { grid-template-columns: 1fr; }
@@ -984,9 +1018,9 @@ body { padding-bottom: 3rem !important; }
   position: fixed;
   inset: 0;
   z-index: 2000;
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   align-items: center;
   justify-content: center;
   padding: 1rem;
@@ -1002,10 +1036,12 @@ body { padding-bottom: 3rem !important; }
 
 .dm-dialog {
   position: relative;
-  background: var(--jm-bg-elevated);
-  border: 1px solid var(--jm-border-med);
+  background: linear-gradient(145deg, rgba(30,28,46,0.58), rgba(18,16,28,0.52));
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+  backdrop-filter: blur(24px) saturate(1.5);
+  border: none;
   border-radius: 20px;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.80), 0 0 0 1px rgba(255,255,255,0.04);
+  box-shadow: var(--glass-shadow), 0 32px 80px rgba(0,0,0,0.80);   /* liquid-glass rim + float shadow */
   max-width: 560px;
   width: 100%;
   padding: 2rem 2rem 1.5rem;
@@ -1251,4 +1287,121 @@ body { padding-bottom: 3rem !important; }
 .navbar-nav .nav-link:has(.nav-star):hover .nav-star-ic {
   transform: scale(1.15) rotate(-8deg);
   filter: drop-shadow(0 0 6px rgba(251,191,36,0.7));
+}
+
+/* ═══════════════════════════════════════════════════
+   LIQUID GLASS — reusable multi-layer inset bevel (adapted from the CodePen
+   "liquid glass" box-shadow trick). Any glass surface uses box-shadow: var(--glass-shadow).
+   ═══════════════════════════════════════════════════ */
+:root {
+  --c-light: #fff; --c-dark: #000;
+  --glass-reflex-light: 0.35; --glass-reflex-dark: 1.0;   /* softer rim (was 0.6 / 1.4) */
+  --glass-shadow:
+    /* hairline edge */
+    inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 14%), transparent),
+    /* light mostly from the TOP-LEFT: bright inner highlight + soft glow */
+    inset 2px 2px 1px -1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 95%), transparent),
+    inset 3px 4px 10px -4px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 55%), transparent),
+    /* ...with a faint catch on the top-right edge (slightly off-axis / "de travers") */
+    inset -2px 2px 2px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 42%), transparent),
+    /* shadow on the BOTTOM-RIGHT (away from the light) */
+    inset -2px -2px 2px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 24%), transparent),
+    inset -4px -5px 10px -6px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 16%), transparent),
+    /* ambient drop */
+    0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
+}
+
+/* ── SOCIAL SHARE — a glass "Share" pill that morphs into a bigger glass card ── */
+.jm-share-wrap { display: flex; justify-content: flex-end; margin: 0 0 1.5rem; padding-right: 3rem; }
+.jm-share-pop { position: relative; display: inline-flex; }
+
+/* the glass "Share" pill (toggle) */
+.jm-share-toggle {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.5rem 1.1rem; border-radius: 14px; border: none;
+  background-color: color-mix(in srgb, #cfd6e2 10%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(1.6); backdrop-filter: blur(10px) saturate(1.6);
+  box-shadow: var(--glass-shadow);
+  color: #cfd6e2; font-weight: 600; font-size: 0.95rem; cursor: pointer;
+  transition: color .18s ease, transform .18s ease, opacity .25s ease;
+}
+.jm-share-toggle:hover { color: #fff; transform: translateY(-1px); }
+.jm-share-pop.is-open .jm-share-toggle { opacity: 0; pointer-events: none; }  /* the pill "becomes" the card */
+
+/* the morphed card — grows from the pill's top-right corner, overlays content below */
+.jm-share-card {
+  position: absolute; top: 0; right: 0; z-index: 60;
+  width: max-content; max-width: min(360px, calc(100vw - 2rem));
+  padding: 1.1rem 1.2rem 1.25rem;
+  border-radius: 20px; border: none;
+  background: linear-gradient(145deg, rgba(40,38,60,0.14), rgba(26,24,40,0.10));
+  -webkit-backdrop-filter: blur(20px) saturate(1.7); backdrop-filter: blur(20px) saturate(1.7);
+  box-shadow: var(--glass-shadow), 0 24px 60px rgba(0,0,0,0.6);   /* glass rim + float shadow */
+  transform: scale(0.82); transform-origin: top right;
+  opacity: 0; pointer-events: none;
+  transition: transform .3s cubic-bezier(.2,.8,.2,1.2), opacity .24s ease;
+}
+.jm-share-card::before {   /* glass sheen */
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(120% 45% at 25% 0%, rgba(255,255,255,0.16), transparent 60%);
+}
+.jm-share-pop.is-open .jm-share-card { transform: scale(1); opacity: 1; pointer-events: auto; }
+.jm-share-card > * { position: relative; z-index: 1; }
+.jm-share-card .dm-header { margin-bottom: 0.9rem; gap: 0.7rem; }
+.jm-share-card .dm-header-icon { width: 2.1rem; height: 2.1rem; font-size: 0.92rem; border-radius: 10px; }
+.jm-share-card .dm-title { font-size: 0.98rem; }
+.jm-share-card .dm-intro { font-size: 0.8rem; }
+.jm-share-card-x {
+  position: absolute; top: 0.55rem; right: 0.7rem; z-index: 2;
+  width: 1.9rem; height: 1.9rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: none; background: transparent; color: var(--jm-muted);
+  font-size: 1.4rem; line-height: 1; cursor: pointer;
+  transition: color .15s ease, background .15s ease;
+}
+.jm-share-card-x:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+/* icons row inside the card */
+.jm-share-icons { display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+
+/* icons — plain coloured glyphs (desaturated at rest, brand colour on hover) */
+.jm-pop-ic {
+  --glyph: #cfd6e2; --glow: rgba(255,255,255,0.16);
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.5rem; height: 2.5rem; border-radius: 50%;
+  color: var(--glyph) !important; text-decoration: none !important;
+  font-size: 1.15rem;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(0,0,0,0.30);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+  transition: color .18s ease, transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+  animation: jm-float 4s ease-in-out infinite;
+}
+.jm-pop-ic:hover {
+  animation: none;
+  transform: translateY(-2px) scale(1.1);
+  border-color: rgba(255,255,255,0.42);
+  background: rgba(0,0,0,0.20);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 0 16px var(--glow);
+}
+.jm-pop-ic.x      { --glyph:#c3cad4; --glow:rgba(255,255,255,0.22); }                     .jm-pop-ic.x:hover      { color:#ffffff !important; }
+.jm-pop-ic.bsky   { --glyph:#8198b2; --glow:rgba(17,133,254,0.40); animation-delay:.2s; } .jm-pop-ic.bsky:hover   { color:#4aa8ff !important; }
+.jm-pop-ic.masto  { --glyph:#9496b8; --glow:rgba(99,100,255,0.40); animation-delay:.4s; } .jm-pop-ic.masto:hover  { color:#9aa0ff !important; }
+.jm-pop-ic.reddit { --glyph:#c58b76; --glow:rgba(255,69,0,0.40);   animation-delay:.6s; } .jm-pop-ic.reddit:hover { color:#ff6a3d !important; }
+.jm-pop-ic.hn     { --glyph:#c39a75; --glow:rgba(255,102,0,0.40);  animation-delay:.8s; } .jm-pop-ic.hn:hover     { color:#ff9148 !important; }
+.jm-pop-ic.mail   { --glyph:#83ac9b; --glow:rgba(52,211,153,0.40); animation-delay:1s; }  .jm-pop-ic.mail:hover   { color:#34d399 !important; }
+
+@keyframes jm-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@media (prefers-reduced-motion: reduce) { .jm-pop-ic { animation: none; } }
+
+/* Share on phones — MUST sit after the base .jm-share-* rules above: a @media block has
+   the same specificity, so only its later source position wins the tie-break. The expanded
+   card is anchored to the pill's right edge (itself inset from the screen); the full-size
+   6-icon row pushed the card to ~338px and its left edge bled off-screen. Tighten the row
+   + padding so the card lands ~290px, comfortably clear of the left edge. */
+@media (max-width: 768px) {
+  .jm-share-wrap { padding-right: 0.75rem; }
+  .jm-share-card { padding: 1rem 0.9rem 1.1rem; }
+  .jm-share-icons { gap: 0.4rem; }
+  .jm-pop-ic { width: 2.2rem; height: 2.2rem; font-size: 1rem; }
 }
