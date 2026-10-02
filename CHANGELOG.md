@@ -1,4 +1,4 @@
-# Changelog — JackMate
+# Changelog: JackMate
 
 All notable changes to this project are documented here.
 
@@ -6,76 +6,76 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
-## [2.0.0] — 2026-10-02
+## [2.0.0] · 2026-10-02
 
-Major release: **JackMoebius integration**. JackMate now drives the JackMoebius daemon to expose any native macOS application (Safari, Music, FaceTime, QuickTime…) as a JACK client, in both directions — outputs **and** inputs — with no external configuration. (Requires the JackMoebius daemon, installed separately.)
+Major release: **JackMoebius integration**. JackMate now drives the JackMoebius daemon to expose any native macOS application (Safari, Music, FaceTime, QuickTime…) as a JACK client, in both directions (outputs **and** inputs) with no external configuration. (Requires the JackMoebius daemon, installed separately.)
 
-### Added — JackMoebius integration
-- **Expose macOS apps to JACK** — a Configuration option, "Expose native macOS apps to JACK", starts JackMoebius automatically right after Jack (without altering the `jackd` command). A dedicated patchbay-toolbar button opens a slide-in panel, and a JackMoebius status indicator sits next to Jack's in the sidebar.
-- **App selector** — per app, Output / Input exposure switches and an input channel-count picker. A "system monitor" (master) box exposes the global system mix.
-- **Live daemon status** — the panel, toolbar button and indicator reflect JackMoebius's real state in real time (the daemon pushes its state changes; no periodic polling). A stop or crash is detected immediately, and the daemon is automatically restarted if it goes down while Jack is running.
-- **Styled JackMoebius boxes** in the patchbay — the real app icon (per app) and the JackMoebius glyph (master) replace the initials badge; the type is identified in the box info sheet.
-- **Wrong-audio-device alert** — the patchbay flags (⚠ amber) an exposed, wired app that isn't using the right device — plus a discreet cue when it's selected but silent. An alert panel (opened automatically, or by clicking the ⚠) lists the affected apps and what to do — the fix being made in the app or in macOS System Settings, not in JackMate.
-- **App exclusion (blacklist)** — an "eye-off" button removes an app from the selector (with confirmation if it's exposed). An "Advanced JackMoebius configuration" panel (tabs) re-enables excluded apps and frees dormant channel reservations.
-- **Output volume control** — a "Volumes" bar at the top of the patchbay (toggled from the toolbar) sets the volume of Jack's output device and of "JackMoebius Out" without selecting them in macOS — Control-Center-style sliders, synced live with the volume keys (F10/F11/F12) and System Settings ▸ Sound.
-- **Per-app volume** — in the JackMoebius panel, each exposed app can be "detached" from the master volume for an independent setting (padlock); locked by default, it follows the master.
-- **Safety (anti-kill)** — stopping Jack or switching studios no longer quits the real macOS apps exposed by JackMoebius.
-- **Studios ↔ JackMoebius** — a studio saves and restores the JackMoebius state: exposed apps (Output / Input with their channel counts), the system monitor (master), and per-app volumes — along with the output-device volumes (Jack's output **and** "JackMoebius Out"). On load, the daemon is restarted if needed, apps are relaunched and re-exposed, master and volumes restored; the studio is authoritative (loading a configuration without JackMoebius stops the daemon). On stopping a studio, exposures are removed and the daemon stopped — unless the "Expose native apps" option is still on (it then stays available but empty). A studio's "Save" button correctly reflects volume, exposure and master changes.
-- **JackMoebius version shown** — the Configuration header shows the installed JackMoebius version (next to Jack's) and, like Jack, signals when an update is available — an **"Update"** button then downloads it and opens its installer.
-- **JackMoebius license status** — the Configuration header badge and the JackMoebius panel show the license state (free trial with days remaining, trial expired, or licensed). A License sheet activates a license key, shows the details (registered email, masked key hint, Macs in use) and links to purchase; when the trial has expired, enabling JackMoebius steers you to activation or purchase instead of starting the daemon.
-- **One-click license activation (`jackmate://` link)** — after purchase, a `jackmate://activate?key=…` link (a web button or the "how to activate" PDF) opens JackMate and shows the License sheet with the key already filled in — you just press "Activate". The window comes back to the front, even if the app had retreated to the menu bar.
-- **Install JackMoebius from JackMate** — when the JackMoebius bridge isn't installed, the info and License sheets offer to **download it and open its installer** in one click — handy if you enter a license key before JackMoebius is even installed. The info sheet also explains what JackMoebius is and, during the trial, leads straight to purchase/activation.
-- **Discover JackMoebius** — when the bridge isn't installed, a **"Try JackMoebius"** button (in the Configuration and Patchbay headers) plays a **demo video** in a native player and offers to **install it** in one click (or learn more). The JackMoebius "not installed" panel embeds the same demo. Offline, a presentation image replaces the video.
+### Added: JackMoebius integration
+- **Expose macOS apps to JACK**: a Configuration option, "Expose native macOS apps to JACK", starts JackMoebius automatically right after Jack (without altering the `jackd` command). A dedicated patchbay-toolbar button opens a slide-in panel, and a JackMoebius status indicator sits next to Jack's in the sidebar.
+- **App selector**: per app, Output / Input exposure switches and an input channel-count picker. A "system monitor" (master) box exposes the global system mix.
+- **Live daemon status**: the panel, toolbar button and indicator reflect JackMoebius's real state in real time (the daemon pushes its state changes; no periodic polling). A stop or crash is detected immediately, and the daemon is automatically restarted if it goes down while Jack is running.
+- **Styled JackMoebius boxes** in the patchbay: the real app icon (per app) and the JackMoebius glyph (master) replace the initials badge; the type is identified in the box info sheet.
+- **Wrong-audio-device alert**: the patchbay flags (⚠ amber) an exposed, wired app that isn't using the right device, plus a discreet cue when it's selected but silent. An alert panel (opened automatically, or by clicking the ⚠) lists the affected apps and what to do; the fix is made in the app or in macOS System Settings, not in JackMate.
+- **App exclusion (blacklist)**: an "eye-off" button removes an app from the selector (with confirmation if it's exposed). An "Advanced JackMoebius configuration" panel (tabs) re-enables excluded apps and frees dormant channel reservations.
+- **Output volume control**: a "Volumes" bar at the top of the patchbay (toggled from the toolbar) sets the volume of Jack's output device and of "JackMoebius Out" without selecting them in macOS. Control-Center-style sliders, synced live with the volume keys (F10/F11/F12) and System Settings ▸ Sound.
+- **Per-app volume**: in the JackMoebius panel, each exposed app can be "detached" from the master volume for an independent setting (padlock); locked by default, it follows the master.
+- **Safety (anti-kill)**: stopping Jack or switching studios no longer quits the real macOS apps exposed by JackMoebius.
+- **Studios ↔ JackMoebius**: a studio saves and restores the JackMoebius state: exposed apps (Output / Input with their channel counts), the system monitor (master), and per-app volumes, along with the output-device volumes (Jack's output **and** "JackMoebius Out"). On load, the daemon is restarted if needed, apps are relaunched and re-exposed, master and volumes restored; the studio is authoritative (loading a configuration without JackMoebius stops the daemon). On stopping a studio, exposures are removed and the daemon stopped, unless the "Expose native apps" option is still on (it then stays available but empty). A studio's "Save" button correctly reflects volume, exposure and master changes.
+- **JackMoebius version shown**: the Configuration header shows the installed JackMoebius version (next to Jack's) and, like Jack, signals when an update is available; an **"Update"** button then downloads it and opens its installer.
+- **JackMoebius license status**: the Configuration header badge and the JackMoebius panel show the license state (free trial with days remaining, trial expired, or licensed). A License sheet activates a license key, shows the details (registered email, masked key hint, Macs in use) and links to purchase; when the trial has expired, enabling JackMoebius steers you to activation or purchase instead of starting the daemon.
+- **One-click license activation (`jackmate://` link)**: after purchase, a `jackmate://activate?key=…` link (a web button or the "how to activate" PDF) opens JackMate and shows the License sheet with the key already filled in. You just press "Activate". The window comes back to the front, even if the app had retreated to the menu bar.
+- **Install JackMoebius from JackMate**: when the JackMoebius bridge isn't installed, the info and License sheets offer to **download it and open its installer** in one click, handy if you enter a license key before JackMoebius is even installed. The info sheet also explains what JackMoebius is and, during the trial, leads straight to purchase/activation.
+- **Discover JackMoebius**: when the bridge isn't installed, a **"Try JackMoebius"** button (in the Configuration and Patchbay headers) plays a **demo video** in a native player and offers to **install it** in one click (or learn more). The JackMoebius "not installed" panel embeds the same demo. Offline, a presentation image replaces the video.
 - Fully localized JackMoebius interface (EN / FR / DE / IT / ES).
 
-### Added — Application
-- **"What's New" panel** — on the first launch of a version (fresh install or update), a panel summarizes the highlights and links to the online changelog. A changelog link is also present in the app's update window.
-- **About panel** — a "License" button links to the MIT license, and the app now carries its copyright (shown in Finder's Get Info).
+### Added: Application
+- **"What's New" panel**: on the first launch of a version (fresh install or update), a panel summarizes the highlights and links to the online changelog. A changelog link is also present in the app's update window.
+- **About panel**: a "License" button links to the MIT license, and the app now carries its copyright (shown in Finder's Get Info).
 
 ### Improved
 - Patchbay: when zoomed out, port and app names now scale with the boxes (no more overlap).
 - Patchbay box info sheet: now closes when clicking outside it.
-- Much-improved automatic patchbay layout: on Jack start (and on "Tidy"), clients are arranged by role — sources on the left, hardware outputs on the right, mixed in the middle — spread over several columns to fit the available width, with no overlap. Far better when clients aren't (yet) connected to each other. And a newly-appearing client (an app that gets exposed) now drops into the right spot for its role on its own, without disturbing the boxes you've already arranged.
+- Much-improved automatic patchbay layout: on Jack start (and on "Tidy"), clients are arranged by role (sources on the left, hardware outputs on the right, mixed in the middle), spread over several columns to fit the available width, with no overlap. Far better when clients aren't (yet) connected to each other. And a newly-appearing client (an app that gets exposed) now drops into the right spot for its role on its own, without disturbing the boxes you've already arranged.
 - Jack update indicator (header): the current version turns amber next to a **"View releases"** button (instead of a plain link), consistent with the JackMoebius display.
 - JackMoebius license: when the activation limit is reached, the License sheet offers direct **Support** and **"Buy another license"** actions.
 
 ### Fixed
 - Studios: no more needless Jack restart when loading a studio that includes a device.
-- JackMoebius is launched via launchd (the daemon runs under its own system identity) — avoids a context conflict that could bring down the JACK server when exposure started.
+- JackMoebius is launched via launchd (the daemon runs under its own system identity), which avoids a context conflict that could bring down the JACK server when exposure started.
 
 ### Distribution
-- The app **and** the DMG are now signed with a Developer ID and **notarized by Apple** — no more Gatekeeper "unidentified developer" warning on first launch.
+- The app **and** the DMG are now signed with a Developer ID and **notarized by Apple**: no more Gatekeeper "unidentified developer" warning on first launch.
 
 ### Documentation
-- Quarto site: a download-help modal on the "Download" click — immediate download plus clean install steps (the app is notarized, so it opens with no Gatekeeper warnings), with platform-aware behavior (macOS / Windows-Linux / mobile).
-- New JackMoebius guide — app exposure, the app selector, per-app and output volumes, patchbay integration and routing status — plus the Studios, Patchbay, Configuration and Alternatives pages updated for the 2.0 features.
+- Quarto site: a download-help modal on the "Download" click: immediate download plus clean install steps (the app is notarized, so it opens with no Gatekeeper warnings), with platform-aware behavior (macOS / Windows-Linux / mobile).
+- New JackMoebius guide (app exposure, the app selector, per-app and output volumes, patchbay integration and routing status), plus the Studios, Patchbay, Configuration and Alternatives pages updated for the 2.0 features.
 
 ---
 
-## [1.9.9] — 2026-04-13
+## [1.9.9] · 2026-04-13
 
 ### Improved
 - Min-height adapted to small screens (e.g. Macbook Neo)
 
 ---
 
-## [1.9.8] — 2026-04-13
+## [1.9.8] · 2026-04-13
 
 ### Improved
-- Sidebar: width increased to 245 pt — studio names display without truncation
-- Studio list row: reorganised as [icon][name][delete][info][▶] — start button always rightmost
+- Sidebar: width increased to 245 pt; studio names display without truncation
+- Studio list row: reorganised as [icon][name][delete][info][▶] (start button always rightmost)
 - Main window: minimum widths adjusted (Configuration: 1040 pt, Patchbay: 1200 pt)
 - Device name labels (MarqueeText): fade gradient repositioned for more visible text; scroll distance now computed after layout stabilises
 - Secondary "Cancel" buttons in all confirmation sheets now use the standard bordered style for better affordance
-- Support panel: non-blocking prompt shown periodically after Jack starts — option to support the project on Buy Me a Coffee, be reminded later, or dismiss permanently
+- Support panel: non-blocking prompt shown periodically after Jack starts; option to support the project on Buy Me a Coffee, be reminded later, or dismiss permanently
 
 ### Fixed
-- Physical device detection: CoreAudio UIDs with stream index suffixes (`:2`, `:3`…) are now normalised — prevents false positives when the same physical device exposes multiple streams
+- Physical device detection: CoreAudio UIDs with stream index suffixes (`:2`, `:3`…) are now normalised, which prevents false positives when the same physical device exposes multiple streams
 - Clock Drift Correction toggle: the info button's hit area no longer overlaps the toggle
 
 ---
 
-## [1.9.7] — 2026-04-13
+## [1.9.7] · 2026-04-13
 
 ### Added
 - Automatic update check at launch (GitHub releases, 24h cache, silent on network failure)
@@ -87,46 +87,46 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.9.6] — 2026-04-12
+## [1.9.6] · 2026-04-12
 
 ### Improved
-- Configuration — Clock drift correction: pulsing amber border + glow when the option is disabled with two distinct physical devices selected (animation stops as soon as Jack is running)
-- Configuration — Clock drift correction: `ⓘ` button to the left of the toggle — opens an explanatory sheet with a link to Audio MIDI Setup; pulses in amber in sync with the border
+- Configuration (Clock drift correction): pulsing amber border + glow when the option is disabled with two distinct physical devices selected (animation stops as soon as Jack is running)
+- Configuration (Clock drift correction): `ⓘ` button to the left of the toggle, which opens an explanatory sheet with a link to Audio MIDI Setup; pulses in amber in sync with the border
 
 ---
 
-## [1.9.5] — 2026-04-12
+## [1.9.5] · 2026-04-12
 
 ### Improved
-- Patchbay — client card badge: hover effect (scale ×1.15 + coloured glow) and pointer cursor, making it visually clear that the badge is clickable
+- Patchbay (client card badge): hover effect (scale ×1.15 + coloured glow) and pointer cursor, making it visually clear that the badge is clickable
 
 ---
 
-## [1.9.4] — 2026-04-12
+## [1.9.4] · 2026-04-12
 
 ### Fixed
-- Patchbay port labels: vertical alignment corrected — the optical centre of lowercase letters ("a", "o", "e") now aligns with the gem centre, instead of the text baseline (`midY - ascender + xHeight/2`)
+- Patchbay port labels: vertical alignment corrected, so the optical centre of lowercase letters ("a", "o", "e") now aligns with the gem centre, instead of the text baseline (`midY - ascender + xHeight/2`)
 - Patchbay `system` card device names (free zone, single-line): same optical centering fix; multi-line block centering unchanged
 
 ---
 
-## [1.9.3] — 2026-04-12
+## [1.9.3] · 2026-04-12
 
 ### Added
 - Aggregate warning sheet shown before Jack starts when the device selection will silently create a Jack aggregate: displays a patchbay-accurate preview of the resulting `system (capture)` / `system (playback)` cards, with per-device bracket bars and a "Don't show again for this combination" option
-- Triggered from the Start Jack button in both the main window and the menu bar — Jack only starts after user confirmation
+- Triggered from the Start Jack button in both the main window and the menu bar; Jack only starts after user confirmation
 - From the menu bar: shown in a floating NSPanel independent of the main window (works even when the main window is closed)
 
 ---
 
-## [1.9.2] — 2026-04-11
+## [1.9.2] · 2026-04-11
 
 ### Fixed
 - Patchbay `system` cards: device name labels and vertical bars overflowed the card boundary when the channel picker was limiting the number of ports exposed by Jack. Each segment is now clamped to the actually rendered port count.
 
 ---
 
-## [1.9.1] — 2026-04-11
+## [1.9.1] · 2026-04-11
 
 ### Added
 - Status bar: "Aggregated by Jack" chip displayed between device names and sample rate when the device selection will cause Jack to silently create an aggregate device
@@ -136,7 +136,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.9.0] — 2026-04-11
+## [1.9.0] · 2026-04-11
 
 ### Added
 - Patchbay `system` cards: hardware device names displayed in the free zone of each card (right-aligned for capture, left-aligned for playback); multi-line wrap when a segment has ≥ 2 ports
@@ -145,7 +145,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.8.9] — 2026-04-11
+## [1.8.9] · 2026-04-11
 
 ### Fixed
 - Devices with non-ASCII characters in their UID (e.g. RØDE AI-Micro) were silently
@@ -160,16 +160,16 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.8.8] — 2026-04-10
+## [1.8.8] · 2026-04-10
 
 ### Fixed
 - Configuration panel: `JMPopUpButton` coordinator was stale after device plug/unplug, causing wrong device UID to be written to preferences
-- `buildCommand`: removed literal quote characters from UID tokens — `Process.arguments` passes strings directly to the executable without shell interpretation; literal quotes corrupted UIDs containing spaces or non-ASCII characters (e.g. RØDE AI-Micro)
+- `buildCommand`: removed literal quote characters from UID tokens: `Process.arguments` passes strings directly to the executable without shell interpretation; literal quotes corrupted UIDs containing spaces or non-ASCII characters (e.g. RØDE AI-Micro)
 - `commandPreview`: UIDs containing spaces are now correctly wrapped in double quotes for display only
 
 ---
 
-## [1.8.7] — 2026-04-07
+## [1.8.7] · 2026-04-07
 
 ### Changed
 - Minimum macOS version: 15.0 (all Sequoia versions, Intel and Apple Silicon)
@@ -179,22 +179,22 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.8.6] — 2026-04-07
+## [1.8.6] · 2026-04-07
 
 ### Changed
 - Help menu Documentation link now points to `https://zinc75.github.io/JackMate/`
 
 ---
 
-## [infra] — 2026-04-07
+## [infra] · 2026-04-07
 
 ### Documentation
 - Full Quarto documentation site: home page + 6 guide pages (Configuration, Patchbay, Studios, Transport, Menu Bar, Alternatives)
-- Published via `gh-pages` branch — available at [zinc75.github.io/JackMate](https://zinc75.github.io/JackMate/) once GitHub Pages is activated
+- Published via `gh-pages` branch, available at [zinc75.github.io/JackMate](https://zinc75.github.io/JackMate/) once GitHub Pages is activated
 
 ---
 
-## [1.8.5] — 2026-04-04
+## [1.8.5] · 2026-04-04
 
 ### Added
 - Full Spanish (ES) translation: 251/261 keys in `Localizable.xcstrings`
@@ -203,7 +203,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.8.4] — 2026-04-03
+## [1.8.4] · 2026-04-03
 
 ### Added
 - Full Italian (IT) translation: 248/261 keys in `Localizable.xcstrings`
@@ -213,7 +213,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.8.3] — 2026-04-03
+## [1.8.3] · 2026-04-03
 
 ### Refactored
 - `JackState` enum introduced (`ready`, `starting`, `running`, `external`, `startFailed`, `stopping`, `stopped`, `stoppedExternal`, `alreadyRunning`, `executableNotFound`)
@@ -222,7 +222,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.8.2] — 2026-04-03
+## [1.8.2] · 2026-04-03
 
 ### Added
 - Full German (DE) translation: 249/262 keys in `Localizable.xcstrings`
@@ -236,7 +236,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.8.1] — 2026-04-03
+## [1.8.1] · 2026-04-03
 
 ### Added
 - Full English translation: 100% of UI strings translated (262 keys in `Localizable.xcstrings`)
@@ -250,7 +250,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.8.0] — 2026-04-02
+## [1.8.0] · 2026-04-02
 
 ### Added
 - Full i18n infrastructure: all UI strings externalized into `Localizable.xcstrings` (~272 keys), source language French
@@ -260,27 +260,27 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.7.4] — 2026-03-28
+## [1.7.4] · 2026-03-28
 
 ### Fixed
-- Patchbay client info sheet (click on the 2-letter badge): CLI clients (jack_metro, a2jmidid, etc.) are not visible to `NSWorkspace` — added fallback via `ProcessHelper.findPID(forJackClient:)` to display their executable path, full command line, and PID
+- Patchbay client info sheet (click on the 2-letter badge): CLI clients (jack_metro, a2jmidid, etc.) are not visible to `NSWorkspace`; added a fallback via `ProcessHelper.findPID(forJackClient:)` to display their executable path, full command line, and PID
 
 ---
 
-## [1.7.3] — 2026-03-28
+## [1.7.3] · 2026-03-28
 
 ### Fixed
-- Patchbay client names empty in Release build: `String(cString:)` moved inside `withUnsafeBytes` closures in `getPorts()` and `getConnections()` — the C pointer is only valid for the duration of the closure; using it after the closure returns is undefined behaviour exploited by the Release optimizer
-- `PatchbayManager`: `bridge` property now captured explicitly on the main actor before dispatching to background queues — prevents a `@MainActor` property access from a `nonisolated` context in Release builds
+- Patchbay client names empty in Release build: `String(cString:)` moved inside `withUnsafeBytes` closures in `getPorts()` and `getConnections()`: the C pointer is only valid for the duration of the closure; using it after the closure returns is undefined behaviour exploited by the Release optimizer
+- `PatchbayManager`: `bridge` property now captured explicitly on the main actor before dispatching to background queues, which prevents a `@MainActor` property access from a `nonisolated` context in Release builds
 - `windowShouldClose` annotated `@MainActor` for compatibility with command-line builds
 
 ### Build
 - `build.sh`: animated progress spinner (braille) on each compilation step, ✓ checkmark on completion
-- `build.sh`: `actool` output cleaned up — system-level `dyld` noise suppressed, XML summary hidden, real warnings still surfaced
+- `build.sh`: `actool` output cleaned up: system-level `dyld` noise suppressed, XML summary hidden, real warnings still surfaced
 
 ---
 
-## [1.7.2] — 2026-03-27
+## [1.7.2] · 2026-03-27
 
 ### Documentation
 - English `///` docstrings added to all public and internal types, properties, and methods across the entire codebase
@@ -289,7 +289,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.7.1] — 2026-03-27
+## [1.7.1] · 2026-03-27
 
 ### Added
 - Parsing of the installed Jack version via `jackd --version`
@@ -299,7 +299,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.7.0] — 2026-03-27
+## [1.7.0] · 2026-03-27
 
 ### Added
 - Jack detection at launch and on every app reactivation: `jackInstalled`, `recheckInstallation()`
@@ -310,7 +310,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.6.2] — 2026-03-27
+## [1.6.2] · 2026-03-27
 
 ### Added
 - Custom About panel (SwiftUI NSPanel): app icon, version/build, copyright, MIT licence, GitHub and Buy Me a Coffee links
@@ -321,16 +321,16 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.6.1] — 2026-03-27
+## [1.6.1] · 2026-03-27
 
 ### Added
-- `NSAlert` (with "Don't show again" checkbox) when selecting an aggregate device — suggests configuring clock sync in Audio MIDI Setup, with a direct Open button
-- `NSAlert` (with "Don't show again" checkbox) when enabling Clock drift correction — suggests the macOS aggregate device as an alternative
+- `NSAlert` (with "Don't show again" checkbox) when selecting an aggregate device: suggests configuring clock sync in Audio MIDI Setup, with a direct Open button
+- `NSAlert` (with "Don't show again" checkbox) when enabling Clock drift correction: suggests the macOS aggregate device as an alternative
 - Clock drift correction toggle grayed out and forced to `false` when input and output are the same physical hardware (same UID, or two built-in devices)
 
 ---
 
-## [1.6.0] — 2026-03-27
+## [1.6.0] · 2026-03-27
 
 ### Added
 - Aggregate device constraint: if an aggregate device is selected on input or output, the other side is automatically forced to the same device
@@ -338,53 +338,53 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.5.1] — 2026-03-27
+## [1.5.1] · 2026-03-27
 
 ### Fixed
 - Xrun counter automatically reset to zero on Jack stop and start (voluntary stop, crash, or external cause)
 
 ---
 
-## [1.5.0] — 2026-03-27
+## [1.5.0] · 2026-03-27
 
 ### Added
 - Explicit input/output channel selection via LED picker (`--input-list` / `--output-list`)
 - Sheet modal with numbered clickable LED rows, green glow on active channels
 - Minimum 1 active channel guaranteed, reset to all channels on each toggle activation
 - Footer: permanent channel chips (`N/Nmax ch` with selected range details)
-- `JackSnapshot` extended: `limitChannels`, `selectedInChannels`, `selectedOutChannels` — backward-compatible JSON
+- `JackSnapshot` extended: `limitChannels`, `selectedInChannels`, `selectedOutChannels` (backward-compatible JSON)
 
 ---
 
-## [1.4.1] — 2026-03-27
+## [1.4.1] · 2026-03-27
 
 ### Fixed
-- MIDI (coremidi) toggle grayed out and disabled — experimental option causing instabilities
+- MIDI (coremidi) toggle grayed out and disabled (experimental option causing instabilities)
 
 ---
 
-## [1.4.0] — 2026-03-27
+## [1.4.0] · 2026-03-27
 
 ### Added
-- "Audio MIDI Setup" button in the Configuration toolbar (left of the terminal icon) — opens the native macOS Audio MIDI Setup app, `pianokeys` icon, tooltip on hover
+- "Audio MIDI Setup" button in the Configuration toolbar (left of the terminal icon): opens the native macOS Audio MIDI Setup app, `pianokeys` icon, tooltip on hover
 - Minimum Patchbay view width raised to 1100px
 
 ---
 
-## [1.3.1] — 2026-03-27
+## [1.3.1] · 2026-03-27
 
 ### Fixed
-- Appearance forced to dark mode (`NSApp.appearance = .darkAqua`) — sidebar, log, and menubar popover stable in macOS Light mode
+- Appearance forced to dark mode (`NSApp.appearance = .darkAqua`): sidebar, log, and menubar popover stable in macOS Light mode
 - Log panel: semi-transparent background via SwiftUI opacity (VisualEffectView incompatible with ZStack overlay)
 - Menu bar info icons switched to monochrome
 
 ---
 
-## [1.3.0] — 2026-03-27
+## [1.3.0] · 2026-03-27
 
 ### Added
 - Detection of CLI Jack clients by scanning the process table (`proc_listallpids` + `proc_pidpath` + `sysctl KERN_PROCARGS2`)
-- `ProcessHelper`: new file — `findPID(forJackClient:)`, `commandLine(for:)`, `executablePath(for:)`, `terminate(pid:)`
+- `ProcessHelper`: new file with `findPID(forJackClient:)`, `commandLine(for:)`, `executablePath(for:)`, `terminate(pid:)`
 - Automatic save of CLI client launch commands in the studio JSON at `buildStudio()`
 - Automatic relaunch of CLI clients when loading a studio
 - `terminateAllJackClients()`: closes all Jack clients (GUI via NSWorkspace + CLI via PID scan)
@@ -397,10 +397,10 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.2.0] — 2026-03-26
+## [1.2.0] · 2026-03-26
 
 ### Added
-- Full Jack command comparison on studio load (all parameters, options, devices) — order-independent token comparison
+- Full Jack command comparison on studio load (all parameters, options, devices), order-independent token comparison
 - Closure of ALL clients (GUI + CLI from the studio) before loading a new studio
 - Jack restart only if configuration differs or Jack was started outside JackMate
 - 1.5s delay between stop and start Jack to allow system resource release
@@ -414,7 +414,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.1.0] — 2026-03-26
+## [1.1.0] · 2026-03-26
 
 ### Added
 - Real executable name displayed in the generated command (`jackd` or `jackdmp` depending on installation)
@@ -422,7 +422,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [1.0.0] — 2026-03-26
+## [1.0.0] · 2026-03-26
 
 ### Fixed / Stabilized
 - Fixed patchbay reconnection bug after Stop/Start Jack (root cause: Jack 1.9.11 → updated to 1.9.22)
@@ -431,9 +431,9 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [0.9.0] — 2026-03-23
+## [0.9.0] · 2026-03-23
 
-### Added — JACK Transport
+### Added: JACK Transport
 - Transport bar: Play / Pause / Stop / Seek
 - BBT, HMS, Frames display
 - Timebase master, BPM
@@ -441,9 +441,9 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [0.8.0] — 2026-03-23
+## [0.8.0] · 2026-03-23
 
-### Added — Group drag & advanced selection
+### Added: Group drag & advanced selection
 - Group drag: selected clients move together
 - Multi-selection: Shift+click, ⌘A
 - Selection badge on collapse/expand button
@@ -453,9 +453,9 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [0.7.0] — 2026-03-22
+## [0.7.0] · 2026-03-22
 
-### Added — Toolbar, Connect-All, automatic layout (Sugiyama)
+### Added: Toolbar, Connect-All, automatic layout (Sugiyama)
 - Automatic patchbay node layout (Sugiyama algorithm)
 - Partial tidy selection (Shift+click)
 - Connect-All: bulk connection between two clients
@@ -465,9 +465,9 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [0.6.0] — 2026-03-22
+## [0.6.0] · 2026-03-22
 
-### Added — Visual polish + node collapse
+### Added: Visual polish + node collapse
 - Node collapse/expand, meta-cables
 - Port pills on hover, pill for unconnected nodes, click-to-connect
 - Diagonal gradient border on cards and nodes
@@ -477,9 +477,9 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [0.5.0] — 2026-03-21
+## [0.5.0] · 2026-03-21
 
-### Added — Full studios
+### Added: Full studios
 - Full studio capture (Jack parameters + clients + connections + node positions)
 - Robust load/save, stabilized patchbay
 - Stop Studio: quit apps + disconnect cables
@@ -489,9 +489,9 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [0.4.0] — 2026-03-20
+## [0.4.0] · 2026-03-20
 
-### Added — Improved patchbay + StudioManager foundations
+### Added: Improved patchbay + StudioManager foundations
 - Patchbay spatial consistency (centering, drag constraints)
 - Collision management
 - StudioManager beginnings
@@ -499,25 +499,25 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 
 ---
 
-## [0.3.0] — 2026-03-19
+## [0.3.0] · 2026-03-19
 
-### Added — Functional patchbay
+### Added: Functional patchbay
 - Cables, animations, real-time updates
 - JackBridge for patchbay
 - Physical input source selector
 
 ---
 
-## [0.2.0] — 2026-03-18
+## [0.2.0] · 2026-03-18
 
-### Added — UI + logs
+### Added: UI + logs
 - System notifications
 - Semi-transparent log window
 - Initial look and feel
 
 ---
 
-## [0.1.0] — 2026-03-18
+## [0.1.0] · 2026-03-18
 
 ### First working version
 - Start / stop Jack from the menu bar
