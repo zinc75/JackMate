@@ -126,6 +126,10 @@ a:hover {
   color: var(--jm-red) !important;
   background: rgba(239,68,68,0.08) !important;
 }
+/* Bootstrap gives every navbar .nav-link faint left/right borders (item separators) — drop
+   them so no stray divider shows (e.g. between the "Star on GitHub" pill and the GitHub icon).
+   The Star pill keeps its own border via its more specific :has() rules. */
+.navbar .nav-link { border-left: none !important; border-right: none !important; }
 
 .navbar .dropdown-menu {
   background: rgba(18, 18, 24, 0.92) !important;
@@ -171,24 +175,51 @@ a:hover {
   width: 1.2em !important; height: 1.2em !important;
 }
 
-/* Bouton recherche dans la navbar (Algolia/Quarto) */
-.quarto-search .aa-DetachedSearchButton,
-.navbar .quarto-search-button {
-  background: transparent !important;
-  border: 1px solid rgba(255,255,255,0.12) !important;
-  border-radius: 8px !important;
+/* Navbar search as a GitHub-style pill: magnifier + "Type / to search" + a framed / keycap.
+   NB: the real button is `#quarto-search .aa-DetachedSearchButton` (the old
+   `.quarto-search` / `.quarto-search-button` selectors never matched it). The placeholder
+   text is injected in after-body.html (Quarto ships it empty). */
+/* Let the search reserve its real width instead of staying in the 40px icon slot: the
+   container is a shrinkable flex item and the Algolia wrapper is width:100%, so the wider
+   button overflowed to the right. Size both to content → the right nav cluster shifts left. */
+#quarto-search.type-overlay { flex: 0 0 auto !important; width: auto !important; max-width: none !important; }
+#quarto-search .aa-Autocomplete { display: inline-block !important; width: auto !important; }
+#quarto-search .aa-DetachedSearchButton {
+  display: inline-flex !important; align-items: center !important; gap: 0.5rem !important;
+  padding: 0.4rem 0.7rem !important;
+  border: 1px solid rgba(255,255,255,0.14) !important; border-radius: 10px !important;
+  background: rgba(255,255,255,0.03) !important;
   color: var(--jm-text-dim) !important;
-  padding: 0.3rem 0.5rem !important;
-  transition: border-color 0.15s, background 0.15s !important;
+  font-size: 0.85rem !important; font-weight: 500 !important;
+  transition: border-color 0.15s, background 0.15s, color 0.15s !important;
 }
-.quarto-search .aa-DetachedSearchButton:hover,
-.navbar .quarto-search-button:hover {
+#quarto-search .aa-DetachedSearchButton:hover {
+  border-color: rgba(255,255,255,0.28) !important;
   background: rgba(255,255,255,0.06) !important;
-  border-color: rgba(255,255,255,0.22) !important;
   color: var(--jm-text) !important;
 }
-.quarto-search .aa-DetachedSearchButton svg,
-.navbar .quarto-search-button svg { color: inherit !important; }
+#quarto-search .aa-DetachedSearchButtonIcon { color: inherit !important; }
+#quarto-search .aa-DetachedSearchButtonIcon svg { width: 16px !important; height: 16px !important; }
+#quarto-search .aa-DetachedSearchButtonPlaceholder {
+  display: inline-flex !important; align-items: center !important; gap: 0.4rem !important;
+  opacity: 1 !important; white-space: nowrap !important; font: inherit !important;
+}
+/* the / keycap inside the placeholder */
+.jm-search-kbd {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 1.35em; height: 1.4em; padding: 0 0.3em;
+  border: 1px solid rgba(255,255,255,0.30); border-radius: 5px;
+  background: rgba(255,255,255,0.07);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.82em; line-height: 1; color: var(--jm-text);
+}
+/* Roomy desktop only: below this, collapse back to the icon-only button. JackMate's navbar is
+   lighter than JackMoebius's, so the pill can stay expanded a bit longer (1000 vs 1300px).
+   Width is in CSS/logical px (retina-independent). */
+@media (max-width: 1000px) {
+  #quarto-search .aa-DetachedSearchButton { padding: 0.35rem 0.5rem !important; gap: 0 !important; }
+  #quarto-search .aa-DetachedSearchButtonPlaceholder { display: none !important; }
+}
 
 /* ── Secondary nav — masquée complètement ────────── */
 nav.quarto-secondary-nav { display: none !important; }

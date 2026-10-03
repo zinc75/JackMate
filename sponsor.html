@@ -559,6 +559,27 @@ function openDownloadModal(e) {
   else inject();
 })();
 </script>
+
+<!-- Navbar search: turn the bare magnifier into a GitHub-style "Type / to search" hint.
+     Quarto injects the button at runtime with an empty placeholder, so we fill it once it
+     appears (the `/` and `f` shortcuts are Quarto defaults; this only makes them discoverable). -->
+<script>
+(function () {
+  function decorate() {
+    var ph = document.querySelector('#quarto-search .aa-DetachedSearchButtonPlaceholder');
+    if (!ph) return false;
+    if (ph.dataset.jmHint) return true;
+    ph.dataset.jmHint = '1';
+    ph.innerHTML = 'Type <kbd class="jm-search-kbd">/</kbd> to search';
+    ph.style.display = '';   // Quarto hides it while empty; show it now that it has content
+    return true;
+  }
+  if (!decorate()) {
+    var tries = 0;
+    var iv = setInterval(function () { if (decorate() || ++tries > 50) clearInterval(iv); }, 100);
+  }
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
