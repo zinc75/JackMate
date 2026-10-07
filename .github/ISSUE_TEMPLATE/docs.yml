@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Found something wrong or missing in the [JackMate documentation](https://zinc75.github.io/JackMate/)?
+        Found something wrong or missing in the [JackMate documentation](https://jackmate.app/)?
         Let us know below.
 
   - type: dropdown

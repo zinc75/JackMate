@@ -17,7 +17,7 @@
     <strong>Signed &amp; notarized by Apple</strong>
   </p>
 
-  **[Documentation](https://zinc75.github.io/JackMate/)** · **[Download](https://zinc75.github.io/JackMate/#download)** · **[Changelog](https://zinc75.github.io/JackMate/changelog.html)**
+  **[Documentation](https://jackmate.app/)** · **[Download](https://jackmate.app/#download)** · **[Changelog](https://jackmate.app/changelog.html)**
 
 
 </div>
@@ -25,14 +25,14 @@
 ---
 
 <div align="center">
-  <img src="https://zinc75.github.io/JackMate/assets/screencast/screencast.gif" alt="Screencast" width="100%">
+  <img src="https://jackmate.app/assets/screencast/screencast.gif" alt="Screencast" width="100%">
 </div>
 
 ---
 
 ## 🆕 New in 2.0: JackMoebius integration
 
-Bring **any native macOS app into the JACK graph** (inputs *and* outputs) with no external setup. JackMate now drives **[JackMoebius](https://zinc75.github.io/JackMoebius/)**, a bidirectional CoreAudio ↔ JACK bridge, so apps that have *no built-in JACK support* become first-class JACK clients:
+Bring **any native macOS app into the JACK graph** (inputs *and* outputs) with no external setup. JackMate now drives **[JackMoebius](https://jackmoebius.io/)**, a bidirectional CoreAudio ↔ JACK bridge, so apps that have *no built-in JACK support* become first-class JACK clients:
 
 - **Expose CoreAudio apps as JACK clients**: Safari, Music, FaceTime, QuickTime, a DAW's companion apps… anything that plays or captures audio, routed **in and out** of JACK.
 - Per-app **Output / Input** exposure and channel counts, a **system-monitor** master box, and **per-app volumes**.
@@ -92,7 +92,7 @@ Bring **any native macOS app into the JACK graph** (inputs *and* outputs) with n
 
 ## Documentation
 
-Full documentation at **[zinc75.github.io/JackMate](https://zinc75.github.io/JackMate/)**.
+Full documentation at **[jackmate.app](https://jackmate.app/)**.
 
 ---
 
@@ -107,7 +107,7 @@ Full documentation at **[zinc75.github.io/JackMate](https://zinc75.github.io/Jac
 
 ### Download a pre-built release (recommended)
 
-**[Download the latest `.dmg`](https://zinc75.github.io/JackMate/#download)** and drag JackMate to your Applications folder.
+**[Download the latest `.dmg`](https://jackmate.app/#download)** and drag JackMate to your Applications folder.
 
 > 🛡️ **Signed and notarized by Apple.** JackMate is Developer ID signed and notarized, so it opens cleanly: no Gatekeeper warnings, no Terminal workarounds. Just drag it to Applications and launch.
 
