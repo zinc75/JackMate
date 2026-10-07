@@ -229,9 +229,9 @@ final class JackMoebiusManager: ObservableObject {
     private var pendingMutations = 0
 
     /// JackMoebius website (presentation + DMG download). Used by the info-sheet download button.
-    static let downloadURL = URL(string: "https://zinc75.github.io/JackMoebius/")!
+    static let downloadURL = URL(string: "https://jackmoebius.io/")!
     /// JackMoebius website / documentation. Used by the docs button and the What's New "learn more" link.
-    static let docsURL     = URL(string: "https://zinc75.github.io/JackMoebius/")!
+    static let docsURL     = URL(string: "https://jackmoebius.io/")!
     /// JackMoebius latest GitHub release (the installer package). Used to send a user straight to the
     /// download when they try to activate a licence without JackMoebius installed.
     static let releasesURL = URL(string: "https://github.com/zinc75/JackMoebius/releases/latest")!
@@ -241,7 +241,7 @@ final class JackMoebiusManager: ObservableObject {
     /// JackMoebius site "buy" deep link → replays the site's Buy button (correct
     /// Lemon Squeezy product + embed overlay). Routed through the site so the
     /// checkout URL can change without shipping a new JackMate build.
-    static let purchaseURL       = URL(string: "https://zinc75.github.io/JackMoebius/#buy")!
+    static let purchaseURL       = URL(string: "https://jackmoebius.io/#buy")!
 
     /// Absolute path to the located `jackmoebius` control CLI, or `nil` if not installed.
     @Published private(set) var executableURL: URL? = nil

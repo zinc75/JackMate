@@ -113,7 +113,7 @@ private struct AboutView: View {
                         NSWorkspace.shared.open(URL(string: "https://github.com/zinc75/JackMate")!)
                     }
                     Button("about.button.license") {
-                        NSWorkspace.shared.open(URL(string: "https://zinc75.github.io/JackMate/license.html")!)
+                        NSWorkspace.shared.open(URL(string: "https://jackmate.app/license.html")!)
                     }
                     Button("about.button.support") {
                         NSWorkspace.shared.open(URL(string: "https://buymeacoffee.com/zinc75")!)
@@ -214,7 +214,7 @@ struct JackMateApp: App {
             // ── Help menu — replace default (removes "JackMate Help" helpbook item) ──
             CommandGroup(replacing: .help) {
                 Button("menu.help.documentation") {
-                    NSWorkspace.shared.open(URL(string: "https://zinc75.github.io/JackMate/")!)
+                    NSWorkspace.shared.open(URL(string: "https://jackmate.app/")!)
                 }
             }
         }

@@ -19,7 +19,7 @@ import Combine
 final class WhatsNewManager: ObservableObject {
 
     /// Full changelog on the docs site (GitHub Pages).
-    static let changelogURL = URL(string: "https://zinc75.github.io/JackMate/changelog.html")!
+    static let changelogURL = URL(string: "https://jackmate.app/changelog.html")!
 
     private static let lastRunVersionKey = "JM.lastRunVersion"
 
