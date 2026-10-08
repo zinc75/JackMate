@@ -29,6 +29,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 - Fully localized JackMoebius interface (EN / FR / DE / IT / ES).
 
 ### Added: Application
+- **One-click Jack install**: when Jack is not installed, the recommended ".pkg" method downloads and opens a notarized, universal Jack installer (no Gatekeeper warning, no Rosetta). When a Jack update is available, the button points to the most suitable release.
 - **"What's New" panel**: on the first launch of a version (fresh install or update), a panel summarizes the highlights and links to the online changelog. A changelog link is also present in the app's update window.
 - **About panel**: a "License" button links to the MIT license, and the app now carries its copyright (shown in Finder's Get Info).
 
