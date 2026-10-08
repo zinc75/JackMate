@@ -18,6 +18,8 @@ import Foundation
 import Combine
 import SwiftUI
 import Darwin
+import AppKit         // NSWorkspace (open the downloaded installer / releases page)
+import AVFoundation   // microphone (TCC) permission, settled before Jack opens a capture device
 
 // MARK: - JackLogLine
 
@@ -397,6 +399,81 @@ final class JackManager: ObservableObject {
         }
     }
 
+    // MARK: - Jack install (one-click notarized convenience pkg)
+
+    /// Version of JACK for which a notarized, universal convenience installer is hosted
+    /// (on the zinc75/jack2 fork). It is a one-click bootstrap while the official `.pkg` is
+    /// still unsigned and forces Rosetta on Apple Silicon. See that release's notes for the
+    /// provenance (official binaries re-signed + notarized + installer architecture fixed).
+    static let jackConvenienceVersion  = "1.9.22"
+    static let jackConveniencePkgURL   = URL(string: "https://github.com/zinc75/jack2/releases/download/v1.9.22-macos-universal/jack2-1.9.22-universal-notarized.pkg")!
+    /// Official JACK2 releases page — fallback, and the target once a newer official release exists.
+    static let jackOfficialReleasesURL = URL(string: "https://github.com/jackaudio/jack2-releases/releases")!
+    /// Release page of the notarized convenience build (shown to already-installed users on update).
+    static let jackConvenienceReleaseURL = URL(string: "https://github.com/zinc75/jack2/releases/tag/v1.9.22-macos-universal")!
+
+    /// Release page to point an already-installed user at when a Jack update exists. Prefers the
+    /// notarized convenience release while it still matches the latest official version, and switches
+    /// to the official page once a newer official release exists. This only ever OPENS a page (never
+    /// installs), so it is safe regardless of how Jack was installed (pkg, Homebrew, …).
+    var jackUpdateReleaseURL: URL {
+        guard let latest = latestJackVersion else { return Self.jackConvenienceReleaseURL }
+        return Self.isVersion(latest, newerThan: Self.jackConvenienceVersion)
+            ? Self.jackOfficialReleasesURL        // a newer official release exists → official page
+            : Self.jackConvenienceReleaseURL      // same version → the notarized convenience release
+    }
+
+    /// True while the convenience installer is downloading.
+    @Published var isFetchingJackPkg = false
+
+    /// One-click JACK install. Uses the notarized convenience build as long as the latest
+    /// official release is still the version we repackaged (or unknown); once an official
+    /// release newer than `jackConvenienceVersion` exists, it defers to the official releases
+    /// page (the next official release is expected to be signed and universal). This is how the
+    /// convenience build retires itself with no further intervention.
+    func installJackPkg() {
+        if let latest = latestJackVersion,
+           Self.isVersion(latest, newerThan: Self.jackConvenienceVersion) {
+            NSWorkspace.shared.open(Self.jackOfficialReleasesURL)
+        } else {
+            downloadAndOpenJackPkg()
+        }
+    }
+
+    /// True when `installJackPkg()` will download the notarized convenience build (the latest
+    /// official release is still the version we repackaged, or is unknown) rather than open the
+    /// official releases page. Lets the install sheet show a spinner vs. dismiss immediately.
+    var jackPkgOneClickAvailable: Bool {
+        guard let latest = latestJackVersion else { return true }
+        return !Self.isVersion(latest, newerThan: Self.jackConvenienceVersion)
+    }
+
+    /// Downloads the notarized convenience `.pkg` and opens it in macOS Installer. On any
+    /// failure it falls back to opening the official releases page so the user still gets
+    /// somewhere. (The pkg is notarized + stapled, so Gatekeeper opens it without a warning.)
+    func downloadAndOpenJackPkg() {
+        guard !isFetchingJackPkg else { return }
+        isFetchingJackPkg = true
+        Task.detached {
+            let dest = URL(fileURLWithPath: "/private/tmp/jack2-notarized-installer.pkg")
+            do {
+                let (tmp, response) = try await URLSession.shared.download(from: Self.jackConveniencePkgURL)
+                guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw URLError(.badServerResponse) }
+                try? FileManager.default.removeItem(at: dest)
+                try FileManager.default.moveItem(at: tmp, to: dest)
+                await MainActor.run {
+                    NSWorkspace.shared.open(dest)
+                    self.isFetchingJackPkg = false
+                }
+            } catch {
+                await MainActor.run {
+                    NSWorkspace.shared.open(Self.jackOfficialReleasesURL)
+                    self.isFetchingJackPkg = false
+                }
+            }
+        }
+    }
+
     private func updateVersionComparison() {
         guard let installed = installedJackVersion,
               let latest    = latestJackVersion else {
@@ -459,6 +536,19 @@ final class JackManager: ObservableObject {
     // MARK: - Start / Stop
 
     func startJack() {
+        // Microphone (TCC): if an input device is configured, settle mic permission BEFORE Jack
+        // opens the capture device. On a fresh install macOS would otherwise hand Jack a silent
+        // input on this first start, forcing a second stop/start once the user grants access. We
+        // gate only when an input is actually selected (output-only needs no mic), and fall
+        // through as soon as the status is determined (authorized, denied or restricted).
+        if !prefs.inputDeviceUID.isEmpty,
+           AVCaptureDevice.authorizationStatus(for: .audio) == .notDetermined {
+            AVCaptureDevice.requestAccess(for: .audio) { [weak self] _ in
+                Task { @MainActor [weak self] in self?.startJack() }   // re-enter once the user has answered
+            }
+            return
+        }
+
         guard let execURL = jackExecutableURL else {
             setState(.executableNotFound)
             return

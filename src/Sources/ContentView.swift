@@ -2536,8 +2536,10 @@ struct ConfigHeaderView: View {
                                     // so this only opens the releases page (amber "view" pill, distinct
                                     // from the gradient "install" pill used for JackMoebius).
                                     Button {
-                                        NSWorkspace.shared.open(
-                                            URL(string: "https://github.com/jackaudio/jack2-releases/releases")!)
+                                        // Open the most recent release between the notarized convenience
+                                        // build and the official one (page only — never installs over an
+                                        // existing Jack, whatever the install method, e.g. Homebrew).
+                                        NSWorkspace.shared.open(jackManager.jackUpdateReleaseURL)
                                     } label: {
                                         HStack(spacing: 4) {
                                             Text("header.status.jack_releases_button").font(.system(size: 10, weight: .semibold))
@@ -3544,22 +3546,26 @@ struct ConfigBodyView: View {
                     }
                 }()
 
-                JMGroup(icon: jackManager.jackInstalled ? "terminal" : "exclamationmark.triangle",
-                        iconColor: jackManager.jackInstalled ? JM.accentGreen : JM.accentAmber,
-                        title: cmdTitle) {
-                    JMCommandBox(command: cmdString)
-                }
-                .overlay(
-                    Group {
-                        if let c = cmdGlowColor {
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(c, lineWidth: 1.5)
-                                .shadow(color: c.opacity(0.55), radius: 10)
-                        }
+                // Hidden for the one-click `.pkg` method when Jack is not installed: selecting
+                // it downloads + opens the installer directly, so the link box is redundant.
+                if jackManager.jackInstalled || jackManager.selectedInstallMethod != .pkg {
+                    JMGroup(icon: jackManager.jackInstalled ? "terminal" : "exclamationmark.triangle",
+                            iconColor: jackManager.jackInstalled ? JM.accentGreen : JM.accentAmber,
+                            title: cmdTitle) {
+                        JMCommandBox(command: cmdString)
                     }
-                )
-                .animation(.easeInOut(duration: 0.25), value: jackManager.jackInstalled)
-                .animation(.easeInOut(duration: 0.25), value: jackManager.selectedInstallMethod)
+                    .overlay(
+                        Group {
+                            if let c = cmdGlowColor {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(c, lineWidth: 1.5)
+                                    .shadow(color: c.opacity(0.55), radius: 10)
+                            }
+                        }
+                    )
+                    .animation(.easeInOut(duration: 0.25), value: jackManager.jackInstalled)
+                    .animation(.easeInOut(duration: 0.25), value: jackManager.selectedInstallMethod)
+                }
 
             }
             .padding(16)
