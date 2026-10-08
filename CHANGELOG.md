@@ -6,7 +6,7 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
-## [2.0.0] · 2026-10-07
+## [2.0.0] · 2026-10-08
 
 Major release: **JackMoebius integration**. JackMate now drives the JackMoebius daemon to expose any native macOS application (Safari, Music, FaceTime, QuickTime…) as a JACK client, in both directions (outputs **and** inputs) with no external configuration. (Requires the JackMoebius daemon, installed separately.)
 
@@ -40,6 +40,7 @@ Major release: **JackMoebius integration**. JackMate now drives the JackMoebius 
 - JackMoebius license: when the activation limit is reached, the License sheet offers direct **Support** and **"Buy another license"** actions.
 
 ### Fixed
+- Microphone: the notarized app now requests microphone permission (and ships the audio-input entitlement the hardened runtime requires), so JACK capture inputs work on first use.
 - Studios: no more needless Jack restart when loading a studio that includes a device.
 - JackMoebius is launched via launchd (the daemon runs under its own system identity), which avoids a context conflict that could bring down the JACK server when exposure started.
 
