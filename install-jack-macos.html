@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="JackMate is a free, native macOS app to start, configure and patch the JACK Audio Connection Kit (jackd): a visual JACK patchbay and server manager for musicians and audio engineers, and a modern QjackCtl alternative for macOS.">
+<meta name="description" content="An up-to-date, step-by-step guide to installing JACK Audio Connection Kit on macOS.">
 
-<title>JackMate</title>
+<title>How to Install JACK on macOS (Apple Silicon &amp; Intel) · 2026 Guide – JackMate</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -47,11 +82,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-d56e77fc2d6698478ca21fdffbdde3e4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
-<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -112,17 +142,17 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="assets/custom.css">
-<meta property="og:title" content="JackMate">
-<meta property="og:description" content="JackMate is a free, native macOS app to start, configure and patch the JACK Audio Connection Kit (jackd): a visual JACK patchbay and server manager for musicians and audio engineers, and a modern QjackCtl alternative for macOS.">
+<meta property="og:title" content="How to Install JACK on macOS (Apple Silicon &amp; Intel) · 2026 Guide">
+<meta property="og:description" content="An up-to-date, step-by-step guide to installing JACK Audio Connection Kit on macOS.">
 <meta property="og:image" content="https://jackmate.app/assets/icon.png">
 <meta property="og:site_name" content="JackMate">
-<link rel="canonical" href="https://jackmate.app/">
-<meta property="og:url" content="https://jackmate.app/">
+<link rel="canonical" href="https://jackmate.app/install-jack-macos.html">
+<meta property="og:url" content="https://jackmate.app/install-jack-macos.html">
 <meta property="og:image:alt" content="JackMate">
 <meta property="og:image:height" content="256">
 <meta property="og:image:width" content="256">
-<meta name="twitter:title" content="JackMate">
-<meta name="twitter:description" content="JackMate is a free, native macOS app to start, configure and patch the JACK Audio Connection Kit (jackd): a visual JACK patchbay and server manager for musicians and audio engineers, and a modern QjackCtl alternative for macOS.">
+<meta name="twitter:title" content="How to Install JACK on macOS (Apple Silicon &amp; Intel) · 2026 Guide">
+<meta name="twitter:description" content="An up-to-date, step-by-step guide to installing JACK Audio Connection Kit on macOS.">
 <meta name="twitter:image" content="https://jackmate.app/assets/icon.png">
 <meta name="twitter:image:alt" content="JackMate">
 <meta name="twitter:image-height" content="256">
@@ -152,7 +182,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -192,7 +222,7 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./changelog.html"> 
+    <a class="nav-link active" href="./changelog.html" aria-current="page"> 
 <span class="menu-text">Changelog</span></a>
   </li>  
   <li class="nav-item">
@@ -225,7 +255,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">JackMate</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./guide/alternatives.html">Reference</a></li><li class="breadcrumb-item"><a href="./install-jack-macos.html">Install JACK</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -235,7 +265,7 @@ ul.task-list li input[type="checkbox"] {
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -309,7 +339,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./install-jack-macos.html" class="sidebar-item-text sidebar-link">
+  <a href="./install-jack-macos.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Install JACK</span></a>
   </div>
 </li>
@@ -332,23 +362,42 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#before-you-start" id="toc-before-you-start" class="nav-link active" data-scroll-target="#before-you-start">Before you start</a></li>
+  <li><a href="#one-clic-method-from-jackmate" id="toc-one-clic-method-from-jackmate" class="nav-link" data-scroll-target="#one-clic-method-from-jackmate">Option 1: One click from JackMate (easiest)</a></li>
+  <li><a href="#notarized-pkg" id="toc-notarized-pkg" class="nav-link" data-scroll-target="#notarized-pkg">Option 2: Standalone notarized installer</a></li>
+  <li><a href="#official-pkg" id="toc-official-pkg" class="nav-link" data-scroll-target="#official-pkg">Option 3: Official installer</a></li>
+  <li><a href="#homebrew" id="toc-homebrew" class="nav-link" data-scroll-target="#homebrew">Option 4: Homebrew</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a>
+  <ul class="collapse">
+  <li><a href="#control-jack-without-the-command-line-jackmate." id="toc-control-jack-without-the-command-line-jackmate." class="nav-link" data-scroll-target="#control-jack-without-the-command-line-jackmate.">Control JACK without the command line: JackMate.</a></li>
+  <li><a href="#route-any-mac-app-into-jack-jackmoebius" id="toc-route-any-mac-app-into-jack-jackmoebius" class="nav-link" data-scroll-target="#route-any-mac-app-into-jack-jackmoebius">Route any Mac app into JACK: JackMoebius</a></li>
+  </ul></li>
+  <li><a href="#faq" id="toc-faq" class="nav-link" data-scroll-target="#faq">FAQ</a></li>
+  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./guide/alternatives.html">Reference</a></li><li class="breadcrumb-item"><a href="./install-jack-macos.html">Install JACK</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">JackMate</h1>
+<h1 class="title">How to Install JACK on macOS in 2026</h1>
 </div>
 
 <div>
   <div class="description">
-    JackMate is a free, native macOS app to start, configure and patch the JACK Audio Connection Kit (jackd): a visual JACK patchbay and server manager for musicians and audio engineers, and a modern QjackCtl alternative for macOS.
+    An up-to-date, step-by-step guide to installing JACK Audio Connection Kit on macOS.
   </div>
 </div>
 
 
-<div class="quarto-title-meta column-page-right">
+<div class="quarto-title-meta">
 
     
   
@@ -360,658 +409,148 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<!-- Compatibility — half-width compact bar; "Details" opens a full-width glass
-     overlay (z-index, no layout shift), à la share widget. -->
-<style>
-/* top row: compat bar (half width, left) + Share widget (injected, right) */
-.compat-row{display:flex; align-items:center; gap:14px; position:relative; margin:0 0 1.2rem; z-index:30}
-.compat-row .jm-share-wrap{margin:0 0 0 auto; padding:0; width:auto}
-.compat{border:0; margin:0; flex:0 0 auto; max-width:50%; min-width:0}
-.compat[open] .chev{transform:rotate(180deg)}
-.compat .compat-bar{list-style:none; cursor:pointer; user-select:none; position:relative; z-index:3; display:flex; align-items:center; gap:13px; flex-wrap:wrap; padding:12px 15px; border-radius:12px; background:var(--jm-bg-card); border:1px solid var(--jm-border); transition:border-color .18s ease}
-.compat .compat-bar::-webkit-details-marker{display:none}
-.compat .compat-bar:hover{border-color:var(--jm-border-med)}
-.compat .cap-txt{font-size:14px; font-weight:700; letter-spacing:-.2px; color:#ededf0}
-.compat .cap-short{display:inline; font-size:14px; font-weight:700; letter-spacing:-.2px; color:#ededf0}
-.compat .cap-dot{color:var(--jm-muted); margin:0 1px}
-.compat .cap-arch{display:flex; align-items:center; gap:7px; font-size:13px; font-weight:500; color:var(--jm-text-dim)}
-.compat .cap-arch svg{width:18px; height:18px; flex:none; color:var(--jm-muted)}
-.compat .cap-arch.silicon svg{color:var(--jm-violet)}
-.compat .cap-arch.intel svg{color:var(--jm-cyan)}
-.compat .cap-more{margin-left:auto; display:flex; align-items:center; gap:6px; color:#ededf0; font-size:12.5px; white-space:nowrap}
-.compat .chev{width:15px; height:15px; transition:transform .25s ease}
-/* expanded = full-width overlay of translucent glass cards (floats, no layout shift) */
-.compat .compat-grid{position:absolute; top:calc(100% + 8px); left:0; right:0; z-index:2; display:none; grid-template-columns:repeat(3,1fr); gap:12px}
-.compat[open] .compat-grid{display:grid}
-.compat-row:has(.compat[open]){z-index:2000}
-.compat::after{content:""; position:fixed; inset:0; z-index:1; background:rgba(0,0,0,.45); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px); opacity:0; visibility:hidden; pointer-events:none; transition:opacity .2s ease}
-.compat[open]::after{opacity:1; visibility:visible; pointer-events:auto}
-.compat .os-card{position:relative; border-radius:16px; padding:17px 15px 15px; background:rgba(20,20,24,0.55); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,.08); box-shadow:0 14px 34px rgba(0,0,0,.42); transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease; overflow:hidden}
-.compat .os-card:hover{transform:translateY(-3px); border-color:rgba(255,255,255,.14); box-shadow:0 18px 42px rgba(0,0,0,.5)}
-.compat .os-card.min{border-color:rgba(167,139,250,.3)}
-.compat .os-top{display:flex; align-items:baseline; justify-content:space-between; gap:8px}
-.compat .os-ver{font-size:12px; font-weight:600; color:var(--jm-muted); letter-spacing:.3px}
-.compat .pill-min{font-size:9px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--jm-violet); background:rgba(167,139,250,.14); border:1px solid rgba(167,139,250,.32); padding:2px 7px; border-radius:999px}
-.compat .os-name{margin:3px 0 13px; font-size:20px; font-weight:650; letter-spacing:-.3px}
-.compat .arch-row{display:flex; flex-direction:column; gap:7px}
-.compat .arch{display:flex; align-items:center; gap:10px; padding:8px 11px; border-radius:10px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); transition:border-color .2s ease, background .2s ease}
-.compat .arch:hover{border-color:rgba(255,255,255,.2); background:rgba(255,255,255,.08)}
-.compat .arch .chip{width:26px; height:26px; flex:none}
-.compat .arch .lbl{display:flex; flex-direction:column; line-height:1.15; min-width:0}
-.compat .arch .lbl b{font-size:12.5px; font-weight:600}
-.compat .arch .lbl span{font-size:10px; color:var(--jm-muted)}
-.compat .arch.silicon .chip{color:var(--jm-violet)}
-.compat .arch.intel .chip{color:var(--jm-cyan)}
-@media (max-width:620px){
-  .compat{flex:0 0 50%; max-width:50%}
-  /* compact expanded detail on phones: 1 col, chips side by side, no sub-labels */
-  .compat .compat-grid{grid-template-columns:1fr; gap:8px}
-  .compat .os-card{padding:12px 13px}
-  .compat .os-name{font-size:17px; margin:2px 0 10px}
-  .compat .arch-row{flex-direction:row; gap:8px}
-  .compat .arch{flex:1; min-width:0; padding:7px 9px; gap:7px}
-  .compat .arch .chip{width:22px; height:22px}
-  .compat .arch .lbl span{display:none}
-}
-</style>
-
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="chip" viewbox="0 0 48 48">
-    <g stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".55">
-      <line x1="17" y1="5" x2="17" y2="11"></line><line x1="24" y1="5" x2="24" y2="11"></line><line x1="31" y1="5" x2="31" y2="11"></line>
-      <line x1="17" y1="43" x2="17" y2="37"></line><line x1="24" y1="43" x2="24" y2="37"></line><line x1="31" y1="43" x2="31" y2="37"></line>
-      <line x1="5" y1="17" x2="11" y2="17"></line><line x1="5" y1="24" x2="11" y2="24"></line><line x1="5" y1="31" x2="11" y2="31"></line>
-      <line x1="43" y1="17" x2="37" y2="17"></line><line x1="43" y1="24" x2="37" y2="24"></line><line x1="43" y1="31" x2="37" y2="31"></line>
-    </g>
-    <rect x="11" y="11" width="26" height="26" rx="6" fill="currentColor" opacity=".10"></rect>
-    <rect x="11" y="11" width="26" height="26" rx="6" fill="none" stroke="currentColor" stroke-width="2"></rect>
-    <rect x="18" y="18" width="12" height="12" rx="3" fill="currentColor" opacity=".5"></rect>
-  </symbol>
-</svg>
-
-<div class="compat-row">
-<details class="compat">
-  <summary class="compat-bar">
-    <span class="cap-short">Compatibility</span>
-    <span class="cap-more">
-      <svg class="chev" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
-    </span>
-  </summary>
-
-  <div class="compat-grid">
-    <div class="os-card">
-      <div class="os-top"><span class="os-ver">macOS 27</span></div>
-      <div class="os-name">Golden&nbsp;Gate</div>
-      <div class="arch-row">
-        <div class="arch silicon"><svg class="chip"><use href="#chip"></use></svg><span class="lbl"><b>Apple Silicon</b><span>M series &amp; A series</span></span></div>
-        <div class="arch intel" style="opacity:.42; filter:grayscale(.6)"><svg class="chip"><use href="#chip"></use></svg><span class="lbl"><b>Intel</b><span>dropped by Apple</span></span></div>
-      </div>
-    </div>
-    <div class="os-card">
-      <div class="os-top"><span class="os-ver">macOS 26</span></div>
-      <div class="os-name">Tahoe</div>
-      <div class="arch-row">
-        <div class="arch silicon"><svg class="chip"><use href="#chip"></use></svg><span class="lbl"><b>Apple Silicon</b><span>M series &amp; A series</span></span></div>
-        <div class="arch intel"><svg class="chip"><use href="#chip"></use></svg><span class="lbl"><b>Intel</b><span>x86-64</span></span></div>
-      </div>
-    </div>
-    <div class="os-card min">
-      <div class="os-top"><span class="os-ver">macOS 15</span><span class="pill-min">Minimum</span></div>
-      <div class="os-name">Sequoia</div>
-      <div class="arch-row">
-        <div class="arch silicon"><svg class="chip"><use href="#chip"></use></svg><span class="lbl"><b>Apple Silicon</b><span>M series</span></span></div>
-        <div class="arch intel"><svg class="chip"><use href="#chip"></use></svg><span class="lbl"><b>Intel</b><span>x86-64</span></span></div>
-      </div>
-    </div>
-  </div>
-</details>
-</div>
-
-<script>
-(function(){
-  var d = document.querySelector('details.compat');
-  if(!d) return;
-  document.addEventListener('click', function(e){ if(d.open && !e.target.closest('.compat-bar') && !e.target.closest('.compat-grid')) d.open = false; });
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && d.open) d.open = false; });
-})();
-</script>
-<style>
-/* Accent for the JackMoebius mentions in the hero — echoes the JackMoebius cyan
-   and the violet→cyan "Get JackMoebius" CTA gradient, instead of the red link color. */
-.jm-hero-accent { color: #22d3ee !important; text-decoration-color: rgba(34,211,238,0.40); }
-.jm-hero-accent:hover { color: #67e8f9 !important; text-decoration-color: rgba(103,232,249,0.60); }
-/* "New in 2.0.0" marker — violet→cyan gradient (same as .badge-new on the guide pages). */
-.hero-new { background: linear-gradient(120deg, #ddd6fe 0%, #a5f3fc 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
-/* The star is its own tiny element, so the clipped gradient only ever shows its light-violet
-   start (no white in the gradient). Force it pure white for a crisp accent next to the label. */
-.hero-new-box span.hero-new { background: none; -webkit-text-fill-color: #fff; color: #fff; }
-/* "New in 2.0.0" marker — a floating liquid-glass chip that lifts off the text:
-   translucent violet→cyan tint, glass bevel (--glass-shadow) + a soft coloured glow,
-   and a gentle wobbly float (rise + micro-rotation) so it reads as a separate, lively badge. */
-.hero-new-box {
-  display: flex; width: fit-content; align-items: center; gap: 0.32rem;
-  padding: 0.2rem 0.72rem; margin: 0 0 0.6rem;   /* own line + air before the sentence below */
-  border-radius: 12px; border: 1px solid rgba(255,255,255,0.22);   /* rounded-rect echoing the hero's 24px corners, scaled down */
-  background: linear-gradient(120deg, rgba(167,139,250,0.24), rgba(34,211,238,0.17));
-  -webkit-backdrop-filter: blur(9px) saturate(1.6); backdrop-filter: blur(9px) saturate(1.6);
-  box-shadow: var(--glass-shadow);   /* glass bevel only — no coloured glow */
-  transform-origin: center; will-change: transform;
-  animation: jm-chip-float 3.4s ease-in-out infinite;   /* shared wobble (keyframes in custom.css) */
-}
-.hero-new-box:hover { animation-play-state: paused; }   /* grab it and the wobble rests */
-</style>
-<div class="hero">
-  <div class="hero-inner">
-    <img src="assets/icon.png" alt="JackMate" class="hero-icon">
-    <div class="hero-text">
-      <h1>JackMate</h1>
-      <p class="subtitle">Start, configure, and patch your Jack Audio Server in a few clicks. A native macOS interface built for musicians and audio engineers.</p>
-      <p style="margin:0.55rem 0 1.4rem;font-size:0.95rem;line-height:1.5;color:var(--jm-text-dim);"><span class="hero-new-box"><span aria-hidden="true" class="hero-new">★</span> <strong class="hero-new" style="font-weight:600;">New in 2.0.0</strong></span> Bring any native macOS app into the Jack graph thanks to a tight integration with <a href="https://jackmoebius.io/" class="jm-hero-accent" target="_blank" rel="noopener">JackMoebius</a>. <a href="#video" class="jm-hero-accent" onclick="openVideoLightbox(event)" style="white-space:nowrap;font-weight:600;"><i class="fa-solid fa-circle-play"></i> See it in action</a></p>
-      <div class="hero-pills">
-        <a href="https://github.com/zinc75/JackMate/releases/download/v2.0.0/JackMate-2.0.0-Installer.dmg" class="hero-pill hero-pill-primary" id="download-btn" onclick="openDownloadModal(event)">
-          <i class="fa-brands fa-apple"></i> Download
-        </a>
-        <a href="guide/configuration.html" class="hero-pill hero-pill-secondary">
-          <i class="fa-solid fa-book-open"></i> Getting started
-        </a>
-        <a href="https://www.buymeacoffee.com/zinc75" class="hero-pill hero-pill-sponsor" target="_blank" rel="noopener">
-          <img src="assets/bmc-icon.svg" alt="" class="bmc-pill-icon"> Buy me a coffee
-        </a>
-      </div>
-      <div class="hero-trust">
-        <span class="fa-stack hero-seal" aria-hidden="true">
-          <i class="fa-solid fa-certificate fa-stack-2x"></i>
-          <i class="fa-solid fa-check fa-stack-1x"></i>
-        </span>
-        Signed &amp; notarized by Apple
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Video lightbox — opened from the hero "See it in action" link; the Vimeo
-     iframe is injected on open (page stays light) and removed on close (stops
-     playback). Same clip as JackMoebius — it shows JackMate driving it. -->
-<div id="video-lightbox" class="vlb-overlay" role="dialog" aria-modal="true" aria-label="JackMate video">
-  <button class="vlb-close" type="button" aria-label="Close">×</button>
-  <div class="vlb-frame" id="vlb-frame"></div>
-</div>
-<style>
-.vlb-overlay { position:fixed; inset:0; z-index:99999; display:none; align-items:center; justify-content:center; padding:4vh 4vw; background:rgba(0,0,0,.85); backdrop-filter:blur(4px); }
-.vlb-overlay.is-open { display:flex; }
-.vlb-frame { position:relative; width:100%; max-width:1000px; aspect-ratio:16/9; }
-.vlb-frame iframe { position:absolute; inset:0; width:100%; height:100%; box-sizing:border-box; border:1px solid rgba(255,255,255,.9); border-radius:12px; box-shadow:0 24px 80px rgba(0,0,0,.6); }
-.vlb-close { position:absolute; top:1rem; right:1.25rem; z-index:3; display:flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px solid rgba(255,255,255,.55); border-radius:50%; background:rgba(0,0,0,.65); color:#fff; font-size:1.6rem; line-height:1; cursor:pointer; backdrop-filter:blur(2px); }
-.vlb-close:hover { background:rgba(0,0,0,.75); }
-</style>
-<script src="https://player.vimeo.com/api/player.js"></script>
-<script>
-(function () {
-  var VIDEO_ID = 1230395347;
-  var START    = 133.5; // start position in seconds (2m13.5s)
-  var ov = document.getElementById('video-lightbox');
-  var frame = document.getElementById('vlb-frame');
-  if (!ov || !frame) return;
-  document.body.appendChild(ov);          // out of the content stacking context, so it covers the navbar
-  var player = null;
-  window.openVideoLightbox = function (e) {
-    if (e) e.preventDefault();
-    // Let the iframe autoplay NATIVELY (this plays with sound in Safari, unlike
-    // a script-initiated play(), which Safari blocks outside a sync gesture).
-    // A #t= start time in the URL would make Vimeo stay paused, so instead we
-    // attach the SDK to this same iframe and jump to START on the first 'play'
-    // event — the video is already playing with sound, so seeking it doesn't
-    // re-trigger any autoplay restriction.
-    frame.innerHTML = '<iframe src="https://player.vimeo.com/video/' + VIDEO_ID +
-      '?badge=0&autopause=0&autoplay=1" allow="autoplay; fullscreen; picture-in-picture" ' +
-      'allowfullscreen title="JackMate: See it in action"></iframe>';
-    player = new Vimeo.Player(frame.querySelector('iframe'));
-    player.on('play', function seekOnce() {
-      player.off('play', seekOnce);   // seek only on the first play, not on later resumes
-      player.setCurrentTime(START);
-    });
-    ov.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-  };
-  function close() {
-    ov.classList.remove('is-open');
-    document.body.style.overflow = '';
-    if (player) { player.destroy().catch(function () {}); player = null; }
-    frame.innerHTML = '';
-    if (location.hash === '#video') history.replaceState(null, '', location.pathname + location.search);
-  }
-  ov.addEventListener('click', function (e) { if (e.target === ov) close(); });
-  ov.querySelector('.vlb-close').addEventListener('click', close);
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ov.classList.contains('is-open')) close(); });
-  // Deep link: opening the home at /#video auto-plays (e.g. from a README thumbnail).
-  function openIfHash() { if (location.hash === '#video') window.openVideoLightbox(); }
-  openIfHash();
-  window.addEventListener('hashchange', openIfHash);
-})();
-</script>
-<!-- Modal: Windows / Linux confirmation -->
-<div id="dm-confirm-modal" class="dm-overlay" role="dialog" aria-modal="true" aria-labelledby="dm-confirm-title">
-  <div class="dm-dialog dm-dialog-sm">
-    <div class="dm-header">
-      <div class="dm-header-icon icon-bg-violet"><i class="fa-brands fa-apple"></i></div>
-      <div>
-        <h2 id="dm-confirm-title" class="dm-title anchored">JackMate is a macOS app</h2>
-        <p class="dm-intro">This installer only runs on macOS. Download anyway?</p>
-      </div>
-    </div>
-    <div class="dm-footer">
-      <button class="dm-cancel-btn" id="dm-confirm-cancel">Cancel</button>
-      <button class="dm-close-btn" id="dm-confirm-ok">Download anyway</button>
-    </div>
-  </div>
-</div>
-
-<!-- Modal: iOS / Android -->
-<div id="dm-mobile-modal" class="dm-overlay" role="dialog" aria-modal="true" aria-labelledby="dm-mobile-title">
-  <div class="dm-dialog dm-dialog-sm">
-    <div class="dm-header">
-      <div class="dm-header-icon icon-bg-violet"><i class="fa-brands fa-apple"></i></div>
-      <div>
-        <h2 id="dm-mobile-title" class="dm-title anchored">JackMate is a macOS app</h2>
-        <p class="dm-intro">This app runs on Mac only. It can't be installed on iPhone or iPad. Come back from a Mac to download it!</p>
-      </div>
-    </div>
-    <div class="dm-footer dm-footer-end">
-      <button class="dm-close-btn" id="dm-mobile-ok">Got it</button>
-    </div>
-  </div>
-</div>
-
-<div id="download-modal" class="dm-overlay" role="dialog" aria-modal="true" aria-labelledby="dm-title">
-  <div class="dm-dialog">
-    <div class="dm-header">
-      <div class="dm-header-icon icon-bg-cyan"><i class="fa-brands fa-apple"></i></div>
-      <div>
-        <h2 id="dm-title" class="dm-title anchored">Your download has started</h2>
-        <p class="dm-intro"><strong>Signed and notarized by Apple</strong>. It opens cleanly, with no Gatekeeper warnings. Here's how to install it:</p>
-      </div>
-    </div>
-
-    <ol class="dm-steps">
-      <li>Open the downloaded <strong>.dmg</strong>.</li>
-      <li>Drag <strong>JackMate</strong> into your <strong>Applications</strong> folder.</li>
-      <li>Launch it from Applications. It opens straight away.</li>
-    </ol>
-
-    <div class="dm-footer">
-      <p class="dm-bmac-note"><i class="fa-solid fa-shield-halved"></i> Signed &amp; notarized by Apple. JackMate is free and open source, and <a href="https://www.buymeacoffee.com/zinc75" target="_blank" rel="noopener">buying me a coffee</a> helps cover the Apple Developer account that keeps it notarized and supports future development.</p>
-      <button class="dm-close-btn" id="modal-close-bottom">Got it</button>
-    </div>
-  </div>
-</div>
-<style>
-/* ── JackMoebius companion banner — funnel toward the paid driver ── */
-.jm-companion {
-  display: flex; align-items: center; gap: 1.5rem;
-  margin: 2.5rem 0 1rem; padding: 1.5rem 1.8rem;
-  border-radius: 18px;
-  position: relative; isolation: isolate;
-  /* JackMate hero dark base + a very faint JackMoebius cyan wash on top */
-  background:
-    linear-gradient(120deg, rgba(34,211,238,0.05) 0%, rgba(34,211,238,0.015) 60%, transparent 100%),
-    linear-gradient(158deg, #0c0c13 0%, #12101e 45%, #160d1c 100%);
-}
-/* Gradient border (liseré) — same mask trick as the hero, but in JackMoebius's
-   cyan accent (matches the JackMoebius hero) to signal the companion zone. */
-.jm-companion::before {
-  content: '';
-  position: absolute; inset: 0; border-radius: 18px; padding: 1px;
-  background: linear-gradient(145deg,
-    rgba(34,211,238,0.60) 0%,
-    rgba(255,255,255,0.08) 35%,
-    rgba(255,255,255,0.04) 65%,
-    transparent 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none; z-index: 1;
-}
-.jm-companion-glyph { width: 64px; height: 64px; flex-shrink: 0; position: relative; z-index: 2; }
-.jm-companion-body { flex: 1; min-width: 0; position: relative; z-index: 2; }
-.jm-companion-title { font-size: 1.15rem; font-weight: 650; margin-bottom: 0.3rem; }
-.jm-companion-text { margin: 0; font-size: 0.92rem; line-height: 1.5; color: var(--jm-text-dim); }
-.jm-companion-btn {
-  flex-shrink: 0; display: inline-flex; align-items: center; gap: 0.5rem;
-  position: relative; z-index: 2;
-  padding: 0.7rem 1.3rem; border-radius: 10px; white-space: nowrap;
-  font-weight: 600; font-size: 0.95rem; text-decoration: none; color: #fff;
-  background: linear-gradient(120deg, #8b5cf6, #06b6d4); transition: filter 0.15s;
-}
-.jm-companion-btn:hover { filter: brightness(1.12); color: #fff; }
-@media (max-width: 700px) {
-  .jm-companion { flex-direction: column; text-align: center; }
-}
-</style>
-<div class="jm-companion">
-  <img src="assets/jackmoebius-picto.png" alt="JackMoebius" class="jm-companion-glyph">
-  <div class="jm-companion-body">
-    <div class="jm-companion-title">Powered by JackMoebius</div>
-    <p class="jm-companion-text">JackMate's 2.0 features (bringing native macOS apps into the JACK graph, in both directions) run on <strong>JackMoebius</strong>, a virtual audio driver &amp; daemon. Free 14-day trial, one-time purchase.</p>
-  </div>
-  <a href="https://jackmoebius.io/" class="jm-companion-btn" target="_blank" rel="noopener">
-    <i class="fa-solid fa-arrow-up-right-from-square"></i> Get JackMoebius
-  </a>
-</div>
-<section id="what-jackmate-does" class="level2">
-<h2 class="anchored" data-anchor-id="what-jackmate-does">What JackMate does</h2>
-<style>
-/* ── Feature showcase — full-width overlay layout ── */
-.feature-showcase {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin: 2.5rem 0 4rem;
-}
-
-/* Each item: full-width card with background + overlay text */
-.fs-item {
-  position: relative;
-  width: 100%;
-  min-height: 420px;
-  border-radius: 20px;
-  overflow: hidden;
-  border: 1px solid var(--jm-border-med);
-  background: linear-gradient(160deg, #131318 0%, #0f0f14 100%);
-}
-.fs-item + .fs-item { margin-top: 2rem; }
-
-/* Screenshot — droite, centré verticalement, redimensionné si trop haut */
-.fs-bg {
-  position: absolute !important;
-  top: 0 !important; bottom: 0 !important; right: 0 !important;
-  width: 72% !important;
-  height: 100% !important;
-  max-width: none !important;
-  object-fit: contain !important;
-  object-position: center center !important;
-  opacity: 1 !important;
-  display: block !important;
-  margin: 0 !important; padding: 0 !important;
-  z-index: 2;
-}
-
-/* Placeholder when no screenshot yet */
-.fs-placeholder {
-  position: absolute;
-  inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 0.4rem;
-  opacity: 0.55;
-}
-
-/* Overlay supprimé — pas de superposition sur le screenshot */
-.fs-overlay { display: none; }
-
-/* Subtle top highlight line */
-.fs-item::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 1px; z-index: 2;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
-}
-
-/* Text block — positioned left, au dessus du screenshot */
-.fs-text {
-  position: relative;
-  z-index: 4;
-  max-width: 420px;
-  padding: 3.5rem 3rem 3.5rem 3.5rem;
-  background: linear-gradient(100deg, rgba(10,10,13,0.98) 60%, transparent 100%);
-}
-
-/* Icône blanche dans le badge coloré */
-.fs-icon i { color: #fff !important; font-size: 1.3rem; }
-
-/* Icon badge */
-.fs-icon {
-  width: 3.2rem; height: 3.2rem; border-radius: 16px; font-size: 1.25rem;
-  display: inline-flex; align-items: center; justify-content: center;
-  margin-bottom: 1.2rem; flex-shrink: 0;
-}
-.fs-icon i { color: #fff !important; }
-
-.fs-label {
-  font-size: 0.70rem; font-weight: 600; letter-spacing: 0.11em;
-  text-transform: uppercase; color: var(--jm-muted); margin-bottom: 0.5rem;
-}
-.fs-heading {
-  font-size: 2rem; font-weight: 700; letter-spacing: -0.040em;
-  color: #fff; line-height: 1.08; margin: 0 0 1rem;
-}
-.fs-desc {
-  font-size: 0.94rem; color: var(--jm-text-dim); line-height: 1.76;
-  margin: 0 0 1.6rem;
-}
-.fs-cta {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  font-size: 0.875rem; font-weight: 500; text-decoration: none;
-  padding-bottom: 2px; border-bottom: 1px solid;
-  transition: gap 0.18s ease;
-}
-.fs-cta:hover { gap: 0.78rem; text-decoration: none; }
-.fs-item[data-accent="red"]    .fs-cta { color: var(--jm-red)    !important; border-color: rgba(239,68,68,0.35);  }
-.fs-item[data-accent="cyan"]   .fs-cta { color: var(--jm-cyan)   !important; border-color: rgba(34,211,238,0.35); }
-.fs-item[data-accent="violet"] .fs-cta { color: var(--jm-violet) !important; border-color: rgba(167,139,250,0.35);}
-.fs-item[data-accent="green"]  .fs-cta { color: var(--jm-green)  !important; border-color: rgba(34,197,94,0.35);  }
-.fs-item[data-accent="amber"]  .fs-cta { color: var(--jm-amber)  !important; border-color: rgba(245,158,11,0.35); }
-.fs-item[data-accent="orange"] .fs-cta { color: var(--jm-orange) !important; border-color: rgba(249,115,22,0.35); }
-
-/* Per-accent subtle glow on card border */
-.fs-item[data-accent="red"]    { box-shadow: 0 0 0 1px rgba(239,68,68,0.15),    0 24px 60px rgba(0,0,0,0.60); }
-.fs-item[data-accent="cyan"]   { box-shadow: 0 0 0 1px rgba(34,211,238,0.12),   0 24px 60px rgba(0,0,0,0.60); }
-.fs-item[data-accent="violet"] { box-shadow: 0 0 0 1px rgba(167,139,250,0.12),  0 24px 60px rgba(0,0,0,0.60); }
-.fs-item[data-accent="green"]  { box-shadow: 0 0 0 1px rgba(34,197,94,0.12),    0 24px 60px rgba(0,0,0,0.60); }
-.fs-item[data-accent="amber"]  { box-shadow: 0 0 0 1px rgba(245,158,11,0.12),   0 24px 60px rgba(0,0,0,0.60); }
-.fs-item[data-accent="orange"] { box-shadow: 0 0 0 1px rgba(249,115,22,0.14),   0 24px 60px rgba(0,0,0,0.60); }
-
-/* Responsive — mobile: stack vertically (text above, screenshot below) */
-@media (max-width: 700px) {
-  .fs-item {
-    min-height: unset;
-    display: flex;
-    flex-direction: column;
-  }
-  /* Text block: first, full width, solid background (no more fade-to-transparent) */
-  .fs-text {
-    order: 1;
-    position: relative;
-    background: linear-gradient(160deg, #131318 0%, #0f0f14 100%);
-    padding: 2rem 1.5rem 1.5rem;
-    max-width: none;
-  }
-  .fs-heading { font-size: 1.6rem; }
-  /* Screenshot: second, below the text, natural flow */
-  .fs-bg {
-    order: 2;
-    position: relative !important;
-    top: auto !important; bottom: auto !important; right: auto !important;
-    width: 100% !important;
-    height: 300px !important;
-    object-fit: cover !important;
-    object-position: top center !important;
-    flex-shrink: 0;
-    border-top: 1px solid rgba(255,255,255,0.05);
-  }
-  /* Placeholder shown only when image fails — hide on mobile to avoid overlap */
-  .fs-placeholder { display: none; }
-}
-</style>
-
-<div class="feature-showcase">
-
-  <!-- 1 · Configuration -->
-  <div class="fs-item" data-accent="red">
-    <img class="fs-bg" src="assets/screenshots/configuration.png" alt="" aria-hidden="true" onerror="this.style.display='none'">
-    <div class="fs-placeholder" aria-hidden="true">
-      <span style="font-size:2.5rem">📷</span>
-      <span style="font-size:0.8rem;color:var(--jm-muted)">Configuration view</span>
-    </div>
-    <div class="fs-overlay"></div>
-    <div class="fs-text">
-      <div class="fs-icon icon-bg-red"><i class="fa-solid fa-sliders" style="color:#fff"></i></div>
-      <p class="fs-label">Get started</p>
-      <h2 class="fs-heading anchored">Configure Jack<br>in seconds</h2>
-      <p class="fs-desc">Select audio interfaces, sample rate and buffer size. JackMate computes compatible sample rates in real time and generates the exact <code>jackd</code> command. No terminal required. Hog mode, channel selection, aggregate device support, and a live latency readout.</p>
-      <a href="guide/configuration.html" class="fs-cta">Explore Configuration <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
-  </div>
-
-  <!-- 2 · Patchbay -->
-  <div class="fs-item" data-accent="cyan">
-    <img class="fs-bg" src="assets/screenshots/patchbay.png" alt="" aria-hidden="true" onerror="this.style.display='none'">
-    <div class="fs-placeholder" aria-hidden="true">
-      <span style="font-size:2.5rem">📷</span>
-      <span style="font-size:0.8rem;color:var(--jm-muted)">Patchbay: active session</span>
-    </div>
-    <div class="fs-overlay"></div>
-    <div class="fs-text">
-      <div class="fs-icon icon-bg-cyan"><i class="fa-solid fa-diagram-project" style="color:#fff"></i></div>
-      <p class="fs-label">Connect</p>
-      <h2 class="fs-heading anchored">Patch visually,<br>like a pro</h2>
-      <p class="fs-desc">See every active Jack client and draw connections with the mouse, just like a hardware patch bay. Multi-select, group drag, Sugiyama auto-layout, and Connect All for bulk wiring in one click. Haptic feedback on ports and canvas edges.</p>
-      <a href="guide/patchbay.html" class="fs-cta">Explore Patchbay <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
-  </div>
-
-  <!-- 3 · JackMoebius -->
-  <div class="fs-item" data-accent="orange">
-    <img class="fs-bg" src="assets/screenshots/jackmoebius-routing-in-jackmate.png" alt="" aria-hidden="true" onerror="this.style.display='none'">
-    <div class="fs-placeholder" aria-hidden="true">
-      <span style="font-size:2.5rem">📷</span>
-      <span style="font-size:0.8rem;color:var(--jm-muted)">JackMoebius: native apps in the graph</span>
-    </div>
-    <div class="fs-overlay"></div>
-    <div class="fs-text">
-      <div class="fs-icon icon-bg-orange"><img src="assets/jackmoebius-glyph.png" alt="" style="width:1.8rem;height:1.8rem;object-fit:contain;"></div>
-      <p class="fs-label">Bridge</p>
-      <h2 class="fs-heading anchored">Native apps,<br>in your Jack graph</h2>
-      <p class="fs-desc">Expose any macOS app without native Jack support (Safari, Music, FaceTime, your DAW's helper, QuickTime, OBS…) as a Jack client, in and out, via the JackMoebius driver. Per-app volumes, real-time routing status, and Studios that restore it all.</p>
-      <a href="guide/jackmoebius.html" class="fs-cta">Explore JackMoebius <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
-  </div>
-
-  <!-- 4 · Studios -->
-  <div class="fs-item" data-accent="violet">
-    <img class="fs-bg" src="assets/screenshots/studios.png" alt="" aria-hidden="true" onerror="this.style.display='none'">
-    <div class="fs-placeholder" aria-hidden="true">
-      <span style="font-size:2.5rem">📷</span>
-      <span style="font-size:0.8rem;color:var(--jm-muted)">Studios: sidebar list</span>
-    </div>
-    <div class="fs-overlay"></div>
-    <div class="fs-text">
-      <div class="fs-icon icon-bg-violet"><i class="fa-solid fa-layer-group" style="color:#fff"></i></div>
-      <p class="fs-label">Save &amp; restore</p>
-      <h2 class="fs-heading anchored">Your sessions,<br>always ready</h2>
-      <p class="fs-desc">Save the complete state of your patchbay (connections, node positions, Jack config, and CLI client commands) as a named Studio. Load in one click. JackMate restarts Jack only when the configuration has changed, and relaunches every CLI client automatically.</p>
-      <a href="guide/studios.html" class="fs-cta">Explore Studios <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
-  </div>
-
-  <!-- 5 · Transport -->
-  <div class="fs-item" data-accent="green">
-    <img class="fs-bg" src="assets/screenshots/transport.png" alt="" aria-hidden="true" onerror="this.style.display='none'">
-    <div class="fs-placeholder" aria-hidden="true">
-      <span style="font-size:2.5rem">📷</span>
-      <span style="font-size:0.8rem;color:var(--jm-muted)">Transport bar</span>
-    </div>
-    <div class="fs-overlay"></div>
-    <div class="fs-text">
-      <div class="fs-icon icon-bg-green"><i class="fa-solid fa-circle-play" style="color:#fff"></i></div>
-      <p class="fs-label">Play &amp; sync</p>
-      <h2 class="fs-heading anchored">Jack Transport,<br>front and centre</h2>
-      <p class="fs-desc">Play, pause, stop, and seek from the patchbay toolbar. Display position as BBT, timecode or frames (click to cycle). Set BPM and claim the Jack timebase master role to drive every connected DAW in perfect sync.</p>
-      <a href="guide/transport.html" class="fs-cta">Explore Transport <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
-  </div>
-
-  <!-- 6 · Menu Bar -->
-  <div class="fs-item" data-accent="amber">
-    <img class="fs-bg" src="assets/screenshots/menubar.png" alt="" aria-hidden="true" onerror="this.style.display='none'">
-    <div class="fs-placeholder" aria-hidden="true">
-      <span style="font-size:2.5rem">📷</span>
-      <span style="font-size:0.8rem;color:var(--jm-muted)">Menu bar popover</span>
-    </div>
-    <div class="fs-overlay"></div>
-    <div class="fs-text">
-      <div class="fs-icon icon-bg-amber"><i class="fa-solid fa-bars" style="color:#fff"></i></div>
-      <p class="fs-label">Always there</p>
-      <h2 class="fs-heading anchored">Jack in your<br>menu bar</h2>
-      <p class="fs-desc">JackMate lives in your menu bar. Start and stop Jack, load a studio, check the xrun count and current latency, even with the main window closed. A single icon, always within reach.</p>
-      <a href="guide/menubar.html" class="fs-cta">Explore Menu Bar <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
-  </div>
-
-</div>
-
-<script>
-(function () {
-  document.querySelectorAll('.fs-bg').forEach(function (img) {
-    function hide() {
-      var p = img.parentElement.querySelector('.fs-placeholder');
-      if (p) p.style.display = 'none';
-    }
-    if (img.complete && img.naturalWidth > 0) { hide(); }
-    else { img.addEventListener('load', hide); }
-  });
-})();
-</script>
-
-<hr>
+<p>This guide gives a clear explanation on <strong>how to install JACK2 (current release: 1.9.22)</strong> on any recent Mac in about two minutes.</p>
+<p>It covers both Apple Silicon and Intel, with several methods:</p>
+<ul>
+<li>a <a href="#one-clic-method-from-jackmate">one-click method</a> with a <a href="#notarized-pkg">notarized installer</a> (fastest / easiest)</li>
+<li>the <a href="#official-pkg">official package</a></li>
+<li><a href="#homebrew">Homebrew</a></li>
+</ul>
+<p><a href="https://jackaudio.org">JACK (JACK Audio Connection Kit)</a> is a low-latency audio server. It lets you connect the inputs and outputs of audio applications to each other and to your audio interface, like patching cables in a studio.</p>
+<p>Most JACK-on-Mac tutorials still online date from the JackOSX era (macOS 10.x, Intel only, JackRouter). Much of what they describe no longer exists. On the contrary, this page is kept up to date, with a clear explanation on how to install it smoothly in 2026.</p>
+<p><strong>Last updated:</strong> October 2026 · <strong>Tested on:</strong> macOS 15 Sequoia and later, Apple Silicon (M1–M5) and Intel.</p>
+<section id="before-you-start" class="level2">
+<h2 class="anchored" data-anchor-id="before-you-start">Before you start</h2>
+<p>You need a Mac and an administrator account. Nothing else!</p>
+<p>One thing has changed for good: the old <strong>JackRouter</strong> driver, which let any Mac app send audio into JACK, is no longer included.</p>
+<p>See <a href="#next-steps">Next steps</a> for its modern replacement (JackMoebius).</p>
 </section>
-<section id="philosophy" class="level2">
-<h2 class="anchored" data-anchor-id="philosophy">Philosophy</h2>
-<p>JackMate doesn’t replace Jack; it <strong>tames</strong> it.</p>
-<p>Jack is powerful but austere. Configuring <code>jackd</code> by hand, re-entering connections after every restart, monitoring xruns in a terminal… all of that disappears with JackMate.</p>
-<p>The interface is intentionally dark, dense and precise, in the spirit of professional audio tools and modern development environments.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="assets/screencast/screencast.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Screencast"><img src="assets/screencast/screencast.gif" class="img-fluid figure-img" alt="Screencast"></a></p>
-<figcaption>Screencast</figcaption>
-</figure>
+<section id="one-clic-method-from-jackmate" class="level2">
+<h2 class="anchored" data-anchor-id="one-clic-method-from-jackmate">Option 1: One click from JackMate (easiest)</h2>
+<div class="jm-pair">
+ <img class="jm-pair-icon jm-mate" src="assets/icon.png" alt="JackMate">
+ <div class="jm-pair-content">
+<ol type="1">
+<li><a href="./#download">Download JackMate</a> and open it.</li>
+<li>If JACK is not installed, JackMate instantly shows an <strong>“install JACK”</strong> panel. Choose the <strong><code>.pkg</code></strong> method (marked <em>Recommended</em>).</li>
+<li>JackMate automatically downloads the <a href="#notarized-pkg">notarized installer</a> and opens it. Follow the installer steps.</li>
+</ol>
+<p><strong>That’s it!</strong></p>
+ </div>
 </div>
-<hr>
+<p>No Gatekeeper warning, no Rosetta. JackMate then detects JACK and is instantly ready to start the server.</p>
+<p>If a newer official release ever supersedes this one, JackMate points you to it automatically.</p>
 </section>
-<section id="requirements" class="level2">
-<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th></th>
-<th>Minimum</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Jack Audio Connection Kit</td>
-<td>1.9.x (<code>jackd</code>)</td>
-</tr>
-<tr class="even">
-<td>Languages</td>
-<td>English · French · German · Italian · Spanish</td>
-</tr>
-</tbody>
-</table>
+<section id="notarized-pkg" class="level2">
+<h2 class="anchored" data-anchor-id="notarized-pkg">Option 2: Standalone notarized installer</h2>
+<p>On recent macOS, the <a href="#official-pkg">official package</a> has two rough edges: it is <strong>not yet notarized</strong> (Gatekeeper blocks it on first open with a scary message), and its installer <strong>asks to install Rosetta 2</strong> on Apple Silicon, even though the JACK binaries inside are already universal.</p>
+<p>The notarized installer fixes both: it is signed, notarized by Apple, and universal, so it just opens and installs as it should!</p>
+<p>If you just want JACK on its own without any graphical app like JackMate, then:</p>
+<div class="jm-pair">
+ <img class="jm-pair-icon jm-github" src="assets/github-icon.png" alt="GitHub">
+ <div class="jm-pair-content">
+<ol type="1">
+<li><p>Open the <a href="https://github.com/zinc75/jack2/releases/tag/v1.9.22-macos-universal">notarized JACK2 1.9.22 release</a> and download <code>jack2-1.9.22-universal-notarized.pkg</code>.</p></li>
+<li><p>Open it and follow the installer steps: this is the <strong>exact same installer</strong> as the one used in the <a href="#one-clic-method-from-jackmate">one-click method in JackMate</a>.</p></li>
+<li><p>Confirm the server is found:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> jackd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+<p>If a path is printed, JACK is installed!</p>
+ </div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+<span class="screen-reader-only">Note</span>What this notarized installer is
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Jack must be installed separately. JackMate automatically searches for <code>jackdmp</code> or <code>jackd</code> in <code>/usr/local/bin</code> and common locations. If Jack is not found at launch, JackMate shows installation instructions (Homebrew or <code>.pkg</code>).</p>
-<p><strong>New to JACK?</strong> See the full step-by-step guide: <a href="./install-jack-macos.html">How to install JACK on macOS</a>.</p>
+<p>It repackages the <strong>official</strong> JACK2 1.9.22 universal binaries (from <a href="https://github.com/jackaudio/jack2-releases/releases/tag/v1.9.22">jack2-releases</a>), re-signed with an Apple Developer ID, notarized by Apple, with the installer’s architecture flag corrected so it no longer requires Rosetta.</p>
+<p>The binaries themselves are not recompiled, and it uses the same package identifier as the official one, so it installs and upgrades exactly like it. It is an independent convenience build, not affiliated with or endorsed by the JACK project.</p>
+<p>Provenance and checksums are on the <a href="https://github.com/zinc75/jack2/releases/tag/v1.9.22-macos-universal">release page</a>.</p>
 </div>
 </div>
-<div style="display:none;height:0;overflow:hidden;" aria-hidden="true">
-<p><i class="fa-solid fa-check" aria-label="check"></i></p>
+</section>
+<section id="official-pkg" class="level2">
+<h2 class="anchored" data-anchor-id="official-pkg">Option 3: Official installer</h2>
+<p>The upstream package from jackaudio.org installs the exact same JACK server and command tools as the previous one, with the aforementioned rough edges for beginners.</p>
+<p>It also includes <a href="./guide/alternatives.html#qjackctl">QjackCtl</a> (a graphical control panel originally developed for Linux, which has a long history with Jack, but unfortunately does not follow macOS design conventions due to its multi-platform target).</p>
+<div class="jm-pair">
+ <img class="jm-pair-icon jm-jack" src="assets/jack-icon.png" alt="Jack">
+ <div class="jm-pair-content">
+<ol type="1">
+<li><p>Open the <a href="https://jackaudio.org/downloads/">JACK downloads page</a>.</p></li>
+<li><p>Under macOS, download the <strong>Universal</strong> package. Older builds are listed on the <a href="https://github.com/jackaudio/jack2-releases/releases">jack2-releases page</a>.</p></li>
+<li><p>Open the downloaded package and follow the installer steps.</p></li>
+<li><p>Two things to expect on recent macOS, because this build is <strong>not notarized</strong> and its installer is flagged <strong>Intel-only</strong>:</p>
+<ul>
+<li><strong>Gatekeeper warning.</strong> Go to <strong>System Settings → Privacy &amp; Security</strong>, scroll down and click <strong>Open Anyway</strong> (since macOS Sequoia, the old right-click → Open shortcut no longer bypasses this).</li>
+</ul>
+<p>Advanced users can instead clear the quarantine flag: <code>xattr -d com.apple.quarantine /path/to/jack2-osx-1.9.22.pkg</code>.</p>
+<ul>
+<li><strong>Rosetta 2 prompt</strong> on Apple Silicon. You can accept it (Rosetta installs once), but note that recent Macs do not ship with Rosetta and Apple is phasing it out (available through macOS 27, then limited). The fix for this is already in JACK’s source and a future official release is expected to be signed; until then, Options 1 and 2 avoid both issues.</li>
+</ul></li>
+<li><p>Confirm the server is found:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> jackd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+ </div>
 </div>
+</section>
+<section id="homebrew" class="level2">
+<h2 class="anchored" data-anchor-id="homebrew">Option 4: Homebrew</h2>
+<p>The <a href="https://formulae.brew.sh/formula/jack">Homebrew <code>jack</code> formula</a> installs JACK2 1.9.22, with native builds for Apple Silicon and Intel.</p>
+<div class="jm-pair">
+ <img class="jm-pair-icon jm-homebrew" src="assets/homebrew-icon.png" alt="Homebrew">
+ <div class="jm-pair-content">
+<p>If you already have <a href="https://brew.sh">Homebrew</a> installed on your Mac, just type:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install jack</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Two differences with the package installers:</p>
+<ul>
+<li><p>The formula installs the <code>jackd</code> server but <a href="https://github.com/Homebrew/homebrew-core/issues/130151">not the command-line tools</a> such as <code>jack_lsp</code> or <code>jack_connect</code>.</p></li>
+<li><p>QjackCtl is a separate formula: <code>brew install qjackctl</code>. If you prefer using JackMate, just <a href="./#download">Download JackMate here.</a></p></li>
+</ul>
+ </div>
+</div>
+</section>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
+<p>Now that JACK is installed on your Mac, two everyday needs remain: <strong>controlling it without Terminal</strong>, and <strong>getting ordinary Mac apps into it</strong>.</p>
+<section id="control-jack-without-the-command-line-jackmate." class="level3">
+<h3 class="anchored" data-anchor-id="control-jack-without-the-command-line-jackmate.">Control JACK without the command line: JackMate.</h3>
+<p>JackMate is a native macOS app that starts and stops the JACK server, sets device, sample rate and buffer, and shows a patchbay to connect ports. If you used Option 1, you already have it. <a href=".">See JackMate</a></p>
+</section>
+<section id="route-any-mac-app-into-jack-jackmoebius" class="level3">
+<h3 class="anchored" data-anchor-id="route-any-mac-app-into-jack-jackmoebius">Route any Mac app into JACK: JackMoebius</h3>
+<p>JackRouter is broken since macOS Catalina (2019) and removed from the JACK installer since 2020. So before <a href="https://jackmoebius.io">JackMoebius</a> was released, apps like Safari, Zoom, Spotify or your DAW could not reach JACK on their own any more. Since 2026 JackMoebius release, it’s possible again! JackMoebius is a CoreAudio driver that appears as a regular audio device: select it in any app, and its audio shows up as JACK ports. It works hand in hand with JackMate. <a href="https://jackmoebius.io/">See JackMoebius</a></p>
+</section>
+</section>
+<section id="faq" class="level2">
+<h2 class="anchored" data-anchor-id="faq">FAQ</h2>
+<p><strong>Is the notarized installer safe / official?</strong></p>
+<p>It is signed with an Apple Developer ID and notarized by Apple (so macOS vouches that it is free of known malware), and it contains the <em>exact</em> official JACK2 1.9.22 universal binaries, only re-signed. It is a convenience build, not an official JACK project release; its provenance is documented on the <a href="https://github.com/zinc75/jack2/releases/tag/v1.9.22-macos-universal">release page</a>.</p>
+<p><strong>Does JACK work on Apple Silicon (M1, M2, M3, M4, M5, A18 Pro)?</strong></p>
+<p>Yes. All installers above are universal, with native Apple Silicon code, including the ones used for MacBook Neo.</p>
+<p><strong>Does JACK work on the most recent macOS versions?</strong></p>
+<p>Yes. The notarized universal package installs cleanly on Sonoma, Sequoia, Tahoe, and Golden Gate versions, both for Intel and Apple Silicon. Homebrew also provides builds from Sonoma.</p>
+<p><strong>What happened to JackRouter?</strong></p>
+<p>It was dropped from the macOS installers in JACK2 1.9.15 because it no longer worked on macOS from Catalina. JackMoebius fills that role today.</p>
+<p><strong>Is JACK free?</strong></p>
+<p>Yes. JACK is open source (GPL for the server, LGPL for the library).</p>
+<p><strong>Do I still need QjackCtl?</strong></p>
+<p>No, it is optional. Any JACK control app, such as JackMate, can replace it.</p>
+</section>
+<section id="sources" class="level2">
+<h2 class="anchored" data-anchor-id="sources">Sources</h2>
+<ul>
+<li><a href="https://jackaudio.org/downloads/">JACK downloads</a></li>
+<li><a href="https://github.com/jackaudio/jack2-releases/releases">JACK2 binary releases</a></li>
+<li><a href="https://github.com/zinc75/jack2/releases/tag/v1.9.22-macos-universal">Notarized JACK2 1.9.22 (universal, no Rosetta)</a></li>
+<li><a href="https://jackaudio.org/news/2020/10/15/jack2-v1915-release-and-current-status.html">JACK2 v1.9.15 release notes (JackRouter removal)</a></li>
+<li><a href="https://formulae.brew.sh/formula/jack">Homebrew jack formula</a></li>
+</ul>
 
 
 </section>
@@ -1615,38 +1154,6 @@ function openDownloadModal(e) {
     </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
-        }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
-      }
-    });
-  
-  };
-  
-})();
-          </script>
 
 
 

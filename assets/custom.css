@@ -1543,3 +1543,17 @@ main mark {
   .jm-share-icons { gap: 0.4rem; }
   .jm-pop-ic { width: 2.2rem; height: 2.2rem; font-size: 1rem; }
 }
+
+/* ── Install guide: icon + content pairs (one per install method) ── */
+.jm-pair { display: flex; align-items: flex-start; justify-content: left; gap: 2.2rem; margin: 1.8rem 0 0.6rem; flex-wrap: wrap; }
+.jm-pair-icon { width: 132px; height: 132px; object-fit: contain; border-radius: 30px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 12px 40px rgba(34,211,238,.40), 0 4px 12px rgba(0,0,0,.55); }
+.jm-pair-icon.jm-mate { box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 12px 40px rgba(239,68,68,.40), 0 4px 12px rgba(0,0,0,.55); }
+.jm-pair-icon.jm-github   { box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 8px 24px rgba(255,255,255,.32), 0 4px 12px rgba(0,0,0,.55); }
+.jm-pair-icon.jm-homebrew { box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 8px 24px rgba(251,176,64,.32),  0 4px 12px rgba(0,0,0,.55); }
+.jm-pair-icon.jm-jack     { box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 8px 24px rgba(216,203,185,.32), 0 4px 12px rgba(0,0,0,.55); }
+.jm-pair-content { flex: 1; min-width: 250px; }
+@media (max-width: 520px) {
+  .jm-pair { gap: 1.1rem; flex-wrap: nowrap; }
+  .jm-pair-icon { width: 92px; height: 92px; border-radius: 21px; }
+}

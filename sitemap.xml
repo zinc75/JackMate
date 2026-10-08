@@ -1,47 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jackmate.app/license.html</loc>
-    <lastmod>2026-07-11T20:36:37.669Z</lastmod>
+    <loc>https://jackmate.app/install-jack-macos.html</loc>
+    <lastmod>2026-10-08T16:47:02.127Z</lastmod>
   </url>
   <url>
-    <loc>https://jackmate.app/</loc>
-    <lastmod>2026-10-07T19:36:49.579Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jackmate.app/guide/menubar.html</loc>
-    <lastmod>2026-10-02T10:36:46.296Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jackmate.app/guide/patchbay.html</loc>
-    <lastmod>2026-10-02T15:04:25.692Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jackmate.app/guide/studios.html</loc>
-    <lastmod>2026-10-02T10:48:17.086Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jackmate.app/guide/jackmoebius.html</loc>
-    <lastmod>2026-10-07T19:37:11.472Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jackmate.app/guide/configuration.html</loc>
-    <lastmod>2026-10-02T10:54:05.706Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jackmate.app/guide/alternatives.html</loc>
-    <lastmod>2026-10-07T19:37:03.771Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jackmate.app/guide/transport.html</loc>
-    <lastmod>2026-10-02T10:41:45.778Z</lastmod>
+    <loc>https://jackmate.app/changelog.html</loc>
+    <lastmod>2026-10-08T17:46:49.096Z</lastmod>
   </url>
   <url>
     <loc>https://jackmate.app/sponsor.html</loc>
     <lastmod>2026-10-02T10:43:11.339Z</lastmod>
   </url>
   <url>
-    <loc>https://jackmate.app/changelog.html</loc>
-    <lastmod>2026-10-07T20:43:07.480Z</lastmod>
+    <loc>https://jackmate.app/guide/transport.html</loc>
+    <lastmod>2026-10-02T10:41:45.778Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jackmate.app/guide/alternatives.html</loc>
+    <lastmod>2026-10-07T19:37:03.771Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jackmate.app/guide/configuration.html</loc>
+    <lastmod>2026-10-02T10:54:05.706Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jackmate.app/guide/jackmoebius.html</loc>
+    <lastmod>2026-10-07T19:37:11.472Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jackmate.app/guide/studios.html</loc>
+    <lastmod>2026-10-02T10:48:17.086Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jackmate.app/guide/patchbay.html</loc>
+    <lastmod>2026-10-02T15:04:25.692Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jackmate.app/guide/menubar.html</loc>
+    <lastmod>2026-10-02T10:36:46.296Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jackmate.app/</loc>
+    <lastmod>2026-10-08T17:34:38.017Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jackmate.app/license.html</loc>
+    <lastmod>2026-07-11T20:36:37.669Z</lastmod>
   </url>
 </urlset>
