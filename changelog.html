@@ -1400,9 +1400,11 @@ function openDownloadModal(e) {
     var main = document.querySelector('main.content') || document.querySelector('main');
     if (!tpl || !main) return;
     var node = tpl.content.firstElementChild.cloneNode(true);
+    var row = document.querySelector('.compat-row');
     var header = document.getElementById('title-block-header');
-    if (header) header.insertAdjacentElement('afterend', node);   // below the title + description
-    else main.insertAdjacentElement('afterbegin', node);          // (home: above the hero)
+    if (row) row.appendChild(node);                               // home: same line as the compatibility bar
+    else if (header) header.insertAdjacentElement('afterend', node);   // below the title + description
+    else main.insertAdjacentElement('afterbegin', node);          // fallback: top of main
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', inject);
   else inject();

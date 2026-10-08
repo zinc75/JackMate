@@ -354,6 +354,127 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<!-- Compatibility — half-width compact bar; "Details" opens a full-width glass
+     overlay (z-index, no layout shift), à la share widget. -->
+<style>
+/* top row: compat bar (half width, left) + Share widget (injected, right) */
+.compat-row{display:flex; align-items:center; gap:14px; position:relative; margin:0 0 1.2rem; z-index:30}
+.compat-row .jm-share-wrap{margin:0 0 0 auto; padding:0; width:auto}
+.compat{border:0; margin:0; flex:0 0 auto; max-width:50%; min-width:0}
+.compat[open] .chev{transform:rotate(180deg)}
+.compat .compat-bar{list-style:none; cursor:pointer; user-select:none; position:relative; z-index:3; display:flex; align-items:center; gap:13px; flex-wrap:wrap; padding:12px 15px; border-radius:12px; background:var(--jm-bg-card); border:1px solid var(--jm-border); transition:border-color .18s ease}
+.compat .compat-bar::-webkit-details-marker{display:none}
+.compat .compat-bar:hover{border-color:var(--jm-border-med)}
+.compat .cap-txt{font-size:14px; font-weight:700; letter-spacing:-.2px; color:#ededf0}
+.compat .cap-short{display:none; font-size:14px; font-weight:700; letter-spacing:-.2px; color:#ededf0}
+.compat .cap-dot{color:var(--jm-muted); margin:0 1px}
+.compat .cap-arch{display:flex; align-items:center; gap:7px; font-size:13px; font-weight:500; color:var(--jm-text-dim)}
+.compat .cap-arch svg{width:18px; height:18px; flex:none; color:var(--jm-muted)}
+.compat .cap-arch.silicon svg{color:var(--jm-violet)}
+.compat .cap-arch.intel svg{color:var(--jm-cyan)}
+.compat .cap-more{margin-left:auto; display:flex; align-items:center; gap:6px; color:#ededf0; font-size:12.5px; white-space:nowrap}
+.compat .chev{width:15px; height:15px; transition:transform .25s ease}
+/* expanded = full-width overlay of translucent glass cards (floats, no layout shift) */
+.compat .compat-grid{position:absolute; top:calc(100% + 8px); left:0; right:0; z-index:2; display:none; grid-template-columns:repeat(3,1fr); gap:12px}
+.compat[open] .compat-grid{display:grid}
+.compat-row:has(.compat[open]){z-index:2000}
+.compat::after{content:""; position:fixed; inset:0; z-index:1; background:rgba(0,0,0,.45); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px); opacity:0; visibility:hidden; pointer-events:none; transition:opacity .2s ease}
+.compat[open]::after{opacity:1; visibility:visible; pointer-events:auto}
+.compat .os-card{position:relative; border-radius:16px; padding:17px 15px 15px; background:rgba(20,20,24,0.55); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,.08); box-shadow:0 14px 34px rgba(0,0,0,.42); transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease; overflow:hidden}
+.compat .os-card:hover{transform:translateY(-3px); border-color:rgba(255,255,255,.14); box-shadow:0 18px 42px rgba(0,0,0,.5)}
+.compat .os-card.min{border-color:rgba(167,139,250,.3)}
+.compat .os-top{display:flex; align-items:baseline; justify-content:space-between; gap:8px}
+.compat .os-ver{font-size:12px; font-weight:600; color:var(--jm-muted); letter-spacing:.3px}
+.compat .pill-min{font-size:9px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--jm-violet); background:rgba(167,139,250,.14); border:1px solid rgba(167,139,250,.32); padding:2px 7px; border-radius:999px}
+.compat .os-name{margin:3px 0 13px; font-size:20px; font-weight:650; letter-spacing:-.3px}
+.compat .arch-row{display:flex; flex-direction:column; gap:7px}
+.compat .arch{display:flex; align-items:center; gap:10px; padding:8px 11px; border-radius:10px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); transition:border-color .2s ease, background .2s ease}
+.compat .arch:hover{border-color:rgba(255,255,255,.2); background:rgba(255,255,255,.08)}
+.compat .arch .chip{width:26px; height:26px; flex:none}
+.compat .arch .lbl{display:flex; flex-direction:column; line-height:1.15; min-width:0}
+.compat .arch .lbl b{font-size:12.5px; font-weight:600}
+.compat .arch .lbl span{font-size:10px; color:var(--jm-muted)}
+.compat .arch.silicon .chip{color:var(--jm-violet)}
+.compat .arch.intel .chip{color:var(--jm-cyan)}
+@media (max-width:620px){
+  .compat{flex:0 0 50%; max-width:50%}
+  .compat .cap-txt, .compat .cap-dot, .compat .cap-arch{display:none}
+  .compat .cap-short{display:inline}
+  /* compact expanded detail on phones: 1 col, chips side by side, no sub-labels */
+  .compat .compat-grid{grid-template-columns:1fr; gap:8px}
+  .compat .os-card{padding:12px 13px}
+  .compat .os-name{font-size:17px; margin:2px 0 10px}
+  .compat .arch-row{flex-direction:row; gap:8px}
+  .compat .arch{flex:1; min-width:0; padding:7px 9px; gap:7px}
+  .compat .arch .chip{width:22px; height:22px}
+  .compat .arch .lbl span{display:none}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="chip" viewbox="0 0 48 48">
+    <g stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".55">
+      <line x1="17" y1="5" x2="17" y2="11"></line><line x1="24" y1="5" x2="24" y2="11"></line><line x1="31" y1="5" x2="31" y2="11"></line>
+      <line x1="17" y1="43" x2="17" y2="37"></line><line x1="24" y1="43" x2="24" y2="37"></line><line x1="31" y1="43" x2="31" y2="37"></line>
+      <line x1="5" y1="17" x2="11" y2="17"></line><line x1="5" y1="24" x2="11" y2="24"></line><line x1="5" y1="31" x2="11" y2="31"></line>
+      <line x1="43" y1="17" x2="37" y2="17"></line><line x1="43" y1="24" x2="37" y2="24"></line><line x1="43" y1="31" x2="37" y2="31"></line>
+    </g>
+    <rect x="11" y="11" width="26" height="26" rx="6" fill="currentColor" opacity=".10"></rect>
+    <rect x="11" y="11" width="26" height="26" rx="6" fill="none" stroke="currentColor" stroke-width="2"></rect>
+    <rect x="18" y="18" width="12" height="12" rx="3" fill="currentColor" opacity=".5"></rect>
+  </symbol>
+</svg>
+
+<div class="compat-row">
+<details class="compat">
+  <summary class="compat-bar">
+    <span class="cap-short">Compatibility</span>
+    <span class="cap-txt">macOS&nbsp;15 → macOS&nbsp;27</span>
+    <span class="cap-dot">·</span>
+    <span class="cap-arch silicon"><svg><use href="#chip"></use></svg>Apple&nbsp;Silicon</span>
+    <span class="cap-arch intel"><svg><use href="#chip"></use></svg>Intel</span>
+    <span class="cap-more">
+      <svg class="chev" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+    </span>
+  </summary>
+
+  <div class="compat-grid">
+    <div class="os-card">
+      <div class="os-top"><span class="os-ver">macOS 27</span></div>
+      <div class="os-name">Golden&nbsp;Gate</div>
+      <div class="arch-row">
+        <div class="arch silicon"><svg class="chip"><use href="#chip"></use></svg><span class="lbl"><b>Apple Silicon</b><span>M series &amp; A series</span></span></div>
+        <div class="arch intel" style="opacity:.42; filter:grayscale(.6)"><svg class="chip"><use href="#chip"></use></svg><span class="lbl"><b>Intel</b><span>dropped by Apple</span></span></div>
+      </div>
+    </div>
+    <div class="os-card">
+      <div class="os-top"><span class="os-ver">macOS 26</span></div>
+      <div class="os-name">Tahoe</div>
+      <div class="arch-row">
+        <div class="arch silicon"><svg class="chip"><use href="#chip"></use></svg><span class="lbl"><b>Apple Silicon</b><span>M series &amp; A series</span></span></div>
+        <div class="arch intel"><svg class="chip"><use href="#chip"></use></svg><span class="lbl"><b>Intel</b><span>x86-64</span></span></div>
+      </div>
+    </div>
+    <div class="os-card min">
+      <div class="os-top"><span class="os-ver">macOS 15</span><span class="pill-min">Minimum</span></div>
+      <div class="os-name">Sequoia</div>
+      <div class="arch-row">
+        <div class="arch silicon"><svg class="chip"><use href="#chip"></use></svg><span class="lbl"><b>Apple Silicon</b><span>M series</span></span></div>
+        <div class="arch intel"><svg class="chip"><use href="#chip"></use></svg><span class="lbl"><b>Intel</b><span>x86-64</span></span></div>
+      </div>
+    </div>
+  </div>
+</details>
+</div>
+
+<script>
+(function(){
+  var d = document.querySelector('details.compat');
+  if(!d) return;
+  document.addEventListener('click', function(e){ if(d.open && !e.target.closest('.compat-bar') && !e.target.closest('.compat-grid')) d.open = false; });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && d.open) d.open = false; });
+})();
+</script>
 <style>
 /* Accent for the JackMoebius mentions in the hero — echoes the JackMoebius cyan
    and the violet→cyan "Get JackMoebius" CTA gradient, instead of the red link color. */
@@ -865,16 +986,8 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td>macOS</td>
-<td>15.0 Sequoia</td>
-</tr>
-<tr class="even">
 <td>Jack Audio Connection Kit</td>
 <td>1.9.x (<code>jackd</code>)</td>
-</tr>
-<tr class="odd">
-<td>Architecture</td>
-<td>Apple Silicon or Intel</td>
 </tr>
 <tr class="even">
 <td>Languages</td>
@@ -1056,9 +1169,11 @@ function openDownloadModal(e) {
     var main = document.querySelector('main.content') || document.querySelector('main');
     if (!tpl || !main) return;
     var node = tpl.content.firstElementChild.cloneNode(true);
+    var row = document.querySelector('.compat-row');
     var header = document.getElementById('title-block-header');
-    if (header) header.insertAdjacentElement('afterend', node);   // below the title + description
-    else main.insertAdjacentElement('afterbegin', node);          // (home: above the hero)
+    if (row) row.appendChild(node);                               // home: same line as the compatibility bar
+    else if (header) header.insertAdjacentElement('afterend', node);   // below the title + description
+    else main.insertAdjacentElement('afterbegin', node);          // fallback: top of main
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', inject);
   else inject();
