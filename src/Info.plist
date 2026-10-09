@@ -43,11 +43,27 @@
     <!-- Privacy — microphone access required to interact with Jack audio server.
          Localized strings in *.lproj/InfoPlist.strings override this value. -->
     <key>NSMicrophoneUsageDescription</key>
-    <string>JackMate needs microphone access to interact with the Jack audio server.</string>
+    <string>JackMate needs microphone access to interact with the Jack server.</string>
 
     <!-- Copyright (fill in before release) -->
     <key>NSHumanReadableCopyright</key>
     <string></string>
+
+    <!-- URL scheme — one-click licence activation deep link (jackmate://activate?key=…).
+         Must mirror JackMate/Info.plist (the Xcode build); it is NOT synced automatically. -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>io.github.zinc75.JackMate</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>jackmate</string>
+            </array>
+        </dict>
+    </array>
 
     <!-- Performance -->
     <key>NSSupportsAutomaticGraphicsSwitching</key>

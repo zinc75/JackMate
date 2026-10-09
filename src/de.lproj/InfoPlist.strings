@@ -1,5 +1,5 @@
 /* Mikrofonzugriff */
-NSMicrophoneUsageDescription = "JackMate benötigt Mikrofonzugriff, um mit dem Jack-Server zu kommunizieren.";
+NSMicrophoneUsageDescription = "JackMate benötigt Mikrofonzugriff, um mit dem Jack-Server zu interagieren.";
 
 /* Schreibtisch / Dokumente / Downloads — für In-Place-Update */
 NSDesktopFolderUsageDescription = "JackMate benötigt Zugriff auf den Schreibtisch, um sich selbst an Ort und Stelle zu aktualisieren.";

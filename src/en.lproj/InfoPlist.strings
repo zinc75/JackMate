@@ -1,5 +1,5 @@
 /* Microphone access request */
-NSMicrophoneUsageDescription = "JackMate needs microphone access to communicate with the Jack server.";
+NSMicrophoneUsageDescription = "JackMate needs microphone access to interact with the Jack server.";
 
 /* Desktop / Documents / Downloads access — for in-place self-update */
 NSDesktopFolderUsageDescription = "JackMate needs access to the Desktop to update itself in place.";
