@@ -6,6 +6,13 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [2.0.1] · 2026-10-09
+
+### Fixed
+- **`jackmate://` activation deep link**: the URL scheme was not registered by the distributed app (missing from its Info.plist), so the one-click "Activate" link failed with an "invalid address" error. The distributed build now declares the `jackmate://` scheme.
+
+---
+
 ## [2.0.0] · 2026-10-08
 
 Major release: **JackMoebius integration**. JackMate now drives the JackMoebius daemon to expose any native macOS application (Safari, Music, FaceTime, QuickTime…) as a JACK client, in both directions (outputs **and** inputs) with no external configuration. (Requires the JackMoebius daemon, installed separately.)
