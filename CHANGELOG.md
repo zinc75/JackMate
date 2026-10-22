@@ -6,7 +6,7 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
-## [2.1.0] · unreleased
+## [2.1.0] · 2026-10-23
 
 "JackMoebius 1.1" release: JackMate follows JackMoebius's new device model. **Requires JackMoebius 1.1.0 or newer** (the JackMoebius panel prompts you to update otherwise).
 
