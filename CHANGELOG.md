@@ -6,6 +6,33 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [2.1.0] · unreleased
+
+"JackMoebius 1.1" release: JackMate follows JackMoebius's new device model. **Requires JackMoebius 1.1.0 or newer** (the JackMoebius panel prompts you to update otherwise).
+
+### Changed (breaking)
+- **Studios**: those saved before 2.1.0 that include apps exposed by JackMoebius are restored as best as possible (dedicated input, output on the shared stem); **re-save them** to move to the new format (backing and channel count per direction). Connections to `JackMoebius:monitor_*` are ignored (the system monitor no longer exists) and `input_default_*` is renamed `shared_input_*`.
+- **No more "master" box or button**: the system monitor is gone from JackMoebius 1.1.
+- **Devices**: a single system device, "JackMoebius" (instead of "JackMoebius In" and "JackMoebius Out"), found by its identifier, and per-app cards named "JackMoebius for <App>".
+
+### Added
+- **Input and output set separately** for each app: "JackMoebius default" or "Dedicated" (a card of 1 to 64 channels), through a pill and a small Apply panel that explains the effect before acting (card created, rebuilt, kept, deleted). The last choice is remembered per app.
+- **Shared input in the patchbay**: one box per app that reads the default input, with its `shared_input_1/2` ports mirrored; a cable drawn in one box is drawn in all of them. The system node only shows up if cables remain on it (a debugging setting forces it). JackMate notes which app a cable was drawn for and offers to remove it when that app moves to a dedicated card.
+- **Cables kept** when an app changes mode or channel count, with a prompt before the cases that affect other apps.
+- **Capacity**: Inputs / Outputs gauges (254 channels each), a warning strip above the patchbay from 80 %, channels "reserved but unused", and a **"Free the unused channels"** button that rebuilds the card as it is.
+- **Localized messages**: transport down (six causes), why the daemon is unreachable (another account, missing driver or service…), daemon refusals explained with their numbers, a "Move the input to default too" button.
+- **Mac default devices alert** (an input or output that is no longer JackMoebius while apps depend on it), with a "Choose JackMoebius" button.
+
+### Improved
+- Routing mismatch flagged at two levels (under the app's row, and the top banner once the app is wired), with a two-solutions hint (in the app, or "JackMoebius default" in JackMate).
+- Per-app volume placed under the name, collapsible; restoring a studio no longer waits for boxes that will never appear.
+- New "What's New" panel (reminder of the JackMoebius integration and the new features).
+
+### Fixed
+- The JackMoebius master volume slider is found again with the unified device.
+
+---
+
 ## [2.0.1] · 2026-10-09
 
 ### Fixed
