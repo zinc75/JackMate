@@ -456,6 +456,10 @@ Important
 <section id="what-is-saved" class="level3">
 <h3 class="anchored" data-anchor-id="what-is-saved">What is saved</h3>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Element</th>
@@ -484,15 +488,15 @@ Important
 <td>✓</td>
 </tr>
 <tr class="even">
-<td>JackMoebius exposures (Output / Input + channels)</td>
+<td>JackMoebius exposures (Output / Input, backing and channels)</td>
 <td>✓</td>
 </tr>
 <tr class="odd">
-<td>JackMoebius master monitor &amp; per-app volumes</td>
+<td>JackMoebius per-app volumes &amp; the app each shared-input cable was drawn for</td>
 <td>✓</td>
 </tr>
 <tr class="even">
-<td>Output device volumes (Jack out &amp; “JackMoebius Out”)</td>
+<td>Output device volumes (Jack out &amp; “JackMoebius”)</td>
 <td>✓</td>
 </tr>
 <tr class="odd">
@@ -523,7 +527,7 @@ Important
 <li>Compares the studio’s Jack command with the currently running Jack configuration</li>
 <li>If different (or if Jack was started externally): restarts Jack with the saved parameters</li>
 <li>Re-launches any saved CLI clients</li>
-<li>Restores the JackMoebius state, if the studio has one: relaunches and re-exposes the apps, master monitor and per-app volumes</li>
+<li>Restores the JackMoebius state, if the studio has one: relaunches and re-exposes the apps (one request per app, with the saved backing and channel count) and restores per-app volumes</li>
 <li>Restores available connections</li>
 <li>Restores node positions and output-device volumes</li>
 <li>Shows a result summary</li>
@@ -540,6 +544,19 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <p><span class="badge-new"><span class="badge-star">★</span> New in 2.0.0</span> For JackMoebius, the studio is <strong>authoritative</strong>: loading a studio saved <em>without</em> JackMoebius stops the daemon, while one saved <em>with</em> it restores the exact exposure state. See <a href="../guide/jackmoebius.html#in-studios">JackMoebius in studios</a>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="badge-new"><span class="badge-star">★</span> New in 2.1.0</span> Studios saved <strong>before 2.1.0</strong> with JackMoebius apps are restored as best as possible; <strong>re-save them</strong> to move to the new format (backing and channel count per direction).</p>
 </div>
 </div>
 </section>

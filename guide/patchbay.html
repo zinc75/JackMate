@@ -498,7 +498,7 @@ Note
 <h3 class="anchored" data-anchor-id="badge">Badge</h3>
 <p>The top-left corner of each node shows a <strong>badge</strong> with the client’s initials (two letters, colour generated deterministically).</p>
 <p>For system clients: - 🎙 <code>system (capture)</code>: microphone icon, cyan colour - 🔊 <code>system (playback)</code>: speaker icon, violet colour</p>
-<p>For <strong>JackMoebius</strong> clients (native macOS apps exposed to Jack), the badge is the <strong>real application icon</strong>; the master monitor box carries the JackMoebius glyph. See <a href="../guide/jackmoebius.html">JackMoebius</a>.</p>
+<p>For <strong>JackMoebius</strong> clients (native macOS apps exposed to Jack), the badge is the <strong>real application icon</strong>; apps on the shared input get a box with the two mirrored <code>shared_input</code> ports. See <a href="../guide/jackmoebius.html">JackMoebius</a>.</p>
 <p><strong>Click the badge</strong> to open a detailed info sheet for that client.</p>
 <p>The sheet displays: - <strong>GUI applications</strong>: name, bundle path, PID, icon - <strong>CLI clients</strong> (<code>jack_metro</code>, <code>a2jmidid</code>, etc.): executable path, full command line, PID (detected by scanning the process table)</p>
 <div class="quarto-figure quarto-figure-center">
@@ -575,11 +575,15 @@ Note
 <h2 class="anchored" data-anchor-id="connections-1">Connections</h2>
 <section id="creating-a-connection" class="level3">
 <h3 class="anchored" data-anchor-id="creating-a-connection">Creating a connection</h3>
-<p>Click an <strong>output port</strong> (dot on the left of a node) then an <strong>input port</strong> (dot on the right of another node). The connection is established instantly in Jack.</p>
+<p><strong>Drag</strong> from an <strong>output port</strong> (the dot on the <strong>right</strong> of a node) to an <strong>input port</strong> (the dot on the <strong>left</strong> of another node). The connection is established instantly in Jack. While you drag, the compatible ports (opposite direction, same type) light up. You can also start from an input port and drop on an output port.</p>
 </section>
 <section id="removing-a-connection" class="level3">
 <h3 class="anchored" data-anchor-id="removing-a-connection">Removing a connection</h3>
-<p>Click an existing <strong>wire</strong> to remove it.</p>
+<p>A wire can’t be clicked: <strong>right-click</strong> instead.</p>
+<ul>
+<li><strong>On a port</strong> (the dot): a menu offers <strong>Disconnect this port</strong>, which removes every connection of that port, plus <strong>Disconnect all inputs</strong>, <strong>Disconnect all outputs</strong> and <strong>Disconnect entire client</strong> for the whole client.</li>
+<li><strong>On the client box itself</strong>, in its <strong>input zone</strong> (left half) or <strong>output zone</strong> (right half): the menu offers <strong>Disconnect all inputs</strong> or <strong>Disconnect all outputs</strong> (according to the side you clicked, or both from the header), and <strong>Disconnect all</strong>. Entries are greyed out when nothing is connected there.</li>
+</ul>
 </section>
 <section id="port-hover" class="level3">
 <h3 class="anchored" data-anchor-id="port-hover">Port hover</h3>
@@ -617,13 +621,13 @@ Note
 <p>The <strong>Volumes</strong> bar (toggled from the toolbar) appears at the top of the patchbay and controls the <strong>output-device volumes</strong> directly, without selecting the device in macOS:</p>
 <ul>
 <li><strong>Jack’s output device</strong>: the interface Jack plays through</li>
-<li><strong>“JackMoebius Out”</strong>: the JackMoebius virtual output (shown when JackMoebius is running)</li>
+<li><strong>“JackMoebius”</strong>: the JackMoebius system device (shown when JackMoebius is running)</li>
 </ul>
 <p>Each has a Control-Center-style slider, synced live with the macOS volume keys (F10/F11/F12) and System Settings ▸ Sound. There is <strong>no separate mute</strong>: drag a slider to zero. The sliders are pure CoreAudio, so they work even when Jack or JackMoebius is down; a device with no settable volume (e.g.&nbsp;HDMI) shows greyed out.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../assets/screenshots/patchbay-volumes-bar.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Output volume bar: Jack’s output device and “JackMoebius Out”"><img src="../assets/screenshots/patchbay-volumes-bar.png" class="img-fluid figure-img" alt="The Volumes bar at the top of the patchbay, with the two sliders: Jack's output device and JackMoebius Out."></a></p>
-<figcaption>Output volume bar: Jack’s output device and “JackMoebius Out”</figcaption>
+<p><a href="../assets/screenshots/patchbay-volumes-bar.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Output volume bar: Jack’s output device and “JackMoebius”"><img src="../assets/screenshots/patchbay-volumes-bar.png" class="img-fluid figure-img" alt="The Volumes bar at the top of the patchbay, with the two sliders: Jack's output device and JackMoebius."></a></p>
+<figcaption>Output volume bar: Jack’s output device and “JackMoebius”</figcaption>
 </figure>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">

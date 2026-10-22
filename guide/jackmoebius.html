@@ -356,12 +356,17 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#enabling-exposure" id="toc-enabling-exposure" class="nav-link" data-scroll-target="#enabling-exposure">Enabling exposure</a></li>
   <li><a href="#the-jackmoebius-panel" id="toc-the-jackmoebius-panel" class="nav-link" data-scroll-target="#the-jackmoebius-panel">The JackMoebius panel</a>
   <ul class="collapse">
+  <li><a href="#default-or-dedicated" id="toc-default-or-dedicated" class="nav-link" data-scroll-target="#default-or-dedicated">Default or Dedicated</a></li>
+  <li><a href="#the-apply-panel" id="toc-the-apply-panel" class="nav-link" data-scroll-target="#the-apply-panel">The Apply panel</a></li>
+  <li><a href="#capacity" id="toc-capacity" class="nav-link" data-scroll-target="#capacity">Capacity</a></li>
   <li><a href="#advanced-configuration" id="toc-advanced-configuration" class="nav-link" data-scroll-target="#advanced-configuration">Advanced configuration</a></li>
   </ul></li>
   <li><a href="#in-the-patchbay" id="toc-in-the-patchbay" class="nav-link" data-scroll-target="#in-the-patchbay">In the patchbay</a>
   <ul class="collapse">
+  <li><a href="#the-shared-input" id="toc-the-shared-input" class="nav-link" data-scroll-target="#the-shared-input">The shared input</a></li>
   <li><a href="#routing-status" id="toc-routing-status" class="nav-link" data-scroll-target="#routing-status">Routing status</a></li>
   </ul></li>
+  <li><a href="#alerts" id="toc-alerts" class="nav-link" data-scroll-target="#alerts">Alerts</a></li>
   <li><a href="#per-app-volumes" id="toc-per-app-volumes" class="nav-link" data-scroll-target="#per-app-volumes">Per-app volumes</a></li>
   <li><a href="#version-indicator" id="toc-version-indicator" class="nav-link" data-scroll-target="#version-indicator">Version indicator</a></li>
   <li><a href="#in-studios" id="toc-in-studios" class="nav-link" data-scroll-target="#in-studios">In studios</a></li>
@@ -452,6 +457,19 @@ Important
 <section id="installing-jackmoebius" class="level2">
 <h2 class="anchored" data-anchor-id="installing-jackmoebius">Installing JackMoebius</h2>
 <p>JackMoebius is a <strong>separate application</strong>: a paid app with a <strong>14-day free trial</strong>. Get it from <a href="https://jackmoebius.io/">its page</a> and install it on your Mac; JackMate detects the installed daemon automatically, with no path to configure.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>JackMate 2.1 requires <strong>JackMoebius 1.1.0 or newer</strong>. If yours is older, JackMate offers to update it.</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -511,12 +529,8 @@ Tip
 </section>
 <section id="the-jackmoebius-panel" class="level2">
 <h2 class="anchored" data-anchor-id="the-jackmoebius-panel">The JackMoebius panel</h2>
-<p>The slide-in panel lists every running CoreAudio app and lets you expose it to the graph. Each row shows the app’s real icon and name, with:</p>
+<p>The slide-in panel lists every running CoreAudio app and lets you expose it to the graph. Each row shows the app’s real icon and name, and, for each direction (In and Out), a <strong>switch</strong> and a <strong>pill</strong> that says how the app reaches JackMoebius:</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Control</th>
@@ -525,21 +539,24 @@ Tip
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Output</strong> switch</td>
+<td><strong>Out</strong> switch</td>
 <td>Expose the app’s sound <em>to</em> the graph</td>
 </tr>
 <tr class="even">
-<td><strong>Input</strong> switch</td>
-<td>Give the app an input <em>from</em> the graph (greyed out for apps that can’t capture)</td>
+<td><strong>In</strong> switch</td>
+<td>Give the app an input <em>from</em> the graph (no In column for apps that can’t capture)</td>
 </tr>
 <tr class="odd">
-<td><strong>Channels</strong> stepper</td>
-<td>Number of input channels (appears when Input is on)</td>
+<td><strong>Pill</strong> (<em>JackMoebius default</em> or <em>N ch dedicated</em>)</td>
+<td>Click it, once the direction is on, to open the <strong>Apply</strong> panel and change how the app is connected</td>
+</tr>
+<tr class="even">
+<td><strong>Sliders</strong> button (next to the eye)</td>
+<td>Show or hide the app’s volume slider (see <a href="#per-app-volumes">Per-app volumes</a>)</td>
 </tr>
 </tbody>
 </table>
-<p>Exposing an app makes its box appear in the patchbay instantly; turning it off removes the box.</p>
-<p>A <strong>“system monitor” (master) box</strong> exposes the global system mix (everything macOS is playing) as a single Jack client, independent of the per-app selection.</p>
+<p>Turning a switch <strong>on</strong> opens the Apply panel: nothing is sent to JackMoebius until you click <strong>Apply</strong> (Cancel switches it back off). Turning a switch off is immediate. Exposing an app makes its box appear in the patchbay; turning it off removes it.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="../assets/screenshots/jackmoebius-panel.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="The JackMoebius panel: per-app Output / Input exposure"><img src="../assets/screenshots/jackmoebius-panel.png" class="img-fluid figure-img" alt="The JackMoebius panel: per-app Output / Input exposure."></a></p>
@@ -559,12 +576,63 @@ Note
 <p>The daemon only sees an app once it enters the audio context (produces or captures sound). An app that is running but silent may take a moment to appear in the list.</p>
 </div>
 </div>
+<section id="default-or-dedicated" class="level3">
+<h3 class="anchored" data-anchor-id="default-or-dedicated">Default or Dedicated</h3>
+<p><span class="badge-new"><span class="badge-star">★</span> New in 2.1.0</span> Each direction of an app has its own <em>backing</em>, chosen independently:</p>
+<ul>
+<li><strong>JackMoebius default</strong>: the app goes through the common <strong>JackMoebius</strong> device, with nothing to set in the app. For the <strong>output</strong>, the app plays to the Mac’s default output (JackMoebius) in stereo, kept separate from the other apps. For the <strong>input</strong>, it follows the Mac’s default input, which JackMoebius takes over while any app is in this mode: every app in this mode hears the <strong>same stereo feed</strong>.</li>
+<li><strong>Dedicated</strong>: JackMoebius creates a virtual card named <strong>“JackMoebius for &lt;App&gt;”</strong> with <strong>1 to 64 channels</strong>, specific to that app. You then choose it as the input or output device in the app’s own settings. If the app only offers a <em>single</em> device setting for input and output, set <strong>both</strong> directions to Dedicated: it is then one duplex card.</li>
+</ul>
+<p>By default, the <strong>input</strong> is <em>Dedicated</em> (2 channels), except for apps known to have no input selector (such as Safari), and the <strong>output</strong> is <em>JackMoebius default</em>. JackMate <strong>remembers your last choice</strong> per app and direction and offers it again the next time.</p>
+</section>
+<section id="the-apply-panel" class="level3">
+<h3 class="anchored" data-anchor-id="the-apply-panel">The Apply panel</h3>
+<p>Clicking a pill opens a small panel under the row: a <strong>default | Dedicated</strong> choice, a channel-count menu (1 to 64) for a dedicated card, an explanation, and <strong>Cancel / Apply</strong>. A coloured band says, <em>before</em> anything changes, what Apply will do to the app’s card:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Band</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Blue</strong></td>
+<td>The card is <strong>created</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Orange</strong></td>
+<td>The card is <strong>rebuilt</strong> (a direction added, another channel count): the app sees its device disappear for a moment, then come back</td>
+</tr>
+<tr class="odd">
+<td><strong>Orange</strong></td>
+<td>The card is <strong>kept</strong> without this direction: the app still sees it, but that direction is no longer wired to it</td>
+</tr>
+<tr class="even">
+<td><strong>Red</strong></td>
+<td>The card is <strong>deleted</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Your <strong>cables are kept</strong> across these changes: JackMate notes the app’s cables before the change and reconnects them when its ports are back. When a change would put sources on a shared input that other apps also hear, JackMate asks first.</p>
+</section>
+<section id="capacity" class="level3">
+<h3 class="anchored" data-anchor-id="capacity">Capacity</h3>
+<p><span class="badge-new"><span class="badge-star">★</span> New in 2.1.0</span> The two channel buses are <strong>shared by all apps</strong>: <strong>254 input channels</strong> and <strong>254 output channels</strong> in total, and up to <strong>64 channels per app and per direction</strong> (a dedicated card). The <strong>Inputs / Outputs gauges</strong> (Advanced configuration ▸ Reservations) show how full they are, and a thin strip above the patchbay warns as soon as one reaches <strong>80 %</strong> (amber) or is <strong>full</strong> (red).</p>
+<p>A card whose input or output was removed keeps the channels of that dead stream: they stay counted as occupied, shown as <strong>“reserved but unused”</strong>, until the card is deleted or rebuilt. The Reservations tab lists them per app, with a <strong>“Free the unused channels”</strong> button that rebuilds the card as it is (its app sees its device go and come back for a moment; its cables are restored).</p>
+<p>When JackMoebius <strong>refuses</strong> a change (not enough free channels, an app with no audio context yet, no card slot left…), a red band under the app’s row says why, with the numbers, in your language. If an app’s own dedicated input keeps its card, the band offers <strong>“Move the input to default too”</strong>.</p>
+</section>
 <section id="advanced-configuration" class="level3">
 <h3 class="anchored" data-anchor-id="advanced-configuration">Advanced configuration</h3>
 <p>An <strong>“eye-off” button</strong> removes an app from the selector (with a confirmation if it’s currently exposed), useful for apps you never want to route. The <strong>Advanced JackMoebius configuration</strong> panel (tabbed) lets you:</p>
 <ul>
 <li><strong>re-enable</strong> apps you previously excluded (blacklist);</li>
-<li><strong>free dormant channel reservations</strong> left by apps that have since quit.</li>
+<li><strong>free dormant channel reservations</strong> left by apps that have since quit, check the <strong>capacity gauges</strong>, and free the <strong>unused channels</strong> of a card (Reservations tab);</li>
+<li>in the <strong>Advanced / debugging</strong> section, <strong>always show the JackMoebius system node</strong> in the patchbay (see below).</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -580,9 +648,14 @@ Note
 <p>An exposed app appears as a regular node on the canvas, with two differences from ordinary Jack clients:</p>
 <ul>
 <li>its badge is the <strong>real application icon</strong> (instead of the two-letter initials badge);</li>
-<li>the master box carries the <strong>JackMoebius glyph</strong>.</li>
+<li>an app on the <strong>shared input</strong> has no Jack port of its own, so JackMate draws a box for it anyway, with the two <strong><code>shared_input_1/2</code></strong> ports.</li>
 </ul>
 <p>Clicking the badge opens the usual info sheet, which identifies the box as a JackMoebius client.</p>
+<section id="the-shared-input" class="level3">
+<h3 class="anchored" data-anchor-id="the-shared-input">The shared input</h3>
+<p><span class="badge-new"><span class="badge-star">★</span> New in 2.1.0</span> Every running app that reads the shared input shows the <strong>same two ports</strong>, drawn in its own box: it is one real set of ports, so a cable drawn to one of them appears in <strong>every</strong> such box, and deleting it from any box deletes the real cable. A second source on the same port simply sums.</p>
+<p>The JackMoebius <strong>system node</strong> that carries these ports is hidden while at least one box shows them; it comes back on its own if cables remain on it and no box is left, and disappears when nothing is cabled on it. When an app leaves the shared input for a dedicated card, JackMate copies the sources it heard onto its card, and offers to remove the cables that had been drawn <em>only for it</em> from the shared input.</p>
+</section>
 <section id="routing-status" class="level3">
 <h3 class="anchored" data-anchor-id="routing-status">Routing status</h3>
 <p>Because a native app routes audio through a specific CoreAudio device, JackMate watches that an exposed, wired app is actually using the <strong>right</strong> device:</p>
@@ -614,7 +687,7 @@ Note
 <figcaption>Wired CoreAudio apps and their device markers</figcaption>
 </figure>
 </div>
-<p>An <strong>alert panel</strong> (opened automatically, or by clicking the ⚠) lists the affected apps and what to do. The fix is made <strong>in the app itself, or in macOS System Settings ▸ Sound</strong>, not in JackMate (JackMate can’t force another app’s device).</p>
+<p>The mismatch is shown at <strong>two levels</strong>. Under the app’s row (and as a dot on its pill), as soon as you configure a direction that reads or writes another device. And in an <strong>alert panel</strong> at the top (opened automatically, or by clicking the ⚠) once the app is <strong>wired</strong>. It lists the affected apps and offers <strong>two solutions</strong>: select the JackMoebius device <strong>in the app’s own settings</strong>, or, if the app doesn’t let you choose an audio device, switch that direction to <strong>JackMoebius default</strong> in JackMate (a <strong>Use the default</strong> button does it from the app’s row).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="../assets/screenshots/jackmoebius-routing-warning.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Wrong-audio-device alert on an exposed, wired app"><img src="../assets/screenshots/jackmoebius-routing-warning.png" class="img-fluid figure-img" alt="Wrong-audio-device alert on an exposed, wired app."></a></p>
@@ -624,9 +697,19 @@ Note
 <hr>
 </section>
 </section>
+<section id="alerts" class="level2">
+<h2 class="anchored" data-anchor-id="alerts">Alerts</h2>
+<p><span class="badge-new"><span class="badge-star">★</span> New in 2.1.0</span> JackMate tells you when something stops JackMoebius from working, in your language:</p>
+<ul>
+<li><strong>The Mac’s default devices.</strong> A thin strip above the patchbay appears when the Mac’s default <strong>output</strong> isn’t JackMoebius although apps play to the default output, or when the default <strong>input</strong> isn’t JackMoebius although apps read the shared input. A <strong>Choose JackMoebius</strong> button fixes it (never automatically).</li>
+<li><strong>Transport down.</strong> If JackMoebius’s shared-memory transport can’t start, a red banner in the panel (and a red indicator in the sidebar) gives the cause and what to do: service not installed or switched off in <em>System Settings ▸ General ▸ Login Items &amp; Extensions</em>, a version mismatch, another daemon running, or the driver not attached.</li>
+<li><strong>The daemon can’t start.</strong> The panel says why (JackMoebius used by another macOS account, missing driver or service…) instead of a bare error.</li>
+</ul>
+<hr>
+</section>
 <section id="per-app-volumes" class="level2">
 <h2 class="anchored" data-anchor-id="per-app-volumes">Per-app volumes</h2>
-<p>In the JackMoebius panel, every exposed app has a <strong>volume control</strong>. By default it is <strong>locked</strong> (padlock closed): the app follows the <strong>“JackMoebius Out”</strong> master level. Click the padlock to <strong>unlock</strong> it (padlock open, cyan) and set an <strong>independent</strong> volume for that app with the slider.</p>
+<p>In the JackMoebius panel, every app with an exposed output has a <strong>volume control</strong>. The <strong>sliders button</strong> next to the eye shows or hides its slider, placed under the app’s name. By default it is <strong>locked</strong> (padlock closed): the app follows the <strong>“JackMoebius”</strong> master level. Click the padlock to <strong>unlock</strong> it (padlock open, cyan) and set an <strong>independent</strong> volume for that app with the slider. If you hide the slider of an app that has its own volume, a small cyan open padlock stays next to the button to remind you.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -661,7 +744,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The <strong>master output volumes</strong> (Jack’s output device and “JackMoebius Out”) are set from the <strong>Volumes bar</strong> at the top of the patchbay. See <a href="../guide/patchbay.html#output-volumes">Output volumes</a>.</p>
+<p>The <strong>master output volumes</strong> (Jack’s output device and “JackMoebius”) are set from the <strong>Volumes bar</strong> at the top of the patchbay. See <a href="../guide/patchbay.html#output-volumes">Output volumes</a>.</p>
 </div>
 </div>
 <hr>
@@ -679,7 +762,20 @@ Tip
 </section>
 <section id="in-studios" class="level2">
 <h2 class="anchored" data-anchor-id="in-studios">In studios</h2>
-<p>A <a href="../guide/studios.html">studio</a> saves and restores your <strong>complete</strong> JackMoebius state: which apps are exposed (Output / Input and their channel counts), the master monitor, and per-app volumes, along with the output-device volumes. Load a studio and JackMate restarts the daemon if needed, relaunches and re-exposes the apps, and restores every volume. See <a href="../guide/studios.html">Studios</a> for the details.</p>
+<p>A <a href="../guide/studios.html">studio</a> saves and restores your <strong>complete</strong> JackMoebius state: which apps are exposed, for each direction its backing (<em>default</em> or <em>dedicated</em>) and channel count, per-app volumes, and which app each shared-input cable was drawn for, along with the output-device volumes. Load a studio and JackMate restarts the daemon if needed, relaunches and re-exposes the apps (one request per app), and restores every volume. See <a href="../guide/studios.html">Studios</a> for the details.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Studios saved <strong>before JackMate 2.1.0</strong> that include apps exposed by JackMoebius are restored as best as possible (input dedicated, output on the shared stem). <strong>Re-save them</strong> to move to the new format. Connections to the old <code>JackMoebius:monitor_*</code> ports are ignored (the system monitor no longer exists), and <code>input_default_*</code> is read as <code>shared_input_*</code>.</p>
+</div>
+</div>
 <div style="display:none;height:0;overflow:hidden;" aria-hidden="true">
 <p><i class="fa-solid fa-check" aria-label="check"></i></p>
 </div>
