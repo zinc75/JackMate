@@ -3,7 +3,7 @@
   ![macOS](https://img.shields.io/badge/macOS-15.0%2B-lightgrey?logo=apple)
   ![Swift](https://img.shields.io/badge/Swift-5.0-orange?logo=swift)
   ![License](https://img.shields.io/badge/license-MIT-green)
-  ![Version](https://img.shields.io/badge/version-2.0.1-blue)
+  ![Version](https://img.shields.io/badge/version-2.1.0-blue)
   ![Languages](https://img.shields.io/badge/languages-FR%20EN%20DE%20IT%20ES-blueviolet)
   [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&logoColor=000000)](https://www.buymeacoffee.com/zinc75)
 
@@ -30,16 +30,21 @@
 
 ---
 
-## 🆕 New in 2.0: JackMoebius integration
+## 🆕 JackMoebius integration
 
-Bring **any native macOS app into the JACK graph** (inputs *and* outputs) with no external setup. JackMate now drives **[JackMoebius](https://jackmoebius.io/)**, a bidirectional CoreAudio ↔ JACK bridge, so apps that have *no built-in JACK support* become first-class JACK clients:
+Since 2.0, JackMate drives **[JackMoebius](https://jackmoebius.io/)**, a bidirectional CoreAudio ↔ JACK bridge: **any native macOS app** (Safari, Music, FaceTime, QuickTime, a DAW's companion apps…) becomes a first-class JACK client, **inputs and outputs**, with no external setup. Per-app volumes, studios that save and restore the whole JackMoebius state, and one-click install of JackMoebius from JackMate come with it.
 
-- **Expose CoreAudio apps as JACK clients**: Safari, Music, FaceTime, QuickTime, a DAW's companion apps… anything that plays or captures audio, routed **in and out** of JACK.
-- Per-app **Output / Input** exposure and channel counts, a **system-monitor** master box, and **per-app volumes**.
-- **Studios** save and restore the full JackMoebius state alongside your JACK setup.
-- **Install JackMoebius from JackMate** in one click, with an in-app demo video and live, event-driven daemon status.
+### New in 2.1: JackMoebius 1.1
 
-> JackMoebius is a separate driver (free 14-day trial, then a one-time purchase). JackMate detects the installed daemon automatically.
+JackMate 2.1 follows the new device model of JackMoebius 1.1:
+
+- **Input and output set separately** for each app: **JackMoebius default** (nothing to set in the app) or **Dedicated**, a virtual card "JackMoebius for \<App\>" of **1 to 64 channels**. A small Apply panel explains the effect *before* anything changes.
+- **Shared input in the patchbay**: every app that reads it gets a box with the two shared ports, and a cable drawn in one box shows in all of them.
+- **Your cables are kept** when an app changes mode or channel count.
+- **Capacity gauges** (254 input and 254 output channels shared by all apps), a warning strip, and a one-click way to free the channels a card keeps but no longer uses.
+- **Clear alerts** in your language: Mac default devices that are no longer JackMoebius, transport problems, refused requests explained with their numbers.
+
+> JackMate 2.1 requires **JackMoebius 1.1.0 or newer**. JackMoebius is a separate driver (free 14-day trial, then a one-time purchase); JackMate detects the installed daemon automatically and offers to update it. Studios saved with JackMate 2.0 reload as best as possible: re-save them to use the new format.
 
 ---
 
@@ -51,9 +56,11 @@ Bring **any native macOS app into the JACK graph** (inputs *and* outputs) with n
 - Automatic detection of the Jack executable name (`jackd` or `jackdmp`)
 - Automatic switch between Configuration and Patchbay views based on Jack state
 
-### JackMoebius: expose native macOS apps *(new in 2.0)*
-- Expose any CoreAudio app (Safari, Music, FaceTime, QuickTime…) as a JACK client: Output and Input, with channel counts
-- "System monitor" master box for the global system mix; per-app volumes (follow the master or set independently)
+### JackMoebius: expose native macOS apps *(2.0, reworked in 2.1)*
+- Expose any CoreAudio app (Safari, Music, FaceTime, QuickTime…) as a JACK client: Output and Input, each either **JackMoebius default** or **Dedicated** (1 to 64 channels), with an Apply panel that shows the effect first
+- Shared input drawn in every box that reads it; cables kept across mode and channel-count changes
+- Capacity gauges, unused-channel release, refusals and Mac default-device alerts in your language
+- Per-app volumes (follow the master or set independently)
 - Live, event-driven daemon status; automatic restart if it stops while Jack is running
 - Wrong-audio-device alerts on exposed, wired apps
 - Install / update JackMoebius from within JackMate (with an in-app demo video); license status shown in the header
@@ -63,12 +70,13 @@ Bring **any native macOS app into the JACK graph** (inputs *and* outputs) with n
 - Smart loading: full command comparison (all parameters, channel selection), restarts Jack only if necessary
 - Graceful shutdown of all clients (GUI and CLI) before switching studios
 - Automatic save and relaunch of CLI clients (full command with arguments)
-- Restores the JackMoebius state too: exposed apps, master and per-app volumes *(new in 2.0)*
+- Restores the JackMoebius state too: exposed apps (backing and channels per direction) and per-app volumes *(2.0, reworked in 2.1)*
 
 ### Patchbay
 - Visual editor for Jack client connections
 - Node drag & drop, group drag (move selected clients together)
 - Node collapse/expand, meta-cables
+- Drag between ports to connect, right-click a port or a client to disconnect
 - Connect-All: bulk connection between two clients with canvas preview
 - Automatic layout (Sugiyama / tidy algorithm)
 - Multi-selection (Shift+click, ⌘A), selection overlay
