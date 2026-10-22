@@ -6,8 +6,9 @@
 //  Licensed under the MIT License — see LICENSE for details.
 //
 //  Slide-in control panel (left edge) for the JackMoebius integration: the daemon
-//  start/stop toggle, the master (system-mix) toggle, the per-app routing selector
-//  (Out/In exposure + channel counts) with its blacklist action, and an
+//  start/stop toggle, the per-app routing selector (Out/In exposure; each direction shows its
+//  backing — default JackMoebius or a dedicated card of N channels — in a pill that opens an
+//  Apply panel) with its blacklist action and routing-mismatch bands, and an
 //  advanced-configuration sheet.
 //
 
@@ -64,12 +65,20 @@ struct JackMoebiusPanelView: View {
             accent.frame(width: 3)
             VStack(alignment: .leading, spacing: 0) {
                 header
-                if case .failed(let message) = jackMoebiusManager.state {
+                // Why the daemon does not run (doctor); the raw launchctl error only when nothing better.
+                if jackMoebiusManager.state != .active, !actionableReasons.isEmpty {
+                    daemonReasonBanner(actionableReasons)
+                } else if case .failed(let message) = jackMoebiusManager.state {
                     failureBanner(message)
                 }
-                if jackMoebiusManager.installed {
-                    masterRow
+                if jackMoebiusManager.state == .active, let problem = jackMoebiusManager.transportProblem {
+                    transportBanner(problem)
+                }
+                if jackMoebiusManager.installed && jackMoebiusManager.daemonTooOld {
+                    daemonTooOld
+                } else if jackMoebiusManager.installed {
                     if showMismatchBanner { mismatchBanner }
+                    if sharedInputApps.count >= 2 { sharedInputBanner }
                     appArea
                     footer
                 } else {
@@ -88,7 +97,10 @@ struct JackMoebiusPanelView: View {
                 .onAppear { panelFrame = geo.frame(in: .global) }
                 .onChange(of: geo.frame(in: .global)) { _, f in panelFrame = f }
         })
-        .onAppear { installClickMonitor(); jackMoebiusManager.refreshApps(); jackMoebiusManager.refreshLicense() }
+        .onAppear {
+            installClickMonitor(); jackMoebiusManager.refreshApps(); jackMoebiusManager.refreshLicense()
+            if jackMoebiusManager.state != .active { jackMoebiusManager.refreshDaemonReasons(force: true) }
+        }
         .onDisappear { removeClickMonitor() }
         // Confirmation when blacklisting an app that is still exposed in the graph.
         .alert(String(localized: "jackmoebius.blacklist.confirm.title"),
@@ -104,6 +116,59 @@ struct JackMoebiusPanelView: View {
         } message: { app in
             Text(String(format: String(localized: "jackmoebius.blacklist.confirm.message"), app.name))
         }
+        // Taking an input back to the shared input would also feed the other apps that read it with
+        // the cables of its card: ask before applying (nothing is sent until the user decides).
+        // Hosted on its own background view: two `.alert` modifiers on the same view conflict in
+        // SwiftUI (the second one is dismissed as soon as it opens).
+        .background(
+            Color.clear.alert(String(localized: "jackmoebius.rewire.title"),
+                              isPresented: Binding(get: { jackMoebiusManager.pendingApply != nil },
+                                                   set: { if !$0 { DispatchQueue.main.async { jackMoebiusManager.cancelPendingApply() } } }),
+                              presenting: jackMoebiusManager.pendingApply) { pending in
+                Button(String(localized: "jackmoebius.rewire.confirm")) {
+                    jackMoebiusManager.confirmPendingApply(pending, reconnect: true)
+                }
+                Button(String(localized: "jackmoebius.rewire.ignore")) {
+                    jackMoebiusManager.confirmPendingApply(pending, reconnect: false)
+                }
+                Button(String(localized: "common.cancel"), role: .cancel) { }
+            } message: { pending in
+                Text(String(format: String(localized: "jackmoebius.rewire.message"),
+                            pending.app.name, pending.plan.otherSharedInputApps.joined(separator: ", ")))
+            }
+        )
+        // Leaving the shared input: offer to cut the cables that were drawn only for this app.
+        .background(
+            Color.clear.alert(String(localized: "jackmoebius.cleanup.title"),
+                              isPresented: Binding(get: { jackMoebiusManager.pendingCleanup != nil },
+                                                   set: { if !$0 { DispatchQueue.main.async { jackMoebiusManager.cancelCleanup() } } }),
+                              presenting: jackMoebiusManager.pendingCleanup) { pending in
+                Button(String(localized: "jackmoebius.cleanup.remove")) {
+                    jackMoebiusManager.confirmCleanup(pending, remove: true)
+                }
+                Button(String(localized: "jackmoebius.cleanup.keep")) {
+                    jackMoebiusManager.confirmCleanup(pending, remove: false)
+                }
+                Button(String(localized: "common.cancel"), role: .cancel) { }
+            } message: { pending in
+                Text(cleanupMessage(pending))
+            }
+        )
+        // Removing a shared input does not silence the app while others keep the shared mode.
+        .background(
+            Color.clear.alert(String(localized: "jackmoebius.remove_shared.title"),
+                              isPresented: Binding(get: { jackMoebiusManager.pendingSharedInputRemoval != nil },
+                                                   set: { if !$0 { DispatchQueue.main.async { jackMoebiusManager.cancelSharedInputRemoval() } } }),
+                              presenting: jackMoebiusManager.pendingSharedInputRemoval) { pending in
+                Button(String(localized: "jackmoebius.remove_shared.confirm"), role: .destructive) {
+                    jackMoebiusManager.confirmSharedInputRemoval(pending)
+                }
+                Button(String(localized: "common.cancel"), role: .cancel) { }
+            } message: { pending in
+                Text(String(format: String(localized: "jackmoebius.remove_shared.message"),
+                            pending.app.name, pending.otherApps.joined(separator: ", ")))
+            }
+        )
         .sheet(isPresented: $jackMoebiusManager.showAdvanced) {
             JackMoebiusAdvancedSheet()
                 .environmentObject(jackMoebiusManager)
@@ -158,6 +223,165 @@ struct JackMoebiusPanelView: View {
         .background(JM.accentRed.opacity(0.10))
     }
 
+    // MARK: Cable clean-up alert text
+
+    /// The « these cables were drawn for X » text with the cables listed (shortened), plus a warning when
+    /// other apps still read the shared input.
+    private func cleanupMessage(_ pending: JackMoebiusManager.PendingCleanup) -> String {
+        let shown = pending.wires.prefix(6).map { w in
+            w.from + " → " + w.to.replacingOccurrences(of: "JackMoebius:", with: "")
+        }
+        var list = shown.joined(separator: "\n")
+        if pending.wires.count > shown.count { list += "\n…" }
+        var text = String(format: String(localized: "jackmoebius.cleanup.message"), pending.app.name, list)
+        if !pending.otherApps.isEmpty {
+            text += "\n" + String(format: String(localized: "jackmoebius.cleanup.others"),
+                                   pending.otherApps.joined(separator: ", "))
+        }
+        return text
+    }
+
+    // MARK: Shared input banner
+
+    /// Apps whose input is the shared default input (they all hear the same stereo feed).
+    private var sharedInputApps: [String] {
+        jackMoebiusManager.apps.filter { $0.inExposed && $0.inBacking == .shared }.map(\.name)
+    }
+
+    /// General information, always visible while several apps share the default input.
+    private var sharedInputBanner: some View {
+        HStack(alignment: .top, spacing: 8) {
+            Image(systemName: "info.circle.fill")
+                .font(.system(size: 13)).foregroundStyle(JM.accentBlue)
+            Text(String(format: String(localized: "jackmoebius.panel.shared_input_in_use"),
+                        sharedInputApps.joined(separator: ", ")))
+                .font(.system(size: 12)).foregroundStyle(JM.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, 14).padding(.vertical, 10)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(JM.accentBlue.opacity(0.10))
+        .overlay(alignment: .bottom) { Rectangle().fill(JM.borderFaint).frame(height: 1) }
+    }
+
+    // MARK: Why the daemon does not run
+
+    /// The doctor's reasons that say more than « not running » (that one is just the starting point).
+    private var actionableReasons: [JMDoctorMessage] {
+        jackMoebiusManager.daemonReasons.filter { $0.code != "daemon_not_running" }
+    }
+
+    /// The account named in the daemon's sentence (`… another account ("name") …`), for the localised text.
+    private func accountName(in text: String) -> String {
+        guard let r = text.range(of: "\"[^\"]+\"", options: .regularExpression) else { return "?" }
+        return String(text[r]).trimmingCharacters(in: CharacterSet(charactersIn: "\""))
+    }
+
+    private func reasonTexts(_ m: JMDoctorMessage) -> (message: String, remedy: String) {
+        switch m.code {
+        case "driver_not_installed":
+            return (String(localized: "jackmoebius.reason.driver_not_installed"),
+                    String(localized: "jackmoebius.reason.driver_not_installed.remedy"))
+        case "other_account_running":
+            return (String(format: String(localized: "jackmoebius.reason.other_account_running"), accountName(in: m.text)),
+                    String(localized: "jackmoebius.reason.other_account_running.remedy"))
+        case "other_account_stale_socket":
+            return (String(format: String(localized: "jackmoebius.reason.other_account_stale_socket"), accountName(in: m.text)),
+                    String(localized: "jackmoebius.reason.other_account_stale_socket.remedy"))
+        case "broker_not_installed":
+            return (String(localized: "jackmoebius.transport.broker_not_installed"),
+                    String(localized: "jackmoebius.transport.broker_not_installed.remedy"))
+        case "broker_switched_off":
+            return (String(localized: "jackmoebius.transport.broker_switched_off"),
+                    String(localized: "jackmoebius.transport.broker_switched_off.remedy"))
+        default:
+            return (m.text, m.remedy)
+        }
+    }
+
+    private func daemonReasonBanner(_ reasons: [JMDoctorMessage]) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 8) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .font(.system(size: 15)).foregroundStyle(JM.accentRed)
+                Text(String(localized: "jackmoebius.reason.title"))
+                    .font(.system(size: 14, weight: .semibold)).foregroundStyle(JM.accentRed)
+            }
+            ForEach(Array(reasons.enumerated()), id: \.offset) { _, m in
+                let texts = reasonTexts(m)
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(texts.message)
+                        .font(.system(size: 12)).foregroundStyle(JM.textPrimary)
+                        .fixedSize(horizontal: false, vertical: true)
+                    if !texts.remedy.isEmpty {
+                        Text(texts.remedy)
+                            .font(.system(size: 12)).foregroundStyle(JM.textSecondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+            }
+        }
+        .padding(.horizontal, 14).padding(.vertical, 12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(JM.accentRed.opacity(0.12))
+        .overlay(alignment: .bottom) { Rectangle().fill(JM.borderFaint).frame(height: 1) }
+    }
+
+    // MARK: Transport banner
+
+    /// The six reasons the shared-memory transport can be down, worded from the daemon's stable
+    /// code (an unknown code falls back to the daemon's English sentences).
+    private func transportTexts(_ p: JMTransportProblem) -> (message: String, remedy: String) {
+        switch p.code {
+        case "broker_not_installed":
+            return (String(localized: "jackmoebius.transport.broker_not_installed"),
+                    String(localized: "jackmoebius.transport.broker_not_installed.remedy"))
+        case "broker_switched_off":
+            return (String(localized: "jackmoebius.transport.broker_switched_off"),
+                    String(localized: "jackmoebius.transport.broker_switched_off.remedy"))
+        case "broker_unreachable":
+            return (String(localized: "jackmoebius.transport.broker_unreachable"),
+                    String(localized: "jackmoebius.transport.broker_unreachable.remedy"))
+        case "broker_version_mismatch":
+            return (String(localized: "jackmoebius.transport.broker_version_mismatch"),
+                    String(localized: "jackmoebius.transport.broker_version_mismatch.remedy"))
+        case "broker_slot_busy":
+            return (String(localized: "jackmoebius.transport.broker_slot_busy"),
+                    String(localized: "jackmoebius.transport.broker_slot_busy.remedy"))
+        case "driver_not_attached":
+            return (String(localized: "jackmoebius.transport.driver_not_attached"),
+                    String(localized: "jackmoebius.transport.driver_not_attached.remedy"))
+        default:
+            return (p.message, p.remedy)
+        }
+    }
+
+    /// Red banner while the transport is down: no JackMoebius box can exist, so it says why and
+    /// what to do (the daemon retries by itself and recovers as soon as the cause is gone).
+    private func transportBanner(_ problem: JMTransportProblem) -> some View {
+        let texts = transportTexts(problem)
+        return VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 8) {
+                Image(systemName: "exclamationmark.octagon.fill")
+                    .font(.system(size: 15)).foregroundStyle(JM.accentRed)
+                Text(String(localized: "jackmoebius.transport.title"))
+                    .font(.system(size: 14, weight: .semibold)).foregroundStyle(JM.accentRed)
+            }
+            Text(texts.message)
+                .font(.system(size: 12)).foregroundStyle(JM.textPrimary)
+                .fixedSize(horizontal: false, vertical: true)
+            if !texts.remedy.isEmpty {
+                Text(texts.remedy)
+                    .font(.system(size: 12)).foregroundStyle(JM.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .padding(.horizontal, 14).padding(.vertical, 12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(JM.accentRed.opacity(0.12))
+        .overlay(alignment: .bottom) { Rectangle().fill(JM.borderFaint).frame(height: 1) }
+    }
+
     // MARK: Routing mismatch banner
 
     private var showMismatchBanner: Bool { !mismatches.isEmpty }
@@ -174,9 +398,6 @@ struct JackMoebiusPanelView: View {
                 Text(String(localized: "jackmoebius.mismatch.banner.title"))
                     .font(.system(size: 14, weight: .semibold)).foregroundStyle(JM.accentOrange)
             }
-            Text(String(localized: "jackmoebius.mismatch.banner.subtitle"))
-                .font(.system(size: 12)).foregroundStyle(JM.textSecondary)
-                .fixedSize(horizontal: false, vertical: true)
             VStack(alignment: .leading, spacing: 9) {
                 ForEach(mismatches) { m in
                     HStack(alignment: .center, spacing: 9) {
@@ -189,6 +410,10 @@ struct JackMoebiusPanelView: View {
                     }
                 }
             }
+            // How to fix: placed after the lines it refers to (« indiqué ci-dessus »).
+            Text(String(localized: "jackmoebius.mismatch.banner.subtitle"))
+                .font(.system(size: 12)).foregroundStyle(JM.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
             Text(String(localized: "jackmoebius.mismatch.banner.hint"))
                 .font(.system(size: 11)).foregroundStyle(JM.textTertiary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -199,57 +424,33 @@ struct JackMoebiusPanelView: View {
         .overlay(alignment: .bottom) { Rectangle().fill(JM.borderFaint).frame(height: 1) }
     }
 
-    /// Per-app guidance line. When the daemon reports the wrong device (`current_device`)
-    /// the line names it ("… sends its output to *X* instead of JackMoebius Out");
-    /// otherwise it falls back to the generic instruction (older daemon / unresolved).
+    /// Per-app diagnostic line, worded for the direction's backing (a dedicated card, or the shared
+    /// JackMoebius device). When the daemon reports the wrong device (`current_device`) the line
+    /// names it. The how-to-fix guidance is the banner subtitle; the « Utiliser le défaut » button
+    /// lives only on the app rows.
     private func mismatchLine(_ m: JMMismatch) -> String {
+        let app = jackMoebiusManager.apps.first(where: { $0.key == m.key })
+        let dedicated = (m.isInput ? app?.inBacking : app?.outBacking) == .dedicated
         if let dev = m.currentDevice, !dev.isEmpty {
-            let fmt = m.isInput
-                ? String(localized: "jackmoebius.mismatch.banner.in.device")
-                : String(localized: "jackmoebius.mismatch.banner.out.device")
+            let fmt: String
+            switch (m.isInput, dedicated) {
+            case (true, true):   fmt = String(localized: "jackmoebius.mismatch.banner.in.device")
+            case (true, false):  fmt = String(localized: "jackmoebius.mismatch.banner.in_shared.device")
+            case (false, true):  fmt = String(localized: "jackmoebius.mismatch.banner.out_dedicated.device")
+            case (false, false): fmt = String(localized: "jackmoebius.mismatch.banner.out.device")
+            }
             return String(format: fmt, m.name, dev)
         }
-        // Generic fallback (no device name available).
-        if m.isInput {
+        switch (m.isInput, dedicated) {
+        case (true, true):
             return String(format: String(localized: "jackmoebius.mismatch.banner.in"), m.name, m.name)
-        } else {
+        case (true, false):
+            return String(format: String(localized: "jackmoebius.mismatch.banner.in_shared"), m.name)
+        case (false, true):
+            return String(format: String(localized: "jackmoebius.mismatch.banner.out_dedicated"), m.name, m.name)
+        case (false, false):
             return String(format: String(localized: "jackmoebius.mismatch.banner.out"), m.name)
         }
-    }
-
-    // MARK: Master monitor box
-
-    private var masterBinding: Binding<Bool> {
-        Binding(
-            get: { jackMoebiusManager.masterOn },
-            set: { jackMoebiusManager.setMaster($0) }
-        )
-    }
-
-    /// Toggles the JackMoebius "master" monitor box (system mix in the JACK graph).
-    /// Disabled unless the daemon is active (jack_master is JACK-first).
-    private var masterRow: some View {
-        HStack(spacing: 10) {
-            Image(systemName: "waveform.circle")
-                .font(.system(size: 16))
-                .foregroundStyle(jackMoebiusManager.state == .active ? JM.accentCyan : .white.opacity(0.4))
-            VStack(alignment: .leading, spacing: 1) {
-                Text(String(localized: "jackmoebius.panel.master"))
-                    .font(.system(size: 13, weight: .medium)).foregroundStyle(.white)
-                Text(String(localized: "jackmoebius.panel.master.sub"))
-                    .font(.system(size: 10)).foregroundStyle(.white.opacity(0.55))
-            }
-            Spacer()
-            // Same size as the app toggles, framed to the Out column so it sits directly
-            // above the apps' Out toggles.
-            Toggle("", isOn: masterBinding)
-                .labelsHidden().toggleStyle(.switch).controlSize(.small)
-                .tint(JM.accentCyan)
-                .disabled(jackMoebiusManager.state != .active)
-                .frame(width: JMColumn.width)
-        }
-        .padding(.horizontal, 14).padding(.vertical, 11)
-        .overlay(alignment: .bottom) { Rectangle().fill(JM.borderFaint).frame(height: 1) }
     }
 
     // MARK: App selector
@@ -266,7 +467,7 @@ struct JackMoebiusPanelView: View {
                     ScrollView {
                         LazyVStack(spacing: 0) {
                             ForEach(jackMoebiusManager.apps) { app in
-                                AppSelectorRow(app: app)
+                                AppSelectorRow(app: app, wiredMismatches: mismatches)
                                     .environmentObject(jackMoebiusManager)
                                 Rectangle().fill(JM.borderFaint).frame(height: 1)
                             }
@@ -375,6 +576,30 @@ struct JackMoebiusPanelView: View {
         }
     }
 
+    // MARK: Daemon too old
+
+    /// Shown instead of the app selector when the installed JackMoebius predates the version
+    /// this JackMate needs (older daemons ignore the backing parameters silently).
+    private var daemonTooOld: some View {
+        VStack(spacing: 14) {
+            Image(systemName: "arrow.triangle.2.circlepath.circle.fill")
+                .font(.system(size: 28)).foregroundStyle(JM.accentAmber)
+            Text(String(localized: "jackmoebius.panel.too_old.title"))
+                .font(.system(size: 15, weight: .semibold)).foregroundStyle(.white)
+            Text(String(format: String(localized: "jackmoebius.panel.too_old.body"),
+                        JackMoebiusManager.minimumDaemonVersion,
+                        jackMoebiusManager.installedVersion ?? "?"))
+                .font(.system(size: 12)).foregroundStyle(.white.opacity(0.8))
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: 460)
+            InstallJackMoebiusButton(title: "jackmoebius.panel.update_button")
+                .environmentObject(jackMoebiusManager)
+        }
+        .padding(28)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
     // MARK: Not installed
 
     private var notInstalled: some View {
@@ -472,7 +697,10 @@ struct JackMoebiusPanelView: View {
         clickMonitor = NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { event in
             // Don't light-dismiss the panel while a modal it spawned is up (its clicks
             // land outside the panel frame).
-            if jackMoebiusManager.blacklistConfirmApp != nil || jackMoebiusManager.showAdvanced { return event }
+            if jackMoebiusManager.blacklistConfirmApp != nil || jackMoebiusManager.showAdvanced
+                || jackMoebiusManager.pendingApply != nil
+                || jackMoebiusManager.pendingSharedInputRemoval != nil
+                || jackMoebiusManager.pendingCleanup != nil { return event }
             guard let contentView = event.window?.contentView else { return event }
             let loc = event.locationInWindow
             // window (bottom-left origin) → SwiftUI `.global` (top-left origin)
@@ -494,7 +722,7 @@ struct JackMoebiusPanelView: View {
 /// Shared metrics so the master toggle, the app Out/In toggles and their channel
 /// pickers all line up in fixed columns (Out rightmost, In to its left — JACK order).
 private enum JMColumn {
-    static let width: CGFloat = 64
+    static let width: CGFloat = 178
     static let gap: CGFloat = 12
 }
 
@@ -506,52 +734,131 @@ private struct AppSelectorRow: View {
     @EnvironmentObject var manager: JackMoebiusManager
     @EnvironmentObject var outputVolumeManager: OutputVolumeManager
     let app: JackMoebiusApp
+    /// Exposed directions that are wired and read the wrong device (computed in `ContentView`).
+    let wiredMismatches: [JMMismatch]
     @State private var isBlacklistHovered = false
+    /// Direction (`true` = input) whose exposure panel is open under the row, if any.
+    @State private var panelFor: Bool? = nil
+
+    /// Whether a routing mismatch is flagged for this direction: it is exposed and reads another
+    /// device than expected, and it is either wired (then the panel banner shows it too) or was
+    /// just configured here — so the user hears about a wrong choice right when making it, without
+    /// a flag on every exposed-but-unwired app at launch.
+    private func showsMismatch(input: Bool) -> Bool {
+        guard input ? app.inExposed : app.outExposed else { return false }
+        let status = input ? manager.boxStatus[app.key]?.input : manager.boxStatus[app.key]?.out
+        guard status == .mismatch else { return false }
+        return wiredMismatches.contains { $0.key == app.key && $0.isInput == input }
+            || manager.isConfigured(app.key, input: input)
+    }
 
     var body: some View {
-        HStack(spacing: 8) {
-            // Fixed-width leading region so the per-app volume controls line up in a
-            // column across rows — the gap after the name/blacklist is what varies.
-            HStack(spacing: 8) {
-                AppIcon(key: app.key, fallbackName: app.name)
-                    .frame(width: 38, height: 38)
-                Text(app.name)
-                    .font(.system(size: 13)).foregroundStyle(.white)
-                    .lineLimit(1)
-                blacklistButton
-                Spacer(minLength: 8)
+        VStack(spacing: 0) {
+            rowLine
+            ForEach([true, false], id: \.self) { input in
+                if showsMismatch(input: input) {
+                    MismatchBand(app: app, isInput: input)
+                        .padding(.horizontal, 14).padding(.bottom, 8)
+                }
             }
-            .frame(width: 210)
+            if let refusal = manager.applyErrors[app.key] {
+                ApplyErrorBand(
+                    message: refusal.text(appName: app.name),
+                    action: refusal.needsInputMovedToo
+                        ? (title: String(localized: "jackmoebius.apply_error.both_shared"), run: {
+                            // One request for both directions: the card is deleted, its channels freed.
+                            manager.dismissApplyError(app.key)
+                            manager.apply(app, in: .sharedStereo, out: .sharedStereo)
+                        }) : nil
+                ) { manager.dismissApplyError(app.key) }
+                    .padding(.horizontal, 14).padding(.bottom, 8)
+            }
+            if let isInput = panelFor {
+                ExposurePanel(app: app, isInput: isInput, start: startSide(input: isInput),
+                              onClose: { panelFor = nil })
+                    .id(isInput)
+                    .padding(.horizontal, 14).padding(.bottom, 10)
+            }
+        }
+        // The panel only edits an exposed direction: close it if that direction is switched off.
+        .onChange(of: app.inExposed)  { _, on in if !on && panelFor == true  { panelFor = nil } }
+        .onChange(of: app.outExposed) { _, on in if !on && panelFor == false { panelFor = nil } }
+    }
 
-            // Per-app output volume (lock) — aligned column, out-exposed apps only.
-            if app.outExposed {
-                volumeControl.padding(.trailing, 8)   // ×2 the gap before the In/Out zone
-            } else {
-                Spacer(minLength: 12)
+    /// Switch of one direction. **On** opens the exposure panel (nothing reaches the daemon before
+    /// Apply; Cancel switches it back off); **off** hides the direction at once. While the panel is
+    /// open for a not-yet-exposed direction, the switch shows on.
+    private func toggleBinding(input: Bool) -> Binding<Bool> {
+        let exposed = input ? app.inExposed : app.outExposed
+        return Binding(
+            get: { exposed || panelFor == input },
+            set: { on in
+                if on {
+                    if !exposed { panelFor = input }
+                } else {
+                    if panelFor == input { panelFor = nil }
+                    if exposed { manager.requestHide(app, input: input) }
+                }
+            })
+    }
+
+    /// The side the panel starts from: the current one for an exposed direction, else the
+    /// suggestion (reservation, last choice, default).
+    private func startSide(input: Bool) -> JMSide {
+        let exposed = input ? app.inExposed : app.outExposed
+        if exposed { return input ? app.currentIn : app.currentOut }
+        return manager.suggestedSide(for: app, input: input)
+    }
+
+    private var rowLine: some View {
+        HStack(alignment: .top, spacing: 8) {
+            // Leading region: icon + name (vertically centred on the toggle + pill block of the
+            // columns), with the per-app output volume control (lock) under the name when the
+            // output is exposed.
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 8) {
+                    AppIcon(key: app.key, fallbackName: app.name)
+                        .frame(width: 38, height: 38)
+                    Text(app.name)
+                        .font(.system(size: 13)).foregroundStyle(.white)
+                        .lineLimit(1)
+                    blacklistButton
+                    if app.outExposed { volumeButton }
+                    Spacer(minLength: 8)
+                }
+                .frame(height: 58)
+                if app.outExposed && showVolumeSlider {
+                    volumeSlider
+                        .padding(.leading, 46)   // aligned under the name (icon 38 + gap 8)
+                        .padding(.bottom, 2)
+                }
             }
 
-            HStack(spacing: JMColumn.gap) {
+            HStack(alignment: .top, spacing: JMColumn.gap) {
                 // In column — only for capture-capable apps; left of Out (JACK convention).
                 if app.inActionable {
                     directionColumn(
-                        toggle: Binding(get: { app.inExposed },
-                                        set: { manager.setIn(app, $0, n: manager.desiredInCount(app)) }),
+                        toggle: toggleBinding(input: true),
                         help: String(localized: "jackmoebius.app.in.tip")
                     ) {
-                        ChannelPicker(
-                            count: Binding(get: { manager.desiredInCount(app) },
-                                           set: { manager.setDesiredInChannels(app, n: $0) }),
-                            range: 1...16)
+                        ExposurePill(
+                            side: app.inExposed ? app.currentIn : manager.suggestedSide(for: app, input: true),
+                            isInput: true, active: app.inExposed, selected: panelFor == true,
+                            mismatch: showsMismatch(input: true),
+                            onTap: { panelFor = (panelFor == true) ? nil : true })
                     }
                 }
                 // Out column — always present, rightmost. Its channel picker is inert: per-app
                 // output width isn't configurable yet, so it stays fixed at stereo.
                 directionColumn(
-                    toggle: Binding(get: { app.outExposed },
-                                    set: { manager.setOut(app, $0) }),
+                    toggle: toggleBinding(input: false),
                     help: String(localized: "jackmoebius.app.out.tip")
                 ) {
-                    ChannelPicker(count: .constant(2), range: 2...2, enabled: false)
+                    ExposurePill(
+                        side: app.outExposed ? app.currentOut : manager.suggestedSide(for: app, input: false),
+                        isInput: false, active: app.outExposed, selected: panelFor == false,
+                        mismatch: showsMismatch(input: false),
+                        onTap: { panelFor = (panelFor == false) ? nil : false })
                 }
             }
             // Reserve In+Out width (In column always reserved, Out right-aligned) so every
@@ -576,66 +883,71 @@ private struct AppSelectorRow: View {
         .help(String(localized: "jackmoebius.app.blacklist.tip"))
     }
 
-    /// Per-app output volume control, aligned in a column across rows:
-    /// **① adjuster** (locked, collapsed) → click → **② adjuster highlighted + 🔒** + passive
-    /// slider (mirrors the master) → click 🔒 → **③ 🔓** + draggable slider (independent
-    /// override, always shown). In ③ the adjuster icon can't collapse (an override stays
-    /// visible); re-lock (🔓 → 🔒) returns to ②, then the adjuster collapses to ①.
-    @ViewBuilder
-    private var volumeControl: some View {
-        let vol      = manager.appVolumes[app.key]
-        let locked   = vol?.locked ?? true
-        let expanded = manager.volumePreviewExpanded.contains(app.key)
-        let showSlider = !locked || expanded          // override always shows; locked only if previewed
-        let muted    = outputVolumeManager.jackMoebiusOutMuted   // F10 → per-app sliders to 0
+    // MARK: Per-app output volume (adjuster button next to the eye + slider under the name)
 
-        HStack(spacing: 6) {
-            // Adjuster = show/hide toggle, highlighted while the slider is shown. It can
-            // only collapse a *locked* preview (② → ①); an unlocked override (③) stays.
+    /// Whether the volume slider is shown under the name (the user toggles it with the adjuster
+    /// button). An unlocked override can be hidden too: the open padlock next to the button then
+    /// tells that this app has its own volume.
+    private var showVolumeSlider: Bool { manager.volumePreviewExpanded.contains(app.key) }
+
+    /// `true` when the app plays at its own (unlocked) volume instead of following the master.
+    private var hasVolumeOverride: Bool { !(manager.appVolumes[app.key]?.locked ?? true) }
+
+    /// Adjuster button, next to the eye: shows / hides the volume slider under the name. Slider
+    /// shown: **passive** (mirrors the master, 🔒) or **draggable** (🔓 independent override).
+    /// While an override is hidden, a cyan open padlock beside the button keeps it visible.
+    private var volumeButton: some View {
+        HStack(spacing: 3) {
             VolumeIconButton(system: "slider.horizontal.3",
-                             highlighted: showSlider,
+                             highlighted: showVolumeSlider,
                              help: String(localized: "jackmoebius.volume.adjust.tip")) {
-                if !showSlider { manager.expandVolumePreview(app.key) }
-                else if locked { manager.collapseVolumePreview(app.key) }
+                if showVolumeSlider { manager.collapseVolumePreview(app.key) }
+                else { manager.expandVolumePreview(app.key) }
             }
-
-            if showSlider {
-                // Lock + slider grouped in a rounded box (like the master volume boxes)
-                // to delimit the control visually. The adjuster toggle stays outside it.
-                HStack(spacing: 6) {
-                    // Lock — cyan open padlock clearly signals an override (③).
-                    VolumeIconButton(system: locked ? "lock.fill" : "lock.open.fill",
-                                     color: locked ? JM.textSecondary : JM.accentCyan,
-                                     help: locked ? String(localized: "jackmoebius.volume.unlock.tip")
-                                                  : String(localized: "jackmoebius.volume.lock.tip")) {
-                        manager.setAppLocked(app, !locked, master: outputVolumeManager.jackMoebiusOutVolume)
-                    }
-                    JMVolumeSlider(
-                        // The slider works in scalar (position) space; the daemon speaks
-                        // linear gain → convert with the shared taper so the per-app slider
-                        // sits at the same position as the master (no jump on unlock).
-                        // Muted (F10) → show 0 and freeze, like the device sliders.
-                        value: muted
-                            ? .constant(0)
-                            : (locked
-                                ? .constant(outputVolumeManager.jackMoebiusOutVolume
-                                            ?? VolumeTaper.gainToScalar(vol?.gain ?? 1.0))
-                                : Binding(get: { VolumeTaper.gainToScalar(manager.appVolumes[app.key]?.gain ?? 1.0) },
-                                          set: { manager.setAppGain(app, VolumeTaper.scalarToGain($0)) })),
-                        interactive: !locked && !muted
-                    )
-                    .frame(maxWidth: .infinity)   // fill the box → long, aligned sliders
-                }
-                .padding(.horizontal, 8).padding(.vertical, 4)
-                .background(RoundedRectangle(cornerRadius: 9, style: .continuous)
-                    .fill(JM.bgElevated)
-                    .overlay(RoundedRectangle(cornerRadius: 9, style: .continuous)
-                        .strokeBorder(JM.borderFaint, lineWidth: 1)))
-            } else {
-                // ① collapsed: nothing after the adjuster icon; keep In/Out right-aligned.
-                Spacer(minLength: 0)
+            if hasVolumeOverride && !showVolumeSlider {
+                Image(systemName: "lock.open.fill")
+                    .font(.system(size: 10, weight: .medium))
+                    .foregroundStyle(JM.accentCyan)
+                    .help(String(localized: "jackmoebius.volume.override.tip"))
             }
         }
+    }
+
+    /// Lock + slider grouped in a rounded box (like the master volume boxes).
+    @ViewBuilder
+    private var volumeSlider: some View {
+        let vol    = manager.appVolumes[app.key]
+        let locked = vol?.locked ?? true
+        let muted  = outputVolumeManager.jackMoebiusOutMuted
+        HStack(spacing: 6) {
+            // Lock — cyan open padlock clearly signals an override (③).
+            VolumeIconButton(system: locked ? "lock.fill" : "lock.open.fill",
+                             color: locked ? JM.textSecondary : JM.accentCyan,
+                             help: locked ? String(localized: "jackmoebius.volume.unlock.tip")
+                                          : String(localized: "jackmoebius.volume.lock.tip")) {
+                manager.setAppLocked(app, !locked, master: outputVolumeManager.jackMoebiusOutVolume)
+            }
+            JMVolumeSlider(
+                // The slider works in scalar (position) space; the daemon speaks
+                // linear gain → convert with the shared taper so the per-app slider
+                // sits at the same position as the master (no jump on unlock).
+                // Muted (F10) → show 0 and freeze, like the device sliders.
+                value: muted
+                    ? .constant(0)
+                    : (locked
+                        ? .constant(outputVolumeManager.jackMoebiusOutVolume
+                                    ?? VolumeTaper.gainToScalar(vol?.gain ?? 1.0))
+                        : Binding(get: { VolumeTaper.gainToScalar(manager.appVolumes[app.key]?.gain ?? 1.0) },
+                                  set: { manager.setAppGain(app, VolumeTaper.scalarToGain($0)) })),
+                interactive: !locked && !muted
+            )
+            .frame(maxWidth: .infinity)   // fill the box → long sliders
+        }
+        .padding(.horizontal, 8).padding(.vertical, 4)
+        .background(RoundedRectangle(cornerRadius: 9, style: .continuous)
+            .fill(JM.bgElevated)
+            .overlay(RoundedRectangle(cornerRadius: 9, style: .continuous)
+                .strokeBorder(JM.borderFaint, lineWidth: 1)))
     }
 
     /// Small icon button for the per-app volume control: hover-brightens; an optional
@@ -668,7 +980,7 @@ private struct AppSelectorRow: View {
     @ViewBuilder
     private func directionColumn<P: View>(toggle: Binding<Bool>, help: String,
                                           @ViewBuilder picker: () -> P) -> some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 8) {
             Toggle("", isOn: toggle)
                 .labelsHidden().toggleStyle(.switch).controlSize(.small).tint(JM.accentCyan)
                 .help(help)
@@ -678,26 +990,295 @@ private struct AppSelectorRow: View {
     }
 }
 
-// MARK: - ChannelPicker
+// MARK: - ExposurePill
 
-/// Channel-count selector — reuses the config panel's `JMPopUpButton` (dark rounded
-/// pop-up) for a consistent look. Faded and inert when `enabled` is false — as for the Out
-/// column, whose per-app output width isn't configurable yet (fixed at stereo).
-private struct ChannelPicker: View {
-    @Binding var count: Int
-    let range: ClosedRange<Int>
-    var enabled: Bool = true
+/// Shows how one direction of an app reaches JackMoebius: « Défaut JackMoebius » (shared) or
+/// « N ch dédié » (a dedicated card). Faded and inert while the direction is off; clickable
+/// (it opens the exposure panel) while the direction is on.
+private struct ExposurePill: View {
+    let side: JMSide
+    let isInput: Bool
+    let active: Bool
+    var selected: Bool = false
+    var mismatch: Bool = false      // orange dot: the app reads/writes another device than expected
+    var onTap: () -> Void = {}
 
-    private var chLabel: String { String(localized: "jackmoebius.app.channels") }
+    private var dedicated: Bool { side.backing == .dedicated }
+
+    private var label: String {
+        dedicated ? String(format: String(localized: "jackmoebius.pill.dedicated"), side.channels)
+                  : String(localized: "jackmoebius.pill.default")
+    }
+
+    /// Same glyphs as the In / Out column headers (arrows pointing toward the JACK boxes); the
+    /// backing is told by the label and the colour.
+    private var symbol: String { isInput ? "square.and.arrow.down" : "square.and.arrow.up" }
+    private var symbolRotation: Double { isInput ? -90 : 90 }
 
     var body: some View {
-        JMPopUpButton(
-            options: range.map { ("\($0) \(chLabel)", $0) },
-            selection: $count
-        )
-        .frame(width: JMColumn.width, height: 24)
-        .opacity(enabled ? 1 : 0.45)
-        .allowsHitTesting(enabled)
+        Button(action: onTap) {
+            HStack(spacing: 5) {
+                Image(systemName: symbol).font(.system(size: 11))
+                    .rotationEffect(.degrees(symbolRotation))
+                Text(label).font(.system(size: 11, weight: .medium)).lineLimit(1)
+                    .minimumScaleFactor(0.85)   // long translations (« JackMoebius-Standard »…)
+                if active {
+                    Image(systemName: selected ? "chevron.up" : "chevron.down")
+                        .font(.system(size: 9, weight: .semibold))
+                }
+            }
+            .foregroundStyle(dedicated ? JM.accentCyan : JM.textSecondary)
+            .padding(.horizontal, 8).frame(height: 26)
+            .frame(maxWidth: .infinity)
+            .background(Capsule().fill(dedicated ? JM.accentCyan.opacity(0.14) : Color.white.opacity(0.06)))
+            .overlay(Capsule().strokeBorder(
+                selected ? (dedicated ? JM.accentCyan : Color.white.opacity(0.5))
+                         : (dedicated ? JM.accentCyan.opacity(0.35) : Color.white.opacity(0.12)),
+                lineWidth: selected ? 1.5 : 1))
+            .contentShape(Capsule())
+        }
+        .buttonStyle(.plain)
+        .disabled(!active)
+        .opacity(active ? 1 : 0.4)
+        .overlay(alignment: .topTrailing) {
+            if mismatch {
+                Circle().fill(JM.accentOrange).frame(width: 8, height: 8)
+                    .offset(x: 1, y: -1)
+                    .allowsHitTesting(false)
+            }
+        }
+    }
+}
+
+// MARK: - ApplyErrorBand
+
+/// Red band under an app row: the daemon refused the change (no free channels, the app has no audio
+/// context yet…). Worded from the daemon's error code and its numbers (its English sentence if unknown).
+private struct ApplyErrorBand: View {
+    let message: String
+    /// An optional way out offered by the band (e.g. move the input to the shared mode too).
+    var action: (title: String, run: () -> Void)? = nil
+    let dismiss: () -> Void
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 10) {
+            Image(systemName: "xmark.octagon.fill")
+                .font(.system(size: 12)).foregroundStyle(JM.accentRed)
+            Text(String(format: String(localized: "jackmoebius.apply_error"), message))
+                .font(.system(size: 11)).foregroundStyle(JM.textPrimary)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            if let action {
+                Button(action.title, action: action.run)
+                    .buttonStyle(NoticeButtonStyle(tint: JM.accentRed))
+            }
+            Button(action: dismiss) {
+                Image(systemName: "xmark").font(.system(size: 10, weight: .semibold))
+                    .foregroundStyle(JM.textTertiary)
+            }
+            .buttonStyle(.plain)
+            .help(String(localized: "jackmoebius.apply_error.dismiss"))
+        }
+        .padding(.horizontal, 10).padding(.vertical, 8)
+        .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(JM.accentRed.opacity(0.16)))
+    }
+}
+
+// MARK: - MismatchBand
+
+/// Orange band under an app row: the direction reads or writes another device than expected.
+/// For a dedicated direction it offers « Utiliser le défaut » — an escape hatch for an app whose
+/// settings don't let the user pick the card; for a shared direction it only points at the fix.
+private struct MismatchBand: View {
+    @EnvironmentObject var manager: JackMoebiusManager
+    let app: JackMoebiusApp
+    let isInput: Bool
+
+    private var dedicated: Bool { (isInput ? app.inBacking : app.outBacking) == .dedicated }
+
+    private var text: String {
+        let format: String
+        switch (isInput, dedicated) {
+        case (true, true):   format = String(localized: "jackmoebius.mismatch.row.dedicated.in")
+        case (true, false):  format = String(localized: "jackmoebius.mismatch.row.shared.in")
+        case (false, true):  format = String(localized: "jackmoebius.mismatch.row.dedicated.out")
+        case (false, false): format = String(localized: "jackmoebius.mismatch.row.shared.out")
+        }
+        return String(format: format, app.name)
+    }
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 10) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .font(.system(size: 12)).foregroundStyle(JM.accentOrange)
+            Text(text)
+                .font(.system(size: 11)).foregroundStyle(JM.textPrimary)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            if dedicated {
+                Button(String(localized: "jackmoebius.mismatch.use_default")) {
+                    if isInput { manager.apply(app, in: .sharedStereo) }
+                    else { manager.apply(app, out: .sharedStereo) }
+                }
+                .buttonStyle(.bordered).controlSize(.small).tint(JM.accentOrange)
+            }
+        }
+        .padding(.horizontal, 10).padding(.vertical, 8)
+        .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(JM.accentOrange.opacity(0.16)))
+    }
+}
+
+// MARK: - ExposurePanel
+
+/// The panel unfolded under an app row when the user clicks a direction's pill: a segmented
+/// choice (default JackMoebius | dedicated), a 1…64 channel menu for a dedicated card, an
+/// explanation, a band telling what applying will do to the app's card, and Cancel / Apply.
+/// Nothing reaches the daemon before Apply (one `jack_apply`, at most one card rebuild).
+private struct ExposurePanel: View {
+    @EnvironmentObject var manager: JackMoebiusManager
+    let app: JackMoebiusApp
+    let isInput: Bool
+    let onClose: () -> Void
+
+    @State private var dedicated: Bool
+    @State private var channels: Int
+
+    init(app: JackMoebiusApp, isInput: Bool, start: JMSide, onClose: @escaping () -> Void) {
+        self.app = app; self.isInput = isInput; self.onClose = onClose
+        _dedicated = State(initialValue: start.backing == .dedicated)
+        _channels  = State(initialValue: start.backing == .dedicated ? start.channels : 2)
+    }
+
+    private var current: JMSide { isInput ? app.currentIn : app.currentOut }
+    /// `true` while the direction is not exposed yet: applying exposes it (so there is always
+    /// something to apply, even if the proposal equals what the daemon reports for the side).
+    private var isNewExposure: Bool { !(isInput ? app.inExposed : app.outExposed) }
+    private var draft: JMSide { dedicated ? .dedicated(channels) : .sharedStereo }
+    private var changed: Bool { isNewExposure || draft != current }
+    private var effect: ExposureEffect? {
+        changed ? ExposureEffect.compute(app: app, isInput: isInput, new: draft) : nil
+    }
+
+    private var help: String {
+        // Literal keys (not built at run time) so the string catalog keeps seeing them as used.
+        let format: String
+        switch (isInput, dedicated) {
+        case (true, true):   format = String(localized: "jackmoebius.panel.help.in_dedicated")
+        case (true, false):  format = String(localized: "jackmoebius.panel.help.in_shared")
+        case (false, true):  format = String(localized: "jackmoebius.panel.help.out_dedicated")
+        case (false, false): format = String(localized: "jackmoebius.panel.help.out_shared")
+        }
+        return String(format: format, app.name)
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(String(format: isInput ? String(localized: "jackmoebius.panel.title.in")
+                                        : String(localized: "jackmoebius.panel.title.out"), app.name))
+                .font(.system(size: 12, weight: .semibold)).foregroundStyle(JM.textPrimary)
+
+            HStack(spacing: 12) {
+                segmented
+                if dedicated {
+                    HStack(spacing: 6) {
+                        Text(String(localized: "jackmoebius.panel.voices"))
+                            .font(.system(size: 12)).foregroundStyle(JM.textSecondary)
+                        JMPopUpButton(options: (1...64).map { ("\($0)", $0) }, selection: $channels)
+                            .frame(width: 72, height: 24)
+                    }
+                } else {
+                    Text(String(localized: "jackmoebius.panel.stereo"))
+                        .font(.system(size: 12)).foregroundStyle(JM.textSecondary)
+                }
+                Spacer(minLength: 0)
+            }
+
+            Text(help)
+                .font(.system(size: 11)).foregroundStyle(JM.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+
+            if let effect { effectBand(effect) }
+
+            HStack(spacing: 8) {
+                Spacer()
+                Button(String(localized: "common.cancel")) { onClose() }
+                    .buttonStyle(.bordered).controlSize(.small)
+                Button(changed ? String(localized: "jackmoebius.panel.apply")
+                               : String(localized: "jackmoebius.panel.close")) {
+                    if changed {
+                        if isInput { manager.apply(app, in: draft) } else { manager.apply(app, out: draft) }
+                    }
+                    onClose()
+                }
+                .buttonStyle(.borderedProminent).controlSize(.small).tint(JM.accentCyan)
+            }
+        }
+        .padding(12)
+        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(JM.bgElevated))
+        .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).strokeBorder(JM.border, lineWidth: 1))
+    }
+
+    /// « Entrée / Sortie par défaut | Dédié » — two capsule segments, like the advanced sheet tabs.
+    private var segmented: some View {
+        HStack(spacing: 3) {
+            segment(isInput ? String(localized: "jackmoebius.panel.seg.in_default")
+                            : String(localized: "jackmoebius.panel.seg.out_default"), selected: !dedicated) {
+                dedicated = false
+            }
+            segment(String(localized: "jackmoebius.panel.seg.dedicated"), selected: dedicated) {
+                dedicated = true
+            }
+        }
+        .padding(3)
+        .background(Capsule().fill(Color.white.opacity(0.06)))
+        .overlay(Capsule().strokeBorder(Color.white.opacity(0.10), lineWidth: 1))
+    }
+
+    private func segment(_ title: String, selected: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(title)
+                .font(.system(size: 11, weight: .medium))
+                .foregroundStyle(selected ? .white : .white.opacity(0.55))
+                .lineLimit(1)
+                .padding(.horizontal, 10).padding(.vertical, 4)
+                .background(Capsule().fill(selected ? JM.accentCyan : Color.clear))
+                .contentShape(Capsule())
+        }
+        .buttonStyle(.plain)
+    }
+
+    /// The coloured band: blue = a card is created, orange = rebuilt / kept without this side,
+    /// red = deleted.
+    private func effectBand(_ effect: ExposureEffect) -> some View {
+        let color: Color, icon: String, text: String
+        switch effect {
+        case .created:
+            color = JM.accentBlue; icon = "info.circle.fill"
+            text = String(format: String(localized: "jackmoebius.fx.created"), app.name)
+        case .recreatedAddingSide:
+            color = JM.accentOrange; icon = "exclamationmark.triangle.fill"
+            text = String(format: isInput ? String(localized: "jackmoebius.fx.recreated_add.in")
+                                          : String(localized: "jackmoebius.fx.recreated_add.out"), app.name)
+        case .keptWithoutSide:
+            color = JM.accentOrange; icon = "exclamationmark.triangle.fill"
+            text = String(format: isInput ? String(localized: "jackmoebius.fx.kept.in")
+                                          : String(localized: "jackmoebius.fx.kept.out"), app.name)
+        case .deleted:
+            color = JM.accentRed; icon = "trash.fill"
+            text = String(format: String(localized: "jackmoebius.fx.deleted"), app.name)
+        case .recreatedWidth(let n):
+            color = JM.accentOrange; icon = "exclamationmark.triangle.fill"
+            text = String(format: String(localized: "jackmoebius.fx.recreated_width"), app.name, n)
+        }
+        return HStack(alignment: .top, spacing: 8) {
+            Image(systemName: icon).font(.system(size: 12)).foregroundStyle(color)
+            Text(text)
+                .font(.system(size: 11)).foregroundStyle(JM.textPrimary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, 10).padding(.vertical, 8)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(color.opacity(0.16)))
     }
 }
 
@@ -776,12 +1357,50 @@ struct JackMoebiusAdvancedSheet: View {
                 }
             }
             .frame(minHeight: 130, alignment: .top)
+
+            Rectangle().fill(JM.borderFaint).frame(height: 1)
+            debugSection
         }
         .frame(width: 420)
         .fixedSize(horizontal: false, vertical: true)
         .background(JM.bgBase)
         .gradientBorder(cornerRadius: 12)
-        .onAppear { manager.refreshBlacklist(); manager.refreshReservations() }
+        // Rebuilding a card makes its app see the device go and come back: ask first. Hosted here, on the
+        // sheet, because an alert of the panel behind it would not show over the sheet.
+        .background(
+            Color.clear.alert(String(localized: "jackmoebius.rebuild.title"),
+                              isPresented: Binding(get: { manager.pendingRebuild != nil },
+                                                   set: { if !$0 { DispatchQueue.main.async { manager.cancelRebuild() } } }),
+                              presenting: manager.pendingRebuild) { pending in
+                Button(String(localized: "jackmoebius.rebuild.confirm")) { manager.confirmRebuild(pending) }
+                Button(String(localized: "common.cancel"), role: .cancel) { }
+            } message: { pending in
+                Text(String(format: String(localized: "jackmoebius.rebuild.message"), pending.name, pending.heldCount))
+            }
+        )
+        .onAppear {
+            if manager.advancedOpensOnReservations { tab = .reservations; manager.advancedOpensOnReservations = false }
+            manager.refreshBlacklist(); manager.refreshReservations()
+        }
+    }
+
+    /// « Avancé / débogage »: settings that only help to inspect what JackMoebius does.
+    private var debugSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(String(localized: "jackmoebius.advanced.debug.title"))
+                .font(.system(size: 11, weight: .semibold)).foregroundStyle(JM.textTertiary)
+                .textCase(.uppercase)
+            Toggle(isOn: $manager.showSystemNode) {
+                Text(String(localized: "jackmoebius.advanced.show_system_node"))
+                    .font(.system(size: 12)).foregroundStyle(.white)
+            }
+            .toggleStyle(.switch).controlSize(.small).tint(JM.accentCyan)
+            Text(String(localized: "jackmoebius.advanced.show_system_node.help"))
+                .font(.system(size: 11)).foregroundStyle(JM.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, 20).padding(.vertical, 14)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     /// Custom two-segment selector styled with the JackMate accent (full-width, equal
@@ -842,6 +1461,11 @@ struct JackMoebiusAdvancedSheet: View {
     /// Channel-reservations tab: apps with a persistent out/in reservation.
     private var reservationsTab: some View {
         VStack(alignment: .leading, spacing: 10) {
+            // How full the two channel buses are, shared by every app (amber from 80 %, red when full).
+            if let capacity = manager.capacity {
+                CapacityGauges(capacity: capacity)
+                    .padding(.bottom, 4)
+            }
             if manager.reservations.isEmpty {
                 Text(String(localized: "jackmoebius.advanced.reservations.empty"))
                     .font(.system(size: 12)).foregroundStyle(.white.opacity(0.4))
@@ -905,19 +1529,58 @@ private struct ReservationRow: View {
     @State private var inHovered  = false
 
     var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            line
+            // Channels a card keeps for an input or output that was removed: reserved, not used.
+            if !entry.inHeld.isEmpty {
+                heldLine(String(format: String(localized: "jackmoebius.reservations.held.in"), entry.inHeld.count))
+            }
+            if !entry.outHeld.isEmpty {
+                heldLine(String(format: String(localized: "jackmoebius.reservations.held.out"), entry.outHeld.count))
+            }
+            if entry.heldCount > 0 {
+                // Rebuilds the card as it is: frees the unused channels, keeps the app's inputs and outputs.
+                Button(String(localized: "jackmoebius.reservations.free_unused")) { manager.requestRebuild(entry) }
+                    .buttonStyle(NoticeButtonStyle(tint: JM.accentAmber))
+                    .padding(.leading, 36)
+            }
+            if let refusal = manager.applyErrors[entry.key] {
+                ApplyErrorBand(message: refusal.text(appName: entry.name), action: nil) { manager.dismissApplyError(entry.key) }
+                    .padding(.leading, 36)
+            }
+        }
+    }
+
+    private func heldLine(_ text: String) -> some View {
+        Text(text)
+            .font(.system(size: 11)).foregroundStyle(JM.accentAmber)
+            .padding(.leading, 36)
+            .help(String(localized: "jackmoebius.capacity.held.help"))
+    }
+
+    private var line: some View {
         HStack(spacing: 8) {
             AppIcon(key: entry.key, fallbackName: entry.name)
                 .frame(width: 28, height: 28)
             Text(entry.name)
                 .font(.system(size: 13)).foregroundStyle(.white).lineLimit(1)
             Spacer(minLength: 8)
-            if entry.outOffset != nil {
-                clearChip(label: String(localized: "jackmoebius.app.out"),
+            if !entry.outChannels.isEmpty {
+                let ch = String(localized: "jackmoebius.app.channels")
+                clearChip(label: "\(String(localized: "jackmoebius.app.out")) \(entry.outChannels.count) \(ch)",
                           hovered: outHovered,
                           tip: String(localized: "jackmoebius.advanced.reservations.clear_out")) {
                     manager.clearOutReservation(entry)
                 }
                 .onHover { outHovered = $0 }
+            }
+            if entry.inShared {
+                // Nothing to free: the shared input reserves no channel. Shown for completeness.
+                Text(String(localized: "jackmoebius.reservations.in_shared"))
+                    .font(.system(size: 10, weight: .medium)).foregroundStyle(.white.opacity(0.6))
+                    .padding(.horizontal, 8).padding(.vertical, 4)
+                    .background(Capsule().strokeBorder(Color.white.opacity(0.18), lineWidth: 1))
+                    .help(String(localized: "jackmoebius.reservations.in_shared.help"))
             }
             if !entry.inChannels.isEmpty {
                 let ch = String(localized: "jackmoebius.app.channels")

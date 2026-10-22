@@ -218,6 +218,12 @@ final class JackManager: ObservableObject {
 
     @Published var isRunning:             Bool          = false
     @Published var launchedByUs:          Bool          = false
+    /// JACK2's own default for the total number of ports (`jackd -p` / `--port-max`, a server option
+    /// given before `-d`; not the driver's `-p` period). JackMate starts `jackd` without it. **Measured**
+    /// on jackdmp 1.9.22: 2048 (a client registered 2043 ports before the refusal, 2047 listed). The
+    /// 256 of the jackd manual is JACK1's value, not JACK2's. Not used yet: a refusal comes from the
+    /// daemon (`jack_port_limit`).
+    static let defaultPortMax = 2048
     @Published var jackExecutableURL:     URL?          = nil
     @Published var jackInstalled:         Bool          = false
     @Published var selectedInstallMethod: JackInstallMethod? = nil

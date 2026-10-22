@@ -241,6 +241,10 @@ struct PatchbayView: View {
             } else if let node = ctxNode {
                 // ── Header with badge ────────────────────────────────────────
                 ctxNodeHeader(node)
+                // The shared input is one real set of ports drawn in each box that reads it.
+                if !patchbay.mirroredInputIds(of: node.id).isEmpty {
+                    ctxLabel(String(localized: "patchbay.ctx.shared_input_note"))
+                }
                 Divider().background(JM.borderFaint).padding(.vertical, 2)
                 // ── Connect All (scoped to the clicked side) ─────────────────
                 if let side = ctxNodeSide {
@@ -659,6 +663,9 @@ class PatchbayCanvasNSView: NSView {
     private var isGroupDragging:     Bool             = false
     private var groupDragOffsets:    [String: CGSize] = [:]  // nodeId → cursor offset in canvas space
     private var wireSrcPort:         JackPort? = nil
+    /// The box the wire was started from: a mirrored port is drawn in several boxes, so the port id
+    /// alone does not say where the preview wire starts.
+    private var wireSrcNodeId:       String?   = nil
     private var wireSrcPos:          NSPoint   = .zero
     private var wireCurrent:         NSPoint   = .zero
     private var isDraggingWire:      Bool      = false
@@ -759,21 +766,25 @@ class PatchbayCanvasNSView: NSView {
         // Connected cables (static — no animation)
         let connectedPorts = Set(connections.flatMap { [$0.from, $0.to] })
         for conn in connections {
-            guard let p1 = portCenter(conn.from, dir: .output),
-                  let p2 = portCenter(conn.to,   dir: .input) else { continue }
-            let fromNode = nodes.first { $0.outputs.contains(where: { $0.id == conn.from }) }
-            let toNode   = nodes.first { $0.inputs.contains(where:  { $0.id == conn.to   }) }
-            let port     = fromNode?.outputs.first { $0.id == conn.from }
-            let col      = port?.type.patchbayColor ?? Color(hex: "#4ade80")
-            drawCable(ctx: ctx, p1: p1, p2: p2, color: col, isPreview: false,
-                      p1IsMeta: fromNode?.isCollapsed ?? false,
-                      p2IsMeta: toNode?.isCollapsed   ?? false)
+            // A mirrored port (the JackMoebius shared input, drawn in every box that reads it) has
+            // several instances: the one real cable is drawn to each of them.
+            let sources = portCenters(conn.from, dir: .output)
+            let targets = portCenters(conn.to,   dir: .input)
+            for source in sources {
+                let port = source.node.outputs.first { $0.id == conn.from }
+                let col  = port?.type.patchbayColor ?? Color(hex: "#4ade80")
+                for target in targets {
+                    drawCable(ctx: ctx, p1: source.point, p2: target.point, color: col, isPreview: false,
+                              p1IsMeta: source.node.isCollapsed,
+                              p2IsMeta: target.node.isCollapsed)
+                }
+            }
         }
 
         // Wire preview during drag — p1 recomputed each frame from portCenter()
         // so it tracks pan/zoom without detaching from the source port
         if isDraggingWire, let srcPort = wireSrcPort,
-           let srcPos = portCenter(srcPort.id, dir: srcPort.direction) {
+           let srcPos = wireSourcePoint(srcPort) {
             let col = srcPort.type.patchbayColor
             drawCable(ctx: ctx,
                       p1: srcPos,
@@ -1566,45 +1577,70 @@ class PatchbayCanvasNSView: NSView {
 
     // MARK: - Hit testing
 
-    private func portCenter(_ portId: String, dir: JackPortDirection) -> CGPoint? {
-        for node in nodes {
-            let nx  = node.position.x * vpScale + vpOffset.width
-            let ny  = node.position.y * vpScale + vpOffset.height
-            let nw  = nodeW * vpScale
-            let hh  = headerH * vpScale
-            let hcY = ny + hh / 2
+    /// Where `portId` is drawn on `node`, or `nil` when the node does not carry that port.
+    private func portCenter(_ portId: String, dir: JackPortDirection, in node: PatchbayNode) -> CGPoint? {
+        let nx  = node.position.x * vpScale + vpOffset.width
+        let ny  = node.position.y * vpScale + vpOffset.height
+        let nw  = nodeW * vpScale
+        let hh  = headerH * vpScale
+        let hcY = ny + hh / 2
 
-            if node.isCollapsed {
-                let isOutput = dir == .output
-                let allPorts = isOutput ? node.outputs : node.inputs
-                guard let port = allPorts.first(where: { $0.id == portId }) else { continue }
-                let conns = patchbay?.connections ?? []
-                let types = connectedTypes(ports: allPorts, isOutput: isOutput, connections: conns)
-                if let cy = pillCenterY(for: port.type, types: types, ny: ny, hh: hh) {
-                    // bundleX = narrow end of the trapezoid (narrowH ≈ cable thickness).
-                    // The cable/trapezoid junction is hidden under the opaque region of the gradient.
-                    let bundleX = isOutput ? nx + nw + bundleOffsetX : nx - bundleOffsetX
-                    return CGPoint(x: bundleX, y: cy)
-                }
-                return CGPoint(x: isOutput ? nx + nw + 6 : nx - 6, y: hcY)
+        if node.isCollapsed {
+            let isOutput = dir == .output
+            let allPorts = isOutput ? node.outputs : node.inputs
+            guard let port = allPorts.first(where: { $0.id == portId }) else { return nil }
+            let conns = patchbay?.connections ?? []
+            let types = connectedTypes(ports: allPorts, isOutput: isOutput, connections: conns)
+            if let cy = pillCenterY(for: port.type, types: types, ny: ny, hh: hh) {
+                // bundleX = narrow end of the trapezoid (narrowH ≈ cable thickness).
+                // The cable/trapezoid junction is hidden under the opaque region of the gradient.
+                let bundleX = isOutput ? nx + nw + bundleOffsetX : nx - bundleOffsetX
+                return CGPoint(x: bundleX, y: cy)
             }
+            return CGPoint(x: isOutput ? nx + nw + 6 : nx - 6, y: hcY)
+        }
 
-            if dir == .input {
-                for (i, port) in node.inputs.enumerated() where port.id == portId {
-                    let rowY = ny + hh + 3 * vpScale + CGFloat(i) * rowH * vpScale
-                    return CGPoint(x: nx - 1, y: rowY + rowH * vpScale / 2)
-                }
-            } else {
-                for (i, port) in node.outputs.enumerated() where port.id == portId {
-                    let rowY = ny + hh + 3 * vpScale + CGFloat(i) * rowH * vpScale
-                    return CGPoint(x: nx + nw + 1, y: rowY + rowH * vpScale / 2)
-                }
+        if dir == .input {
+            for (i, port) in node.inputs.enumerated() where port.id == portId {
+                let rowY = ny + hh + 3 * vpScale + CGFloat(i) * rowH * vpScale
+                return CGPoint(x: nx - 1, y: rowY + rowH * vpScale / 2)
+            }
+        } else {
+            for (i, port) in node.outputs.enumerated() where port.id == portId {
+                let rowY = ny + hh + 3 * vpScale + CGFloat(i) * rowH * vpScale
+                return CGPoint(x: nx + nw + 1, y: rowY + rowH * vpScale / 2)
             }
         }
         return nil
     }
 
-    private func hitTestPort(at point: NSPoint) -> JackPort? {
+    /// The first place `portId` is drawn (a port normally belongs to one node).
+    private func portCenter(_ portId: String, dir: JackPortDirection) -> CGPoint? {
+        for node in nodes {
+            if let p = portCenter(portId, dir: dir, in: node) { return p }
+        }
+        return nil
+    }
+
+    /// Every place `portId` is drawn, with its node: more than one for a mirrored port (the
+    /// JackMoebius shared input appears in each box that reads it).
+    private func portCenters(_ portId: String, dir: JackPortDirection) -> [(point: CGPoint, node: PatchbayNode)] {
+        nodes.compactMap { node in
+            portCenter(portId, dir: dir, in: node).map { (point: $0, node: node) }
+        }
+    }
+
+    /// Where the preview wire starts: in the box the drag began from (for a mirrored port), else
+    /// the port's usual place.
+    private func wireSourcePoint(_ port: JackPort) -> CGPoint? {
+        if let id = wireSrcNodeId, let node = nodes.first(where: { $0.id == id }),
+           let p = portCenter(port.id, dir: port.direction, in: node) { return p }
+        return portCenter(port.id, dir: port.direction)
+    }
+
+    private func hitTestPort(at point: NSPoint) -> JackPort? { hitTestPortAndNode(at: point)?.port }
+
+    private func hitTestPortAndNode(at point: NSPoint) -> (port: JackPort, nodeId: String)? {
         for node in nodes {
             guard !node.isCollapsed else { continue }
             let nx = node.position.x * vpScale + vpOffset.width
@@ -1616,14 +1652,14 @@ class PatchbayCanvasNSView: NSView {
                 let rowY = ny + hh + 3 * vpScale + CGFloat(i) * rowH * vpScale
                 let center = CGPoint(x: nx - 1, y: rowY + rowH * vpScale / 2)
                 if hypot(point.x - center.x, point.y - center.y) < snapR * vpScale {
-                    return port
+                    return (port, node.id)
                 }
             }
             for (i, port) in node.outputs.enumerated() {
                 let rowY = ny + hh + 3 * vpScale + CGFloat(i) * rowH * vpScale
                 let center = CGPoint(x: nx + nw + 1, y: rowY + rowH * vpScale / 2)
                 if hypot(point.x - center.x, point.y - center.y) < snapR * vpScale {
-                    return port
+                    return (port, node.id)
                 }
             }
         }
@@ -1845,12 +1881,14 @@ class PatchbayCanvasNSView: NSView {
             return
         }
 
-        if let port = hitTestPort(at: pt) {
+        if let hit = hitTestPortAndNode(at: pt) {
+            let port = hit.port
             wireSrcPort    = port
+            wireSrcNodeId  = hit.nodeId
             isDraggingWire = true
             // Use the exact port centre (not the raw click) so the preview wire
             // starts at the correct position, even for ports at row > 0
-            wireSrcPos     = portCenter(port.id, dir: port.direction).map { NSPoint(x: $0.x, y: $0.y) } ?? pt
+            wireSrcPos     = wireSourcePoint(port).map { NSPoint(x: $0.x, y: $0.y) } ?? pt
             wireCurrent    = pt
             return
         }
@@ -1984,11 +2022,15 @@ class PatchbayCanvasNSView: NSView {
     override func mouseUp(with event: NSEvent) {
         let pt = convert(event.locationInWindow, from: nil)
         if isDraggingWire, let src = wireSrcPort {
-            if let dst = hitTestPort(at: pt), dst.id != src.id {
+            if let hit = hitTestPortAndNode(at: pt), hit.port.id != src.id {
+                let dst = hit.port
                 if src.direction == .output && dst.direction == .input && src.type == dst.type {
                     patchbay?.connectPorts(from: src, to: dst)
+                    // Dropped on a mirrored port: note which app's box it was drawn in.
+                    patchbay?.noteSharedInputCable(from: src, to: dst, inNodeId: hit.nodeId)
                 } else if src.direction == .input && dst.direction == .output && src.type == dst.type {
                     patchbay?.connectPorts(from: dst, to: src)
+                    patchbay?.noteSharedInputCable(from: dst, to: src, inNodeId: wireSrcNodeId ?? "")
                 }
             }
         }
@@ -2026,7 +2068,7 @@ class PatchbayCanvasNSView: NSView {
             patchbay?.resolveGroupDropCollisions(movedIds: Set(groupDragOffsets.keys),
                                                  within: vpRect)
         }
-        isDraggingWire    = false; wireSrcPort = nil
+        isDraggingWire    = false; wireSrcPort = nil; wireSrcNodeId = nil
         draggingNodeId    = nil
         isGroupDragging   = false
         groupDragOffsets  = [:]

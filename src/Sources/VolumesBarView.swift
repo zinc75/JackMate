@@ -3,7 +3,7 @@
 //  JackMate
 //
 //  The output-device volume bar: a top bar (à la transport bar) exposing the output
-//  device volumes — jackd's output device and "JackMoebius Out" — each with a
+//  device volumes — jackd's output device and the JackMoebius device — each with a
 //  `JMVolumeSlider`. Pure CoreAudio (no IPC); works even when Jack/JackMoebius is down.
 //
 

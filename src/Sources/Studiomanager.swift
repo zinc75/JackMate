@@ -156,6 +156,8 @@ struct StudioJMApp: Codable {
     var name:        String    // JACK client name of the exposed box
     var outChannels: Int?      // exposed output channel count; nil = Out not exposed
     var inChannels:  Int?      // exposed input channel count; nil = In not exposed
+    var outBacking:  String? = nil   // "shared" | "private"; nil in studios saved before 2.1 → shared
+    var inBacking:   String? = nil   // "shared" | "private"; nil in studios saved before 2.1 → private
     var locked:      Bool      // per-app volume lock state (locked = follows the master)
     var gain:        Double?   // per-app LINEAR gain (daemon representation, NOT the slider
                                // position); nil when locked — a locked app follows the master,
@@ -163,25 +165,41 @@ struct StudioJMApp: Codable {
                                // for the scalar-vs-gain distinction)
 }
 
-/// JackMoebius state saved alongside a studio: master toggle + per-app exposures.
+/// JackMoebius state saved alongside a studio: per-app exposures + volumes.
+///
+/// Studios saved before JackMoebius 1.1 also carry a `masterOn` flag (the removed system-monitor
+/// box). It is simply not decoded any more: `Codable` ignores unknown keys, so old studios still load.
 struct StudioJackMoebius: Codable {
-    var masterOn: Bool
     var apps:     [StudioJMApp] = []
+}
+
+extension StudioJMApp {
+    /// The output to restore (`nil` = Out not exposed). Studios saved before JackMate 2.1 carry no
+    /// backing: their output was the shared stereo stem.
+    nonisolated var outSide: JMSide? {
+        guard let n = outChannels else { return nil }
+        return outBacking == JMBacking.dedicated.rawValue ? .dedicated(n) : .sharedStereo
+    }
+    /// The input to restore (`nil` = In not exposed). Studios saved before JackMate 2.1 carry no
+    /// backing: their input was always a dedicated card.
+    nonisolated var inSide: JMSide? {
+        guard let n = inChannels else { return nil }
+        return inBacking == JMBacking.shared.rawValue ? .sharedStereo : .dedicated(n)
+    }
 }
 
 extension StudioJackMoebius {
     /// Whether this saved state differs from `current` (nil = daemon not active). Aggressive:
-    /// any master toggle, exposure change, or per-app volume change counts. Unlocked gains are
+    /// any exposure change or per-app volume change counts. Unlocked gains are
     /// compared in slider-position space (perceptually uniform threshold); a locked app has a
     /// nil gain on both sides (it follows the master) so it never triggers on its own.
     func differs(from current: StudioJackMoebius?, positionThreshold: Double = 0.01) -> Bool {
         guard let current else { return true }
-        if masterOn != current.masterOn { return true }
         let cur   = Dictionary(current.apps.map { ($0.key, $0) }, uniquingKeysWith: { a, _ in a })
         let saved = Dictionary(apps.map { ($0.key, $0) },         uniquingKeysWith: { a, _ in a })
         for key in Set(cur.keys).union(saved.keys) {
             guard let a = saved[key], let b = cur[key] else { return true }  // exposed on one side only
-            if a.outChannels != b.outChannels || a.inChannels != b.inChannels { return true }
+            if a.outSide != b.outSide || a.inSide != b.inSide { return true }
             if a.locked != b.locked { return true }
             if !a.locked {   // both unlocked → compare gain in position space
                 let pa = a.gain.map { VolumeTaper.gainToScalar($0) } ?? 0
@@ -241,6 +259,9 @@ struct Studio: Identifiable, Codable {
     var connections:   [StudioConnection] = []
     var jackMoebius:   StudioJackMoebius?   = nil
     var outputVolumes: StudioOutputVolumes? = nil
+    /// Apps (bundle IDs) each shared-input cable was drawn for, by connection id (see
+    /// `PatchbayManager.cableOrigins`). Absent in studios saved before 2.1.
+    var cableOrigins:  [String: [String]]?  = nil
 
     /// Short human-readable summary shown in the studio list.
     var summary: String {
@@ -261,9 +282,22 @@ extension Studio {
         jackSnapshot   = try c.decodeIfPresent(JackSnapshot.self,       forKey: .jackSnapshot)
         nodePositions  = try c.decodeIfPresent([NodePosition].self,     forKey: .nodePositions) ?? []
         clients        = try c.decodeIfPresent([StudioClient].self,     forKey: .clients)       ?? []
-        connections    = try c.decodeIfPresent([StudioConnection].self, forKey: .connections)   ?? []
+        // JackMoebius 1.1 removed the `monitor_1/2` ports of the old master box: connections to
+        // them (saved by earlier versions) can never be restored, so they are dropped on load
+        // (and therefore also from the file at the next save) instead of being reported as failures.
+        // The 1.0 names `input_default_1/2` of the shared input are now `shared_input_1/2` (JACK lists
+        // the primary name, so a stored alias would never match a live port): rename them on load.
+        connections    = (try c.decodeIfPresent([StudioConnection].self, forKey: .connections) ?? [])
+            .filter { !$0.from.hasPrefix("JackMoebius:monitor_") && !$0.to.hasPrefix("JackMoebius:monitor_") }
+            .map { conn in
+                var c = conn
+                c.from = c.from.replacingOccurrences(of: "JackMoebius:input_default_", with: "JackMoebius:shared_input_")
+                c.to   = c.to.replacingOccurrences(of: "JackMoebius:input_default_", with: "JackMoebius:shared_input_")
+                return c
+            }
         jackMoebius    = try c.decodeIfPresent(StudioJackMoebius.self,  forKey: .jackMoebius)
         outputVolumes  = try c.decodeIfPresent(StudioOutputVolumes.self, forKey: .outputVolumes)
+        cableOrigins   = try c.decodeIfPresent([String: [String]].self, forKey: .cableOrigins)
     }
 }
 
@@ -765,6 +799,12 @@ final class StudioManager: ObservableObject {
         studio.nodePositions = positions
         studio.jackMoebius   = await jackMoebiusManager.snapshotForStudio()
         studio.outputVolumes = outputVolumeManager.snapshotOutputVolumes()
+        // Which app each shared-input cable was drawn for (only the cables that still exist).
+        if let origins = jackMoebiusManager.patchbayManager?.cableOrigins, !origins.isEmpty {
+            let live = Set(connections.map(\.id))
+            let kept = origins.filter { live.contains($0.key) }.mapValues { Array($0).sorted() }
+            if !kept.isEmpty { studio.cableOrigins = kept }
+        }
 
         return (studio, needsInput)
     }
@@ -961,12 +1001,13 @@ final class StudioManager: ObservableObject {
             }
 
             // 1'. JackMoebius — the studio is authoritative. Restore its state (daemon +
-            // exposures + master + volumes) so its boxes exist as Jack clients before we wait
+            // exposures + volumes) so its boxes exist as Jack clients before we wait
             // for the studio's ports; or, when the studio has no JackMoebius, stop the daemon if
             // it is running so the loaded state matches the save exactly.
+            var failedBoxes = Set<String>()   // JackMoebius boxes that could not be exposed
             if let jm = studio.jackMoebius {
                 onProgress(String(localized: "studio.progress.restoring_jackmoebius"))
-                await jackMoebiusManager.restoreForStudio(jm)
+                failedBoxes = Set(await jackMoebiusManager.restoreForStudio(jm))
             } else if jackMoebiusManager.state == .active {
                 onProgress(String(localized: "studio.progress.restoring_jackmoebius"))
                 jackMoebiusManager.deactivate()
@@ -974,10 +1015,18 @@ final class StudioManager: ObservableObject {
 
             // 2. Wait for all required ports to appear (max 30 s)
             onProgress(String(localized: "studio.progress.waiting_ports"))
-            let neededClients = Set(studio.connections.flatMap {
-                [$0.from.split(separator: ":").first.map(String.init) ?? "",
-                 $0.to.split(separator: ":").first.map(String.init) ?? ""]
-            })
+            // A box the daemon could not expose will never appear: don't wait for it (its
+            // connections are reported as failed below).
+            var neededClients = Set<String>()
+            for conn in studio.connections {
+                neededClients.insert(String(conn.from.split(separator: ":").first ?? ""))
+                neededClients.insert(String(conn.to.split(separator: ":").first ?? ""))
+            }
+            neededClients.subtract(failedBoxes)
+            // The JackMoebius node (shared_input_1/2) only exists while an app of the studio is in
+            // shared input mode: without one (e.g. a studio saved before 2.1), don't wait for it.
+            let studioSharesInput = studio.jackMoebius?.apps.contains { $0.inSide?.backing == .shared } ?? false
+            if !studioSharesInput { neededClients.remove(JMRewire.systemClient) }
             let deadline = Date().addingTimeInterval(30)
             while Date() < deadline {
                 let ports = bridge.getPorts()
@@ -1019,6 +1068,9 @@ final class StudioManager: ObservableObject {
                     result.failed.append(conn)
                 }
             }
+
+            // The apps each shared-input cable was drawn for come back with the cables.
+            patchbayManager.cableOrigins = (studio.cableOrigins ?? [:]).mapValues { Set($0) }
 
             // 5. Rebuild the volume targets for the studio's output device, then restore any
             // saved device volumes. Runs even with no saved volumes so the modification

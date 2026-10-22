@@ -84,8 +84,8 @@ struct PatchbayNode: Identifiable {
     /// metadata), else `nil`. Resolved once when the node first appears; drives the
     /// real app icon on the badge.
     var coreAudioBundleID: String? = nil
-    /// `true` when this client is JackMoebius's master / system-mix monitor box
-    /// (`org.jackmoebius.master` metadata). Drives the JackMoebius brand picto.
+    /// `true` when this client is the JackMoebius system node (shared input ports,
+    /// `org.jackmoebius.master` metadata). Drives the JackMoebius brand picto.
     var isJackMoebiusMaster: Bool = false
 
     var inputCount:  Int { inputs.count }
@@ -99,7 +99,33 @@ final class PatchbayManager: ObservableObject {
 
     // ── State ────────────────────────────────────────────────────────────────
     @Published var nodes:                [PatchbayNode]   = []
-    @Published var connections:          [JackConnection] = []
+    @Published var connections:          [JackConnection] = [] {
+        didSet {
+            if oldValue != connections {
+                reevaluateSystemNode()
+                pruneCableOrigins(previous: oldValue)
+            }
+        }
+    }
+    /// For each cable that ends on the JackMoebius shared input (by `JackConnection.id`), the apps
+    /// (bundle IDs) whose box it was drawn in: JACK keeps no trace of who cabled what, so JackMate
+    /// notes it when the user drops a cable on a mirrored port. Cables made elsewhere have no entry.
+    /// Saved with the studio. Used to offer a clean-up when the app leaves the shared input.
+    var cableOrigins: [String: Set<String>] = [:]
+    /// Debug setting: always show the JackMoebius system node (it carries `shared_input_1/2`), even
+    /// when the boxes of the apps that read it already show those ports. Set from the JackMoebius
+    /// advanced configuration (the preference itself lives in `JackMoebiusManager`).
+    var showSystemNode: Bool = false {
+        didSet { if oldValue != showSystemNode { forceRefresh() } }
+    }
+    /// Whether the system node was part of the last node list (to refresh it when the rule flips).
+    private var systemNodeShown = false
+
+    /// Running apps in JackMoebius shared input mode: they have no JACK client, so `applyPorts` adds a
+    /// virtual box for each, carrying `shared_input_1/2` as mirrored ports (set by `JackMoebiusManager`).
+    @Published var sharedInputBoxes:     [JMSharedBox]    = [] {
+        didSet { if oldValue != sharedInputBoxes { forceRefresh() } }
+    }
     @Published var isConnected:          Bool             = false
     @Published var errorMessage:         String?          = nil
     @Published var showSaveStudioDialog: Bool             = false
@@ -505,14 +531,9 @@ final class PatchbayManager: ObservableObject {
                     let pos = autoPosition(for: nodeId, inputs: portPair.inputs, outputs: portPair.outputs, existing: allNodesForCollision())
                     // Resolve JackMoebius metadata once, when the node first appears.
                     let bundleID = bridge.coreAudioBoxKey(name: nodeId)
-                    // Master box: the metadata (active after the daemon reinstall), OR a
-                    // near-zero-false-positive fallback — the "JackMoebius" client carrying
-                    // its monitor_1/monitor_2 output ports.
-                    let isMaster = bundleID == nil
-                        && (bridge.isJackMoebiusMaster(name: nodeId)
-                            || (nodeId == "JackMoebius"
-                                && portPair.outputs.contains { $0.portName == "monitor_1" }
-                                && portPair.outputs.contains { $0.portName == "monitor_2" }))
+                    // JackMoebius system node (carries `shared_input_1/2`): recognised by its
+                    // `org.jackmoebius.master` metadata.
+                    let isMaster = bundleID == nil && bridge.isJackMoebiusMaster(name: nodeId)
                     updatedNodes.append(PatchbayNode(id: nodeId, position: pos,
                                                      inputs:  portPair.inputs,
                                                      outputs: portPair.outputs,
@@ -521,6 +542,8 @@ final class PatchbayManager: ObservableObject {
                 }
             }
         }
+        updatedNodes = nodesWithSharedInputBoxes(updatedNodes, ports: ports, existing: nodes)
+        updatedNodes = nodesApplyingSystemNodeRule(updatedNodes)
         nodes = updatedNodes
         flushPendingPositions()
 
@@ -547,6 +570,83 @@ final class PatchbayManager: ObservableObject {
         if !newClientNames.isEmpty {
             handleNewClients(newClientNames)
         }
+    }
+
+    /// Adds the JackMoebius shared input to the boxes of the apps that read it. An app in shared
+    /// input mode has no port of its own (and may have no JACK client at all), so its box is built
+    /// from the daemon's list, not from the JACK graph: the real ports `JackMoebius:shared_input_1/2`
+    /// are placed in **each** such box as mirrored inputs (same port id in every box). An app that
+    /// also has a box in the graph (an output) gets the mirrored ports in that box; otherwise a
+    /// virtual box is created. Nothing is added while the JackMoebius ports do not exist.
+    private func nodesWithSharedInputBoxes(_ current: [PatchbayNode], ports: [JackPort],
+                                            existing: [PatchbayNode]) -> [PatchbayNode] {
+        guard !sharedInputBoxes.isEmpty else { return current }
+        let mirrored = ports
+            .filter { $0.clientName == "JackMoebius" && $0.direction == .input
+                      && $0.portName.hasPrefix("shared_input_") }
+            .sorted { $0.portName < $1.portName }
+        guard !mirrored.isEmpty else { return current }
+
+        // Works on a copy and returns it (no `inout`): placing a new box reads the list being built.
+        var result = current
+        func nodesForCollision() -> [PatchbayNode] {
+            result + existing.filter { e in !result.contains { $0.id == e.id } }
+        }
+
+        for box in sharedInputBoxes {
+            if let i = result.firstIndex(where: { $0.id == box.name }) {
+                // The app already has a box (an output): add the mirrored inputs to it.
+                result[i].inputs += mirrored
+                if result[i].coreAudioBundleID == nil { result[i].coreAudioBundleID = box.key }
+            } else if var node = existing.first(where: { $0.id == box.name }) {
+                // A virtual box already placed: keep its position and collapse state.
+                node.inputs = mirrored
+                node.outputs = []
+                node.coreAudioBundleID = box.key
+                result.append(node)
+            } else {
+                let pos = autoPosition(for: box.name, inputs: mirrored, outputs: [],
+                                       existing: nodesForCollision())
+                result.append(PatchbayNode(id: box.name, position: pos, inputs: mirrored,
+                                           outputs: [], coreAudioBundleID: box.key))
+            }
+        }
+        return result
+    }
+
+    // MARK: - System node (JackMoebius) visibility
+
+    /// Whether the JackMoebius system node should be drawn, given the current boxes and cables:
+    /// - hidden while at least one box shows the mirrored shared-input ports (its cables are drawn
+    ///   there; the node would only be a duplicate and a trap for apps that have an input selector);
+    /// - otherwise shown only if cables still end on it (else its cables would be invisible), and
+    ///   removed when nothing is cabled on it;
+    /// - always shown with the debug setting.
+    private func systemNodeShouldShow(in list: [PatchbayNode]) -> Bool {
+        if showSystemNode { return true }
+        let mirrored = list.contains { node in
+            !node.isJackMoebiusMaster && node.inputs.contains { $0.id.hasPrefix("JackMoebius:shared_input_") }
+        }
+        if mirrored { return false }
+        return connections.contains { $0.from.hasPrefix("JackMoebius:") || $0.to.hasPrefix("JackMoebius:") }
+    }
+
+    private func nodesApplyingSystemNodeRule(_ list: [PatchbayNode]) -> [PatchbayNode] {
+        guard list.contains(where: \.isJackMoebiusMaster) else { systemNodeShown = false; return list }
+        let show = systemNodeShouldShow(in: list)
+        systemNodeShown = show
+        return show ? list : list.filter { !$0.isJackMoebiusMaster }
+    }
+
+    /// A cable was added or removed: refresh the nodes if that flips the system node's visibility.
+    private func reevaluateSystemNode() {
+        guard isConnected else { return }
+        let hasMirrors = nodes.contains { node in
+            !node.isJackMoebiusMaster && node.inputs.contains { $0.id.hasPrefix("JackMoebius:shared_input_") }
+        }
+        let wouldShow = showSystemNode
+            || (!hasMirrors && connections.contains { $0.from.hasPrefix("JackMoebius:") || $0.to.hasPrefix("JackMoebius:") })
+        if wouldShow != systemNodeShown && (wouldShow || systemNodeShown) { forceRefresh() }
     }
 
     /// Called after each `applyPorts` with the Jack client names that just appeared.
@@ -594,6 +694,71 @@ final class PatchbayManager: ObservableObject {
             }
         }
         logToJack(String(format: String(localized: "log.patchbay.auto_connect_cancelled"), studioConns.count, clientName))
+    }
+
+    // MARK: - Cable origins (which app a shared-input cable was drawn for)
+
+    /// Notes that the user drew `from → to` on the mirrored port of `inNodeId`'s box. Only cables to
+    /// the shared input, drawn in an app's box, are recorded.
+    func noteSharedInputCable(from: JackPort, to: JackPort, inNodeId: String) {
+        guard to.id.hasPrefix("JackMoebius:shared_input_"),
+              let node = nodes.first(where: { $0.id == inNodeId }), !node.isJackMoebiusMaster,
+              let key = node.coreAudioBundleID else { return }
+        cableOrigins[JackConnection(from: from.id, to: to.id).id, default: []].insert(key)
+    }
+
+    /// The cables on the shared input that were drawn **only** for `appKey` (no other app also asked
+    /// for them): once the app leaves the shared input, nobody needs them any more.
+    func originCleanupCandidates(forApp appKey: String) -> [JMWire] {
+        connections.compactMap { conn in
+            guard cableOrigins[conn.id] == [appKey] else { return nil }
+            return JMWire(from: conn.from, to: conn.to)
+        }
+    }
+
+    /// `appKey` left the shared input: drop it from every cable's origins (a cable nobody asked for
+    /// any more becomes anonymous) and cut `removing`, the cables the user chose to remove.
+    func forgetOrigin(ofApp appKey: String, removing: [JMWire]) {
+        for wire in removing {
+            if let conn = connections.first(where: { $0.from == wire.from && $0.to == wire.to }) {
+                try? bridge.disconnect(from: conn.from, to: conn.to)
+                logToJack("↛ \(conn.from) ↛ \(conn.to)")
+            }
+        }
+        if !removing.isEmpty {
+            connections.removeAll { c in removing.contains { $0.from == c.from && $0.to == c.to } }
+        }
+        for id in Array(cableOrigins.keys) {
+            cableOrigins[id]?.remove(appKey)
+            if cableOrigins[id]?.isEmpty == true { cableOrigins[id] = nil }
+        }
+    }
+
+    /// A cable that was disconnected (both its ports still exist) loses its origin; one whose port
+    /// vanished (an app closed) keeps it, since the cable may well come back with the box.
+    private func pruneCableOrigins(previous: [JackConnection]) {
+        guard !cableOrigins.isEmpty else { return }
+        let removed = previous.filter { !connections.contains($0) }
+        guard !removed.isEmpty else { return }
+        let portIDs = Set(nodes.flatMap { $0.inputs + $0.outputs }.map(\.id))
+        for conn in removed where portIDs.contains(conn.from) && portIDs.contains(conn.to) {
+            cableOrigins[conn.id] = nil
+        }
+    }
+
+    /// The mirrored shared-input ports (`JackMoebius:shared_input_k`) drawn in `nodeId`'s box. They
+    /// are the real ports of the JackMoebius node, so cutting their cables cuts the real ones (every
+    /// box that shows them loses the cable). Empty for a node that does not carry them.
+    func mirroredInputIds(of nodeId: String) -> Set<String> {
+        guard nodeId != "JackMoebius", let node = nodes.first(where: { $0.id == nodeId }) else { return [] }
+        return Set(node.inputs.map(\.id).filter { $0.hasPrefix("JackMoebius:shared_input_") })
+    }
+
+    /// Ids of the nodes that carry the mirrored port `portId` (the JackMoebius shared input is drawn
+    /// in every box that reads it); empty for any other port, whose owner is its JACK client.
+    func mirrorOwnerIds(of portId: String) -> [String] {
+        guard portId.hasPrefix("JackMoebius:shared_input_") else { return [] }
+        return nodes.filter { $0.inputs.contains { $0.id == portId } }.map(\.id)
     }
 
     // Node dimensions — must match exactly those used in PatchbayCanvasNSView
@@ -739,11 +904,13 @@ final class PatchbayManager: ObservableObject {
     func disconnectAllInputs(of nodeId: String) {
         guard !nodeId.hasSuffix(" (capture)") else { return }
         let jackPrefix = jackClientPrefix(from: nodeId)
-        let toDisconnect = connections.filter { $0.to.hasPrefix(jackPrefix + ":") }
+        let mirrored = mirroredInputIds(of: nodeId)
+        let matches: (JackConnection) -> Bool = { $0.to.hasPrefix(jackPrefix + ":") || mirrored.contains($0.to) }
+        let toDisconnect = connections.filter(matches)
         for conn in toDisconnect {
             try? bridge.disconnect(from: conn.from, to: conn.to)
         }
-        connections.removeAll { $0.to.hasPrefix(jackPrefix + ":") }
+        connections.removeAll(where: matches)
         logToJack(String(format: String(localized: "log.patchbay.disconnected_inputs"), nodeId))
     }
 
@@ -764,12 +931,14 @@ final class PatchbayManager: ObservableObject {
         let jackPrefix = jackClientPrefix(from: nodeId)
         let toDisconnect: [JackConnection]
         let predicate: (JackConnection) -> Bool
+        let mirrored = mirroredInputIds(of: nodeId)
         if nodeId.hasSuffix(" (capture)") {
             predicate = { $0.from.hasPrefix(jackPrefix + ":") }
         } else if nodeId.hasSuffix(" (playback)") {
             predicate = { $0.to.hasPrefix(jackPrefix + ":") }
         } else {
-            predicate = { $0.from.hasPrefix(jackPrefix + ":") || $0.to.hasPrefix(jackPrefix + ":") }
+            predicate = { $0.from.hasPrefix(jackPrefix + ":") || $0.to.hasPrefix(jackPrefix + ":")
+                          || mirrored.contains($0.to) }
         }
         toDisconnect = connections.filter(predicate)
         for conn in toDisconnect {
@@ -872,11 +1041,18 @@ final class PatchbayManager: ObservableObject {
         var inEdges:  [String: Set<String>] = Dictionary(
             uniqueKeysWithValues: subset.map { ($0.id, Set<String>()) })
         for conn in connections {
-            let f = String(conn.from.split(separator: ":").first ?? "")
-            let t = String(conn.to.split(separator:  ":").first ?? "")
-            guard f != t, idSet.contains(f), idSet.contains(t) else { continue }
-            outEdges[f, default: []].insert(t)
-            inEdges[t,  default: []].insert(f)
+            // A mirrored port belongs to several boxes: the cable links to each of them.
+            let fromIds = mirrorOwnerIds(of: conn.from)
+            let toIds   = mirrorOwnerIds(of: conn.to)
+            let fs = fromIds.isEmpty ? [String(conn.from.split(separator: ":").first ?? "")] : fromIds
+            let ts = toIds.isEmpty   ? [String(conn.to.split(separator:  ":").first ?? "")] : toIds
+            for f in fs {
+                for t in ts {
+                    guard f != t, idSet.contains(f), idSet.contains(t) else { continue }
+                    outEdges[f, default: []].insert(t)
+                    inEdges[t,  default: []].insert(f)
+                }
+            }
         }
 
         // ── 2. Connectivity predicates ───────────────────────────────────────
@@ -1270,21 +1446,32 @@ final class PatchbayManager: ObservableObject {
             let fromParts = conn.from.split(separator: ":", maxSplits: 1)
             let toParts   = conn.to.split(separator: ":",   maxSplits: 1)
             guard fromParts.count == 2, toParts.count == 2 else { continue }
-            let srcId = String(fromParts[0]), dstId = String(toParts[0])
-            guard let src = nodes.first(where: { $0.id == srcId }),
-                  let dst = nodes.first(where: { $0.id == dstId }) else { continue }
+            // A mirrored port is carried by several boxes: one corridor per box. A cable that
+            // ends in the node being moved goes with it, so it is not an obstacle.
+            let fromMirror = mirrorOwnerIds(of: conn.from)
+            let toMirror   = mirrorOwnerIds(of: conn.to)
+            if fromMirror.contains(excludedId) || toMirror.contains(excludedId) { continue }
+            let srcIds = fromMirror.isEmpty ? [String(fromParts[0])] : fromMirror
+            let dstIds = toMirror.isEmpty   ? [String(toParts[0])]   : toMirror
 
-            let outIdx = src.outputs.firstIndex(where: { $0.id == conn.from }) ?? 0
-            let inIdx  = dst.inputs.firstIndex(where:  { $0.id == conn.to  }) ?? 0
-            let outY = src.position.y + headerH + 3 + CGFloat(outIdx) * rowH + rowH / 2
-            let inY  = dst.position.y + headerH + 3 + CGFloat(inIdx)  * rowH + rowH / 2
+            for srcId in srcIds {
+                for dstId in dstIds {
+                    guard let src = nodes.first(where: { $0.id == srcId }),
+                          let dst = nodes.first(where: { $0.id == dstId }) else { continue }
 
-            let key = "\(srcId)→\(dstId)"
-            if bundles[key] == nil {
-                bundles[key] = Bundle(src: src, dst: dst, outYs: [outY], inYs: [inY])
-            } else {
-                bundles[key]!.outYs.append(outY)
-                bundles[key]!.inYs.append(inY)
+                    let outIdx = src.outputs.firstIndex(where: { $0.id == conn.from }) ?? 0
+                    let inIdx  = dst.inputs.firstIndex(where:  { $0.id == conn.to  }) ?? 0
+                    let outY = src.position.y + headerH + 3 + CGFloat(outIdx) * rowH + rowH / 2
+                    let inY  = dst.position.y + headerH + 3 + CGFloat(inIdx)  * rowH + rowH / 2
+
+                    let key = "\(srcId)→\(dstId)"
+                    if bundles[key] == nil {
+                        bundles[key] = Bundle(src: src, dst: dst, outYs: [outY], inYs: [inY])
+                    } else {
+                        bundles[key]!.outYs.append(outY)
+                        bundles[key]!.inYs.append(inY)
+                    }
+                }
             }
         }
 

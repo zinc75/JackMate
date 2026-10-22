@@ -29,8 +29,8 @@ struct OutputVolumeTarget: Identifiable, Equatable {
     var id: AudioDeviceID { deviceID }
 }
 
-/// Publishes the output devices shown in the Volumes bar (jackd's output + "JackMoebius
-/// Out") and drives their volume through CoreAudio. Grafts onto `JackManager` only to
+/// Publishes the output devices shown in the Volumes bar (jackd's output + the JackMoebius
+/// device) and drives their volume through CoreAudio. Grafts onto `JackManager` only to
 /// learn which device jackd currently drives.
 @MainActor
 final class OutputVolumeManager: ObservableObject {
@@ -38,12 +38,12 @@ final class OutputVolumeManager: ObservableObject {
     /// The devices shown in the bar, in display order.
     @Published private(set) var targets: [OutputVolumeTarget] = []
 
-    /// Live "JackMoebius Out" master volume — the value a *locked* per-app slider mirrors.
+    /// Live JackMoebius system-device master volume — the value a *locked* per-app slider mirrors.
     var jackMoebiusOutVolume: Double? {
         targets.first { $0.role == .jackMoebiusOut }?.volume
     }
 
-    /// Whether "JackMoebius Out" is muted (F10) — per-app sliders then show 0, like the
+    /// Whether the JackMoebius device is muted (F10) — per-app sliders then show 0, like the
     /// device sliders, since everything routed through it is silenced.
     var jackMoebiusOutMuted: Bool {
         targets.first { $0.role == .jackMoebiusOut }?.isMuted ?? false
@@ -56,8 +56,11 @@ final class OutputVolumeManager: ObservableObject {
         didSet { UserDefaults.standard.set(showVolumesBar, forKey: "showVolumesBar") }
     }
 
-    /// Exact CoreAudio name of the JackMoebius virtual output device.
-    private let jackMoebiusOutName = "JackMoebius Out"
+    /// Stable CoreAudio UID of the JackMoebius system device (one device, 2 in / 2 out). It is the
+    /// lookup key: the display name is presentation only and may change between versions.
+    private let jackMoebiusDeviceUID = "com.jackmoebius.device"
+    /// Label shown in the Volumes bar for the JackMoebius device.
+    private let jackMoebiusDisplayName = "JackMoebius"
 
     private weak var jackManager: JackManager?
 
@@ -143,7 +146,7 @@ final class OutputVolumeManager: ObservableObject {
 
     // MARK: Target list
 
-    /// Rebuilds the target list (jackd output + JackMoebius Out) and re-registers the
+    /// Rebuilds the target list (jackd output + JackMoebius device) and re-registers the
     /// per-device + hardware listeners.
     private func rebuild() {
         let defaultID = defaultOutputDeviceID()
@@ -159,8 +162,9 @@ final class OutputVolumeManager: ObservableObject {
             result.append(t); seen.insert(jackID)
         }
 
-        // 2. JackMoebius Out (a virtual device → matched by exact name).
-        if let jmID = outputs.first(where: { deviceName($0) == jackMoebiusOutName }),
+        // 2. The JackMoebius system device, matched by its UID (its volume/mute controls live on
+        //    the output scope).
+        if let jmID = outputs.first(where: { deviceUID($0) == jackMoebiusDeviceUID }),
            !seen.contains(jmID),
            let t = makeTarget(jmID, role: .jackMoebiusOut, defaultID: defaultID) {
             result.append(t); seen.insert(jmID)
@@ -172,7 +176,7 @@ final class OutputVolumeManager: ObservableObject {
 
     private func makeTarget(_ id: AudioDeviceID, role: OutputVolumeTarget.Role,
                             defaultID: AudioDeviceID?) -> OutputVolumeTarget? {
-        let name = role == .jackMoebiusOut ? jackMoebiusOutName : (deviceName(id) ?? "—")
+        let name = role == .jackMoebiusOut ? jackMoebiusDisplayName : (deviceName(id) ?? "—")
         let (volume, hasControl) = readVolume(id) ?? (0, false)
         return OutputVolumeTarget(deviceID: id, role: role, name: name,
                                   volume: volume, isMuted: readMute(id), hasControl: hasControl,

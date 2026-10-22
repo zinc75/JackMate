@@ -343,6 +343,14 @@ struct ContentView: View {
                     Rectangle().fill(JM.borderFaint).frame(height: 1)
                 }
 
+                // Notices about JackMoebius (e.g. a full channel bus): only takes room when needed.
+                if selection == .patchbay {
+                    JackMoebiusNoticeStrip(defaults: jackMoebiusManager.systemDefaults)
+                        .environmentObject(jackMoebiusManager)
+                        .environmentObject(patchbayManager)
+                        .animation(.easeInOut(duration: 0.2), value: jackMoebiusManager.capacity)
+                }
+
                 ZStack(alignment: .trailing) {
                     Group {
                         switch selection {
@@ -609,6 +617,7 @@ struct ContentView: View {
             patchbayManager.configureStudio(studioManager)
             studioManager.observeJackState(jackManager: jackManager, patchbayManager: patchbayManager)
             jackMoebiusManager.observeJackState(jackManager: jackManager)
+            jackMoebiusManager.patchbayManager = patchbayManager
             outputVolumeManager.configure(jackManager: jackManager)
             if !jackManager.jackInstalled { showJackNotInstalled = true }
             // Let the AppDelegate route jackmate:// deep links to this manager (and replay any
@@ -828,7 +837,7 @@ struct SidebarView: View {
     /// LED colour for JackMoebius: green active, amber activating, grey not installed, red otherwise.
     var jackMoebiusFooterColor: Color {
         switch jackMoebiusManager.state {
-        case .active:           return JM.accentGreen
+        case .active:           return jackMoebiusManager.transportProblem == nil ? JM.accentGreen : JM.accentRed
         case .activating:       return JM.accentAmber
         case .unavailable:      return JM.textTertiary
         case .inactive, .failed: return JM.accentRed
@@ -838,7 +847,9 @@ struct SidebarView: View {
     /// Short JackMoebius status label displayed next to its footer LED.
     var jackMoebiusFooterText: String {
         switch jackMoebiusManager.state {
-        case .active:           return String(localized: "jackmoebius.status.active")
+        case .active:           return jackMoebiusManager.transportProblem == nil
+                                    ? String(localized: "jackmoebius.status.active")
+                                    : String(localized: "jackmoebius.status.transport_problem")
         case .activating:       return String(localized: "jackmoebius.status.activating")
         case .unavailable:      return String(localized: "jackmoebius.status.not_installed")
         case .inactive, .failed: return String(localized: "jackmoebius.status.inactive")
@@ -4239,6 +4250,8 @@ struct InstallJackMoebiusButton: View {
     /// Fired synchronously when the install is launched, before the async flow starts — lets a
     /// hosting sheet arm its auto-dismiss so it closes once the installer (or releases fallback) opens.
     var onInstallTriggered: (() -> Void)? = nil
+    /// Button title: "Install JackMoebius" by default, overridden e.g. with "Update JackMoebius".
+    var title: LocalizedStringResource = "license.sheet.install_button"
     @State private var hovered = false
 
     var body: some View {
@@ -4249,7 +4262,7 @@ struct InstallJackMoebiusButton: View {
                 onInstallTriggered?()
                 jackMoebiusManager.downloadAndOpenInstaller()
             } label: {
-                Text(String(localized: "license.sheet.install_button"))
+                Text(String(localized: title))
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundStyle(.white)
                     .padding(.horizontal, 14).frame(height: 28)

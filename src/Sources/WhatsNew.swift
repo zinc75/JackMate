@@ -65,11 +65,17 @@ struct WhatsNewSheet: View {
                 }
             }
 
-            Text(String(localized: "whats_new.body"))
-                .font(.system(size: 12))
-                .foregroundStyle(JM.textPrimary.opacity(0.85))
-                .fixedSize(horizontal: false, vertical: true)
-                .lineSpacing(3)
+            // Scrolls when the text is taller than the window allows (small screens, longer languages);
+            // the title and the buttons stay in place.
+            ScrollView(.vertical, showsIndicators: true) {
+                Text(String(localized: "whats_new.body"))
+                    .font(.system(size: 12))
+                    .foregroundStyle(JM.textPrimary.opacity(0.85))
+                    .fixedSize(horizontal: false, vertical: true)
+                    .lineSpacing(3)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .frame(maxHeight: 340)
 
             HStack {
                 Button(String(localized: "whats_new.jackmoebius")) {

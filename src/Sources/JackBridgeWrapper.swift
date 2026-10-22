@@ -541,7 +541,7 @@ public final class JackBridgeWrapper {
         return value.isEmpty ? nil : value
     }
 
-    /// `true` when the client is JackMoebius's master / system-mix monitor box,
+    /// `true` when the client is the JackMoebius system node (shared input ports),
     /// tagged with the `org.jackmoebius.master` metadata (published daemon-side).
     public func isJackMoebiusMaster(name: String) -> Bool {
         guard let client, isOpen, !isClosing else { return false }

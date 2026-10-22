@@ -79,6 +79,16 @@
     "%lld" : {
 
     },
+    "%lld / %lld" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld / %2$lld"
+          }
+        }
+      }
+    },
     "%lld connexions · %lld clients" : {
       "localizations" : {
         "de" : {
@@ -5430,6 +5440,40 @@
         }
       }
     },
+    "jackmoebius.advanced.debug.title" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erweitert / Fehlersuche"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Advanced / debugging"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avanzado / depuración"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avancé / débogage"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avanzate / debug"
+          }
+        }
+      }
+    },
     "jackmoebius.advanced.reservations.clear_in" : {
       "comment" : "Advanced sheet: free an app's input channel reservation (tooltip)",
       "extractionState" : "manual",
@@ -5606,6 +5650,74 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ripristina predefiniti"
+          }
+        }
+      }
+    },
+    "jackmoebius.advanced.show_system_node" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius-Systemknoten anzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show the JackMoebius system node"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar el nodo del sistema JackMoebius"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher le nœud système JackMoebius"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra il nodo di sistema JackMoebius"
+          }
+        }
+      }
+    },
+    "jackmoebius.advanced.show_system_node.help" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standardmäßig ist dieser Knoten ausgeblendet, solange eine App im geteilten Eingangsmodus angezeigt wird: Seine Kabel werden dann in der Box jeder App gezeichnet. Er erscheint von selbst wieder, wenn noch Kabel daran hängen und keine App den Eingang mehr teilt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By default this node is hidden while an app in shared input mode is shown: its cables are drawn in each app's box. It reappears on its own when cables remain on it and no app shares the input any more."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De forma predeterminada, este nodo se oculta mientras se muestre una app en modo de entrada compartida: sus cables se dibujan entonces en la caja de cada app. Reaparece solo cuando quedan cables en él y ninguna app comparte ya la entrada."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Par défaut, ce nœud est masqué tant qu'une app en entrée partagée est affichée : ses câbles sont alors dessinés dans la boîte de chaque app. Il réapparaît seul quand il reste des câbles dessus et qu'aucune app ne partage plus l'entrée."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per impostazione predefinita questo nodo è nascosto finché è mostrata un'app in ingresso condiviso: i suoi cavi sono allora disegnati nel riquadro di ogni app. Riappare da solo quando restano cavi su di esso e nessuna app condivide più l'ingresso."
           }
         }
       }
@@ -5850,6 +5962,108 @@
         }
       }
     },
+    "jackmoebius.apply_error" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius hat die Änderung abgelehnt: %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius refused the change: %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius rechazó el cambio: %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius a refusé le changement : %@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius ha rifiutato la modifica: %@"
+          }
+        }
+      }
+    },
+    "jackmoebius.apply_error.both_shared" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eingang auch auf Standard stellen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move the input to default too"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poner también la entrada por defecto"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passer aussi l'entrée en Défaut"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imposta anche l'ingresso su predefinito"
+          }
+        }
+      }
+    },
+    "jackmoebius.apply_error.dismiss" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Meldung schließen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close this message"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerrar este mensaje"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermer ce message"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chiudi questo messaggio"
+          }
+        }
+      }
+    },
     "jackmoebius.blacklist.confirm.message" : {
       "comment" : "Blacklist confirmation message; %@ = app name",
       "extractionState" : "manual",
@@ -5954,6 +6168,1366 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Inserire questa app nella blacklist?"
+          }
+        }
+      }
+    },
+    "jackmoebius.capacity.full" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius-Kapazität voll · Eingänge %1$lld / %2$lld · Ausgänge %3$lld / %4$lld"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius capacity full · Inputs %1$lld / %2$lld · Outputs %3$lld / %4$lld"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capacidad de JackMoebius llena · Entradas %1$lld / %2$lld · Salidas %3$lld / %4$lld"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capacité JackMoebius pleine · Entrées %1$lld / %2$lld · Sorties %3$lld / %4$lld"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capacità di JackMoebius piena · Ingressi %1$lld / %2$lld · Uscite %3$lld / %4$lld"
+          }
+        }
+      }
+    },
+    "jackmoebius.capacity.held" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "davon %lld reserviert, aber ungenutzt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "of which %lld reserved but unused"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "de los cuales %lld reservados sin usar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "dont %lld réservés sans être utilisés"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "di cui %lld riservati ma inutilizzati"
+          }
+        }
+      }
+    },
+    "jackmoebius.capacity.held.help" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Kanäle bleiben von einer Karte reserviert, deren Ein- oder Ausgang entfernt wurde. Sie werden freigegeben, wenn die Karte gelöscht oder neu aufgebaut wird."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "These channels stay reserved by a card whose input or output was removed. They are released when the card is deleted or rebuilt."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estos canales siguen reservados por una tarjeta a la que se quitó una entrada o salida. Se liberan cuando la tarjeta se elimina o se reconstruye."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ces canaux restent réservés par une carte dont une entrée ou une sortie a été retirée. Ils sont libérés quand la carte est supprimée ou reconstruite."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Questi canali restano riservati da una scheda a cui è stato tolto un ingresso o un'uscita. Vengono liberati quando la scheda viene eliminata o ricostruita."
+          }
+        }
+      }
+    },
+    "jackmoebius.capacity.inputs" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eingänge"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inputs"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entradas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrées"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingressi"
+          }
+        }
+      }
+    },
+    "jackmoebius.capacity.near" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius-Kapazität fast voll · Eingänge %1$lld / %2$lld · Ausgänge %3$lld / %4$lld"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius capacity almost full · Inputs %1$lld / %2$lld · Outputs %3$lld / %4$lld"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capacidad de JackMoebius casi llena · Entradas %1$lld / %2$lld · Salidas %3$lld / %4$lld"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capacité JackMoebius presque pleine · Entrées %1$lld / %2$lld · Sorties %3$lld / %4$lld"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capacità di JackMoebius quasi piena · Ingressi %1$lld / %2$lld · Uscite %3$lld / %4$lld"
+          }
+        }
+      }
+    },
+    "jackmoebius.capacity.outputs" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ausgänge"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Outputs"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salidas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sorties"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uscite"
+          }
+        }
+      }
+    },
+    "jackmoebius.capacity.view_reservations" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reservierungen ansehen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View reservations"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver reservas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voir les réservations"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vedi prenotazioni"
+          }
+        }
+      }
+    },
+    "jackmoebius.cleanup.keep" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anwenden und behalten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apply and keep them"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplicar y mantenerlos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appliquer et les garder"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Applica e mantienili"
+          }
+        }
+      }
+    },
+    "jackmoebius.cleanup.message" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ wechselt zu einer dedizierten Karte. Diese Kabel wurden für die App am geteilten Eingang gezogen:\n%2$@\nSie werden nicht mehr gebraucht. Vom geteilten Eingang entfernen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ is moving to a dedicated card. These cables were drawn for it on the shared input:\n%2$@\nThey are of no use to it any more. Remove them from the shared input?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ pasa a una tarjeta dedicada. Estos cables se habían tendido para ella en la entrada compartida:\n%2$@\nYa no le sirven. ¿Quitarlos de la entrada compartida?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ passe en carte dédiée. Ces câbles avaient été tirés pour lui sur l'entrée partagée :\n%2$@\nIls ne lui servent plus. Les retirer de l'entrée partagée ?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ passa a una scheda dedicata. Questi cavi erano stati tracciati per essa sull'ingresso condiviso:\n%2$@\nNon le servono più. Rimuoverli dall'ingresso condiviso?"
+          }
+        }
+      }
+    },
+    "jackmoebius.cleanup.others" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Apps, die den geteilten Eingang noch lesen (%@), hören sie dann nicht mehr."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The apps that still read the shared input (%@) will no longer hear them."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las apps que aún leen la entrada compartida (%@) dejarán de oírlos."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les apps qui lisent encore l'entrée partagée (%@) ne les entendront plus."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le app che leggono ancora l'ingresso condiviso (%@) non li sentiranno più."
+          }
+        }
+      }
+    },
+    "jackmoebius.cleanup.remove" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anwenden und entfernen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apply and remove them"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplicar y quitarlos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appliquer et les retirer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Applica e rimuovili"
+          }
+        }
+      }
+    },
+    "jackmoebius.cleanup.title" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kabel des geteilten Eingangs entfernen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove the shared-input cables?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Quitar los cables de la entrada compartida?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer les câbles de l'entrée partagée ?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rimuovere i cavi dell'ingresso condiviso?"
+          }
+        }
+      }
+    },
+    "jackmoebius.defaults.choose" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius wählen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose JackMoebius"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elegir JackMoebius"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisir JackMoebius"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scegli JackMoebius"
+          }
+        }
+      }
+    },
+    "jackmoebius.defaults.dismiss" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bis zur nächsten Änderung ausblenden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide until the next change"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocultar hasta el próximo cambio"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masquer jusqu'au prochain changement"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nascondi fino alla prossima modifica"
+          }
+        }
+      }
+    },
+    "jackmoebius.defaults.input" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Standardeingang des Mac ist „%@“ und nicht JackMoebius: Apps am geteilten Eingang hören den JackMoebius-Stream nicht."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Mac's default input is “%@”, not JackMoebius: apps on the shared input will not hear the JackMoebius stream."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La entrada por defecto del Mac es «%@» y no JackMoebius: las apps con entrada compartida no oirán el flujo de JackMoebius."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'entrée par défaut du Mac est « %@ » et non JackMoebius : les apps en entrée partagée n'entendront pas le flux JackMoebius."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'ingresso predefinito del Mac è «%@» e non JackMoebius: le app con ingresso condiviso non sentiranno il flusso di JackMoebius."
+          }
+        }
+      }
+    },
+    "jackmoebius.defaults.output" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Mac spielt auf „%@“ und nicht auf JackMoebius: Apps, deren Ausgang auf „JackMoebius-Standard“ steht, laufen nicht über JackMoebius."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Mac plays to “%@”, not to JackMoebius: apps whose output is “JackMoebius default” will not go through JackMoebius."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El Mac reproduce en «%@» y no en JackMoebius: las apps cuya salida está en «JackMoebius por defecto» no pasarán por JackMoebius."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le Mac joue sur « %@ » et non sur JackMoebius : les apps dont la sortie est en « Défaut JackMoebius » ne passeront pas par JackMoebius."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il Mac riproduce su «%@» e non su JackMoebius: le app la cui uscita è su «Predefinito JackMoebius» non passeranno da JackMoebius."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.app_blacklisted" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ steht auf der JackMoebius-Sperrliste."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is on the JackMoebius blacklist."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ está en la lista negra de JackMoebius."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ est sur la liste noire de JackMoebius."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ è nella lista nera di JackMoebius."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.app_not_running" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ läuft nicht. Starten Sie die App und versuchen Sie es erneut."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is not running. Launch the app, then try again."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ no se está ejecutando. Abra la app y vuelva a intentarlo."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ n'est pas en cours d'exécution. Lancez l'app, puis réessayez."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ non è in esecuzione. Avvia l'app e riprova."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.capacity_forward_full" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht genug freie Kanäle auf dem Ausgangsbus: %1$lld nötig, %2$lld übrig."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not enough free channels on the outputs bus: %1$lld needed, %2$lld left."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay canales libres suficientes en el bus de salidas: se necesitan %1$lld, quedan %2$lld."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas assez de canaux libres sur le bus des sorties : il en faut %1$lld, il en reste %2$lld."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Canali liberi insufficienti sul bus delle uscite: ne servono %1$lld, ne restano %2$lld."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.capacity_fragmented" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Ausgangsbus ist fragmentiert: %lld Kanäle sind frei, aber kein Paar benachbarter Kanäle für einen Stereo-Ausgang. Geben Sie Karten unter Reservierungen frei oder bauen Sie sie neu auf."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The outputs bus is fragmented: %lld channels are free, but no pair of neighbouring channels for a stereo output. Free or rebuild cards in Reservations."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El bus de salidas está fragmentado: quedan %lld canales libres, pero ningún par de canales vecinos para una salida estéreo. Libere o reconstruya tarjetas en Reservas."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le bus des sorties est fragmenté : il reste %lld canaux libres, mais aucune paire de canaux voisins pour une sortie stéréo. Libérez ou reconstruisez des cartes dans Réservations."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il bus delle uscite è frammentato: restano %lld canali liberi, ma nessuna coppia di canali vicini per un'uscita stereo. Libera o ricostruisci schede in Prenotazioni."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.capacity_held" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Von den belegten Kanälen sind %lld reserviert, aber ungenutzt (eine Karte, deren Ein- oder Ausgang entfernt wurde): Sie können sie unter Reservierungen freigeben."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Of the occupied channels, %lld are reserved but unused (a card whose input or output was removed): you can free them in Reservations."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De los canales ocupados, %lld están reservados sin usar (una tarjeta a la que se quitó una entrada o salida): puede liberarlos en Reservas."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parmi les canaux occupés, %lld sont réservés sans être utilisés (une carte dont une entrée ou une sortie a été retirée) : vous pouvez les libérer dans Réservations."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dei canali occupati, %lld sono riservati ma inutilizzati (una scheda a cui è stato tolto un ingresso o un'uscita): puoi liberarli in Prenotazioni."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.capacity_holders" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Größte Belegungen: %@."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biggest holders: %@."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mayores ocupantes: %@."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus gros détenteurs : %@."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maggiori occupanti: %@."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.capacity_reverse_full" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht genug freie Kanäle auf dem Eingangsbus: %1$lld nötig, %2$lld übrig."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not enough free channels on the inputs bus: %1$lld needed, %2$lld left."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay canales libres suficientes en el bus de entradas: se necesitan %1$lld, quedan %2$lld."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas assez de canaux libres sur le bus des entrées : il en faut %1$lld, il en reste %2$lld."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Canali liberi insufficienti sul bus degli ingressi: ne servono %1$lld, ne restano %2$lld."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.card_not_created" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Karte konnte nicht erstellt werden: kein Kartenplatz mehr, oder die App hat noch keinen Audiokontext."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The card could not be created: no card slot left, or the app has no audio context yet."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo crear la tarjeta: no queda sitio para tarjetas, o la app aún no tiene contexto de audio."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La carte n'a pas pu être créée : plus de place pour une carte, ou l'app n'a pas encore de contexte audio."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non è stato possibile creare la scheda: nessuno spazio per schede, o l'app non ha ancora un contesto audio."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.invalid_channel_count" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ungültige Kanalanzahl (%1$lld): Sie muss zwischen %2$lld und %3$lld liegen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid number of channels (%1$lld): it must be between %2$lld and %3$lld."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Número de canales no válido (%1$lld): debe estar entre %2$lld y %3$lld."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre de voies invalide (%1$lld) : il doit être compris entre %2$lld et %3$lld."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Numero di canali non valido (%1$lld): deve essere tra %2$lld e %3$lld."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.jack_not_running" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JACK läuft nicht: Starten Sie es zuerst."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JACK is not running: start it first."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JACK no está en marcha: inícielo primero."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JACK n'est pas lancé : lancez-le d'abord."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JACK non è in esecuzione: avvialo prima."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.jack_port_limit" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JACK hat die Registrierung weiterer Ports abgelehnt (JackMoebius hat %lld). Starten Sie JACK mit mehr Ports neu."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JACK refused to register more ports (JackMoebius has %lld). Restart JACK with a higher number of ports."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JACK rechazó registrar más puertos (JackMoebius tiene %lld). Reinicie JACK con más puertos."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JACK a refusé d'enregistrer de nouveaux ports (JackMoebius en a %lld). Relancez JACK avec un nombre de ports plus élevé."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JACK ha rifiutato di registrare altre porte (JackMoebius ne ha %lld). Riavvia JACK con più porte."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.no_audio_context" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ hat noch keinen Audiokontext: Starten Sie dort eine Wiedergabe und versuchen Sie es erneut."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ has no audio context yet: start playback in it, then try again."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ aún no tiene contexto de audio: inicie una reproducción en ella y vuelva a intentarlo."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ n'a pas encore de contexte audio : lancez-y une lecture, puis réessayez."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ non ha ancora un contesto audio: avvia una riproduzione e riprova."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.no_card" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ hat keine Karte zum Neuaufbau."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ has no card to rebuild."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ no tiene tarjeta que reconstruir."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ n'a pas de carte à reconstruire."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ non ha una scheda da ricostruire."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.not_capture_capable" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ kann keinen Ton aufnehmen: Ein Eingang ist nicht möglich."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ cannot capture sound: no input is possible."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ no puede capturar sonido: no es posible una entrada."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ne peut pas capturer du son : pas d'entrée possible."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ non può acquisire audio: nessun ingresso possibile."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.own_held" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der dedizierte Eingang von %1$@ behält seine Karte: Wechselt nur der Ausgang auf „JackMoebius-Standard“, blieben seine %2$lld Ausgangskanäle reserviert, aber ungenutzt, und der Ausgangsbus ist zu voll, um sie zu halten. Stellen Sie auch den Eingang auf „JackMoebius-Standard“."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The dedicated input of %1$@ keeps its card: if only its output moves to “JackMoebius default”, its %2$lld output channels would stay reserved but unused, and the outputs bus is too full to keep them. Move its input to “JackMoebius default” too."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La entrada dedicada de %1$@ conserva su tarjeta: si solo su salida pasa a «JackMoebius por defecto», sus %2$lld canales de salida quedarían reservados sin usar, y el bus de salidas está demasiado lleno para conservarlos. Ponga también su entrada en «JackMoebius por defecto»."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'entrée dédiée de %1$@ garde sa carte : si seule sa sortie passe en « Défaut JackMoebius », ses %2$lld voies de sortie resteraient réservées sans être utilisées, et le bus des sorties est trop plein pour les garder. Passez aussi son entrée en « Défaut JackMoebius »."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'ingresso dedicato di %1$@ mantiene la sua scheda: se solo la sua uscita passa a «Predefinito JackMoebius», i suoi %2$lld canali di uscita resterebbero riservati ma inutilizzati, e il bus delle uscite è troppo pieno per tenerli. Imposta anche il suo ingresso su «Predefinito JackMoebius»."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.slot_exhausted" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Platz für eine neue Karte (maximal %lld). Löschen Sie eine ungenutzte Karte in den Reservierungen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No room for a new card (maximum %lld). Delete an unused card in the reservations."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay sitio para una nueva tarjeta (máximo %lld). Elimine una tarjeta sin usar en las reservas."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus de place pour une nouvelle carte (maximum %lld). Supprimez une carte inutilisée dans les réservations."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessuno spazio per una nuova scheda (massimo %lld). Elimina una scheda inutilizzata nelle prenotazioni."
+          }
+        }
+      }
+    },
+    "jackmoebius.error.transport_not_ready" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die JackMoebius-Audiobrücke ist nicht bereit: Eine dedizierte Karte kann derzeit nicht erstellt werden."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The JackMoebius audio bridge is not ready: a dedicated card cannot be created for now."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El puente de audio de JackMoebius no está listo: por ahora no se puede crear una tarjeta dedicada."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le pont audio de JackMoebius n'est pas prêt : une carte dédiée ne peut pas être créée pour l'instant."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il ponte audio di JackMoebius non è pronto: per ora non si può creare una scheda dedicata."
+          }
+        }
+      }
+    },
+    "jackmoebius.fx.created" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Karte „JackMoebius for %1$@“ wird erstellt. Starten Sie die App neu oder aktualisieren Sie ihre Geräteliste, falls sie nicht erscheint."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The “JackMoebius for %1$@” card is created. Relaunch the app or refresh its device list if it doesn't show up."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se crea la tarjeta «JackMoebius for %1$@». Reinicie la app o actualice su lista de dispositivos si no aparece."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La carte « JackMoebius for %1$@ » est créée. Relancez l'app ou rafraîchissez sa liste de périphériques si elle n'apparaît pas."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La scheda «JackMoebius for %1$@» viene creata. Riavvia l'app o aggiorna la sua lista di dispositivi se non compare."
+          }
+        }
+      }
+    },
+    "jackmoebius.fx.deleted" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Karte „JackMoebius for %1$@“ wird gelöscht. Hatte %1$@ sie gewählt, wechselt die App auf ein anderes Gerät."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The “JackMoebius for %1$@” card is deleted. If %1$@ had selected it, it falls back to another device."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se elimina la tarjeta «JackMoebius for %1$@». Si %1$@ la había elegido, pasa a otro dispositivo."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La carte « JackMoebius for %1$@ » est supprimée. Si %1$@ l'avait choisie, l'app repasse sur un autre périphérique."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La scheda «JackMoebius for %1$@» viene eliminata. Se %1$@ l'aveva scelta, passa a un altro dispositivo."
+          }
+        }
+      }
+    },
+    "jackmoebius.fx.kept.in" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Karte „JackMoebius for %1$@“ bleibt ohne ihren Eingang bestehen: %1$@ sieht sie weiterhin, der Eingang ist aber nicht mehr angebunden. Wählen Sie in %1$@ das Gerät „JackMoebius“ als Eingang."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The “JackMoebius for %1$@” card is kept without its input: %1$@ still sees it, but the input is no longer wired to it. In %1$@, choose the “JackMoebius” device as the input."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La tarjeta «JackMoebius for %1$@» se conserva sin su entrada: %1$@ aún la ve, pero la entrada ya no está conectada. En %1$@, elija el dispositivo «JackMoebius» como entrada."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La carte « JackMoebius for %1$@ » est conservée sans son entrée : %1$@ la voit encore, mais l'entrée n'y est plus branchée. Dans %1$@, choisissez le périphérique « JackMoebius » comme entrée."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La scheda «JackMoebius for %1$@» viene mantenuta senza il suo ingresso: %1$@ la vede ancora, ma l'ingresso non è più collegato. In %1$@, scegli il dispositivo «JackMoebius» come ingresso."
+          }
+        }
+      }
+    },
+    "jackmoebius.fx.kept.out" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Karte „JackMoebius for %1$@“ bleibt ohne ihren Ausgang bestehen: %1$@ sieht sie weiterhin, der Ausgang ist aber nicht mehr angebunden. Wählen Sie in %1$@ das Gerät „JackMoebius“ als Ausgang."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The “JackMoebius for %1$@” card is kept without its output: %1$@ still sees it, but the output is no longer wired to it. In %1$@, choose the “JackMoebius” device as the output."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La tarjeta «JackMoebius for %1$@» se conserva sin su salida: %1$@ aún la ve, pero la salida ya no está conectada. En %1$@, elija el dispositivo «JackMoebius» como salida."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La carte « JackMoebius for %1$@ » est conservée sans sa sortie : %1$@ la voit encore, mais la sortie n'y est plus branchée. Dans %1$@, choisissez le périphérique « JackMoebius » comme sortie."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La scheda «JackMoebius for %1$@» viene mantenuta senza la sua uscita: %1$@ la vede ancora, ma l'uscita non è più collegata. In %1$@, scegli il dispositivo «JackMoebius» come uscita."
+          }
+        }
+      }
+    },
+    "jackmoebius.fx.recreated_add.in" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Karte „JackMoebius for %1$@“ wird mit dem zusätzlichen Eingang neu erstellt: %1$@ sieht sein Gerät kurz verschwinden und wiederkehren."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The “JackMoebius for %1$@” card is recreated with the input added: %1$@ sees its device disappear for a moment, then come back."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La tarjeta «JackMoebius for %1$@» se recrea con la entrada añadida: %1$@ verá su dispositivo desaparecer un instante y volver."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La carte « JackMoebius for %1$@ » est recréée avec l'entrée en plus : %1$@ voit son périphérique disparaître un instant, puis revenir."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La scheda «JackMoebius for %1$@» viene ricreata con l'ingresso aggiunto: %1$@ vede il suo dispositivo sparire per un istante e poi tornare."
+          }
+        }
+      }
+    },
+    "jackmoebius.fx.recreated_add.out" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Karte „JackMoebius for %1$@“ wird mit dem zusätzlichen Ausgang neu erstellt: %1$@ sieht sein Gerät kurz verschwinden und wiederkehren."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The “JackMoebius for %1$@” card is recreated with the output added: %1$@ sees its device disappear for a moment, then come back."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La tarjeta «JackMoebius for %1$@» se recrea con la salida añadida: %1$@ verá su dispositivo desaparecer un instante y volver."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La carte « JackMoebius for %1$@ » est recréée avec la sortie en plus : %1$@ voit son périphérique disparaître un instant, puis revenir."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La scheda «JackMoebius for %1$@» viene ricreata con l'uscita aggiunta: %1$@ vede il suo dispositivo sparire per un istante e poi tornare."
+          }
+        }
+      }
+    },
+    "jackmoebius.fx.recreated_width" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Karte „JackMoebius for %1$@“ wird mit %2$lld Kanälen neu erstellt: %1$@ sieht sein Gerät kurz verschwinden und wiederkehren."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The “JackMoebius for %1$@” card is recreated with %2$lld channels: %1$@ sees its device disappear for a moment, then come back."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La tarjeta «JackMoebius for %1$@» se recrea con %2$lld canales: %1$@ verá su dispositivo desaparecer un instante y volver."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La carte « JackMoebius for %1$@ » est recréée avec %2$lld voies : %1$@ voit son périphérique disparaître un instant, puis revenir."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La scheda «JackMoebius for %1$@» viene ricreata con %2$lld canali: %1$@ vede il suo dispositivo sparire per un istante e poi tornare."
           }
         }
       }
@@ -6131,37 +7705,35 @@
       }
     },
     "jackmoebius.mismatch.banner.in" : {
-      "comment" : "Routing mismatch banner: input line; %@ = app name (twice)",
-      "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ — wählen Sie „JackMoebius In (%@)“ als Eingang."
+            "value" : "%1$@ verwendet seine Eingangskarte „JackMoebius for %1$@“ nicht."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ — select “JackMoebius In (%@)” as the input."
+            "value" : "%1$@ isn't using its input card “JackMoebius for %1$@”."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ — seleccione «JackMoebius In (%@)» como entrada."
+            "value" : "%1$@ no usa su tarjeta de entrada «JackMoebius for %1$@»."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ — sélectionnez « JackMoebius In (%@) » comme entrée."
+            "value" : "%1$@ n'utilise pas sa carte d'entrée « JackMoebius for %1$@ »."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ — seleziona «JackMoebius In (%@)» come ingresso."
+            "value" : "%1$@ non usa la sua scheda di ingresso «JackMoebius for %1$@»."
           }
         }
       }
@@ -6173,139 +7745,269 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ — nimmt von „%2$@“ auf statt von „JackMoebius In (%1$@)“."
+            "value" : "%1$@ nimmt von „%2$@“ auf statt von „JackMoebius for %1$@“."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ — captures from “%2$@” instead of “JackMoebius In (%1$@)”."
+            "value" : "%1$@ captures from “%2$@” instead of “JackMoebius for %1$@”."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ — captura desde «%2$@» en lugar de «JackMoebius In (%1$@)»."
+            "value" : "%1$@ captura desde «%2$@» en lugar de «JackMoebius for %1$@»."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ — capture depuis « %2$@ » au lieu de « JackMoebius In (%1$@) »."
+            "value" : "%1$@ capture depuis « %2$@ » au lieu de « JackMoebius for %1$@ »."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ — acquisisce da «%2$@» invece di «JackMoebius In (%1$@)»."
+            "value" : "%1$@ acquisisce da «%2$@» invece di «JackMoebius for %1$@»."
+          }
+        }
+      }
+    },
+    "jackmoebius.mismatch.banner.in_shared" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ verwendet den JackMoebius-Standardeingang nicht."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ isn't using the JackMoebius default input."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ no usa la entrada por defecto de JackMoebius."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ n'utilise pas l'entrée par défaut de JackMoebius."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ non usa l'ingresso predefinito di JackMoebius."
+          }
+        }
+      }
+    },
+    "jackmoebius.mismatch.banner.in_shared.device" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nimmt von „%2$@“ auf statt von „JackMoebius“."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ captures from “%2$@” instead of “JackMoebius”."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ captura desde «%2$@» en lugar de «JackMoebius»."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ capture depuis « %2$@ » au lieu de « JackMoebius »."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ acquisisce da «%2$@» invece di «JackMoebius»."
           }
         }
       }
     },
     "jackmoebius.mismatch.banner.out" : {
-      "comment" : "Routing mismatch banner: output line; %@ = app name",
-      "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ — stellen Sie den Ausgang auf „JackMoebius Out“."
+            "value" : "%1$@ verwendet den JackMoebius-Standardausgang nicht."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ — set its output to “JackMoebius Out”."
+            "value" : "%1$@ isn't using the JackMoebius default output."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ — ajuste su salida a «JackMoebius Out»."
+            "value" : "%1$@ no usa la salida por defecto de JackMoebius."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ — réglez sa sortie sur « JackMoebius Out »."
+            "value" : "%1$@ n'utilise pas la sortie par défaut de JackMoebius."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ — imposta la sua uscita su «JackMoebius Out»."
+            "value" : "%1$@ non usa l'uscita predefinita di JackMoebius."
           }
         }
       }
     },
     "jackmoebius.mismatch.banner.out.device" : {
-      "comment" : "Routing mismatch banner: output line naming the wrong device; %1$@ = app, %2$@ = wrong device",
-      "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ — Ausgang geht an „%2$@“ statt „JackMoebius Out“."
+            "value" : "Der Ausgang von %1$@ geht an „%2$@“ statt „JackMoebius“."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ — output goes to “%2$@” instead of “JackMoebius Out”."
+            "value" : "The output of %1$@ goes to “%2$@” instead of “JackMoebius”."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ — su salida va a «%2$@» en lugar de «JackMoebius Out»."
+            "value" : "La salida de %1$@ va a «%2$@» en lugar de «JackMoebius»."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ — sa sortie va vers « %2$@ » au lieu de « JackMoebius Out »."
+            "value" : "La sortie de %1$@ va vers « %2$@ » au lieu de « JackMoebius »."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ — l'uscita va a «%2$@» invece di «JackMoebius Out»."
+            "value" : "L'uscita di %1$@ va a «%2$@» invece di «JackMoebius»."
+          }
+        }
+      }
+    },
+    "jackmoebius.mismatch.banner.out_dedicated" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ verwendet seine Ausgangskarte „JackMoebius for %1$@“ nicht."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ isn't using its output card “JackMoebius for %1$@”."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ no usa su tarjeta de salida «JackMoebius for %1$@»."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ n'utilise pas sa carte de sortie « JackMoebius for %1$@ »."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ non usa la sua scheda di uscita «JackMoebius for %1$@»."
+          }
+        }
+      }
+    },
+    "jackmoebius.mismatch.banner.out_dedicated.device" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Ausgang von %1$@ geht an „%2$@“ statt „JackMoebius for %1$@“."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The output of %1$@ goes to “%2$@” instead of “JackMoebius for %1$@”."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La salida de %1$@ va a «%2$@» en lugar de «JackMoebius for %1$@»."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La sortie de %1$@ va vers « %2$@ » au lieu de « JackMoebius for %1$@ »."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'uscita di %1$@ va a «%2$@» invece di «JackMoebius for %1$@»."
           }
         }
       }
     },
     "jackmoebius.mismatch.banner.subtitle" : {
-      "comment" : "Routing mismatch banner: clarifies the fix is made outside JackMate",
-      "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diese Einstellung erfolgt in der jeweiligen App (oder in den macOS-Systemeinstellungen), nicht in JackMate."
+            "value" : "Zwei Lösungen:\n• In der App: Wählen Sie in ihren Einstellungen das oben genannte JackMoebius-Gerät.\n• In JackMate, wenn die App keine Auswahl eines Audio-Ein- oder -Ausgabegeräts erlaubt: Klicken Sie in der App-Liste dieses Bereichs auf ihre Schaltfläche und stellen Sie ihren Eingang oder Ausgang auf „JackMoebius-Standard“."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This is set in the app itself (or in macOS System Settings), not in JackMate."
+            "value" : "Two solutions:\n• In the app: select the JackMoebius device indicated above in its settings.\n• In JackMate, if the app doesn't let you choose an audio input or output device: click its pill in the app list of this panel and switch its input or output to “JackMoebius default”."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Este ajuste se hace en la propia app (o en Ajustes del Sistema de macOS), no en JackMate."
+            "value" : "Dos soluciones:\n• En la app: seleccione en sus ajustes el dispositivo JackMoebius indicado arriba.\n• En JackMate, si la app no permite elegir un dispositivo de audio de entrada o salida: haga clic en su botón en la lista de apps de este panel y ponga su entrada o salida en «JackMoebius por defecto»."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ce réglage se fait dans l'application concernée (ou dans les Réglages Système macOS), pas dans JackMate."
+            "value" : "Deux solutions :\n• Dans l'application : sélectionnez dans ses réglages le périphérique JackMoebius indiqué ci-dessus.\n• Dans JackMate, si l'application ne permet pas de choisir de périphérique audio en entrée ou en sortie : cliquez sur sa pastille dans la liste des applications de ce panneau et passez son entrée ou sa sortie en « Défaut JackMoebius »."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Questa impostazione si effettua nell'app stessa (o in Impostazioni di Sistema di macOS), non in JackMate."
+            "value" : "Due soluzioni:\n• Nell'app: seleziona nelle sue impostazioni il dispositivo JackMoebius indicato sopra.\n• In JackMate, se l'app non permette di scegliere un dispositivo audio di ingresso o di uscita: clicca sul suo pulsante nell'elenco delle app di questo pannello e imposta il suo ingresso o la sua uscita su «Predefinito JackMoebius»."
           }
         }
       }
@@ -6342,6 +8044,176 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dispositivo audio errato selezionato"
+          }
+        }
+      }
+    },
+    "jackmoebius.mismatch.row.dedicated.in" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ verwendet seine Eingangskarte nicht. Wählen Sie „JackMoebius for %1$@“ in den Einstellungen von %1$@ als Eingang. Finden Sie diese Einstellung nicht, stellen Sie den Eingang auf „JackMoebius-Standard“ (Schaltfläche oben)."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ isn't using its input card. Select “JackMoebius for %1$@” as the input in the settings of %1$@. If you can't find that setting, switch the input to “JackMoebius default” (pill above)."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ no usa su tarjeta de entrada. Seleccione «JackMoebius for %1$@» como entrada en los ajustes de %1$@. Si no encuentra ese ajuste, ponga la entrada en «JackMoebius por defecto» (botón de arriba)."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ n'utilise pas sa carte d'entrée. Sélectionnez « JackMoebius for %1$@ » comme entrée dans les réglages de %1$@. Si vous ne trouvez pas ce réglage, passez l'entrée en « Défaut JackMoebius » (pastille ci-dessus)."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ non usa la sua scheda di ingresso. Seleziona «JackMoebius for %1$@» come ingresso nelle impostazioni di %1$@. Se non trovi l'impostazione, imposta l'ingresso su «Predefinito JackMoebius» (pulsante sopra)."
+          }
+        }
+      }
+    },
+    "jackmoebius.mismatch.row.dedicated.out" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ verwendet seine Ausgangskarte nicht. Wählen Sie „JackMoebius for %1$@“ in den Einstellungen von %1$@ als Ausgang. Finden Sie diese Einstellung nicht, stellen Sie den Ausgang auf „JackMoebius-Standard“ (Schaltfläche oben)."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ isn't using its output card. Select “JackMoebius for %1$@” as the output in the settings of %1$@. If you can't find that setting, switch the output to “JackMoebius default” (pill above)."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ no usa su tarjeta de salida. Seleccione «JackMoebius for %1$@» como salida en los ajustes de %1$@. Si no encuentra ese ajuste, ponga la salida en «JackMoebius por defecto» (botón de arriba)."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ n'utilise pas sa carte de sortie. Sélectionnez « JackMoebius for %1$@ » comme sortie dans les réglages de %1$@. Si vous ne trouvez pas ce réglage, passez la sortie en « Défaut JackMoebius » (pastille ci-dessus)."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ non usa la sua scheda di uscita. Seleziona «JackMoebius for %1$@» come uscita nelle impostazioni di %1$@. Se non trovi l'impostazione, imposta l'uscita su «Predefinito JackMoebius» (pulsante sopra)."
+          }
+        }
+      }
+    },
+    "jackmoebius.mismatch.row.shared.in" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ verwendet den JackMoebius-Standardeingang nicht. Wählen Sie „JackMoebius“ in den Einstellungen von %1$@ als Eingang."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ isn't using the JackMoebius default input. Select “JackMoebius” as the input in the settings of %1$@."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ no usa la entrada por defecto de JackMoebius. Seleccione «JackMoebius» como entrada en los ajustes de %1$@."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ n'utilise pas l'entrée par défaut de JackMoebius. Sélectionnez « JackMoebius » comme entrée dans les réglages de %1$@."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ non usa l'ingresso predefinito di JackMoebius. Seleziona «JackMoebius» come ingresso nelle impostazioni di %1$@."
+          }
+        }
+      }
+    },
+    "jackmoebius.mismatch.row.shared.out" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ verwendet den JackMoebius-Standardausgang nicht. Wählen Sie „JackMoebius“ in den Einstellungen von %1$@ als Ausgang."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ isn't using the JackMoebius default output. Select “JackMoebius” as the output in the settings of %1$@."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ no usa la salida por defecto de JackMoebius. Seleccione «JackMoebius» como salida en los ajustes de %1$@."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ n'utilise pas la sortie par défaut de JackMoebius. Sélectionnez « JackMoebius » comme sortie dans les réglages de %1$@."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ non usa l'uscita predefinita di JackMoebius. Seleziona «JackMoebius» come uscita nelle impostazioni di %1$@."
+          }
+        }
+      }
+    },
+    "jackmoebius.mismatch.use_default" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard verwenden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use the default"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usar el valor por defecto"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utiliser le défaut"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa il predefinito"
           }
         }
       }
@@ -6414,70 +8286,206 @@
         }
       }
     },
-    "jackmoebius.panel.master" : {
+    "jackmoebius.panel.apply" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "System-Monitor (Master)"
+            "value" : "Anwenden"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "System monitor (master)"
+            "value" : "Apply"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monitor del sistema (master)"
+            "value" : "Aplicar"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Moniteur système (master)"
+            "value" : "Appliquer"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monitor di sistema (master)"
+            "value" : "Applica"
           }
         }
       }
     },
-    "jackmoebius.panel.master.sub" : {
+    "jackmoebius.panel.close" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Stellt den System-Mix als JACK-Box bereit"
+            "value" : "Schließen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Exposes the system mix as a JACK box"
+            "value" : "Close"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Expone la mezcla del sistema como caja JACK"
+            "value" : "Cerrar"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Expose le mix système comme boîte JACK"
+            "value" : "Fermer"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Espone il mix di sistema come box JACK"
+            "value" : "Chiudi"
+          }
+        }
+      }
+    },
+    "jackmoebius.panel.help.in_dedicated" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellt die Karte „JackMoebius for %1$@“, nur für %1$@: in dessen Einstellungen auszuwählen. Kann %1$@ seinen Eingang nicht wählen, nutzen Sie den JackMoebius-Standard-Stereoeingang (von allen Apps geteilt, die ihn nutzen). Hat %1$@ nur eine Geräteeinstellung für Ein- und Ausgang, stellen Sie auch den Ausgang auf „Dediziert“."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Creates the “JackMoebius for %1$@” card, specific to %1$@: to be selected in its settings. If %1$@ can't choose its input, use the JackMoebius default stereo input (shared by all apps that use it). If %1$@ has a single device setting for input and output, set the output to Dedicated too."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea la tarjeta «JackMoebius for %1$@», propia de %1$@: se elige en sus ajustes. Si %1$@ no permite elegir su entrada, usa la entrada estéreo por defecto de JackMoebius (compartida por todas las apps que la usan). Si %1$@ solo tiene un ajuste de dispositivo para entrada y salida, pon también la salida en Dedicado."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crée la carte « JackMoebius for %1$@ », propre à %1$@ : à choisir dans ses réglages. Si %1$@ ne permet pas de choisir son entrée, utilisez l'entrée stéréo par défaut JackMoebius (partagée entre toutes les apps qui l'utilisent). Si %1$@ n'a qu'un seul réglage de périphérique pour l'entrée et la sortie, mettez aussi la sortie en Dédié."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea la scheda «JackMoebius for %1$@», propria di %1$@: da scegliere nelle sue impostazioni. Se %1$@ non permette di scegliere l'ingresso, usa l'ingresso stereo predefinito di JackMoebius (condiviso da tutte le app che lo usano). Se %1$@ ha una sola impostazione di dispositivo per ingresso e uscita, imposta anche l'uscita su Dedicato."
+          }
+        }
+      }
+    },
+    "jackmoebius.panel.help.in_shared" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ folgt dem Standardeingang des Mac, den JackMoebius übernimmt, solange eine App in diesem Modus ist. Alle Apps in diesem Modus hören denselben Stereo-Stream."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ follows the Mac's default input, which JackMoebius takes over while any app is in this mode. All apps in this mode hear the same stereo stream."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ sigue la entrada por defecto del Mac, que JackMoebius toma mientras alguna app esté en este modo. Todas las apps en este modo oyen el mismo flujo estéreo."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ suit l'entrée par défaut du Mac, que JackMoebius prend tant qu'une app est dans ce mode. Toutes les apps de ce mode entendent le même flux stéréo."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ segue l'ingresso predefinito del Mac, che JackMoebius assume finché un'app è in questa modalità. Tutte le app in questa modalità sentono lo stesso flusso stereo."
+          }
+        }
+      }
+    },
+    "jackmoebius.panel.help.out_dedicated" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellt die Karte „JackMoebius for %1$@“: in dessen Einstellungen als Ausgang zu wählen. Kann %1$@ seinen Ausgang nicht wählen, nutzen Sie den JackMoebius-Standardausgang (Stereo, nur für %1$@)."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Creates the “JackMoebius for %1$@” card: to be selected as the output in its settings. If %1$@ can't choose its output, use the JackMoebius default output (stereo, specific to %1$@)."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea la tarjeta «JackMoebius for %1$@»: se elige como salida en sus ajustes. Si %1$@ no permite elegir su salida, usa la salida por defecto de JackMoebius (estéreo, propia de %1$@)."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crée la carte « JackMoebius for %1$@ » : à choisir comme sortie dans ses réglages. Si %1$@ ne permet pas de choisir sa sortie, utilisez la sortie par défaut JackMoebius (stéréo, propre à %1$@)."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea la scheda «JackMoebius for %1$@»: da scegliere come uscita nelle sue impostazioni. Se %1$@ non permette di scegliere l'uscita, usa l'uscita predefinita di JackMoebius (stereo, propria di %1$@)."
+          }
+        }
+      }
+    },
+    "jackmoebius.panel.help.out_shared" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ spielt auf dem Standardausgang des Mac (JackMoebius), in Stereo, getrennt von anderen Apps. In der App ist nichts einzustellen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ plays to the Mac's default output (JackMoebius), in stereo, kept separate from other apps. Nothing to set in the app."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ suena por la salida por defecto del Mac (JackMoebius), en estéreo, separada de las demás apps. No hay nada que ajustar en la app."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ joue sur la sortie par défaut du Mac (JackMoebius), en stéréo, séparée des autres apps. Rien à régler dans l'app."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ suona sull'uscita predefinita del Mac (JackMoebius), in stereo, separata dalle altre app. Niente da impostare nell'app."
           }
         }
       }
@@ -6584,6 +8592,176 @@
         }
       }
     },
+    "jackmoebius.panel.seg.dedicated" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dediziert"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dedicated"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dedicado"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dédié"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dedicato"
+          }
+        }
+      }
+    },
+    "jackmoebius.panel.seg.in_default" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standardeingang"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default input"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrada por defecto"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrée par défaut"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingresso predefinito"
+          }
+        }
+      }
+    },
+    "jackmoebius.panel.seg.out_default" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standardausgang"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default output"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salida por defecto"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sortie par défaut"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uscita predefinita"
+          }
+        }
+      }
+    },
+    "jackmoebius.panel.shared_input_in_use" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehrere Apps verwenden den JackMoebius-Standardeingang (%@): Alle hören denselben Stereo-Stream. Das ist bei einer App ohne Audio-Eingangsauswahl normal, sie hat keine andere Möglichkeit; hat die App eine, ist eine dedizierte Karte vorzuziehen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Several apps use the JackMoebius default input (%@): they all hear the same stereo stream. This is expected for an app without an audio input selector, which has no other option; if the app has one, prefer a dedicated card."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varias apps usan la entrada por defecto de JackMoebius (%@): todas oyen el mismo flujo estéreo. Es lo normal en una app sin selector de entrada de audio, que no tiene otra opción; si la app lo tiene, es preferible una tarjeta dedicada."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plusieurs apps utilisent l'entrée par défaut de JackMoebius (%@) : elles entendent toutes le même flux stéréo. C'est normal pour une app sans sélecteur d'entrée audio, qui n'a pas d'autre option ; si l'app en a un, préférez une carte dédiée."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Più app usano l'ingresso predefinito di JackMoebius (%@): tutte sentono lo stesso flusso stereo. È normale per un'app senza selettore di ingresso audio, che non ha altra opzione; se l'app ne ha uno, è preferibile una scheda dedicata."
+          }
+        }
+      }
+    },
+    "jackmoebius.panel.stereo" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 Kanäle (Stereo)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 channels (stereo)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 canales (estéreo)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 voies (stéréo)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 canali (stereo)"
+          }
+        }
+      }
+    },
     "jackmoebius.panel.title" : {
       "localizations" : {
         "de" : {
@@ -6614,6 +8792,1029 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "JackMoebius"
+          }
+        }
+      }
+    },
+    "jackmoebius.panel.title.in" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eingang · %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Input · %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrada · %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrée · %@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingresso · %@"
+          }
+        }
+      }
+    },
+    "jackmoebius.panel.title.out" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ausgang · %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Output · %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salida · %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sortie · %@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uscita · %@"
+          }
+        }
+      }
+    },
+    "jackmoebius.panel.too_old.body" : {
+      "comment" : "Shown when the installed JackMoebius is older than the minimum; %1$@ = required version, %2$@ = installed version",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMate 2.1 benötigt JackMoebius %1$@ oder neuer (installiert: %2$@). Aktualisieren Sie JackMoebius, um Apps bereitzustellen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMate 2.1 needs JackMoebius %1$@ or newer (installed: %2$@). Update JackMoebius to expose apps."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMate 2.1 necesita JackMoebius %1$@ o posterior (instalado: %2$@). Actualiza JackMoebius para exponer apps."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMate 2.1 nécessite JackMoebius %1$@ ou plus récent (installé : %2$@). Mettez JackMoebius à jour pour exposer des apps."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMate 2.1 richiede JackMoebius %1$@ o successivo (installato: %2$@). Aggiorna JackMoebius per esporre le app."
+          }
+        }
+      }
+    },
+    "jackmoebius.panel.too_old.title" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius-Update erforderlich"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius update required"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se requiere actualizar JackMoebius"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mise à jour de JackMoebius requise"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiornamento di JackMoebius necessario"
+          }
+        }
+      }
+    },
+    "jackmoebius.panel.update_button" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius aktualisieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update JackMoebius"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualizar JackMoebius"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mettre à jour JackMoebius"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiorna JackMoebius"
+          }
+        }
+      }
+    },
+    "jackmoebius.panel.voices" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kanäle"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Channels"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Canales"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voies"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Canali"
+          }
+        }
+      }
+    },
+    "jackmoebius.pill.dedicated" : {
+      "comment" : "Exposure pill of a dedicated card; %lld = channel count",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Kan. dediziert"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ch dedicated"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld can. dedicado"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ch dédié"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld can. dedicato"
+          }
+        }
+      }
+    },
+    "jackmoebius.pill.default" : {
+      "comment" : "Exposure pill of the shared (default JackMoebius) input or output",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius-Standard"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius default"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius por defecto"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Défaut JackMoebius"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Predefinito JackMoebius"
+          }
+        }
+      }
+    },
+    "jackmoebius.reason.driver_not_installed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der JackMoebius-Audiotreiber ist nicht installiert."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The JackMoebius audio driver is not installed."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El controlador de audio de JackMoebius no está instalado."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le pilote audio JackMoebius n'est pas installé."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il driver audio di JackMoebius non è installato."
+          }
+        }
+      }
+    },
+    "jackmoebius.reason.driver_not_installed.remedy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installieren Sie JackMoebius neu."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reinstall JackMoebius."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reinstale JackMoebius."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réinstallez JackMoebius."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reinstalla JackMoebius."
+          }
+        }
+      }
+    },
+    "jackmoebius.reason.other_account_running" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius wird von einem anderen Konto verwendet („%@“)."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius is being used by another account (“%@”)."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius está siendo usado por otra cuenta («%@»)."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius est utilisé par un autre compte (« %@ »)."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius è in uso da un altro account («%@»)."
+          }
+        }
+      }
+    },
+    "jackmoebius.reason.other_account_running.remedy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur ein Konto kann JackMoebius gleichzeitig nutzen: Bitten Sie es, JACK zu beenden oder sich abzumelden."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only one account can use JackMoebius at a time: ask them to quit JACK, or to log out of their session."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solo una cuenta puede usar JackMoebius a la vez: pídale que cierre JACK o su sesión."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un seul compte peut utiliser JackMoebius à la fois : demandez-lui de quitter JACK ou de fermer sa session."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un solo account alla volta può usare JackMoebius: chiedi di chiudere JACK o di uscire dalla sessione."
+          }
+        }
+      }
+    },
+    "jackmoebius.reason.other_account_stale_socket" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein anderes Konto („%@“) hat den JackMoebius-Socket zurückgelassen (/tmp/jackmoebius.sock)."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Another account (“%@”) left the JackMoebius socket behind (/tmp/jackmoebius.sock)."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otra cuenta («%@») dejó el socket de JackMoebius (/tmp/jackmoebius.sock)."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un autre compte (« %@ ») a laissé le socket JackMoebius derrière lui (/tmp/jackmoebius.sock)."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un altro account («%@») ha lasciato il socket di JackMoebius (/tmp/jackmoebius.sock)."
+          }
+        }
+      }
+    },
+    "jackmoebius.reason.other_account_stale_socket.remedy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieses Konto muss die Datei löschen, oder ein Administrator: sudo rm /tmp/jackmoebius.sock (ein Neustart löscht sie ebenfalls)."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "That account has to delete the file, or an administrator can: sudo rm /tmp/jackmoebius.sock (a restart also clears it)."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esa cuenta debe borrar el archivo, o un administrador: sudo rm /tmp/jackmoebius.sock (un reinicio también lo elimina)."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce compte doit supprimer le fichier, ou un administrateur : sudo rm /tmp/jackmoebius.sock (un redémarrage l'efface aussi)."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quell'account deve eliminare il file, oppure un amministratore: sudo rm /tmp/jackmoebius.sock (anche un riavvio lo cancella)."
+          }
+        }
+      }
+    },
+    "jackmoebius.reason.title" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius kann nicht starten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius cannot start"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius no puede iniciarse"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius ne peut pas démarrer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius non può avviarsi"
+          }
+        }
+      }
+    },
+    "jackmoebius.rebuild.confirm" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Freigeben"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free them"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liberar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Libérer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Libera"
+          }
+        }
+      }
+    },
+    "jackmoebius.rebuild.message" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ sieht sein Gerät kurz verschwinden und wiederkehren. Die %2$lld ungenutzten Kanäle freigeben?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ will see its device disappear for a moment, then come back. Free the %2$lld unused channels?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ verá su dispositivo desaparecer un instante y volver. ¿Liberar los %2$lld canales sin usar?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ verra son périphérique disparaître un instant, puis revenir. Libérer les %2$lld canaux inutilisés ?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ vedrà il suo dispositivo sparire per un istante e poi tornare. Liberare i %2$lld canali inutilizzati?"
+          }
+        }
+      }
+    },
+    "jackmoebius.rebuild.title" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ungenutzte Kanäle freigeben?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free the unused channels?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Liberar los canales sin usar?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Libérer les canaux inutilisés ?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liberare i canali inutilizzati?"
+          }
+        }
+      }
+    },
+    "jackmoebius.remove_shared.confirm" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trotzdem entfernen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove anyway"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quitar de todos modos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer quand même"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rimuovi comunque"
+          }
+        }
+      }
+    },
+    "jackmoebius.remove_shared.message" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn Sie den Eingang von %1$@ entfernen, hört die App den Standardeingang des Mac weiterhin, den JackMoebius behält, solange andere Apps ihn nutzen (%2$@). Damit sie diesen Stream nicht mehr hört, wählen Sie in %1$@ ein anderes Eingangsgerät."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Removing the input of %1$@ does not stop it hearing the Mac's default input, which JackMoebius keeps as long as other apps use it (%2$@). To stop it hearing this stream, choose another input device in %1$@."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quitar la entrada de %1$@ no impide que oiga la entrada por defecto del Mac, que JackMoebius conserva mientras otras apps la usen (%2$@). Para que deje de oír este flujo, elija otro dispositivo de entrada en %1$@."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer l'entrée de %1$@ ne l'empêche pas d'entendre l'entrée par défaut du Mac, que JackMoebius garde tant que d'autres apps l'utilisent (%2$@). Pour qu'elle n'entende plus ce flux, choisissez un autre périphérique d'entrée dans %1$@."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rimuovere l'ingresso di %1$@ non gli impedisce di sentire l'ingresso predefinito del Mac, che JackMoebius mantiene finché altre app lo usano (%2$@). Perché non senta più questo flusso, scegli un altro dispositivo di ingresso in %1$@."
+          }
+        }
+      }
+    },
+    "jackmoebius.remove_shared.title" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geteilten Eingang entfernen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove the shared input?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Quitar la entrada compartida?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer l'entrée partagée ?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rimuovere l'ingresso condiviso?"
+          }
+        }
+      }
+    },
+    "jackmoebius.reservations.free_unused" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ungenutzte Kanäle freigeben"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free the unused channels"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liberar los canales sin usar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Libérer les canaux inutilisés"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Libera i canali inutilizzati"
+          }
+        }
+      }
+    },
+    "jackmoebius.reservations.held.in" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Eingangskanäle reserviert, aber ungenutzt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld input channels reserved but unused"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld canales de entrada reservados sin usar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld canaux d'entrée réservés sans être utilisés"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld canali di ingresso riservati ma inutilizzati"
+          }
+        }
+      }
+    },
+    "jackmoebius.reservations.held.out" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Ausgangskanäle reserviert, aber ungenutzt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld output channels reserved but unused"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld canales de salida reservados sin usar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld canaux de sortie réservés sans être utilisés"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld canali di uscita riservati ma inutilizzati"
+          }
+        }
+      }
+    },
+    "jackmoebius.reservations.in_shared" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In · Standard"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In · default"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In · defecto"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In · défaut"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In · predef."
+          }
+        }
+      }
+    },
+    "jackmoebius.reservations.in_shared.help" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geteilter Eingang: 2 Kanäle für alle Apps gemeinsam, nicht in der Kapazität gezählt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shared input: 2 channels common to all apps, not counted in the capacity."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrada compartida: 2 canales comunes a todas las apps, que no cuentan en la capacidad."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrée partagée : 2 canaux communs à toutes les apps, qui ne comptent pas dans la capacité."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingresso condiviso: 2 canali comuni a tutte le app, non conteggiati nella capacità."
+          }
+        }
+      }
+    },
+    "jackmoebius.rewire.confirm" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anwenden und verbinden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apply and reconnect"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplicar y reconectar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appliquer et reconnecter"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Applica e ricollega"
+          }
+        }
+      }
+    },
+    "jackmoebius.rewire.ignore" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anwenden ohne Verbinden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apply without reconnecting"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplicar sin reconectar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appliquer sans reconnecter"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Applica senza ricollegare"
+          }
+        }
+      }
+    },
+    "jackmoebius.rewire.message" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ wechselt zurück zum JackMoebius-Standardeingang, den auch andere Apps hören (%2$@). Durch die Änderung werden die Quellen seiner Karte getrennt. Verbinden Sie sie wieder, hören diese Apps sie ebenfalls."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ is going back to the JackMoebius default input, which other apps also hear (%2$@). The change disconnects the sources of its card. If you reconnect them, those apps will hear them too."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ vuelve a la entrada por defecto de JackMoebius, que otras apps también oyen (%2$@). El cambio desconecta las fuentes de su tarjeta. Si las reconecta, esas apps también las oirán."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ repasse sur l'entrée par défaut de JackMoebius, que d'autres apps écoutent aussi (%2$@). Le changement déconnecte les sources de sa carte. Si vous les reconnectez, ces apps les entendront également."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ torna all'ingresso predefinito di JackMoebius, che anche altre app sentono (%2$@). La modifica scollega le sorgenti della sua scheda. Se le ricolleghi, quelle app le sentiranno a loro volta."
+          }
+        }
+      }
+    },
+    "jackmoebius.rewire.title" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quellen des Eingangs wieder verbinden?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reconnect the input's sources?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Reconectar las fuentes de la entrada?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reconnecter les sources de l'entrée ?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ricollegare le sorgenti dell'ingresso?"
           }
         }
       }
@@ -6754,6 +9955,40 @@
         }
       }
     },
+    "jackmoebius.status.transport_problem" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transport nicht verfügbar"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transport unavailable"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transporte no disponible"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transport indisponible"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trasporto non disponibile"
+          }
+        }
+      }
+    },
     "jackmoebius.toolbar.help" : {
       "localizations" : {
         "de" : {
@@ -6784,6 +10019,448 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pannello JackMoebius"
+          }
+        }
+      }
+    },
+    "jackmoebius.transport.broker_not_installed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der JackMoebius-Hintergrunddienst (Broker) ist nicht installiert."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The JackMoebius background service (broker) is not installed."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El servicio en segundo plano de JackMoebius (broker) no está instalado."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le service d'arrière-plan JackMoebius (broker) n'est pas installé."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il servizio in background di JackMoebius (broker) non è installato."
+          }
+        }
+      }
+    },
+    "jackmoebius.transport.broker_not_installed.remedy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installieren Sie JackMoebius neu."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reinstall JackMoebius."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reinstale JackMoebius."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réinstallez JackMoebius."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reinstalla JackMoebius."
+          }
+        }
+      }
+    },
+    "jackmoebius.transport.broker_slot_busy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein anderer JackMoebius-Daemon läuft bereits."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Another JackMoebius daemon is already running."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ya se está ejecutando otro daemon de JackMoebius."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un autre daemon JackMoebius est déjà en cours d'exécution."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un altro daemon di JackMoebius è già in esecuzione."
+          }
+        }
+      }
+    },
+    "jackmoebius.transport.broker_slot_busy.remedy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beenden Sie den anderen JackMoebius-Daemon (jackmoebius stop)."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit the other JackMoebius daemon (jackmoebius stop)."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cierre el otro daemon de JackMoebius (jackmoebius stop)."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quittez l'autre daemon JackMoebius (jackmoebius stop)."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chiudi l'altro daemon di JackMoebius (jackmoebius stop)."
+          }
+        }
+      }
+    },
+    "jackmoebius.transport.broker_switched_off" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der JackMoebius-Hintergrunddienst ist ausgeschaltet."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The JackMoebius background service is switched off."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El servicio en segundo plano de JackMoebius está desactivado."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le service d'arrière-plan JackMoebius est désactivé."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il servizio in background di JackMoebius è disattivato."
+          }
+        }
+      }
+    },
+    "jackmoebius.transport.broker_switched_off.remedy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivieren Sie JackMoebius in Systemeinstellungen > Allgemein > Anmeldeobjekte & Erweiterungen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn JackMoebius on in System Settings > General > Login Items & Extensions."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active JackMoebius en Ajustes del Sistema > General > Ítems de inicio y extensiones."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activez JackMoebius dans Réglages Système > Général > Éléments de connexion et extensions."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attiva JackMoebius in Impostazioni di Sistema > Generali > Elementi login ed estensioni."
+          }
+        }
+      }
+    },
+    "jackmoebius.transport.broker_unreachable" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der JackMoebius-Hintergrunddienst antwortet nicht."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The JackMoebius background service does not answer."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El servicio en segundo plano de JackMoebius no responde."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le service d'arrière-plan JackMoebius ne répond pas."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il servizio in background di JackMoebius non risponde."
+          }
+        }
+      }
+    },
+    "jackmoebius.transport.broker_unreachable.remedy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starten Sie den Mac neu; besteht das Problem weiter, installieren Sie JackMoebius neu."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restart your Mac; if it persists, reinstall JackMoebius."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reinicie el Mac; si el problema persiste, reinstale JackMoebius."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redémarrez le Mac ; si le problème persiste, réinstallez JackMoebius."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riavvia il Mac; se il problema persiste, reinstalla JackMoebius."
+          }
+        }
+      }
+    },
+    "jackmoebius.transport.broker_version_mismatch" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die installierten JackMoebius-Komponenten passen nicht zusammen (Treiber-, Dienst- und Daemon-Versionen unterscheiden sich)."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The installed JackMoebius components do not match (driver, service and daemon versions differ)."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los componentes de JackMoebius instalados no coinciden (las versiones del controlador, del servicio y del daemon difieren)."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les composants JackMoebius installés ne correspondent pas (les versions du pilote, du service et du daemon diffèrent)."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I componenti di JackMoebius installati non corrispondono (le versioni di driver, servizio e daemon sono diverse)."
+          }
+        }
+      }
+    },
+    "jackmoebius.transport.broker_version_mismatch.remedy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starten Sie den Mac neu und installieren Sie JackMoebius neu, falls das Problem bleibt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restart your Mac, then reinstall JackMoebius if it persists."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reinicie el Mac y reinstale JackMoebius si el problema persiste."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redémarrez le Mac, puis réinstallez JackMoebius si le problème persiste."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riavvia il Mac, poi reinstalla JackMoebius se il problema persiste."
+          }
+        }
+      }
+    },
+    "jackmoebius.transport.driver_not_attached" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der JackMoebius-Audiotreiber hat sich nicht mit dem Hintergrunddienst verbunden."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The JackMoebius audio driver has not connected to the background service."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El controlador de audio de JackMoebius no se ha conectado al servicio en segundo plano."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le pilote audio JackMoebius ne s'est pas connecté au service d'arrière-plan."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il driver audio di JackMoebius non si è connesso al servizio in background."
+          }
+        }
+      }
+    },
+    "jackmoebius.transport.driver_not_attached.remedy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starten Sie den Mac neu (der Treiber wird beim Start geladen); besteht das Problem weiter, installieren Sie JackMoebius neu."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restart your Mac (the driver is loaded at startup); if it persists, reinstall JackMoebius."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reinicie el Mac (el controlador se carga al arrancar); si el problema persiste, reinstale JackMoebius."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redémarrez le Mac (le pilote se charge au démarrage) ; si le problème persiste, réinstallez JackMoebius."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riavvia il Mac (il driver viene caricato all'avvio); se il problema persiste, reinstalla JackMoebius."
+          }
+        }
+      }
+    },
+    "jackmoebius.transport.title" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius-Transport nicht verfügbar"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JackMoebius transport unavailable"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transporte de JackMoebius no disponible"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transport JackMoebius indisponible"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trasporto JackMoebius non disponibile"
           }
         }
       }
@@ -6856,6 +10533,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Riblocca (segui il master)"
+          }
+        }
+      }
+    },
+    "jackmoebius.volume.override.tip" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eigene Lautstärke (entsperrt)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Independent volume (unlocked)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volumen independiente (desbloqueado)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volume indépendant (déverrouillé)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volume indipendente (sbloccato)"
           }
         }
       }
@@ -9853,6 +13564,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "DISCONNETTI DA"
+          }
+        }
+      }
+    },
+    "patchbay.ctx.shared_input_note" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geteilter Eingang: Seine Kabel gelten für alle Apps, die ihn lesen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shared input: its cables are common to all the apps that read it."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrada compartida: sus cables son comunes a todas las apps que la leen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrée partagée : ses câbles sont communs à toutes les apps qui la lisent."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingresso condiviso: i suoi cavi sono comuni a tutte le app che lo leggono."
           }
         }
       }
@@ -13200,31 +16945,31 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Das Highlight: die JackMoebius-Integration.\n\nJackMoebius ist der funktionale Nachfolger der nächsten Generation von JackRouter (seit 2020 eingestellt) — ein separat zu installierender virtueller Audiotreiber (Link unten).\n\nJackMoebius stellt dem JACK-Graphen die macOS-Apps ohne native JACK-Unterstützung bereit (fast alle Audio-Apps und nativen Apple-Anwendungen, die Ton aufnehmen oder ausgeben können), Eingang wie Ausgang — damit sie mit Ihren nativen JACK-Anwendungen kommunizieren, einfach und transparent.\n\nIn JackMate:\n•  Ausgangslautstärken (Jack-Ausgang und „JackMoebius Out“) und pro App, direkt in JackMate;\n•  Studios stellen jetzt auch den JackMoebius-Zustand wieder her (bereitgestellte Apps + Lautstärken);\n•  JackMoebius-Status in Echtzeit;\n•  JackMoebius direkt aus JackMate installieren und aktualisieren;\n•  deutlich verbesserte automatische Patchbay-Anordnung (beim Jack-Start und über „Tidy“)."
+            "value" : "JackMoebius-Integration. JackMoebius, der funktionale Nachfolger von JackRouter (seit 2020 eingestellt), ist ein separat zu installierender virtueller Audiotreiber (Link unten). Er stellt dem JACK-Graphen die macOS-Apps ohne native JACK-Unterstützung bereit, als Eingang wie als Ausgang, damit sie mit Ihren JACK-Anwendungen kommunizieren.\n\nNeu in 2.1 (JackMoebius 1.1 oder neuer ist erforderlich):\n•  Eingang und Ausgang werden für jede App getrennt eingestellt: „JackMoebius-Standard“ (in der App ist nichts einzustellen) oder „Dediziert“ (eine Karte „JackMoebius for <App>“). Ein kleines Panel erklärt die Wirkung vor dem Anwenden.\n•  Bis zu 64 Kanäle pro App und Richtung, bei 254 Eingangs- und 254 Ausgangskanälen, die alle Apps teilen, mit Anzeigen für den Füllstand.\n•  Der geteilte Eingang erscheint im Patchbay: Jede App, die ihn liest, hat ihre Box mit den beiden geteilten Ports, und ein Kabel wird in allen gezeichnet.\n•  Ihre Kabel bleiben erhalten, wenn eine App den Modus oder die Kanalanzahl ändert.\n•  Klare Hinweise (Kapazität fast voll, Ablehnungen des Daemons erklärt, Transport ausgefallen, Standardgeräte des Mac nicht mehr JackMoebius) und der „Master“-Schalter entfällt.\n\nStudios: Mit 2.0 gespeicherte Studios werden so gut wie möglich geladen; speichern Sie sie neu, um das neue Format zu nutzen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The big news: JackMoebius integration.\n\nJackMoebius is the next-generation functional successor to JackRouter (abandoned since 2020) — a virtual audio driver to install separately (link below).\n\nJackMoebius exposes to the JACK graph the macOS apps with no native JACK support (almost any audio app and native Apple application that can capture or emit sound), both input and output — so they can talk to your native JACK applications, simply and transparently.\n\nFrom JackMate:\n•  output volumes (Jack’s output and “JackMoebius Out”) and per-app, set right in JackMate;\n•  studios now also restore the JackMoebius state (exposed apps + volumes);\n•  real-time JackMoebius status;\n•  install and update JackMoebius right from JackMate;\n•  much-improved automatic patchbay layout (on Jack start and via “Tidy”)."
+            "value" : "JackMoebius integration. JackMoebius, the functional successor of JackRouter (abandoned since 2020), is a virtual audio driver to install separately (link below). It exposes to the JACK graph the macOS apps with no native JACK support, both input and output, so they can talk to your JACK applications.\n\nNew in 2.1 (JackMoebius 1.1 or newer is required):\n•  Input and output are set separately for each app: “JackMoebius default” (nothing to set in the app) or “Dedicated” (a “JackMoebius for <App>” card). A small panel explains the effect before applying.\n•  Up to 64 channels per app and per direction, out of 254 input and 254 output channels shared by all apps, with gauges to follow how full they are.\n•  The shared input shows up in the patchbay: every app that reads it has its box with the two shared ports, and a cable is drawn in all of them.\n•  Your cables are kept when an app changes mode or channel count.\n•  Clear alerts (capacity almost full, daemon refusals explained, transport down, Mac default devices no longer JackMoebius), and the “master” button is gone.\n\nStudios: those saved with 2.0 reload as best they can; re-save them to move to the new format."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La gran novedad: la integración con JackMoebius.\n\nJackMoebius es el sucesor funcional de nueva generación de JackRouter (abandonado desde 2020) — un controlador de audio virtual que se instala aparte (enlace abajo).\n\nJackMoebius expone al grafo JACK las apps de macOS sin soporte JACK nativo (casi todas las apps de audio y aplicaciones nativas de Apple capaces de capturar o emitir sonido), tanto entrada como salida — para que dialoguen con tus aplicaciones JACK nativas, de forma sencilla y transparente.\n\nDesde JackMate:\n•  volúmenes de salida (salida de Jack y «JackMoebius Out») y por aplicación, en JackMate;\n•  los estudios ahora también restauran el estado de JackMoebius (apps expuestas + volúmenes);\n•  estado de JackMoebius en tiempo real;\n•  instalar y actualizar JackMoebius directamente desde JackMate;\n•  disposición automática del patchbay muy mejorada (al iniciar Jack y con «Tidy»)."
+            "value" : "Integración de JackMoebius. JackMoebius, el sucesor funcional de JackRouter (abandonado desde 2020), es un controlador de audio virtual que se instala aparte (enlace abajo). Expone al grafo JACK las apps de macOS sin soporte JACK nativo, tanto en entrada como en salida, para que dialoguen con tus aplicaciones JACK.\n\nNovedades de la 2.1 (se requiere JackMoebius 1.1 o posterior):\n•  Entrada y salida se ajustan por separado para cada app: «JackMoebius por defecto» (nada que ajustar en la app) o «Dedicado» (una tarjeta «JackMoebius for <App>»). Un pequeño panel explica el efecto antes de aplicar.\n•  Hasta 64 canales por app y por sentido, sobre 254 canales de entrada y 254 de salida compartidos, con indicadores para seguir el llenado.\n•  La entrada compartida aparece en el patchbay: cada app que la lee tiene su caja con los dos puertos compartidos, y se dibuja un cable en todas.\n•  Tus cables se conservan cuando una app cambia de modo o de número de canales.\n•  Avisos claros (capacidad casi llena, rechazos del daemon explicados, transporte caído, dispositivos predeterminados del Mac que ya no son JackMoebius) y desaparece el botón «maestro».\n\nEstudios: los guardados con la 2.0 se recargan lo mejor posible; vuelve a guardarlos para pasar al nuevo formato."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La grande nouveauté : l'intégration de JackMoebius.\n\nJackMoebius est le remplaçant fonctionnel nouvelle génération de JackRouter (abandonné depuis 2020) — un pilote audio virtuel à installer séparément (lien ci-dessous).\n\nJackMoebius expose au graphe JACK les applications macOS sans support JACK natif (presque toutes les apps audio et applications Apple natives capables de capturer ou d'émettre du son), en entrée comme en sortie — pour les faire dialoguer avec vos applications JACK natives, de manière simple et transparente.\n\nDepuis JackMate :\n•  volumes de sortie (Jack et « JackMoebius Out ») et par application, réglés directement dans JackMate ;\n•  les studios restaurent désormais aussi l'état JackMoebius (apps exposées + volumes) ;\n•  statut de JackMoebius en temps réel ;\n•  installer et mettre à jour JackMoebius directement depuis JackMate ;\n•  rangement automatique du patchbay nettement amélioré (au démarrage de Jack et via « Tidy »)."
+            "value" : "Intégration de JackMoebius. JackMoebius, successeur fonctionnel de JackRouter (abandonné depuis 2020), est un pilote audio virtuel à installer séparément (lien ci-dessous). Il expose au graphe JACK les applications macOS sans support JACK natif, en entrée comme en sortie, pour les faire dialoguer avec vos applications JACK.\n\nNouveau dans la 2.1 (JackMoebius 1.1 ou plus récent est nécessaire) :\n•  Entrée et sortie se règlent séparément pour chaque app : « Défaut JackMoebius » (rien à régler dans l'app) ou « Dédié » (une carte « JackMoebius for <App> »). Un petit panneau explique l'effet avant d'appliquer.\n•  Jusqu'à 64 voies par app et par sens, sur 254 canaux d'entrée et 254 canaux de sortie partagés, avec des jauges pour suivre le remplissage.\n•  L'entrée partagée apparaît dans le patchbay : chaque app qui la lit a sa boîte avec les deux ports partagés, et un câble est dessiné dans toutes.\n•  Vos câbles sont conservés quand une app change de mode ou de nombre de voies.\n•  Des alertes claires (capacité presque pleine, refus du daemon expliqués, transport en panne, périphériques par défaut du Mac qui ne sont plus JackMoebius), et la disparition du bouton « maître ».\n\nStudios : ceux enregistrés avec la 2.0 se rechargent au mieux ; réenregistrez-les pour passer au nouveau format."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La grande novità: l'integrazione con JackMoebius.\n\nJackMoebius è il successore funzionale di nuova generazione di JackRouter (abbandonato dal 2020) — un driver audio virtuale da installare separatamente (link sotto).\n\nJackMoebius espone al grafo JACK le app macOS senza supporto JACK nativo (quasi tutte le app audio e le applicazioni native Apple in grado di catturare o emettere suono), sia in ingresso che in uscita — per farle dialogare con le tue applicazioni JACK native, in modo semplice e trasparente.\n\nDa JackMate:\n•  volumi di uscita (uscita di Jack e «JackMoebius Out») e per app, in JackMate;\n•  gli studi ora ripristinano anche lo stato di JackMoebius (app esposte + volumi);\n•  stato di JackMoebius in tempo reale;\n•  installare e aggiornare JackMoebius direttamente da JackMate;\n•  disposizione automatica del patchbay molto migliorata (all'avvio di Jack e con «Tidy»)."
+            "value" : "Integrazione di JackMoebius. JackMoebius, il successore funzionale di JackRouter (abbandonato dal 2020), è un driver audio virtuale da installare separatamente (link sotto). Espone al grafo JACK le app macOS senza supporto JACK nativo, sia in ingresso che in uscita, per farle dialogare con le tue applicazioni JACK.\n\nNovità della 2.1 (serve JackMoebius 1.1 o successivo):\n•  Ingresso e uscita si impostano separatamente per ogni app: «Predefinito JackMoebius» (niente da impostare nell'app) o «Dedicato» (una scheda «JackMoebius for <App>»). Un piccolo pannello spiega l'effetto prima di applicare.\n•  Fino a 64 canali per app e per direzione, su 254 canali di ingresso e 254 di uscita condivisi, con indicatori per seguire il riempimento.\n•  L'ingresso condiviso compare nel patchbay: ogni app che lo legge ha il suo riquadro con le due porte condivise, e un cavo viene disegnato in tutti.\n•  I tuoi cavi vengono mantenuti quando un'app cambia modalità o numero di canali.\n•  Avvisi chiari (capacità quasi piena, rifiuti del daemon spiegati, trasporto non disponibile, dispositivi predefiniti del Mac che non sono più JackMoebius) e il pulsante «master» scompare.\n\nStudi: quelli salvati con la 2.0 si ricaricano al meglio; salvali di nuovo per passare al nuovo formato."
           }
         }
       }

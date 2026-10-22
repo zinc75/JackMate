@@ -23,9 +23,10 @@ enum JackMoebiusIPCError: Error {
     case socketFailure
     /// The reply was missing or not valid JSON.
     case badReply
-    /// The daemon answered `{"status":"error","message":…,"code":…?}`. `code` is a general
-    /// error marker (e.g. `"licensing"` on a refused `jack_add`); absent on older daemons.
-    case daemonError(message: String, code: String?)
+    /// The daemon answered `{"status":"error","message":…,"code":…?,"details":…?}`. `code` is a stable
+    /// error marker (e.g. `"licensing"`, `"capacity_forward_full"`) and `details` its numbers; both are
+    /// absent on older daemons or for errors that carry none.
+    case daemonError(message: String, code: String?, details: JMErrorDetails?)
 }
 
 // MARK: - SubscribeOutcome
@@ -108,7 +109,8 @@ enum JackMoebiusIPC {
             return .success(reply["data"])
         }
         return .failure(.daemonError(message: reply["message"] as? String ?? "unknown error",
-                                     code: reply["code"] as? String))
+                                     code: reply["code"] as? String,
+                                     details: JMErrorDetails.parse(reply["details"])))
     }
 
     /// Opens a long-lived `subscribe` connection and streams invalidation events until the
