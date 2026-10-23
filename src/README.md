@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- macOS 15.7 (Sequoia) or later
+- macOS 15.0 (Sequoia) or later
 - Xcode (full install, not just Command Line Tools) — install from the [Mac App Store](https://apps.apple.com/app/xcode/id497799835)
 - Python 3 (bundled with Xcode — no separate install needed)
 - [JACK2](https://jackaudio.org/downloads/) installed (`/usr/local/lib/libjack.dylib` or `/opt/homebrew/lib/libjack.dylib`)
@@ -38,7 +38,7 @@ The `--debug` flag produces a non-optimized build with debug symbols:
 ## Tech stack
 
 - Swift 5.0 / SwiftUI + AppKit (`NSViewRepresentable` for the patchbay canvas)
-- macOS 15.7+ — Universal binary (Intel x86_64 + Apple Silicon arm64)
+- macOS 15.0+ — Universal binary (Intel x86_64 + Apple Silicon arm64)
 - No Swift Package Manager dependencies
 - JACK Audio Connection Kit (jack2 1.9.22+) loaded at runtime via `dlopen` — no static linking
 - C bridge (`JackBridge.c` / `JackBridge.h`) exposed to Swift via Bridging Header
@@ -55,27 +55,43 @@ JackMate/
 ├── README.md
 ├── src/
 │   ├── Sources/
-│   │   ├── JackMateApp.swift          — app entry point, AppDelegate
-│   │   ├── JackManager.swift          — Jack lifecycle (start/stop/monitoring)
-│   │   ├── JackBridge.c / .h          — C bridge (dlopen/dlsym)
-│   │   ├── JackBridgeWrapper.swift    — Swift wrapper for the C bridge
-│   │   ├── JackMate-Bridging-Header.h — Objective-C bridging header
-│   │   ├── ProcessHelper.swift        — process introspection (PID, command line)
-│   │   ├── Patchbaymanager.swift      — Jack connection management
-│   │   ├── Studiomanager.swift        — studios (save/load/lifecycle)
-│   │   ├── ContentView.swift          — main UI (Configuration + Patchbay + Sidebar)
-│   │   ├── Patchbayview.swift         — patchbay canvas (NSViewRepresentable)
-│   │   ├── MenuBarView.swift          — menu bar mode view
-│   │   ├── ConnectAllSheet.swift      — bulk connection sheet
-│   │   ├── TransportBarView.swift     — JACK transport bar
-│   │   ├── TransportObserver.swift    — transport state polling
-│   │   ├── CoreAudioManager.swift     — audio device enumeration
-│   │   ├── NotificationManager.swift  — system notifications
-│   │   ├── JackNotInstalledView.swift — installation helper modal
-│   │   ├── WindowDelegate.swift       — window lifecycle
-│   │   └── Theme.swift                — shared colors and styles
+│   │   ├── JackMateApp.swift           — app entry point, AppDelegate
+│   │   ├── JackManager.swift           — Jack lifecycle (start/stop/monitoring)
+│   │   ├── JackBridge.c / .h           — C bridge (dlopen/dlsym)
+│   │   ├── JackBridgeWrapper.swift     — Swift wrapper for the C bridge
+│   │   ├── JackMate-Bridging-Header.h  — Objective-C bridging header
+│   │   ├── ProcessHelper.swift         — process introspection (PID, command line)
+│   │   ├── Patchbaymanager.swift       — Jack connection management
+│   │   ├── Studiomanager.swift         — studios (save/load/lifecycle)
+│   │   ├── ContentView.swift           — main UI (Configuration + Patchbay + Sidebar)
+│   │   ├── Patchbayview.swift          — patchbay canvas (NSViewRepresentable)
+│   │   ├── MenuBarView.swift           — menu bar mode view
+│   │   ├── ConnectAllSheet.swift       — bulk connection sheet
+│   │   ├── TransportBarView.swift      — JACK transport bar
+│   │   ├── TransportObserver.swift     — transport state polling
+│   │   ├── CoreAudioManager.swift      — audio device enumeration
+│   │   ├── OutputVolumeManager.swift   — output device volumes
+│   │   ├── VolumesBarView.swift        — output volumes bar
+│   │   ├── NotificationManager.swift   — system notifications
+│   │   ├── AggregateWarningSheet.swift — aggregate device warning modal
+│   │   ├── JackNotInstalledView.swift  — installation helper modal
+│   │   ├── AppUpdateManager.swift      — update check against GitHub releases
+│   │   ├── DonationPromptManager.swift — support prompt scheduling
+│   │   ├── DonationPromptSheet.swift   — support prompt sheet
+│   │   ├── WhatsNew.swift              — "What's New" panel
+│   │   ├── JackMoebiusIPC.swift        — JackMoebius daemon socket client
+│   │   ├── JackMoebiusManager.swift    — JackMoebius state, exposure choices, jack_apply
+│   │   ├── JackMoebiusPanelView.swift  — JackMoebius panel (pills, Apply panel, reservations)
+│   │   ├── JackMoebiusErrors.swift     — daemon refusals translated from error codes
+│   │   ├── JackMoebiusRewire.swift     — cable preservation plan when an app changes mode
+│   │   ├── JackMoebiusNotices.swift    — capacity gauges, Mac default-device notices
+│   │   ├── ExposureEffect.swift        — effect preview shown before applying an exposure
+│   │   ├── SystemDefaultsMonitor.swift — macOS default input/output device monitor
+│   │   ├── JMVolumeSlider.swift        — per-app volume slider
+│   │   ├── WindowDelegate.swift        — window lifecycle
+│   │   └── Theme.swift                 — shared colors and styles
 │   ├── Assets.xcassets/               — app icon and accent color
-│   ├── Localizable.xcstrings          — all UI strings (~272 keys, source language: French)
+│   ├── Localizable.xcstrings          — all UI strings (~500 keys, source language: French)
 │   ├── Info.plist                     — bundle configuration template
 │   ├── VERSION                        — current version string
 │   ├── en.lproj/InfoPlist.strings
