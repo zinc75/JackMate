@@ -240,6 +240,14 @@ final class JackManager: ObservableObject {
     /// Closure for graceful stop (close clients before stopping Jack).
     /// Set by StudioManager.observeJackState() once managers are wired up.
     var gracefulStop: (() -> Void)?
+
+    /// The stop sequence in progress (see `stopJack()`), nil when idle.
+    private var stopTask: Task<Void, Never>?
+
+    /// Status text of the stop sequence in progress, `nil` when Jack is not being stopped.
+    /// Drives the "stopping Jack" waiting sheet.
+    @Published var stopProgress: String?
+
     @Published var savedInputDeviceName:  String        = UserDefaults.standard.string(forKey: "inputDeviceName")  ?? ""
     @Published var savedOutputDeviceName: String        = UserDefaults.standard.string(forKey: "outputDeviceName") ?? ""
 
@@ -650,24 +658,70 @@ final class JackManager: ObservableObject {
         }
     }
 
+    /// Stops the Jack server. Returns immediately; the state becomes `.stopped` once the
+    /// process is really gone.
+    ///
+    /// SIGTERM is sent first. A server loaded with the CoreMIDI driver may never exit on it
+    /// (jackaudio/jack2#1027), so if it is still alive after `termGracePeriod` it is killed.
     func stopJack() {
+        guard stopTask == nil else { return }   // a stop is already in progress
+
         setState(.stopping)
+        stopProgress = String(localized: "stop_jack.progress.stopping")
         runningCommand = nil
         jackProcess?.terminate()
 
-        DispatchQueue.global(qos: .background).async { [weak self] in
+        stopTask = Task { [weak self] in
+            await Self.signalJack(force: false)
+            guard let self else { return }
+
+            var exited = await self.waitForJackExit(timeout: Self.termGracePeriod)
+            let forced = !exited
+            if !exited {
+                self.stopProgress = String(localized: "stop_jack.progress.forcing")
+                self.appendLogs([String(localized: "log.jack.stop_forced")])
+                await Self.signalJack(force: true)
+                exited = await self.waitForJackExit(timeout: Self.killGracePeriod)
+            }
+            if !exited {
+                self.appendLogs([String(localized: "log.jack.stop_failed")])
+            }
+            self.launchedByUs = false
+            self.setState(.stopped)
+            if forced {
+                // Keep the "forcing" message on screen long enough to be read
+                try? await Task.sleep(for: .milliseconds(1500))
+            }
+            self.stopProgress = nil
+            self.stopTask = nil
+        }
+    }
+
+    /// Seconds a server gets to exit after SIGTERM before it is killed.
+    private static let termGracePeriod: TimeInterval = 3
+    /// Seconds to wait for the process to disappear after SIGKILL.
+    private static let killGracePeriod: TimeInterval = 2
+
+    /// Sends SIGTERM (or SIGKILL when `force`) to every `jackdmp` / `jackd` process.
+    nonisolated private static func signalJack(force: Bool) async {
+        await Task.detached(priority: .utility) {
+            let flag = force ? "-9 " : ""
             let process = Process()
             process.launchPath = "/bin/bash"
-            process.arguments  = ["-c",
-                "if pgrep jackdmp 2>/dev/null; then pkill jackdmp; fi; " +
-                "if pgrep jackd 2>/dev/null; then pkill jackd; fi"]
+            process.arguments  = ["-c", "pkill \(flag)jackdmp 2>/dev/null; pkill \(flag)jackd 2>/dev/null"]
             try? process.run()
             process.waitUntilExit()
-            DispatchQueue.main.async {
-                self?.launchedByUs = false
-                self?.setState(.stopped)
-            }
+        }.value
+    }
+
+    /// Polls until no Jack process is left. Returns `false` if `timeout` expires first.
+    private func waitForJackExit(timeout: TimeInterval) async -> Bool {
+        let deadline = Date().addingTimeInterval(timeout)
+        while checkJackRunning() {
+            if Date() >= deadline { return false }
+            try? await Task.sleep(for: .milliseconds(200))
         }
+        return true
     }
 
     // MARK: - Logs (throttled)

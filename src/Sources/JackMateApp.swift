@@ -392,14 +392,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 // Quit and stop Jack (graceful: close clients first if available)
                 if let graceful = jackManager.gracefulStop {
                     graceful()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                        NSApp.terminate(nil)
-                    }
                 } else {
                     jackManager.stopJack()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        NSApp.terminate(nil)
+                }
+                // Quit only once Jack is really gone (the stop may have to fall back to
+                // SIGKILL); give up waiting after 15 s so the app can never hang here.
+                Task { @MainActor in
+                    let deadline = Date().addingTimeInterval(15)
+                    // The monitoring loop may report the stop as .stoppedExternal instead
+                    while ![.stopped, .stoppedExternal].contains(jackManager.jackState) && Date() < deadline {
+                        try? await Task.sleep(for: .milliseconds(200))
                     }
+                    // Close the "stopping Jack" sheet first: a sheet still attached to the
+                    // window can keep the app from terminating
+                    jackManager.stopProgress = nil
+                    try? await Task.sleep(for: .milliseconds(400))
+                    NSApp.terminate(nil)
                 }
 
             default:

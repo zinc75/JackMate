@@ -389,6 +389,7 @@ final class StudioManager: ObservableObject {
 
             // 2. Wait for graceful exit
             if !targeted.isEmpty {
+                jackManager.stopProgress = String(localized: "stop_jack.progress.closing_clients")
                 try? await Task.sleep(nanoseconds: 3_000_000_000)
                 // Force-kill stubborn processes
                 for item in targeted {

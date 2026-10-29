@@ -188,6 +188,8 @@ struct ContentView: View {
     @State private var zoomHideWork: DispatchWorkItem? = nil
     @State private var hoveredSelAction: String? = nil
     @State private var showJackNotInstalled = false
+    @State private var showStopProgress = false
+    @State private var stopProgressWork: DispatchWorkItem? = nil
     /// Debounces the auto-open of the JackMoebius panel on a fresh routing mismatch.
     @State private var mismatchAutoOpenWork: DispatchWorkItem? = nil
     @State private var showUpdateSheet = false
@@ -589,6 +591,29 @@ struct ContentView: View {
         .sheet(isPresented: $showJackNotInstalled) {
             JackNotInstalledView()
                 .environmentObject(jackManager)
+        }
+        // Waiting sheet while Jack is being stopped. Shown after a short delay so that an
+        // instant stop does not flash it, and never over the studio loading sheet (a studio
+        // restart stops Jack itself and has its own progress).
+        .sheet(isPresented: $showStopProgress) {
+            StopJackProgressSheet()
+                .environmentObject(jackManager)
+                .interactiveDismissDisabled()
+        }
+        .onChange(of: jackManager.stopProgress) { _, progress in
+            stopProgressWork?.cancel()
+            guard progress != nil else {
+                showStopProgress = false
+                return
+            }
+            guard !showStopProgress else { return }
+            let work = DispatchWorkItem {
+                if jackManager.stopProgress != nil && studioManager.activeStudio == nil {
+                    showStopProgress = true
+                }
+            }
+            stopProgressWork = work
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6, execute: work)
         }
         .sheet(isPresented: $whatsNewManager.showWhatsNew) {
             WhatsNewSheet()
@@ -2031,6 +2056,17 @@ struct LoadStudioProgressView: View {
         .padding(24)
         .frame(width: 260)
         .background(JM.bgBase)
+    }
+}
+
+// MARK: - StopJackProgressSheet
+
+/// Waiting sheet shown while Jack is being stopped; follows `JackManager.stopProgress`.
+struct StopJackProgressSheet: View {
+    @EnvironmentObject var jackManager: JackManager
+
+    var body: some View {
+        LoadStudioProgressView(message: .constant(jackManager.stopProgress ?? ""))
     }
 }
 

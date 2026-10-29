@@ -231,7 +231,8 @@ final class PatchbayManager: ObservableObject {
                               !self.isConnected,
                               !self.isConnecting,
                               let jm = self.jackManager,
-                              jm.isRunning else { return }
+                              jm.isRunning,
+                              jm.jackState != .stopping else { return }
                         self.tryConnect()
                     }
                 } else if !running && self.isConnected {
@@ -289,7 +290,10 @@ final class PatchbayManager: ObservableObject {
             logToJack(String(localized: "log.patchbay.jack_not_active"))
             return
         }
-        
+        // The server is being stopped and may no longer answer: opening a client now
+        // would block the main thread until the process is gone.
+        guard jm.jackState != .stopping else { return }
+
         // Mark as connecting to prevent concurrent races
         isConnecting = true
 
@@ -344,7 +348,8 @@ final class PatchbayManager: ObservableObject {
                   !self.isConnected,
                   !self.isConnecting,
                   let jm = self.jackManager,
-                  jm.isRunning else { return }
+                  jm.isRunning,
+                  jm.jackState != .stopping else { return }
             self.tryConnect()
         }
         retryConnectTask = work
