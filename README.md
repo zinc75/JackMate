@@ -3,7 +3,7 @@
   ![macOS](https://img.shields.io/badge/macOS-15.0%2B-lightgrey?logo=apple)
   ![Swift](https://img.shields.io/badge/Swift-5.0-orange?logo=swift)
   ![License](https://img.shields.io/badge/license-MIT-green)
-  ![Version](https://img.shields.io/badge/version-2.1.0-blue)
+  ![Version](https://img.shields.io/badge/version-2.1.1-blue)
   ![Languages](https://img.shields.io/badge/languages-FR%20EN%20DE%20IT%20ES-blueviolet)
   [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&logoColor=000000)](https://www.buymeacoffee.com/zinc75)
 
@@ -54,6 +54,8 @@ JackMate 2.1 follows the new device model of JackMoebius 1.1:
 - Start / stop jackd with full custom configuration (sample rate, buffer size, I/O device, hog mode, clock drift, channel selection)
 - Real-time display of the generated command, with a one-click copy button
 - Automatic detection of the Jack executable name (`jackd` or `jackdmp`)
+- Reliable stop: if the server does not quit by itself, JackMate forces it after a few seconds and shows a waiting window
+- MIDI via CoreMIDI (`-X coremidi`), **experimental**: your MIDI ports appear as a `system_midi` client in the patchbay, with MIDI cables and ports in amber. With JACK 1.9.22, stopping Jack takes a few seconds longer while MIDI is on ([jack2#1027](https://github.com/jackaudio/jack2/issues/1027), fix proposed in [#1028](https://github.com/jackaudio/jack2/pull/1028))
 - Automatic switch between Configuration and Patchbay views based on Jack state
 
 ### JackMoebius: expose native macOS apps *(2.0, reworked in 2.1)*

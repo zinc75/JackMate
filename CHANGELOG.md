@@ -6,6 +6,24 @@ Format: [Semantic Versioning](https://semver.org). Versions 0.x cover the initia
 
 ---
 
+## [2.1.1] · 2026-10-29
+
+Fix release: stopping Jack no longer freezes the app, and MIDI (CoreMIDI) is available again as an experimental option.
+
+### Fixed
+- **Stopping Jack**: if the server does not quit by itself (the CoreMIDI driver with JACK 1.9.22, [jack2#1027](https://github.com/jackaudio/jack2/issues/1027)), JackMate forces it after 3 s instead of staying stuck. The "stopped" state is only shown once the process has really exited.
+- **Frozen interface**: the patchbay's Jack client is no longer opened on the main thread, so a server that stops answering can no longer freeze the app. No reconnection is attempted while Jack is being stopped.
+- **Quit and stop Jack** waits for Jack to be really stopped before closing the app.
+
+### Added
+- **Waiting window** while Jack is being stopped (closing clients, stopping, forced stop).
+- **MIDI (CoreMIDI) option re-enabled**, as experimental: with JACK 1.9.22 stopping Jack takes a few seconds longer, and the MIDI ports are the ones present when Jack starts. A fix is proposed upstream ([jack2#1028](https://github.com/jackaudio/jack2/pull/1028)).
+- **`system_midi` client**: keyboard icon and amber colour in the patchbay, with an adapted inspection card (number of inputs and outputs).
+
+### Improved
+- MIDI cables and ports in amber (instead of purple), CV in pink; the patchbay legend only lists "CV" when the graph has a CV port.
+- "What's New" panel updated (2.1.1 highlights, JackMoebius reminder with the channel counts).
+
 ## [2.1.0] · 2026-10-23
 
 "JackMoebius 1.1" release: JackMate follows JackMoebius's new device model. **Requires JackMoebius 1.1.0 or newer** (the JackMoebius panel prompts you to update otherwise).
