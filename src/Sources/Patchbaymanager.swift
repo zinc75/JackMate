@@ -178,6 +178,14 @@ final class PatchbayManager: ObservableObject {
     // Guard against concurrent connect/disconnect races
     private var isConnecting: Bool = false
 
+    /// `true` while `bridge.open` runs on a background queue. It blocks for as long as the
+    /// server does not answer, so no second open may start meanwhile.
+    private var openInFlight: Bool = false
+
+    /// Incremented by `handleJackStopped()` so that the result of an open started before
+    /// the stop is discarded by `finishConnect`.
+    private var connectAttempt: Int = 0
+
     // Jack clients present at the last applyPorts call — used to detect new arrivals
     private var previousNodeClientNames: Set<String> = []
 
@@ -261,6 +269,7 @@ final class PatchbayManager: ObservableObject {
         previousNodeClientNames = []
 
         // Mark as disconnected BEFORE closing the bridge
+        connectAttempt += 1
         isConnecting = false
         isConnected = false
         isTransportRolling = false
@@ -294,12 +303,47 @@ final class PatchbayManager: ObservableObject {
         // would block the main thread until the process is gone.
         guard jm.jackState != .stopping else { return }
 
+        // A previous open is still waiting for an unresponsive server: do not start another
+        guard !openInFlight else {
+            scheduleRetryConnect()
+            return
+        }
+
         // Mark as connecting to prevent concurrent races
         isConnecting = true
+        openInFlight = true
 
-        do {
-            try bridge.open(clientName: "JackMate-Patchbay")
+        // jack_client_open() blocks until the server answers, which never happens if the
+        // server is hung: run it off the main thread so the UI stays responsive.
+        let attempt = connectAttempt
+        let b = bridge
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            let result = Result { try b.open(clientName: "JackMate-Patchbay") }
+            DispatchQueue.main.async { self?.finishConnect(result, attempt: attempt) }
+        }
+    }
 
+    /// Completes `tryConnect()` on the main thread once `bridge.open` has returned.
+    private func finishConnect(_ result: Result<Void, Error>, attempt: Int) {
+        openInFlight = false
+
+        // Jack was stopped while the open was pending: drop the client that may have been opened
+        guard attempt == connectAttempt,
+              let jm = jackManager,
+              jm.isRunning,
+              jm.jackState != .stopping else {
+            if case .success = result { bridge.close() }
+            isConnecting = false
+            return
+        }
+
+        switch result {
+        case .failure(let error):
+            isConnecting = false
+            logToJack(String(format: String(localized: "log.patchbay.bridge_error"), error.localizedDescription))
+            scheduleRetryConnect()
+
+        case .success:
             // Verify that open() actually succeeded.
             // Typical silent-failure cause: bridge.isClosing is still true
             // (jm_client_close is running in the background from the previous teardown).
@@ -309,7 +353,7 @@ final class PatchbayManager: ObservableObject {
                 scheduleRetryConnect()
                 return
             }
-            
+
             isConnected = true
             isConnecting = false
             // Fresh connection → allow one auto-tidy of the incoming client set.
@@ -332,10 +376,6 @@ final class PatchbayManager: ObservableObject {
                 guard let self, b.isConnected else { return }
                 self.initialLoadBackground(bridge: b)
             }
-        } catch {
-            isConnecting = false
-            logToJack(String(format: String(localized: "log.patchbay.bridge_error"), error.localizedDescription))
-            scheduleRetryConnect()
         }
     }
 
