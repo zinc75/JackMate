@@ -675,7 +675,12 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Experimental option.</strong> The MIDI toggle is currently disabled due to observed instabilities. It will be re-enabled in a future version.</p>
+<p><strong>Experimental option.</strong></p>
+<ul>
+<li><strong>Slower stop.</strong> With the current JACK release (1.9.22), a server started with the CoreMIDI driver never exits on its own when it is asked to stop (<a href="https://github.com/jackaudio/jack2/issues/1027">jack2#1027</a>). JackMate waits 3 seconds, then forces it to quit and shows a waiting window meanwhile. A fix is proposed upstream (<a href="https://github.com/jackaudio/jack2/pull/1028">jack2#1028</a>).</li>
+<li><strong>Ports are those present when Jack starts.</strong> Plugging or unplugging a MIDI device while Jack is running may restart the MIDI driver and briefly drop its connections (see <a href="https://github.com/jackaudio/jack2/issues/560">jack2#560</a> and <a href="https://github.com/jackaudio/jack2/issues/561">#561</a>). Connect your devices before starting Jack.</li>
+<li><strong>Limited testing.</strong> This option has been tested with virtual MIDI ports (such as the macOS IAC bus), but not yet with a wide range of real MIDI hardware or over long sessions.</li>
+</ul>
 </div>
 </div>
 </section>
