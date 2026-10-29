@@ -345,12 +345,15 @@ private struct ConnectAllPreviewCanvas: View {
 
     private func bc(for node: PatchbayNode) -> BC {
         let abbr     = BadgeUtils.abbrev(node.id)
-        let isSystem = node.id.hasPrefix("system")
+        let isMidi   = BadgeUtils.isSystemMidi(node.id)
+        let isSystem = node.id.hasPrefix("system") && !isMidi
         let isCap    = node.id.hasSuffix("(capture)")
-        let base: NSColor = isSystem
-            ? (isCap ? NSColor(hue: 0.524, saturation: 0.70, brightness: 0.78, alpha: 1)
-                     : NSColor(hue: 0.780, saturation: 0.50, brightness: 0.82, alpha: 1))
-            : BadgeUtils.nsColor(abbr, fullName: node.id)
+        let base: NSColor = isMidi
+            ? BadgeUtils.systemMidiNSColor
+            : isSystem
+                ? (isCap ? NSColor(hue: 0.524, saturation: 0.70, brightness: 0.78, alpha: 1)
+                         : NSColor(hue: 0.780, saturation: 0.50, brightness: 0.82, alpha: 1))
+                : BadgeUtils.nsColor(abbr, fullName: node.id)
         guard let s = base.usingColorSpace(.sRGB) else {
             return BC(top: .gray, bot: .gray, txt: .white, abbr: abbr)
         }

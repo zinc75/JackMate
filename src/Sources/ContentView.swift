@@ -2554,9 +2554,14 @@ struct ConfigHeaderView: View {
                                              patchbayManager.connections.count))
                             .font(.system(size: 9.5, design: .monospaced))
                             .foregroundStyle(JM.textTertiary)
-                        legendItem(color: Color(hex: "#4ade80"), label: String(localized: "header.filter.audio"))
-                        legendItem(color: Color(hex: "#c084fc"), label: String(localized: "header.filter.midi"))
-                        legendItem(color: Color(hex: "#fb923c"), label: String(localized: "header.filter.cv"))
+                        legendItem(color: JackPortType.audio.patchbayColor, label: String(localized: "header.filter.audio"))
+                        legendItem(color: JackPortType.midi.patchbayColor,  label: String(localized: "header.filter.midi"))
+                        // CV is rarely used: only listed when the graph has a CV port
+                        if patchbayManager.nodes.contains(where: { node in
+                            (node.inputs + node.outputs).contains { $0.type == .cv }
+                        }) {
+                            legendItem(color: JackPortType.cv.patchbayColor, label: String(localized: "header.filter.cv"))
+                        }
                     }
                 } else {
                     Text("header.tab.config")
@@ -3527,8 +3532,6 @@ struct ConfigBodyView: View {
                                     label: String(localized: "config.midi.label"),
                                     sub: String(localized: "config.midi.description"),
                                     value: $jackManager.prefs.midiEnabled)
-                            .disabled(true)
-                            .opacity(0.4)
                             .onChange(of: jackManager.prefs.midiEnabled) { _, _ in jackManager.savePreferences() }
 
                         // ── Channel limiter ─────────────────────────────────
@@ -4958,7 +4961,8 @@ struct NodeBadgeSheet: View {
 
     private let abbr: String
     private let badgeColor: Color
-    private var isSystemNode:  Bool { node.id.hasPrefix("system") }
+    private var isSystemMidi:  Bool { BadgeUtils.isSystemMidi(node.id) }
+    private var isSystemNode:  Bool { node.id.hasPrefix("system") && !isSystemMidi }
     private var isCaptureNode: Bool { node.id.hasSuffix("(capture)") }
     /// JackMoebius CoreAudio box (carries the bundle-ID metadata).
     private var isCoreAudioBox: Bool { node.coreAudioBundleID != nil }
@@ -5015,11 +5019,17 @@ struct NodeBadgeSheet: View {
                             .scaleEffect(node.isJackMoebiusMaster ? 1.0 : 1.2)
                     } else {
                         RoundedRectangle(cornerRadius: 9)
-                            .fill(isSystemNode
-                                  ? (isCaptureNode ? JM.accentCyan.opacity(0.18) : JM.accentPurple.opacity(0.18))
-                                  : badgeColor.opacity(0.22))
+                            .fill(isSystemMidi
+                                  ? JM.accentAmber.opacity(0.18)
+                                  : isSystemNode
+                                    ? (isCaptureNode ? JM.accentCyan.opacity(0.18) : JM.accentPurple.opacity(0.18))
+                                    : badgeColor.opacity(0.22))
                             .frame(width: 38, height: 38)
-                        if isSystemNode {
+                        if isSystemMidi {
+                            Image(systemName: "pianokeys.inverse")
+                                .font(.system(size: 20, weight: .bold))
+                                .foregroundStyle(JM.accentAmber)
+                        } else if isSystemNode {
                             Image(systemName: isCaptureNode ? "mic.fill" : "speaker.wave.2.fill")
                                 .font(.system(size: 15, weight: .semibold))
                                 .foregroundStyle(isCaptureNode ? JM.accentCyan : JM.accentPurple)
@@ -5034,7 +5044,7 @@ struct NodeBadgeSheet: View {
                     Text(node.id)
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundStyle(JM.textPrimary)
-                    Text(verbatim: isSystemNode
+                    Text(verbatim: isSystemNode || isSystemMidi
                          ? String(localized: "node_badge.type.system")
                          : node.isJackMoebiusMaster
                            ? String(localized: "node_badge.type.master")
@@ -5061,6 +5071,8 @@ struct NodeBadgeSheet: View {
             VStack(alignment: .leading, spacing: 10) {
                 if isSystemNode {
                     systemNodeContent
+                } else if isSystemMidi {
+                    systemMidiContent
                 } else {
                     appNodeContent
                 }
@@ -5132,6 +5144,16 @@ struct NodeBadgeSheet: View {
         Divider()
         infoRow(icon: channelIcon, color: channelColor, label: channelLabel,
                 value: "\(channelCount) ch")
+    }
+
+    // MARK: - CoreMIDI node content
+
+    /// MIDI ports of the CoreMIDI client: sources feeding Jack (outputs) and destinations fed by Jack (inputs).
+    @ViewBuilder private var systemMidiContent: some View {
+        infoRow(icon: "arrow.right.circle", color: JM.accentAmber,
+                label: String(localized: "common.input"), value: "\(node.outputs.count)")
+        infoRow(icon: "arrow.left.circle", color: JM.accentAmber,
+                label: String(localized: "common.output"), value: "\(node.inputs.count)")
     }
 
     // MARK: - App node content

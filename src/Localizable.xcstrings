@@ -3034,31 +3034,31 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Experimentelle Option — kann Instabilitäten verursachen"
+            "value" : "Experimentell — das Beenden von Jack kann einige Sekunden dauern"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Experimental option — may cause instability"
+            "value" : "Experimental — Jack may take a few seconds to stop"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opción experimental — puede causar inestabilidad"
+            "value" : "Experimental — detener Jack puede tardar unos segundos"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Option expérimentale — peut provoquer des instabilités"
+            "value" : "Expérimental — l'arrêt de Jack peut prendre quelques secondes"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opzione sperimentale — può causare instabilità"
+            "value" : "Sperimentale — l'arresto di Jack può richiedere alcuni secondi"
           }
         }
       }

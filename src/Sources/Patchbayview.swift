@@ -20,8 +20,8 @@ extension JackPortType {
     var patchbayColor: Color {
         switch self {
         case .audio: return Color(hex: "#4ade80")
-        case .midi:  return Color(hex: "#c084fc")
-        case .cv:    return Color(hex: "#fb923c")
+        case .midi:  return Color(hex: "#fbbf24")
+        case .cv:    return Color(hex: "#f472b6")
         case .other: return Color.white.opacity(0.35)
         }
     }
@@ -31,6 +31,18 @@ extension JackPortType {
 
 /// Static helpers for computing node badge abbreviations and deterministic hue colours.
 struct BadgeUtils {
+    /// `true` for the CoreMIDI hardware client (`-X coremidi`), which gets its own badge
+    /// instead of the audio "system" capture/playback ones.
+    static func isSystemMidi(_ name: String) -> Bool { name == "system_midi" }
+
+    /// Hue of the CoreMIDI badge, matching the MIDI port and cable colour.
+    static let systemMidiHue: CGFloat = 0.115
+
+    /// Fill colour of the CoreMIDI badge.
+    static var systemMidiNSColor: NSColor {
+        NSColor(hue: systemMidiHue, saturation: 0.80, brightness: 0.92, alpha: 1)
+    }
+
     /// Returns a 1–2 letter abbreviation for a Jack client name (strips system suffixes).
     static func abbrev(_ name: String) -> String {
         let cleaned = name
@@ -427,7 +439,8 @@ struct NodeBadgeView: View {
     let node: PatchbayNode
     var size: CGFloat = 20
 
-    private var isSystem:  Bool { node.id.hasPrefix("system") }
+    private var isSystemMidi: Bool { BadgeUtils.isSystemMidi(node.id) }
+    private var isSystem:  Bool { node.id.hasPrefix("system") && !isSystemMidi }
     private var isCapture: Bool { node.id.hasSuffix("(capture)") }
 
     var body: some View {
@@ -448,6 +461,10 @@ struct NodeBadgeView: View {
                     Image(systemName: isCapture ? "mic.fill" : "speaker.wave.2.fill")
                         .font(.system(size: size * 0.42, weight: .semibold))
                         .foregroundStyle(iconColor)
+                } else if isSystemMidi {
+                    Image(systemName: "pianokeys.inverse")
+                        .font(.system(size: size * 0.58, weight: .bold))
+                        .foregroundStyle(iconColor)
                 } else {
                     Text(BadgeUtils.abbrev(node.id))
                         .font(.system(size: size * 0.50, weight: .bold))
@@ -466,6 +483,7 @@ struct NodeBadgeView: View {
     }
 
     private var bgColor: Color {
+        if isSystemMidi { return Color(nsColor: BadgeUtils.systemMidiNSColor) }
         if isSystem {
             return isCapture
                 ? Color(hue: 0.524, saturation: 0.70, brightness: 0.78)
@@ -476,7 +494,8 @@ struct NodeBadgeView: View {
     }
 
     private var iconColor: Color {
-        isCapture
+        if isSystemMidi { return Color(hue: BadgeUtils.systemMidiHue, saturation: 0.65, brightness: 0.15) }
+        return isCapture
             ? Color(hue: 0.524, saturation: 0.65, brightness: 0.22)
             : Color(hue: 0.78,  saturation: 0.65, brightness: 0.22)
     }
@@ -1132,7 +1151,8 @@ class PatchbayCanvasNSView: NSView {
 
         // Coloured badge
         let abbr          = BadgeUtils.abbrev(node.id)
-        let isSystemNode  = node.id.hasPrefix("system")
+        let isMidiNode    = BadgeUtils.isSystemMidi(node.id)
+        let isSystemNode  = node.id.hasPrefix("system") && !isMidiNode
         let isCaptureNode = node.id.hasSuffix("(capture)")
         let isBadgeHovered = hoveredBadgeNode == node.id
         let badgeSzBase = max(18.0, 26.0 * vpScale)
@@ -1153,7 +1173,9 @@ class PatchbayCanvasNSView: NSView {
             ? (isCaptureNode
                 ? NSColor(hue: 0.524, saturation: 0.70, brightness: 0.78, alpha: 1).cgColor  // cyan
                 : NSColor(hue: 0.78,  saturation: 0.50, brightness: 0.82, alpha: 1).cgColor)  // violet
-            : BadgeUtils.nsColor(abbr, fullName: node.id).cgColor
+            : isMidiNode
+                ? BadgeUtils.systemMidiNSColor.cgColor                                          // amber
+                : BadgeUtils.nsColor(abbr, fullName: node.id).cgColor
 
         // JackMoebius box → draw its icon (master picto / real app icon); else the coloured badge.
         let boxImage: NSImage? = node.isJackMoebiusMaster
@@ -1208,13 +1230,14 @@ class PatchbayCanvasNSView: NSView {
             ctx.restoreGState()
 
             // Badge content: SF Symbol icon for system nodes, letter abbreviation for app nodes
-            if isSystemNode {
-                let symName  = isCaptureNode ? "mic.fill" : "speaker.wave.2.fill"
-                let symHue: CGFloat = isCaptureNode ? 0.524 : 0.78
-                let symColor = NSColor(hue: symHue, saturation: 0.65, brightness: 0.22, alpha: 1)
-                let symFS    = max(8.0, 11.0 * vpScale)
+            if isSystemNode || isMidiNode {
+                let symName  = isMidiNode ? "pianokeys.inverse" : (isCaptureNode ? "mic.fill" : "speaker.wave.2.fill")
+                let symHue: CGFloat = isMidiNode ? BadgeUtils.systemMidiHue : (isCaptureNode ? 0.524 : 0.78)
+                // The keyboard glyph needs to be larger and darker than the other symbols to read well
+                let symColor = NSColor(hue: symHue, saturation: 0.65, brightness: isMidiNode ? 0.15 : 0.22, alpha: 1)
+                let symFS    = isMidiNode ? max(11.0, 15.0 * vpScale) : max(8.0, 11.0 * vpScale)
                 if let img = NSImage(systemSymbolName: symName, accessibilityDescription: nil) {
-                    let cfg = NSImage.SymbolConfiguration(pointSize: symFS, weight: .semibold)
+                    let cfg = NSImage.SymbolConfiguration(pointSize: symFS, weight: isMidiNode ? .bold : .semibold)
                         .applying(NSImage.SymbolConfiguration(paletteColors: [symColor]))
                     if let tinted = img.withSymbolConfiguration(cfg),
                        let cgImg  = tinted.cgImage(forProposedRect: nil, context: nil, hints: nil) {
